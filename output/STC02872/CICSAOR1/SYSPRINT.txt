@@ -1,0 +1,2 @@
+2026/10/20 21:04:39.159367 UTC GENAPP I [LE-Thread-0] [DFHSJSC] @Info : setup_logfile() - file = /shared/cicsprd/CICSAOR1/GENAPP/D20
+261020.T210439.dfhjvmlog

@@ -1,0 +1,489 @@
+ STMT NO. MESSAGE
+        2 IEFC001I PROCEDURE CICSAOR1 WAS EXPANDED USING SYSTEM LIBRARY CENTER.PROCLIB
+IEF695I START CICSAOR1 WITH JOBNAME CICSAOR1 IS ASSIGNED TO USER CICSPRD , GROUP CICSGRP
+IEFA111I CICSAOR1 IS USING THE FOLLOWING JOB RELATED SETTINGS:
+         SWA=ABOVE,TIOT SIZE=64K,DSENQSHR=DISALLOW,GDGBIAS=JOB
+IEF236I ALLOC. FOR CICSAOR1 CICSAOR1
+IEF237I JES2 ALLOCATED TO SYSPRINT
+IGD103I SMS ALLOCATED TO DDNAME SYSIN
+IEF142I CICSAOR1 CICSAOR1 - STEP WAS EXECUTED - COND CODE 0001
+IEF285I   CICSPRD.CICSAOR1.STC02872.D0000101.?         SYSOUT
+IGD104I CICS.SYSIN                                   RETAINED,  DDNAME=SYSIN
++- Step Statistics - WSCACTRT 3.4 ---------------------------------- HBB77F0 -+
+|STC(CICSAOR1) Step#  1 (STARTING.CICSCNTL) Pgm(IDCAMS  ) - Return Code    01 |
++-----------------------------------------------------------------------------+
+|Elapsed Time: 00:00:00.10  CPU Time(TCB): 00:00:00.00  (SRB): 00:00:00.00    |
+|RCT CPU Time: None         I/O Int. Time: None         ICSF Count: None      |
+|Service Units: CPU=      105  SRB=        6  I/O=        0  MSO=        0    |
+|Transactions: ended:None   Active for: 00:00:00.09 Resident for: 00:00:00.09 |
+|WLM: Workload: ONL_WKL  Service Class:CICSPROD  Resource Group: None         |
++-----------------------------------------------------------------------------+
+|Region Requested f/Step=1,024K,   Private Size=(    9M/1,497M)   Key Used(8) |
+|Virtual Used Maximums:   For User=(  212K/   24K) For System=(  220K/9,676K) |
+|Pvt Paging(I/O):     0 /    0  VIO(I/O/R):     0 /    0 /    0  Stolen:    0 |
+|Common Pagein:     0  LPA Pagein:     0  Data + Hiper space (MB):          0 |
+|Average Working Set (Page Seconds/CPU Time) for this step, this time:  ----  |
+|There were no swap sequences recorded for this step.                         |
++-------------------------- I / O  ACTIVITY  TOTALS --------------------------+
+|DASD=      0  Tape=      0  VIO=      0  Other=      0  Without a DD=     54 |
++-----------------------------------------------------------------------------+
+IEF373I STEP/CICSCNTL/START 2026293.1704
+IEF032I STEP/CICSCNTL/STOP  2026293.1704
+        CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+        VIRT:   212K  SYS:   220K  EXT:       24K  SYS:     9676K
+        ATB- REAL:                   124K  SLOTS:                     0K
+             VIRT- ALLOC:       9M SHRD:       0M
+IEF236I ALLOC. FOR CICSAOR1 CICSAOR1
+IEF237I JES2 ALLOCATED TO SYSPRINT
+IGD103I SMS ALLOCATED TO DDNAME SYSIN
+IEF142I CICSAOR1 CICSAOR1 - STEP WAS EXECUTED - COND CODE 0001
+IEF285I   CICSPRD.CICSAOR1.STC02872.D0000102.?         SYSOUT
+IGD104I CICS.SYSIN                                   RETAINED,  DDNAME=SYSIN
++- Step Statistics - WSCACTRT 3.4 ---------------------------------- HBB77F0 -+
+|STC(CICSAOR1) Step#  2 (STARTING.DTCNTL  ) Pgm(IDCAMS  ) - Return Code    01 |
++-----------------------------------------------------------------------------+
+|Elapsed Time: 00:00:00.10  CPU Time(TCB): 00:00:00.00  (SRB): 00:00:00.00    |
+|RCT CPU Time: None         I/O Int. Time: None         ICSF Count: None      |
+|Service Units: CPU=       92  SRB=        5  I/O=        0  MSO=        0    |
+|Transactions: ended:None   Active for: 00:00:00.08 Resident for: 00:00:00.08 |
+|WLM: Workload: ONL_WKL  Service Class:CICSPROD  Resource Group: None         |
++-----------------------------------------------------------------------------+
+|Region Requested f/Step=1,024K,   Private Size=(    9M/1,497M)   Key Used(8) |
+|Virtual Used Maximums:   For User=(  212K/   16K) For System=(  220K/9,644K) |
+|Pvt Paging(I/O):     0 /    0  VIO(I/O/R):     0 /    0 /    0  Stolen:    0 |
+|Common Pagein:     0  LPA Pagein:     0  Data + Hiper space (MB):          0 |
+|Average Working Set (Page Seconds/CPU Time) for this step, this time:  ----  |
+|There were no swap sequences recorded for this step.                         |
++-------------------------- I / O  ACTIVITY  TOTALS --------------------------+
+|DASD=      0  Tape=      0  VIO=      0  Other=      0  Without a DD=     55 |
++-----------------------------------------------------------------------------+
+IEF373I STEP/DTCNTL  /START 2026293.1704
+IEF032I STEP/DTCNTL  /STOP  2026293.1704
+        CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+        VIRT:   212K  SYS:   220K  EXT:       16K  SYS:     9644K
+        ATB- REAL:                   124K  SLOTS:                     0K
+             VIRT- ALLOC:       9M SHRD:       0M
+IEF236I ALLOC. FOR CICSAOR1 CICSAOR1
+IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+IGD103I SMS ALLOCATED TO DDNAME
+IGD103I SMS ALLOCATED TO DDNAME
+IEF237I 622C ALLOCATED TO
+IEF237I 622C ALLOCATED TO
+IEF237I 622C ALLOCATED TO
+IEF237I 622C ALLOCATED TO
+IGD103I SMS ALLOCATED TO DDNAME
+IGD103I SMS ALLOCATED TO DDNAME
+IGD103I SMS ALLOCATED TO DDNAME
+IGD103I SMS ALLOCATED TO DDNAME
+IGD103I SMS ALLOCATED TO DDNAME
+IGD103I SMS ALLOCATED TO DDNAME
+IGD103I SMS ALLOCATED TO DDNAME
+IGD103I SMS ALLOCATED TO DDNAME SYSIN
+IGD103I SMS ALLOCATED TO DDNAME DFHRPL
+IGD103I SMS ALLOCATED TO DDNAME
+IGD103I SMS ALLOCATED TO DDNAME
+IGD103I SMS ALLOCATED TO DDNAME
+IEF237I 622C ALLOCATED TO
+IEF237I 622C ALLOCATED TO
+IEF237I 622C ALLOCATED TO
+IEF237I 622C ALLOCATED TO
+IGD103I SMS ALLOCATED TO DDNAME
+IGD103I SMS ALLOCATED TO DDNAME
+IGD103I SMS ALLOCATED TO DDNAME
+IGD103I SMS ALLOCATED TO DDNAME
+IGD103I SMS ALLOCATED TO DDNAME
+IEF237I 622C ALLOCATED TO
+IEF237I 622C ALLOCATED TO
+IEF237I 2600 ALLOCATED TO SYSTCPD
+IEF237I JES2 ALLOCATED TO TCPDATA
+IGD103I SMS ALLOCATED TO DDNAME DFHTABLE
+IGD103I SMS ALLOCATED TO DDNAME DFHTEMP
+IGD103I SMS ALLOCATED TO DDNAME DFHINTRA
+IGD103I SMS ALLOCATED TO DDNAME DFHAUXT
+IGD103I SMS ALLOCATED TO DDNAME DFHBUXT
+IGD103I SMS ALLOCATED TO DDNAME DFHLCD
+IGD103I SMS ALLOCATED TO DDNAME DFHGCD
+IGD103I SMS ALLOCATED TO DDNAME DFHLRQ
+IGD103I SMS ALLOCATED TO DDNAME HTMLDOC
+IEF237I JES2 ALLOCATED TO DFHCXRF
+IEF237I JES2 ALLOCATED TO LOGUSR
+IEF237I JES2 ALLOCATED TO MSGUSR
+IEF237I JES2 ALLOCATED TO CEEMSG
+IEF237I JES2 ALLOCATED TO CEEOUT
+IGD103I SMS ALLOCATED TO DDNAME DFHDMPA
+IGD103I SMS ALLOCATED TO DDNAME DFHDMPB
+IEF237I JES2 ALLOCATED TO SYSABEND
+IEF237I JES2 ALLOCATED TO SYSPRINT
+IEF237I JES2 ALLOCATED TO PRINTER
+IEF237I JES2 ALLOCATED TO EYULOG
+IGD103I SMS ALLOCATED TO DDNAME EYUHISTA
+IGD103I SMS ALLOCATED TO DDNAME EYUHISTB
+IGD103I SMS ALLOCATED TO DDNAME EYUPARM
+IEF237I JES2 ALLOCATED TO FMNRDR
+DFHSM0601I CICSAOR1 Limit of above the bar storage available is NOLIMIT from REGION=0.
+DFHSM0160I CICSAOR1 Instruction Execution Protection available.
+DFHSM0122I CICSAOR1 Limit of DSA storage below 16MB is 5,120K.
+DFHSM0123I CICSAOR1 Limit of DSA storage above 16MB is 512M.
+DFHSM0115I CICSAOR1 Storage protection is active.
+DFHSM0126I CICSAOR1 Transaction isolation is not active.
+DFHSM0121I CICSAOR1 Reentrant programs will be loaded into read-only storage.
+DFHKE0600I CICSAOR1 CICS has successfully added this region to the IBM Function Registry.
+DFHDM0101I CICSAOR1 CICS is initializing.
+DFHWB0109I CICSAOR1 Web domain initialization has started.
+DFHSO0100I CICSAOR1 Sockets domain initialization has started.
+DFHRX0100I CICSAOR1 RX domain initialization has started.
+DFHRX0104I CICSAOR1 The Resource Recovery Services (RRS) exit manager ATR.EXITMGR.IBM is now available.
+DFHRX0101I CICSAOR1 RX domain initialization has ended.
+DFHMP0100I CICSAOR1 Managed platform domain initialization started.
+DFHLG0101I CICSAOR1 Log manager domain initialization has started.
+DFHEP0101I CICSAOR1 Event Processing domain initialization has started.
+DFHDH0100I CICSAOR1 Document domain initialization has started.
+DFHAS0100I CICSAOR1 Asynchronous services domain initialization started.
+DFHW20100I CICSAOR1 Web2.0 domain initialization has started.
+DFHXS1100I CICSAOR1 Security initialization has started.
+DFHSM0148I CICSAOR1 24-bit MVS unallocated storage: Total 4,800K, Largest contiguous area 4,616K.
+DFHSM0153I CICSAOR1 31-bit MVS unallocated storage: Total 992,592K, Largest contiguous area 992,532K.
+DFHSM0154I CICSAOR1 Unallocated 64-bit MEMLIMIT storage: 17,592,186,039,253M.
+DFHAS0101I CICSAOR1 Asynchronous services domain initialization has ended.
+DFHSI1500 CICSAOR1 CICS startup is in progress for CICS Transaction Server 6.3.0
+DFHSI1501I CICSAOR1 Loading CICS nucleus.
+DFHXS1105 CICSAOR1 Resource profiles for class TCICSTRN have been built.
+DFHDU0304I CICSAOR1 Transaction Dump Data set DFHDMPA opened.
+DFHXS1103I CICSAOR1 Default security for userid CICSUSER has been established.
+DFHCQ0100I CICSAOR1 Console queue initialization has started.
+DFHCQ0101I CICSAOR1 Console queue initialization has ended.
+DFHCQ0103I CICSAOR1 MVS console queue is open.
+DFHCQ0200I CICSAOR1 CEKL transaction enabled.
+DFHRM0141 CICSAOR1 Recovery manager autostart override record is not present. Normal processing continues.
+DFHRM0240 CICSAOR1 Local log name is 042FCF80.
+DFHSO0250 I CICSAOR1 Minimum level of TLS is 1.2
+DFHSO0251 I CICSAOR1 Maximum level of TLS is 1.2
+IGD103I SMS ALLOCATED TO DDNAME ADTOOLS
+IGD103I SMS ALLOCATED TO DDNAME BANKLIB
+IGD103I SMS ALLOCATED TO DDNAME CGRIEGO
+IGD103I SMS ALLOCATED TO DDNAME GENAPP
+IGD103I SMS ALLOCATED TO DDNAME IA61LIB
+IGD103I SMS ALLOCATED TO DDNAME IA61LIBE
+IGD103I SMS ALLOCATED TO DDNAME RKANMOD
+IGD103I SMS ALLOCATED TO DDNAME SAGMMODR
+DFHMN0108I CICSAOR1 Using Monitoring Control Table suffix 'OM'.
+DFHMN0109I CICSAOR1 CICS Monitoring is active.
+DFHMN0119I CICSAOR1
+CICS WIC registration successful - IFAWIC return code X'00000000' and
+reason code X'00000000'.
+DFHMN0116I CICSAOR1 CICS WIC data generation is active.
+DFHMN0115I CICSAOR1 CICS Server z/OS WLM Health percentage is now 0.
+IEF237I DMY  ALLOCATED TO SYS00001
+DFHSI1502I CICSAOR1 CICS startup is Warm.
+DFHMP0101I CICSAOR1 Managed platform domain initialization has ended.
+DFHSJ0101I CICSAOR1
+The JVM (SJ) domain for Java has started initializing. Java is a
+trademark of Oracle and/or its affiliates.
+DFHEP0102I CICSAOR1 Event Processing domain initialization has ended.
+DFHTS0100I CICSAOR1 Temporary Storage initialization has started.
+DFHWB0110I CICSAOR1 Web domain initialization has ended.
+DFHLG0103I CICSAOR1 System log (DFHLOG) initialization has started.
+DFHLG0104I CICSAOR1
+System log (DFHLOG) initialization has ended. Log stream
+CICSPRD.CICSAOR1.DFHLOG is connected to structure ****************.
+DFHLG0103I CICSAOR1 System log (DFHSHUNT) initialization has started.
+DFHLG0104I CICSAOR1
+System log (DFHSHUNT) initialization has ended. Log stream
+CICSPRD.CICSAOR1.DFHSHUNT is connected to structure ****************.
+DFHLG0102I CICSAOR1 Log manager domain initialization has ended.
+DFHSI1503I CICSAOR1 Terminal data sets are being opened.
+DFHTS0101I CICSAOR1 Temporary Storage initialization has ended.
+DFHKE0406I CICSAOR1
+CICS is about to wait for predecessors defined in the MVS automatic
+restart management policy for this region.
+DFHKE0412I CICSAOR1 CICS WAITPRED call to automatic restart manager has completed.
+DFHKE0010 CICSAOR1 Vendor table DFHBPKOC for product ID KOC has been loaded.
+DFHKE0014 CICSAOR1 Vendor table processing has completed. Number of tables successfully loaded: 1.
+DFHRL0119 E CICSAOR1
+The CICS resource lifecycle bundle class failed to re-create the
+BUNDLE resource HLJAVA because of failed consistency checks with the
+manifest /u/ercaste/hjcics/META-INF/cics.xml.
+DFHCP0101I CICSAOR1 CPI initialization has started.
+DFHPR0104I CICSAOR1 Partner resource manager initialization has started.
+DFHAI0101I CICSAOR1 AITM initialization has started.
+DFHW20101I CICSAOR1 Web2.0 domain initialization has ended.
+DFHER5730 CICSAOR1 User recovery beginning
+DFHLG0745I CICSAOR1 System log full scan has started.
+DFHFC0100I CICSAOR1 File Control initialization has started.
+DFHTD0100I CICSAOR1 Transient Data initialization has started.
+ICH408I USER(HIGGINS ) GROUP(ZTECUSER) NAME(ERIC HIGGINS        )
+  HIGGINS CL(CONSOLE )
+  WARNING: INSUFFICIENT AUTHORITY - TEMPORARY ACCESS ALLOWED
+  FROM ** (G)
+  ACCESS INTENT(READ   )  ACCESS ALLOWED(NONE   )
+DFHLG0748I CICSAOR1 System log selective scan has started.
+DFHLG0749I CICSAOR1 System log scan has completed.
+ICH408I USER(JGOOD   ) GROUP(SYS1    ) NAME(JOHN GOODYEAR       )
+  GMCNEIL CL(CONSOLE )
+  WARNING: INSUFFICIENT AUTHORITY - TEMPORARY ACCESS ALLOWED
+  FROM ** (G)
+  ACCESS INTENT(READ   )  ACCESS ALLOWED(NONE   )
+ICH408I USER(JRILE   ) GROUP(ZTECUSER) NAME(JEFFERY RILEY       )
+  JRILE CL(CONSOLE )
+  WARNING: INSUFFICIENT AUTHORITY - TEMPORARY ACCESS ALLOWED
+  FROM ** (G)
+  ACCESS INTENT(READ   )  ACCESS ALLOWED(NONE   )
+IEF237I JES2 ALLOCATED TO ADMD
+ICH408I USER(JIMBO   ) GROUP(SYS1    ) NAME(JIM THOMAS          )
+  JIMBO CL(CONSOLE )
+  WARNING: INSUFFICIENT AUTHORITY - TEMPORARY ACCESS ALLOWED
+  FROM ** (G)
+  ACCESS INTENT(READ   )  ACCESS ALLOWED(NONE   )
+ICH408I USER(DNET453 ) GROUP(ZTECUSER) NAME(JOSEPH GAILEY       )
+  DNET453 CL(CONSOLE )
+  WARNING: INSUFFICIENT AUTHORITY - TEMPORARY ACCESS ALLOWED
+  FROM ** (G)
+  ACCESS INTENT(READ   )  ACCESS ALLOWED(NONE   )
+IEF237I JES2 ALLOCATED TO ADMG
+ICH408I USER(JGOOD   ) GROUP(SYS1    ) NAME(JOHN GOODYEAR       )
+  JGOOD CL(CONSOLE )
+  WARNING: INSUFFICIENT AUTHORITY - TEMPORARY ACCESS ALLOWED
+  FROM ** (G)
+  ACCESS INTENT(READ   )  ACCESS ALLOWED(NONE   )
+ICH408I USER(JOVANNA ) GROUP(SYS1    ) NAME(JOVANNA HADLEY      )
+  JOVANNA CL(CONSOLE )
+  WARNING: INSUFFICIENT AUTHORITY - TEMPORARY ACCESS ALLOWED
+  FROM ** (G)
+  ACCESS INTENT(READ   )  ACCESS ALLOWED(NONE   )
+IEF237I JES2 ALLOCATED TO ADML
+IEF237I JES2 ALLOCATED TO ADMS
+IEF237I JES2 ALLOCATED TO ADMT
+IEF237I DMY  ALLOCATED TO AGGAUDIT
+IEF237I JES2 ALLOCATED TO COUT
+IEF237I JES2 ALLOCATED TO CIULOG
+IEF237I JES2 ALLOCATED TO MQMMSG
+IEF237I JES2 ALLOCATED TO CRPO
+IEF237I JES2 ALLOCATED TO DSQDEBUG
+IEF237I JES2 ALLOCATED TO ELATOUT
+IEF237I JES2 ALLOCATED TO EZEPRINT
+IEF237I JES2 ALLOCATED TO VIDTRCD
+IEF237I JES2 ALLOCATED TO VIDDMP
+IEF237I JES2 ALLOCATED TO VIDCOMP
+IEF237I JES2 ALLOCATED TO VIDTRC
+DFHER5731 CICSAOR1 No active user records on the system log
+DFHER5732 CICSAOR1 User recovery completed
+DFHFC0101I CICSAOR1 File Control initialization has ended.
+DFHTD0101I CICSAOR1 Transient Data initialization has ended.
+DFHRM0206 CICSAOR1 Any recovered units of work are resolved.
+DFHRX0106I CICSAOR1 Restart processing with Resource Recovery Services (RRS) is beginning.
+DFHRX0107I CICSAOR1 Restart processing with Resource Recovery Services (RRS) has ended.
+DFHCP0102I CICSAOR1 CPI initialization has ended.
+DFHPR0105I CICSAOR1 Partner resource manager initialization has ended.
+DFHAI0102I CICSAOR1 AITM initialization has ended.
+DFHSI1519I CICSAOR1 The interregion communication session was successfully started in XCF group DFHIR000
+DFHAP1203I CICSAOR1 Language Environment is being initialized.
+DFHIR3748 CICSAOR1
+10/20/2026 17:04:31 CICSAOR1 Initial start of connected system TOR2,
+netname CICSTOR2, protocol IRC was detected.
+DFHSO0101I CICSAOR1 Sockets domain initialization has ended.
+DFHIR3748 CICSAOR1
+10/20/2026 17:04:32 CICSAOR1 Initial start of connected system AOR3,
+netname CICSAOR3, protocol IRC was detected.
+IGD103I SMS ALLOCATED TO DDNAME EQADPFMB
+DFHIR3748 CICSAOR1
+10/20/2026 17:04:33 CICSAOR1 Initial start of connected system AOR6,
+netname CICSAOR6, protocol IRC was detected.
+DFHFC0208I CICSAOR1
+LSR pool 1 is being built dynamically by CICS because all of the
+necessary parameters have not been supplied. Either there is no
+LSRPOOL definition or it is incomplete. The following are not
+defined:  'DATA BUFFER SIZE' 'STRINGS' 'MAXKEYLENGTH'. A delay is
+possible.
+DFHFC0961 CICSAOR1
+10/20/2026 17:04:34 CICSAOR1 Calculation of LSR pool 1 parameters
+incomplete. Filename ADMF has no DSNAME.
+DFHFC0961 CICSAOR1
+10/20/2026 17:04:34 CICSAOR1 Calculation of LSR pool 1 parameters
+incomplete. Filename ADMGIMP has no DSNAME.
+DFHFC0961 CICSAOR1
+10/20/2026 17:04:34 CICSAOR1 Calculation of LSR pool 1 parameters
+incomplete. Filename ADMMSL has no DSNAME.
+DFHFC0961 CICSAOR1
+10/20/2026 17:04:34 CICSAOR1 Calculation of LSR pool 1 parameters
+incomplete. Filename ADMX has no DSNAME.
+DFHFC0961 CICSAOR1
+10/20/2026 17:04:35 CICSAOR1 Calculation of LSR pool 1 parameters
+incomplete. Filename DFHDBFK has no DSNAME.
+DFHFC0961 CICSAOR1
+10/20/2026 17:04:36 CICSAOR1 Calculation of LSR pool 1 parameters
+incomplete. Filename DSQPNLE has no DSNAME.
+DFHFC0961 CICSAOR1
+10/20/2026 17:04:36 CICSAOR1 Calculation of LSR pool 1 parameters
+incomplete. Filename DSQUCFRM has no DSNAME.
+DFHAP1211I CICSAOR1 Language Environment initialization completed.
+DFHWB1007 CICSAOR1 Initializing CICS Web environment.
+DFHWB1008 CICSAOR1 CICS Web environment initialization is complete.
+DFHEC1006I CICSAOR1 Event processing status is STARTED.
+DFHSI8440I CICSAOR1 Initiating connection to CICSPlex SM.
+EYUNX0001I CICSAOR1 LMAS initialization program starting
+EYUXL0003I CICSAOR1 CPSM 630  LMAS startup in progress
+EYUXL0119I CICSAOR1 CPSM Kernel loaded from EYU9XL01
+IEF237I JES2 ALLOCATED TO S0000001
+IEF285I   CICSPRD.CICSAOR1.STC02872.D0000138.?         SYSOUT
+EYUXL0022I CICSAOR1 LMAS Phase I initialization complete
+EYUXL0211I CICSAOR1 CPSM Start Up Parameters.
+EYUXL0212I CICSAOR1 CICSPLEX(DEMOPLEX)   CICSPlex to which the MAS connects.
+EYUXL0212I CICSAOR1 * CMASSYSID(CCMP)      CMAS to which the MAS connects.
+EYUXL0212I CICSAOR1 CMASSYSID(CMS1)      CMAS to which the MAS connects.
+EYUXL0212I CICSAOR1 ***********************************************************************.
+EYUXL0212I CICSAOR1 * The following parameters are optional..
+EYUXL0212I CICSAOR1 * See the Information Center for more information about them..
+EYUXL0212I CICSAOR1 *.
+EYUXL0212I CICSAOR1 * BASLOGMSG(NO)         Log installed BAS definitions to CSDL TD queue?.
+EYUXL0212I CICSAOR1 * COHTTASKPRI(200)      Task priority for the COHT (history) task.
+EYUXL0212I CICSAOR1 * COIRTASKPRI(200)      Task priority for the COIR (RTA EVALDEF) tasks.
+EYUXL0212I CICSAOR1 * COMMTSBLOCKS(128)     Initial number of sets of control blocks.
+EYUXL0212I CICSAOR1 ***                     for Communications Transport Services.
+EYUXL0212I CICSAOR1 * HISTORYONLY(NO)       Only collect monitoring data for history?.
+EYUXL0212I CICSAOR1 * HISTRECSMSG(0)        How often message EYUNL0179I is output.
+EYUXL0212I CICSAOR1 * HISTSECS(30)          Default seconds for RECENT history API option.
+EYUXL0212I CICSAOR1 * MASINITTIME(10)       Minutes before MAS initialization is aborted.
+EYUXL0212I CICSAOR1 * MASPLTWAIT(NO)        Suspend PLT processing until MAS initialized?.
+EYUXL0212I CICSAOR1 * MAXHISTRECS(1)        Limit on thousands of HTASK records for a query.
+EYUXL0212I CICSAOR1 * MSGBUCKETS(1024)      Number of buffers for Topology data collection.
+EYUXL0212I CICSAOR1 * SPOOLCLASS(P)         SYSOUT class for spool output.
+EYUXL0212I CICSAOR1 * STALLxxxTSK(n)        Minimum number of tasks required to enter the.
+EYUXL0212I CICSAOR1 ***                     suspend class xxx.
+EYUXL0212I CICSAOR1 * STALLxxxCNT(n)        Number of consecutive entries in suspend class.
+EYUXL0212I CICSAOR1 ***                     xxx required before STALL is reported.
+EYUXL0212I CICSAOR1 * SUPPRESSCMF(NO)       Suppress writing of CMF records to SMF?.
+EYUXL0212I CICSAOR1 * WLMLOADCOUNT(ALLQUEUED) Queued tasks included in WLM task load count.
+DFHSI8440I CICSAOR1 Initiating connection to DBCTL.
+DFHSI8442 CICSAOR1 Connection to DBCTL has failed.
+DFHSI8440I CICSAOR1 Initiating connection to MQ.
+DFHMQ0337 I 10/20/2026 17:04:38 CICSAOR1 CONNECT received from DFHMQCOD.
+DFHMQ0308 I 10/20/2026 17:04:38 CICSAOR1 MQNAME WMQA is stopped. Connect request deferred.
+DFHSI8443 CICSAOR1 Connection to MQ not completed. Adapter is awaiting initialization of MQ.
+DFHSI8440I CICSAOR1 Initiating connection to DB2.
+DFHDB2023I 10/20/2026 17:04:38 CICSAOR1 The CICS-DB2 attachment has connected to DB2 subsystem DSNA
+DFHSI8441I CICSAOR1 Connection to DB2 DSNA successfully completed.
+DFHSI8430I CICSAOR1 About to link to PLT programs during the third stage of initialization.
+IGD103I SMS ALLOCATED TO DDNAME EZACONFG
+IGD104I CICSPRD.CICSAOR1.TCP.CONFIG                  RETAINED,  DDNAME=EZACONFG
+IEF237I DMY  ALLOCATED TO KC2GLBWB
+KCPOC1002I IBM Z OMEGAMON AI for CICS (5698-T11)    CICS Region      V06.10.03 started.
+IGD103I SMS ALLOCATED TO DDNAME SAGMMOD
+IGD104I ZMON.APM.V6R2.SAGMMOD                        RETAINED,  DDNAME=SAGMMOD
+DFHSI8434I CICSAOR1 Control returned from PLT programs during the third stage of initialization.
+DFHSI1517 CICSAOR1 Control is being given to CICS.
+DFHSJ0102I CICSAOR1 SJ domain initialization has ended.
+DFHDH0101I CICSAOR1 Document domain initialization has ended.
+DFHSO0200I CICSAOR1 The CICS socket listener task is now accepting inbound TCP/IP connections.
+DFHXS1101I CICSAOR1 Security initialization has ended.
+DFHSJ0914 E CICSAOR1
+10/20/2026 17:04:39 CICSAOR1 CICSPRD JVMSERVER CICSLJVM failed to
+ENABLE because there was a runtime options failure.
+DFHRL0137 I CICSAOR1
+10/20/2026 17:04:39 CICSAOR1 CRLR All BUNDLE resources with an
+install agent of GRPLIST are now in their desired target state. Total
+number of BUNDLE resources are 2.
+IGD103I SMS ALLOCATED TO DDNAME EZACONFG
+IGD104I CICSPRD.CICSAOR1.TCP.CONFIG                  RETAINED,  DDNAME=EZACONFG
+IGD103I SMS ALLOCATED TO DDNAME ABNDFILE
+DFHFC0951 CICSAOR1
+Non-RLS OPEN of file ADMF failed. DSNAME not available from JCL or
+resource definition. Module DFHFCFS.
+DFHFC0951 CICSAOR1
+Non-RLS OPEN of file ADMGIMP failed. DSNAME not available from JCL or
+resource definition. Module DFHFCFS.
+DFHFC0951 CICSAOR1
+Non-RLS OPEN of file ADMMSL failed. DSNAME not available from JCL or
+resource definition. Module DFHFCFS.
+DFHFC0951 CICSAOR1
+Non-RLS OPEN of file ADMX failed. DSNAME not available from JCL or
+resource definition. Module DFHFCFS.
+DFHFC0952 CICSAOR1
+Dynamic allocation of Non-RLS file ADNMANF0 failed. Return code
+X'0004',X'1708' in module DFHFCFS.
+DFHFC0955 CICSAOR1 Associated data set is RATRDZ.V8R0.#CUST.ADNMANF0. Module DFHFCFS.
+DFHFC0952 CICSAOR1
+Dynamic allocation of Non-RLS file ADNREPF0 failed. Return code
+X'0004',X'1708' in module DFHFCFS.
+DFHFC0955 CICSAOR1 Associated data set is RATRDZ.V8R0.#CUST.ADNREPF0. Module DFHFCFS.
+DFHFC0951 CICSAOR1
+Non-RLS OPEN of file DSQPNLE failed. DSNAME not available from JCL or
+resource definition. Module DFHFCFS.
+DFHFC0951 CICSAOR1
+Non-RLS OPEN of file DSQUCFRM failed. DSNAME not available from JCL
+or resource definition. Module DFHFCFS.
+DFHSJ0915 10/20/2026 17:04:40 CICSAOR1 CICSPRD JVMSERVER GENAPP is now enabled and is ready for use.
+IGD103I SMS ALLOCATED TO DDNAME EZACACHE
+IGD103I SMS ALLOCATED TO DDNAME EZACONFG
+IGD104I CICSPRD.CICSAOR1.TCP.CACHE                   RETAINED,  DDNAME=EZACACHE
+EYUXL0030I CICSAOR1 ESSS connection in progress to CICSPLEX(DEMOPLEX) for SYSID(CMS1).
+EYUXL0004I CICSAOR1 ESSS connection complete.
+EYUCL0006I CICSAOR1 ESSS link to CPSMCMS1 established.
+EYUXL0007I CICSAOR1 LMAS Phase II initialization complete.
+EYUNL0099I CICSAOR1 LMAS LRT initialization complete.
+DFHMQ0342 I 10/20/2026 17:04:46 CICSAOR1 CONNECT received from alert monitor.
+DFHMQ0351 I 10/20/2026 17:04:46 CICSAOR1 Unable to LOAD API exit CSQCAPX. Program is disabled.
+DFHMQ0307 I 10/20/2026 17:04:47 CICSAOR1 Successful connection to queue manager WMQA release 1000
+DFHMN0115I CICSAOR1 CICS Server z/OS WLM Health percentage is now 25.
+DFHMQ0391 I 10/20/2026 17:04:59 CICSAOR1 Start requested for mqmonitor DFHMQINI, transaction CKTI.
+DFHMQ0101 E 10/20/2026 17:04:59 CICSAOR1 Cannot open the initiation queue. MQCC=2 MQRC=2085.
+DFHMQ0110 I 10/20/2026 17:04:59 CICSAOR1 Queue name = CICSAOR1.INITQ.
+DFHMN0115I CICSAOR1 CICS Server z/OS WLM Health percentage is now 50.
+DFHMQ0391 I 10/20/2026 17:05:19 CICSAOR1 Start requested for mqmonitor DFHMQINI, transaction CKTI.
+DFHMQ0101 E 10/20/2026 17:05:19 CICSAOR1 Cannot open the initiation queue. MQCC=2 MQRC=2085.
+DFHMQ0110 I 10/20/2026 17:05:19 CICSAOR1 Queue name = CICSAOR1.INITQ.
+DFHMN0115I CICSAOR1 CICS Server z/OS WLM Health percentage is now 75.
+DFHMQ0391 I 10/20/2026 17:05:39 CICSAOR1 Start requested for mqmonitor DFHMQINI, transaction CKTI.
+DFHMQ0101 E 10/20/2026 17:05:39 CICSAOR1 Cannot open the initiation queue. MQCC=2 MQRC=2085.
+DFHMQ0110 I 10/20/2026 17:05:39 CICSAOR1 Queue name = CICSAOR1.INITQ.
+DFHMN0115I CICSAOR1 CICS Server z/OS WLM Health percentage is now 100.
+DFHMQ0391 I 10/20/2026 17:05:59 CICSAOR1 Start requested for mqmonitor DFHMQINI, transaction CKTI.
+DFHMQ0101 E 10/20/2026 17:05:59 CICSAOR1 Cannot open the initiation queue. MQCC=2 MQRC=2085.
+DFHMQ0110 I 10/20/2026 17:05:59 CICSAOR1 Queue name = CICSAOR1.INITQ.
+DFHHC0101I CICSAOR1 CICS has registered successfully to the z/OS Health Checker.
+IGD103I SMS ALLOCATED TO DDNAME EXMPCONF
+IGD103I SMS ALLOCATED TO DDNAME EXMPCAT
+DFHIC0801 CICSAOR1 CICS time altered from 24.00.000 to 00.00.002 - date 10/21/26 - relative day 001
+DFHIC0801 CICSAOR1 CICS time altered from 24.00.000 to 00.00.000 - date 10/22/26 - relative day 002
+IGD103I SMS ALLOCATED TO DDNAME CUSTOMER
+IGD103I SMS ALLOCATED TO DDNAME DFHCSD
+IGD104I CICSPRD.SHARED.DFHCSD                        RETAINED,  DDNAME=DFHCSD
+IGD103I SMS ALLOCATED TO DDNAME DFHCSD
+IGD104I CICSPRD.SHARED.DFHCSD                        RETAINED,  DDNAME=DFHCSD
+IGD103I SMS ALLOCATED TO DDNAME DFHCSD
+IGD104I CICSPRD.SHARED.DFHCSD                        RETAINED,  DDNAME=DFHCSD
+DFHIC0801 CICSAOR1 CICS time altered from 24.00.000 to 00.00.000 - date 10/23/26 - relative day 003
+DFHIC0801 CICSAOR1 CICS time altered from 24.00.000 to 00.00.001 - date 10/24/26 - relative day 004
+IGD103I SMS ALLOCATED TO DDNAME CINSPIN
+IGD104I RAFAELT.TAZ.EDT.EQACFG                       RETAINED,  DDNAME=CINSPIN
+IGD103I SMS ALLOCATED TO DDNAME CINSPIN
+IGD104I RAFAELT.TAZ.EDT.EQACFG                       RETAINED,  DDNAME=CINSPIN
+IGD103I SMS ALLOCATED TO DDNAME CINSPIN
+IGD104I RAFAELT.TAZ.EDT.RECORD                       RETAINED,  DDNAME=CINSPIN
+IGD103I SMS ALLOCATED TO DDNAME CINSPOT
+ICH408I USER(CICSPRD ) GROUP(CICSGRP ) NAME(CICS USER           )
+  RAFAELT.TAZ.EDT.RECORD CL(DATASET ) VOL(SMSE07)
+  INSUFFICIENT ACCESS AUTHORITY
+  FROM RAFAELT.** (G)
+  ACCESS INTENT(UPDATE )  ACCESS ALLOWED(READ   )
+IEC150I 913-38,IFG0194E,CICSAOR1,CICSAOR1,CINSPOT,B330,SMSE07,
+RAFAELT.TAZ.EDT.RECORD
+IGD104I RAFAELT.TAZ.EDT.RECORD                       RETAINED,  DDNAME=CINSPOT
+EQA9855E With IBM Test Accelerator for Z, the recording or replay mode should be used.
+IGD103I SMS ALLOCATED TO DDNAME CINSPIN
+IGD104I RAFAELT.TAZ.EDT.EQACFG                       RETAINED,  DDNAME=CINSPIN
+IGD103I SMS ALLOCATED TO DDNAME CINSPIN
+IGD104I RAFAELT.TAZ.EDT.EQACFG                       RETAINED,  DDNAME=CINSPIN
+IGD103I SMS ALLOCATED TO DDNAME CINSPIN
+IGD104I RAFAELT.TAZ.EDT.RECORD                       RETAINED,  DDNAME=CINSPIN
+IGD103I SMS ALLOCATED TO DDNAME CINSPOT
+ICH408I USER(CICSPRD ) GROUP(CICSGRP ) NAME(CICS USER           )
+  RAFAELT.TAZ.EDT.RECORD CL(DATASET ) VOL(SMSE07)
+  INSUFFICIENT ACCESS AUTHORITY
+  FROM RAFAELT.** (G)
+  ACCESS INTENT(UPDATE )  ACCESS ALLOWED(READ   )
+IEC150I 913-38,IFG0194E,CICSAOR1,CICSAOR1,CINSPOT,B330,SMSE07,
+RAFAELT.TAZ.EDT.RECORD
+IGD104I RAFAELT.TAZ.EDT.RECORD                       RETAINED,  DDNAME=CINSPOT
+EQA9855E With IBM Test Accelerator for Z, the recording or replay mode should be used.
+DFHIC0801 CICSAOR1 CICS time altered from 24.00.000 to 00.00.001 - date 10/25/26 - relative day 005
+DFHIC0801 CICSAOR1 CICS time altered from 24.00.000 to 00.00.001 - date 10/26/26 - relative day 006

@@ -1,0 +1,726 @@
+DFHPG0210 10/20/2026 17:04:31 CICSAOR1  CICSPRD CSSY Resource definition for DFHAMIO has been system autoinstalled.
+DFHPI0701 I 10/20/2026 17:04:31 CICSAOR1 CICSUSER PIPELINE BANK has been created.
+DFHPI0701 I 10/20/2026 17:04:31 CICSAOR1 CICSUSER PIPELINE EXPIPE01 has been created.
+DFHPI0701 I 10/20/2026 17:04:31 CICSAOR1 CICSUSER PIPELINE EXPIPE02 has been created.
+DFHPI0701 I 10/20/2026 17:04:31 CICSAOR1 CICSUSER PIPELINE GENAPP has been created.
+DFHSO0107 10/20/2026 17:04:31 CICSAOR1 TCPIPSERVICE CWSPORTB has been opened on port 03090 at IP address ANY.
+DFHSO0110 10/20/2026 17:04:31 CICSAOR1 The TCPIPSERVICE CICSWS cannot be opened on the IP address 9.39.64.151 because the address is
+           unknown to TCP/IP.
+DFHSO0107 10/20/2026 17:04:31 CICSAOR1 TCPIPSERVICE SOAPPORT has been opened on port 03091 at IP address ANY.
+DFHSO0109 10/20/2026 17:04:31 CICSAOR1 The TCPIPSERVICE EOTPORT could not be opened because the port 03091 is already in use on the
+           IP address ANY .
+DFHSO0107 10/20/2026 17:04:31 CICSAOR1 TCPIPSERVICE ADNRREST has been opened on port 05130 at IP address ANY.
+DFHSO0107 10/20/2026 17:04:31 CICSAOR1 TCPIPSERVICE AOR1 has been opened on port 06082 at IP address ANY.
+DFHSO0107 10/20/2026 17:04:31 CICSAOR1 TCPIPSERVICE SOAP has been opened on port 08081 at IP address ANY.
+DFHSO0107 10/20/2026 17:04:31 CICSAOR1 TCPIPSERVICE EXMPPORT has been opened on port 12345 at IP address ANY.
+DFHSO0107 10/20/2026 17:04:31 CICSAOR1 TCPIPSERVICE AOR1DTCN has been opened on port 13081 at IP address 192.168.48.127.
+DFHSO0107 10/20/2026 17:04:31 CICSAOR1 TCPIPSERVICE HTTPBAS has been opened on port 13084 at IP address ANY.
+DFHSO0107 10/20/2026 17:04:31 CICSAOR1 TCPIPSERVICE AOR1ALT has been opened on port 16082 at IP address ANY.
+DFHSO0107 10/20/2026 17:04:31 CICSAOR1 TCPIPSERVICE GENIPIC has been opened on port 16088 at IP address ANY.
+DFHPG0210 10/20/2026 17:04:31 CICSAOR1  CICSPRD CSSY Resource definition for CEEPLPKA has been system autoinstalled.
+DFHIR3748 10/20/2026 17:04:31 CICSAOR1 Initial start of connected system TOR2, netname CICSTOR2, protocol IRC was detected.
+DFHRM0241 10/20/2026 17:04:31 CICSAOR1 Log name 075C31D0 has been set for the IRC connection with remote access ID CICSTOR2.
+DFHIR3789 10/20/2026 17:04:31 CICSAOR1 SEND/RECEIVE mismatch between definitions for this system and system AOR8
+DFHPG0210 10/20/2026 17:04:31 CICSAOR1  CICSPRD CSSY Resource definition for CEEROPT has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:31 CICSAOR1  CICSPRD CSSY Resource definition for CEECSTX has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:31 CICSAOR1  CICSPRD CSSY Resource definition for CEEEV000 has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:31 CICSAOR1  CICSPRD CSSY Resource definition for CEEEV001 has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:31 CICSAOR1  CICSPRD CSSY Resource definition for CEEEV002 has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:31 CICSAOR1  CICSPRD CSSY Resource definition for CEEEV003 has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:32 CICSAOR1  CICSPRD CSSY Resource definition for CEEEV004 has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:32 CICSAOR1  CICSPRD CSSY Resource definition for CEEEV005 has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:32 CICSAOR1  CICSPRD CSSY Resource definition for CEEEV007 has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:32 CICSAOR1  CICSPRD CSSY Resource definition for CEEEV008 has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:32 CICSAOR1  CICSPRD CSSY Resource definition for CEEEV009 has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:32 CICSAOR1  CICSPRD CSSY Resource definition for CEEEV010 has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:32 CICSAOR1  CICSPRD CSSY Resource definition for CEEEV011 has been system autoinstalled.
+DFHIR3748 10/20/2026 17:04:32 CICSAOR1 Initial start of connected system AOR3, netname CICSAOR3, protocol IRC was detected.
+DFHRM0241 10/20/2026 17:04:32 CICSAOR1 Log name 075C42A0 has been set for the IRC connection with remote access ID CICSAOR3.
+DFHPG0210 10/20/2026 17:04:32 CICSAOR1  CICSPRD CSSY Resource definition for CEEEV012 has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:32 CICSAOR1  CICSPRD CSSY Resource definition for CEEEV013 has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:32 CICSAOR1  CICSPRD CSSY Resource definition for CEEEV014 has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:32 CICSAOR1  CICSPRD CSSY Resource definition for CEEEV015 has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:32 CICSAOR1  CICSPRD CSSY Resource definition for CEEEV016 has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:32 CICSAOR1  CICSPRD CSSY Resource definition for CEEEV017 has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:32 CICSAOR1  CICSPRD CSSY Resource definition for IGZXLPKA has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:32 CICSAOR1  CICSPRD CSSY Resource definition for IGZXLPKD has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:32 CICSAOR1  CICSPRD CSSY Resource definition for IGZXLPKF has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:32 CICSAOR1  CICSPRD CSSY Resource definition for IGZXLPKG has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:32 CICSAOR1  CICSPRD CSSY Resource definition for IGZCPAC has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:32 CICSAOR1  CICSPRD CSSY Resource definition for IGZCPCC has been system autoinstalled.
+DFHFC0200 10/20/2026 17:04:32 CICSAOR1 Non-RLS file EQADPFMB has been allocated to data set ADTOOLS.CICSAOR1.EQADPFMB. Module
+           DFHFCN.
+DFHIR3748 10/20/2026 17:04:33 CICSAOR1 Initial start of connected system AOR6, netname CICSAOR6, protocol IRC was detected.
+DFHRM0241 10/20/2026 17:04:33 CICSAOR1 Log name 075C42A0 has been set for the IRC connection with remote access ID CICSAOR6.
+DFHFC0961 10/20/2026 17:04:34 CICSAOR1 Calculation of LSR pool 1 parameters incomplete. Filename ADMF has no DSNAME.
+DFHFC0961 10/20/2026 17:04:34 CICSAOR1 Calculation of LSR pool 1 parameters incomplete. Filename ADMGIMP has no DSNAME.
+DFHFC0961 10/20/2026 17:04:34 CICSAOR1 Calculation of LSR pool 1 parameters incomplete. Filename ADMMSL has no DSNAME.
+DFHFC0961 10/20/2026 17:04:34 CICSAOR1 Calculation of LSR pool 1 parameters incomplete. Filename ADMX has no DSNAME.
+DFHFC0979 10/20/2026 17:04:34 CICSAOR1 LSR pool 1 parameters incomplete for file ADNMANF0 because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:34 CICSAOR1 LSR pool 1 parameters incomplete for file ADNREPF0 because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:34 CICSAOR1 LSR pool 1 parameters incomplete for file AGGSCDS because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:34 CICSAOR1 LSR pool 1 parameters incomplete for file BTS because the DSNAME specified in the resource
+           definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:34 CICSAOR1 LSR pool 1 parameters incomplete for file COMPFILE because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:34 CICSAOR1 LSR pool 1 parameters incomplete for file CUSTFILE because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:35 CICSAOR1 LSR pool 1 parameters incomplete for file DFHBRNSF because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0961 10/20/2026 17:04:35 CICSAOR1 Calculation of LSR pool 1 parameters incomplete. Filename DFHDBFK has no DSNAME.
+DFHFC0979 10/20/2026 17:04:36 CICSAOR1 LSR pool 1 parameters incomplete for file DFHMABAF because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:36 CICSAOR1 LSR pool 1 parameters incomplete for file DFHMABCF because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:36 CICSAOR1 LSR pool 1 parameters incomplete for file DFHMABNF because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:36 CICSAOR1 LSR pool 1 parameters incomplete for file DFHMACOF because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:36 CICSAOR1 LSR pool 1 parameters incomplete for file DFHMAC1F because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:36 CICSAOR1 LSR pool 1 parameters incomplete for file DFHMAERF because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:36 CICSAOR1 LSR pool 1 parameters incomplete for file DFHMALRF because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:36 CICSAOR1 LSR pool 1 parameters incomplete for file DFHMALSF because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:36 CICSAOR1 LSR pool 1 parameters incomplete for file DFHMALVA because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:36 CICSAOR1 LSR pool 1 parameters incomplete for file DFHMALVB because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:36 CICSAOR1 LSR pool 1 parameters incomplete for file DFHMALVF because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:36 CICSAOR1 LSR pool 1 parameters incomplete for file DFHMAL2F because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:36 CICSAOR1 LSR pool 1 parameters incomplete for file DFHMAMPF because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:36 CICSAOR1 LSR pool 1 parameters incomplete for file DFHMASIF because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:36 CICSAOR1 LSR pool 1 parameters incomplete for file DFHMASI1 because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:36 CICSAOR1 LSR pool 1 parameters incomplete for file DFHMASSF because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:36 CICSAOR1 LSR pool 1 parameters incomplete for file DFHMASS1 because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:36 CICSAOR1 LSR pool 1 parameters incomplete for file DFHMATIF because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0961 10/20/2026 17:04:36 CICSAOR1 Calculation of LSR pool 1 parameters incomplete. Filename DSQPNLE has no DSNAME.
+DFHFC0961 10/20/2026 17:04:36 CICSAOR1 Calculation of LSR pool 1 parameters incomplete. Filename DSQUCFRM has no DSNAME.
+DFHFC0979 10/20/2026 17:04:36 CICSAOR1 LSR pool 1 parameters incomplete for file ELACFIL because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:37 CICSAOR1 LSR pool 1 parameters incomplete for file FMNPROF because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:38 CICSAOR1 LSR pool 1 parameters incomplete for file POTVSAM because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:38 CICSAOR1 LSR pool 1 parameters incomplete for file TSTFILE because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHFC0979 10/20/2026 17:04:38 CICSAOR1 LSR pool 1 parameters incomplete for file XXXFILE because the DSNAME specified in the
+           resource definition could not be found on the VSAM catalog. VSAM has returned code 0014 in R15.
+DFHPG0210 10/20/2026 17:04:38 CICSAOR1  CICSPRD CSSY Resource definition for IBMRLIB1 has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:38 CICSAOR1  CICSPRD CSSY Resource definition for IBMRSAP has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:38 CICSAOR1  CICSPRD CSSY Resource definition for IBMBPSMA has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:38 CICSAOR1  CICSPRD CSSY Resource definition for IBMBPSLA has been system autoinstalled.
+DFHDB8117 W 10/20/2026 17:04:38 CICSAOR1 No connection to DBCTL made although the connection program is in the PLT.
+DFHMQ0337 I 10/20/2026 17:04:38 CICSAOR1 CONNECT received from DFHMQCOD.
+DFHMQ0308 I 10/20/2026 17:04:38 CICSAOR1 MQNAME WMQA is stopped. Connect request deferred.
+DFHDB2023I 10/20/2026 17:04:38 CICSAOR1 The CICS-DB2 attachment has connected to DB2 subsystem DSNA
+DFHPG0102 10/20/2026 17:04:38 CICSAOR1  CICSPRD CPLT Resource definition for CEEEV000 has been deleted.
+DFHPG0102 10/20/2026 17:04:38 CICSAOR1  CICSPRD CPLT Resource definition for CEEEV001 has been deleted.
+DFHPG0102 10/20/2026 17:04:38 CICSAOR1  CICSPRD CPLT Resource definition for CEEEV002 has been deleted.
+DFHPG0102 10/20/2026 17:04:38 CICSAOR1  CICSPRD CPLT Resource definition for CEEEV008 has been deleted.
+DFHPG0102 10/20/2026 17:04:38 CICSAOR1  CICSPRD CPLT Resource definition for CEEEV009 has been deleted.
+DFHPG0102 10/20/2026 17:04:38 CICSAOR1  CICSPRD CPLT Resource definition for CEEEV013 has been deleted.
+DFHPG0102 10/20/2026 17:04:38 CICSAOR1  CICSPRD CPLT Resource definition for CEEEV014 has been deleted.
+DFHPG0102 10/20/2026 17:04:38 CICSAOR1  CICSPRD CPLT Resource definition for CEEEV015 has been deleted.
+DFHPG0102 10/20/2026 17:04:38 CICSAOR1  CICSPRD CPLT Resource definition for CEEEV016 has been deleted.
+DFHPG0102 10/20/2026 17:04:38 CICSAOR1  CICSPRD CPLT Resource definition for CEEEV017 has been deleted.
+DFHPG0102 10/20/2026 17:04:38 CICSAOR1  CICSPRD CPLT Resource definition for IBMBPSLA has been deleted.
+DFHPG0102 10/20/2026 17:04:38 CICSAOR1  CICSPRD CPLT Resource definition for IBMBPSMA has been deleted.
+DFHFC0200 10/20/2026 17:04:38 CICSAOR1 Non-RLS file EZACONFG has been allocated to data set CICSPRD.CICSAOR1.TCP.CONFIG. Module
+           DFHFCN.
+EZY1224I 10/20/26 17:04:38 CICS/SOCKETS INITIALIZATION SUCCESSFUL USING OPEN TRANSACTION ENVIRONMENT
+DFHFC0201 10/20/2026 17:04:38 CICSAOR1 Non-RLS file EZACONFG has been deallocated. Module DFHFCN.
+DFHSI8431I 10/20/2026 17:04:38 CICSAOR1 PLT program EZACIC20 has been invoked during the third stage of initialization.
+KCPOC1038I IBM Z OMEGAMON for CICS Version 610 is initializing
+OC1023 OCOMEG RKANMOD IS IN USE FOR PROGRAM LOADING
+OC1034 EXEN MODULE KOCOME00 WILL RUN IN QUASIREENTRANT MODE
+OC2020I EXEN DLI GLUE CODE HAS BEEN ENABLED
+OC2020I EXEN ATF GLUE CODE HAS BEEN ENABLED
+OC2020I EXEN MQ  GLUE CODE HAS BEEN ENABLED
+OC2020I EXEN FCP GLUE CODE HAS BEEN ENABLED
+OC2020I EXEN VSAM GLUE CODE HAS BEEN ENABLED
+OC1149 EXEN EXIT INITIALIZATION COMPLETED
+OC1170 OCSETI STARTING OMEGAMON II FOR CICS OCEXEC PROCESSING
+OC1164 OCSETI KOCEXE INTERFACE IS NOW INSTALLED IN CICS
+OC1177 OCSETI KOCPGM INTERFACE IS NOW INSTALLED IN CICS
+OC1213 OCSRI SERVICE TASK INITIALIZATION COMPLETED
+OC1019 OCOMEG OMEGAMON II FOR CICS INITIALIZATION IS COMPLETE
+DFHSI8431I 10/20/2026 17:04:38 CICSAOR1 PLT program KOCOME00 has been invoked during the third stage of initialization.
+AGMP1002I 20/10/26 17:04:38 CICSAOR1 Current program levels
+AGMP1003I 20/10/26 17:04:38 CICSAOR1 AGMPINIT V620 UJ10182  08/04/26  13:29
+AGMP1003I 20/10/26 17:04:38 CICSAOR1 AGMPGLU  V620 UJ10182  08/04/26  13:29
+AGMP1003I 20/10/26 17:04:38 CICSAOR1 AGMPSGL  V620 UJ10182  08/04/26  13:29
+AGMP1003I 20/10/26 17:04:38 CICSAOR1 AGMPTRU  V620 UJ10182  08/04/26  13:29
+AGMP1003I 20/10/26 17:04:38 CICSAOR1 AGMPWRP  V620 UJ10182  08/04/26  13:29
+AGMP1003I 20/10/26 17:04:38 CICSAOR1 AGMPSNAP V620 UJ97022  05/06/25  11:02
+AGMP1003I 20/10/26 17:04:38 CICSAOR1 AGMPFMAT V620 UJ97803  08/02/25  07:52
+AGMP1003I 20/10/26 17:04:38 CICSAOR1 AGMPFLTR V620 UJ10182  08/04/26  13:29
+AGMP1003I 20/10/26 17:04:38 CICSAOR1 AGMPSTOP V620 UJ10182  08/04/26  13:29
+AGMP1003I 20/10/26 17:04:38 CICSAOR1 AGMPUTIL V620 UJ10182  08/04/26  13:29
+AGMP1003I 20/10/26 17:04:38 CICSAOR1 AGMPREQ  V620 UJ10182  08/04/26  13:29
+AGMP1003I 20/10/26 17:04:38 CICSAOR1 AGMPAD   V620 UJ10182  08/04/26  13:29
+AGMP1003I 20/10/26 17:04:38 CICSAOR1 AGMPHTTP V620 UJ10182  08/04/26  13:29
+DFHSI8431I 10/20/2026 17:04:38 CICSAOR1 PLT program AGMPINIT has been invoked during the third stage of initialization.
+DFHSI8431I 10/20/2026 17:04:38 CICSAOR1 PLT program EQA0CPLT has been invoked during the third stage of initialization.
+DFHAP1901 10/20/2026 17:04:38 CICSAOR1 SPI audit log is available.
+DFHLD0555 I 10/20/2026 17:04:38 CICSAOR1 Current LIBRARY search order follows.
+DFHLD0556 I 10/20/2026 17:04:38 CICSAOR1 Position in search order: 1, LIBRARY: DFHRPL.
+DFHLD0556 I 10/20/2026 17:04:38 CICSAOR1 Position in search order: 2, LIBRARY: RKANMOD.
+DFHLD0556 I 10/20/2026 17:04:38 CICSAOR1 Position in search order: 3, LIBRARY: SAGMMODR.
+DFHLD0556 I 10/20/2026 17:04:38 CICSAOR1 Position in search order: 4, LIBRARY: ADTOOLS.
+DFHLD0556 I 10/20/2026 17:04:38 CICSAOR1 Position in search order: 5, LIBRARY: IA61LIB.
+DFHLD0556 I 10/20/2026 17:04:38 CICSAOR1 Position in search order: 6, LIBRARY: IA61LIBE.
+DFHLD0556 I 10/20/2026 17:04:38 CICSAOR1 Position in search order: 7, LIBRARY: GENAPP.
+DFHLD0556 I 10/20/2026 17:04:38 CICSAOR1 Position in search order: 8, LIBRARY: BANKLIB.
+DFHLD0556 I 10/20/2026 17:04:38 CICSAOR1 Position in search order: 9, LIBRARY: CGRIEGO.
+DFHWB1560 10/20/2026 17:04:38 CICSAOR1 CICSUSER URIMAP DFHJXSU has been created.
+DFHIS2012 10/20/2026 17:04:38 CICSAOR1 The connection status in IPCONN AOR2 from applid CICSAOR2 is changed from RELEASED to
+           OBTAINING due to a SPI command to ACQUIRE the IPCONN issued on the local system.
+DFHIS2012 10/20/2026 17:04:38 CICSAOR1 The connection status in IPCONN AOR9 from applid CICSAOR9 is changed from RELEASED to
+           OBTAINING due to a SPI command to ACQUIRE the IPCONN issued on the remote system.
+DFHIS2000 10/20/2026 17:04:38 CICSAOR1 Server web session 1 with applid CICSAOR9 on host esysmvs1.ztec.dmz(192.168.48.127), port
+           06089 acquired for IPCONN AOR9.
+DFHPG0210 10/20/2026 17:04:38 CICSAOR1  CICSPRD CJSR Resource definition for DFHCICSE has been system autoinstalled.
+DFHPG0210 10/20/2026 17:04:38 CICSAOR1  CICSPRD CJSR Resource definition for DFHAXRO has been system autoinstalled.
+DFHPI0708 E 10/20/2026 17:04:38 CICSAOR1 CICSPRD PIPELINE GENAPP resolution failed because the XML configuration file cannot be
+           found.
+DFHIS2000 10/20/2026 17:04:38 CICSAOR1 Server web session 2 with applid CICSAOR9 on host esysmvs1.ztec.dmz(192.168.48.127), port
+           06089 acquired for IPCONN AOR9.
+DFHIS2001 10/20/2026 17:04:38 CICSAOR1 Client web session 1 from applid CICSAOR9 accepted for IPCONN AOR9.
+DFHIS2001 10/20/2026 17:04:38 CICSAOR1 Client web session 1 from applid CICSAOR2 accepted for IPCONN AOR2.
+DFHIS2001 10/20/2026 17:04:38 CICSAOR1 Client web session 2 from applid CICSAOR9 accepted for IPCONN AOR9.
+DFHIS2001 10/20/2026 17:04:38 CICSAOR1 Client web session 2 from applid CICSAOR2 accepted for IPCONN AOR2.
+DFHIS2000 10/20/2026 17:04:38 CICSAOR1 Server web session 1 with applid CICSAOR2 on host esysmvs2.ztec.dmz(192.168.48.128), port
+           07082 acquired for IPCONN AOR2.
+DFHIS2000 10/20/2026 17:04:38 CICSAOR1 Server web session 2 with applid CICSAOR2 on host esysmvs2.ztec.dmz(192.168.48.128), port
+           07082 acquired for IPCONN AOR2.
+DFHSJ1306 E 10/20/2026 17:04:39 CICSAOR1 CICSPRD CJSR An attempt to load LE RUNOPTS module DFHCICSE has failed because it cannot be
+           loaded.
+DFHSJ0914 E 10/20/2026 17:04:39 CICSAOR1 CICSPRD JVMSERVER CICSLJVM failed to ENABLE because there was a runtime options failure.
+DFHIS2012 10/20/2026 17:04:39 CICSAOR1 The connection status in IPCONN AOR9 from applid CICSAOR9 is changed from OBTAINING to
+           ACQUIRED .
+DFHIS2012 10/20/2026 17:04:39 CICSAOR1 The connection status in IPCONN AOR2 from applid CICSAOR2 is changed from OBTAINING to
+           ACQUIRED .
+DFHRL0125 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD BUNDLE resource BSAADAPT is being created with BUNDLEID CBSA_IPM_AdapterSet and
+           version 1.0.0.
+DFHRL0132 I 10/20/2026 17:04:39 CICSAOR1 CRLR All defined resources for BUNDLE BSAADAPT are now in the enabled state.
+DFHRL0109 I 10/20/2026 17:04:39 CICSAOR1 CRLR The CICS resource lifecycle manager has created the BUNDLE resource BSAADAPT and the
+           BUNDLE is in the enabled state.
+DFHPI0204 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD PIPELINE BANK is now ENABLED and is ready for use.
+DFHPI0204 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD PIPELINE EXPIPE01 is now ENABLED and is ready for use.
+DFHRL0125 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD BUNDLE resource BSAEVENT is being created with BUNDLEID CBSA_IPM_Events and version
+           1.0.0.
+DFHRL0132 I 10/20/2026 17:04:39 CICSAOR1 CRLR All defined resources for BUNDLE BSAEVENT are now in the enabled state.
+DFHRL0109 I 10/20/2026 17:04:39 CICSAOR1 CRLR The CICS resource lifecycle manager has created the BUNDLE resource BSAEVENT and the
+           BUNDLE is in the enabled state.
+DFHPI0204 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD PIPELINE EXPIPE02 is now ENABLED and is ready for use.
+DFHPI0703 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD PIPELINE EXPIPE01 is about to scan the WSDIR directory.
+DFHRL0137 I 10/20/2026 17:04:39 CICSAOR1 CRLR All BUNDLE resources with an install agent of GRPLIST are now in their desired target
+           state. Total number of BUNDLE resources are 2.
+DFHPI0901 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD New WEBSERVICE FundWrap is being created during a scan against PIPELINE EXPIPE01.
+DFHPI0910 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD WEBSERVICE FundWrap within PIPELINE EXPIPE01 has been created.
+DFHPI0703 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD PIPELINE EXPIPE02 is about to scan the WSDIR directory.
+DFHPI0915 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD WEBSERVICE FundWrap is now INSERVICE and is ready for use.
+DFHPI0704 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD PIPELINE EXPIPE02 Implicit scan has completed. Number of wsbind files found in the
+           WSDIR directory: 000000. Number of successful WEBSERVICE creates: 000000. Number of failed WEBSERVICE creates: 000000.
+DFHPI0903 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD New URIMAP $557030 is being created during a scan against PIPELINE EXPIPE01 for
+           WEBSERVICE FundWrap.
+DFHWB1560 10/20/2026 17:04:39 CICSAOR1 CICSPRD URIMAP $557030 has been created.
+DFHPI0903 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD New URIMAP $557031 is being created during a scan against PIPELINE EXPIPE01 for
+           WEBSERVICE FundWrap.
+DFHWB1560 10/20/2026 17:04:39 CICSAOR1 CICSPRD URIMAP $557031 has been created.
+DFHPI0901 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD New WEBSERVICE dispatchOrderEndpoint is being created during a scan against
+           PIPELINE EXPIPE01.
+DFHPI0910 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD WEBSERVICE dispatchOrderEndpoint within PIPELINE EXPIPE01 has been created.
+DFHPI0703 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD PIPELINE BANK is about to scan the WSDIR directory.
+DFHPI0704 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD PIPELINE BANK Implicit scan has completed. Number of wsbind files found in the
+           WSDIR directory: 000000. Number of successful WEBSERVICE creates: 000000. Number of failed WEBSERVICE creates: 000000.
+DFHPI0915 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD WEBSERVICE dispatchOrderEndpoint is now INSERVICE and is ready for use.
+DFHPI0903 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD New URIMAP $657190 is being created during a scan against PIPELINE EXPIPE01 for
+           WEBSERVICE dispatchOrderEndpoint.
+DFHWB1560 10/20/2026 17:04:39 CICSAOR1 CICSPRD URIMAP $657190 has been created.
+DFHPI0901 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD New WEBSERVICE inquireCatalog is being created during a scan against PIPELINE
+           EXPIPE01.
+DFHPI0910 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD WEBSERVICE inquireCatalog within PIPELINE EXPIPE01 has been created.
+DFHPI0915 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD WEBSERVICE inquireCatalog is now INSERVICE and is ready for use.
+DFHPI0903 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD New URIMAP $657191 is being created during a scan against PIPELINE EXPIPE01 for
+           WEBSERVICE inquireCatalog.
+DFHWB1560 10/20/2026 17:04:39 CICSAOR1 CICSPRD URIMAP $657191 has been created.
+DFHPI0903 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD New URIMAP $657192 is being created during a scan against PIPELINE EXPIPE01 for
+           WEBSERVICE inquireCatalog.
+DFHWB1560 10/20/2026 17:04:39 CICSAOR1 CICSPRD URIMAP $657192 has been created.
+DFHPI0901 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD New WEBSERVICE inquireCatalogWrapper is being created during a scan against
+           PIPELINE EXPIPE01.
+DFHPI0910 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD WEBSERVICE inquireCatalogWrapper within PIPELINE EXPIPE01 has been created.
+DFHPI0915 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD WEBSERVICE inquireCatalogWrapper is now INSERVICE and is ready for use.
+DFHPI0903 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD New URIMAP $657193 is being created during a scan against PIPELINE EXPIPE01 for
+           WEBSERVICE inquireCatalogWrapper.
+DFHWB1560 10/20/2026 17:04:39 CICSAOR1 CICSPRD URIMAP $657193 has been created.
+DFHPI0901 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD New WEBSERVICE inquireSingle is being created during a scan against PIPELINE
+           EXPIPE01.
+DFHPI0910 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD WEBSERVICE inquireSingle within PIPELINE EXPIPE01 has been created.
+DFHPI0915 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD WEBSERVICE inquireSingle is now INSERVICE and is ready for use.
+DFHPI0903 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD New URIMAP $657194 is being created during a scan against PIPELINE EXPIPE01 for
+           WEBSERVICE inquireSingle.
+DFHWB1560 10/20/2026 17:04:39 CICSAOR1 CICSPRD URIMAP $657194 has been created.
+DFHPI0903 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD New URIMAP $657195 is being created during a scan against PIPELINE EXPIPE01 for
+           WEBSERVICE inquireSingle.
+DFHWB1560 10/20/2026 17:04:39 CICSAOR1 CICSPRD URIMAP $657195 has been created.
+DFHPI0901 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD New WEBSERVICE inquireSingleWrapper is being created during a scan against PIPELINE
+           EXPIPE01.
+DFHPI0910 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD WEBSERVICE inquireSingleWrapper within PIPELINE EXPIPE01 has been created.
+DFHPI0915 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD WEBSERVICE inquireSingleWrapper is now INSERVICE and is ready for use.
+DFHPI0903 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD New URIMAP $657196 is being created during a scan against PIPELINE EXPIPE01 for
+           WEBSERVICE inquireSingleWrapper.
+DFHWB1560 10/20/2026 17:04:39 CICSAOR1 CICSPRD URIMAP $657196 has been created.
+DFHPI0901 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD New WEBSERVICE placeOrder is being created during a scan against PIPELINE EXPIPE01.
+DFHPI0910 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD WEBSERVICE placeOrder within PIPELINE EXPIPE01 has been created.
+DFHPI0915 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD WEBSERVICE placeOrder is now INSERVICE and is ready for use.
+DFHPI0903 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD New URIMAP $657197 is being created during a scan against PIPELINE EXPIPE01 for
+           WEBSERVICE placeOrder.
+DFHWB1560 10/20/2026 17:04:39 CICSAOR1 CICSPRD URIMAP $657197 has been created.
+DFHPI0901 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD New WEBSERVICE placeOrderWrapper is being created during a scan against PIPELINE
+           EXPIPE01.
+DFHPI0910 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD WEBSERVICE placeOrderWrapper within PIPELINE EXPIPE01 has been created.
+DFHPI0915 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD WEBSERVICE placeOrderWrapper is now INSERVICE and is ready for use.
+DFHPI0903 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD New URIMAP $657198 is being created during a scan against PIPELINE EXPIPE01 for
+           WEBSERVICE placeOrderWrapper.
+DFHWB1560 10/20/2026 17:04:39 CICSAOR1 CICSPRD URIMAP $657198 has been created.
+DFHPI0901 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD New WEBSERVICE HelloServiceProvider is being created during a scan against PIPELINE
+           EXPIPE01.
+DFHPI0910 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD WEBSERVICE HelloServiceProvider within PIPELINE EXPIPE01 has been created.
+DFHPI0915 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD WEBSERVICE HelloServiceProvider is now INSERVICE and is ready for use.
+DFHPI0903 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD New URIMAP $217170 is being created during a scan against PIPELINE EXPIPE01 for
+           WEBSERVICE HelloServiceProvider.
+DFHWB1560 10/20/2026 17:04:39 CICSAOR1 CICSPRD URIMAP $217170 has been created.
+DFHPI0704 I 10/20/2026 17:04:39 CICSAOR1 CICSPRD PIPELINE EXPIPE01 Implicit scan has completed. Number of wsbind files found in the
+           WSDIR directory: 000009. Number of successful WEBSERVICE creates: 000009. Number of failed WEBSERVICE creates: 000000.
+DFHFC0200 10/20/2026 17:04:39 CICSAOR1 Non-RLS file EZACONFG has been allocated to data set CICSPRD.CICSAOR1.TCP.CONFIG. Module
+           DFHFCN.
+DFHAP1900 10/20/2026 17:04:39 CICSAOR1 NONE CICSPRD CSKL SET FILE(EZACONFG) ENABLED OPEN RESP(NORMAL) RESP2(0).
+DFHFC0201 10/20/2026 17:04:39 CICSAOR1 Non-RLS file EZACONFG has been deallocated. Module DFHFCN.
+DFHAP1900 10/20/2026 17:04:39 CICSAOR1 NONE CICSPRD CSKL SET FILE(EZACONFG) DISABLED CLOSED RESP(NORMAL) RESP2(0).
+DFHFC0200 10/20/2026 17:04:40 CICSAOR1 Non-RLS file ABNDFILE has been allocated to data set CICSPRD.CICSAOR1.CBSA.ABNDFILE. Module
+           DFHFCN.
+DFHSJ0207 10/20/2026 17:04:40 CICSAOR1 JVMSERVER GENAPP is running Java version "21.0.12".
+DFHSJ0915 10/20/2026 17:04:40 CICSAOR1 CICSPRD JVMSERVER GENAPP is now enabled and is ready for use.
+DFHFC0200 10/20/2026 17:04:40 CICSAOR1 Non-RLS file EZACACHE has been allocated to data set CICSPRD.CICSAOR1.TCP.CACHE. Module
+           DFHFCN.
+DFHFC0940 I 10/20/2026 17:04:40 CICSAOR1 CICS data table load has started for data table EZACACHE.
+DFHFC0941 I 10/20/2026 17:04:40 CICSAOR1 CICS data table load has completed successfully for data table EZACACHE.
+DFHFC0200 10/20/2026 17:04:40 CICSAOR1 Non-RLS file EZACONFG has been allocated to data set CICSPRD.CICSAOR1.TCP.CONFIG. Module
+           DFHFCN.
+DFHFC0201 10/20/2026 17:04:40 CICSAOR1 Non-RLS file EZACACHE has been deallocated. Module DFHFCN.
+OC1242 OCSR2 SECONDARY SERVICE TASK WAITING FOR WORK
+OC1231 OCSRV SERVICE TASK WAITING FOR WORK
+DFHMQ0342 I 10/20/2026 17:04:46 CICSAOR1 CONNECT received from alert monitor.
+DFHMQ0351 I 10/20/2026 17:04:46 CICSAOR1 Unable to LOAD API exit CSQCAPX. Program is disabled.
+DFHAP1900 10/20/2026 17:04:47 CICSAOR1 NONE CICSPRD CKAM SET PROGRAM(CSQAVICM) NEWCOPY RESP(NORMAL) RESP2(0).
+DFHAP1900 10/20/2026 17:04:47 CICSAOR1 NONE CICSPRD CKAM RESYNC ENTRYNAME(MQM) QUALIFIER(WMQA) RESP(NORMAL) RESP2(0).
+DFHMQ0307 I 10/20/2026 17:04:47 CICSAOR1 Successful connection to queue manager WMQA release 1000
+DFHMQ0391 I 10/20/2026 17:04:59 CICSAOR1 Start requested for mqmonitor DFHMQINI, transaction CKTI.
+DFHAP1900 10/20/2026 17:04:59 CICSAOR1 NONE CICSPRD CKTI SET MQMONITOR(DFHMQINI) MONSTATUS(STARTED) RESP(NORMAL) RESP2(0).
+DFHMQ0101 E 10/20/2026 17:04:59 CICSAOR1 Cannot open the initiation queue. MQCC=2 MQRC=2085.
+DFHMQ0110 I 10/20/2026 17:04:59 CICSAOR1 Queue name = CICSAOR1.INITQ.
+DFHAP1900 10/20/2026 17:04:59 CICSAOR1 NONE CICSPRD CKTI SET MQMONITOR(DFHMQINI) MONSTATUS(STOPPED) RESP(NORMAL) RESP2(0).
+DFHMQ0391 I 10/20/2026 17:05:19 CICSAOR1 Start requested for mqmonitor DFHMQINI, transaction CKTI.
+DFHAP1900 10/20/2026 17:05:19 CICSAOR1 NONE CICSPRD CKTI SET MQMONITOR(DFHMQINI) MONSTATUS(STARTED) RESP(NORMAL) RESP2(0).
+DFHMQ0101 E 10/20/2026 17:05:19 CICSAOR1 Cannot open the initiation queue. MQCC=2 MQRC=2085.
+DFHMQ0110 I 10/20/2026 17:05:19 CICSAOR1 Queue name = CICSAOR1.INITQ.
+DFHAP1900 10/20/2026 17:05:19 CICSAOR1 NONE CICSPRD CKTI SET MQMONITOR(DFHMQINI) MONSTATUS(STOPPED) RESP(NORMAL) RESP2(0).
+DFHMQ0391 I 10/20/2026 17:05:39 CICSAOR1 Start requested for mqmonitor DFHMQINI, transaction CKTI.
+DFHAP1900 10/20/2026 17:05:39 CICSAOR1 NONE CICSPRD CKTI SET MQMONITOR(DFHMQINI) MONSTATUS(STARTED) RESP(NORMAL) RESP2(0).
+DFHMQ0101 E 10/20/2026 17:05:39 CICSAOR1 Cannot open the initiation queue. MQCC=2 MQRC=2085.
+DFHMQ0110 I 10/20/2026 17:05:39 CICSAOR1 Queue name = CICSAOR1.INITQ.
+DFHAP1900 10/20/2026 17:05:39 CICSAOR1 NONE CICSPRD CKTI SET MQMONITOR(DFHMQINI) MONSTATUS(STOPPED) RESP(NORMAL) RESP2(0).
+DFHMQ0391 I 10/20/2026 17:05:59 CICSAOR1 Start requested for mqmonitor DFHMQINI, transaction CKTI.
+DFHAP1900 10/20/2026 17:05:59 CICSAOR1 NONE CICSPRD CKTI SET MQMONITOR(DFHMQINI) MONSTATUS(STARTED) RESP(NORMAL) RESP2(0).
+DFHMQ0101 E 10/20/2026 17:05:59 CICSAOR1 Cannot open the initiation queue. MQCC=2 MQRC=2085.
+DFHMQ0110 I 10/20/2026 17:05:59 CICSAOR1 Queue name = CICSAOR1.INITQ.
+DFHAP1900 10/20/2026 17:05:59 CICSAOR1 NONE CICSPRD CKTI SET MQMONITOR(DFHMQINI) MONSTATUS(STOPPED) RESP(NORMAL) RESP2(0).
+DFHIS3030 I 10/20/2026 17:26:38 CICSAOR1 IPCONN EGUI installed.
+DFHIS3000 10/20/2026 17:26:38 CICSAOR1 IPCONN EGUI with applid ZCEE.BKEGUI autoinstalled successfully using autoinstall user program
+           DFHISAIP and template (NONE) after a connection request was received on tcpipservice AOR1 from host 192.168.48.127.
+DFHIS2012 10/20/2026 17:26:38 CICSAOR1 The connection status in IPCONN EGUI from applid BKEGUI is changed from RELEASED to OBTAINING
+           due to an autoinstall of the IPCONN.
+DFHIS2001 10/20/2026 17:26:38 CICSAOR1 Client web session 1 from applid BKEGUI accepted for IPCONN EGUI.
+DFHIS2012 10/20/2026 17:26:38 CICSAOR1 The connection status in IPCONN EGUI from applid BKEGUI is changed from OBTAINING to ACQUIRED
+           .
+DFHIS2001 10/20/2026 17:26:38 CICSAOR1 Client web session 2 from applid BKEGUI accepted for IPCONN EGUI.
+DFHFC0200 10/20/2026 17:26:38 CICSAOR1 Non-RLS file EXMPCONF has been allocated to data set CICSPRD.CICSAOR1.EXMPCONF. Module
+           DFHFCN.
+DFHFC0200 10/20/2026 17:26:38 CICSAOR1 Non-RLS file EXMPCAT has been allocated to data set CICSPRD.CICSAOR1.EXMPCAT. Module DFHFCN.
+DFHZC6907 I 10/22/2026 09:38:10 CICSAOR1 Autoinstall starting for netname MVS10137. Network qualified name is USIBMWZ.MVS10137.
+DFHZC6908 I 10/22/2026 09:38:10 CICSAOR1 Autoinstall in progress for netname MVS10137. TN3270 IP address is 192.168.0.11 51714.
+DFHZC5966 I 10/22/2026 09:38:10 CICSAOR1 INSTALL started for TERMINAL (  0137) (Module name: DFHBSTZ).
+DFHZC6935 I 10/22/2026 09:38:10 CICSAOR1 Autoinstall for terminal 0137 with netname MVS10137 using model or template DFHLU2
+           successful.
+DFHZC3461 I 10/22/2026 09:38:10 CICSAOR1 0137 CSNE Node MVS10137 session started.  ((2) Module name: DFHZOPX)
+NQNAME   0137,CSNE, 9:38:10,USIBMWZ  MVS10137
+TNADDR   0137,CSNE, 9:38:10,192.168.0.11 51714
+DFHPG0209 10/22/2026 09:38:10 CICSAOR1 0137 CICSUSER CESN Resource definition for DFHSNLEM has been autoinstalled using model
+           DFHPGAMP.
+DFHSN1105 10/22/2026 09:38:12 CICSAOR1 Signon at netname MVS10137 by a user requires a password.
+DFHSN1100 10/22/2026 09:38:14 CICSAOR1 CESN Signon at netname MVS10137 TN3270 IP Address 192.168.0.11 by user RAFAELT in group
+           ZTECUSER is complete after 0 failed attempts. User ID was last accessed on 10/22/2026 at 09:37:01.
+DFHPG0209 10/22/2026 09:38:16 CICSAOR1 0137 RAFAELT OMEN Resource definition for BNK1MAIM has been autoinstalled using model
+           DFHPGAMP.
+DFHPG0209 10/22/2026 09:38:22 CICSAOR1 0137 RAFAELT ODCS Resource definition for BNK1DCMM has been autoinstalled using model
+           DFHPGAMP.
+DFHFC0200 10/22/2026 09:38:23 CICSAOR1 Non-RLS file CUSTOMER has been allocated to data set CICSPRD.CICSAOR1.CBSA.CUSTOMER. Module
+           DFHFCN.
+DFHPG0209 10/22/2026 09:38:30 CICSAOR1 0137 RAFAELT OUAC Resource definition for BNK1UAMM has been autoinstalled using model
+           DFHPGAMP.
+DFHDU0203I 10/22/2026 09:38:33 CICSAOR1 A transaction dump was taken for dumpcode: AD2U, Dumpid: 13/0001, Tranid: OUAC, Tranum:
+           00029376, Program: DFHD2EX1.
+DFHAC2236 10/22/2026 09:38:33 CICSAOR1 Transaction OUAC transaction number 29376 abend HRAC in program INQACC term 0137. Updates to
+           local recoverable resources will be backed out.
+DFHZC2410 E 10/22/2026 10:19:59 CICSAOR1 0137 CSNE Node Unrecoverable. VTAM LOSTERM Error Code X'14'.  ((1) Module name: DFHZLTX)
+DFHZC3424 E 10/22/2026 10:19:59 CICSAOR1 0137 CSNE Session failure. Session terminated immediately.  ((1) Module name: DFHZNSP)
+NQNAME   0137,CSNE,10:19:59,USIBMWZ  MVS10137
+DFHZC3437 I 10/22/2026 10:19:59 CICSAOR1 0137 CSNE Node MVS10137 action taken: NOCREATE CLSDST ABTASK ABSEND ABRECV SIMLOGON ((1)
+           Module name: DFHZNAC)
+DFHZC2467 E 10/22/2026 10:19:59 CICSAOR1 0137 CSNE Invalid communications ID (CID) detected.  VTAM RETURN CODE 1413 ((1) Module
+           name: DFHZLEX)
+NQNAME   0137,CSNE,10:19:59,USIBMWZ  MVS10137
+RPL_A    0137,CSNE,10:19:59,00001F70 A396F952 A3970960 00141300 00000004 00000000 000C3D98 00000000
+                            00000000 24B04030 08000000 00000000 00000000 00000000 00080000 00000000
+                            00000000 24000000 00000000 00000000 00000000 00000000 00000000 24B2FCB0
+                            00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+                            00000000 00000000 00000000 00000000 00000000
+NIB      0137,CSNE,10:19:59,D0000040 0E000009 A4B2FCB0 D4E5E2F1 F0F1F3F7 D9C5C3D6 D9C44040 00000000
+                            00000000 11080002 20000000 000C3E50 00000000 00000000 24B04070 00000000
+TCTTE    0137,CSNE,10:19:59,F0F1F3F7 91F20007 24B2FCB4 00000000 00000000 00000000 00000000 00000000
+                            00000000 0C404040 C5D5E400 00000910 01527D14 40404040 40404040 00000000
+                            00000000 0000C080 07801850 0A002050 D023A000 03200000 00000000 24BB4710
+                            02B90025 08000000 00800001 24BB91F0 24B02030 00000000 24AFF998 00000000
+                            00000000 00000000 00000000 00000000 00000000 00000000 00000000 24B1F030
+                            005A5A00 41000000 00000000 00000000 00000000 00000000 00840000 00000000
+                            00000000 00020000 00000000 00000000 80000000 00000000 00C00000 00000000
+                            0000000C 01000000 00000000 00000000 00000000 00000000 00000000 00000000
+                            01000000 0824089E 00000000 00000000 00000000 00000000 00000000 00000000
+                            00008400 0009000D 00000000 00000000 00000000 FFFF0000 00000040 00000000
+                            E377E423 B97A3556 00000000 00000000 00000000 00000000 00000000 00000000
+                            00000000 00000000 00000000 00000000 C0A8000B 00000000 00000000 00000000
+                            CA020440 40404040 40404040 40404040 40404040 40404040 40404040 40404040
+                            40404040 40404040 40404040 40404040 40404040 40404040 40404040 40404040
+                            40404040 40404040 40404040 40404040 40404040 40404040 40404040 40404040
+                            40404040 40404040 40404040 40404040 40404040 40404040 40404040 40404040
+                            40404000 00000000 00000000 00000000 00000000 00000000 00000000 0E000009
+                            FFFFFFFF 00000000 000D0000 000D0000 0F000FA0 04000000 00000000 00000000
+                            00000000 00000000 00000000 00000000 00000000 00000000 00005000 80000000
+                            00000000 00008000 00000014 00101040 0AA10000 01002013 00000000 00000000
+                            00000000 00000000 00000000 24AA73A1 00440000 000116CC D4000000 00000014
+                            00000000 00010000 00000000 00000000 E377E423 B97DE02A 00000000 00000000
+                            00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+                            00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+                            00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+TCTTEXTN 0137,CSNE,10:19:59,00000070 24B04030 24B2FCB0 D4E5E2F1 F0F1F3F7 00000000 00000000 00000100
+                            00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+                            00000000 00000000 00000000 00000000 00000000 FFFFFFFF C4F4C3F3 F2E7E7F3
+                            E4E2C9C2 D4E6E940 D4E5E2F1 F0F1F3F7
+DFHZC3437 I 10/22/2026 10:19:59 CICSAOR1 0137 CSNE Node MVS10137 action taken: CLSDST ABTASK ABSEND ABRECV ((1) Module name:
+           DFHZNAC)
+DFHSN1200 10/22/2026 10:19:59 CICSAOR1 Signoff at netname MVS10137 by user RAFAELT is complete. 9 transactions entered with 1
+           errors.
+DFHZC3462 I 10/22/2026 10:19:59 CICSAOR1 0137 CSNE Node MVS10137 session terminated.  ((2) Module name: DFHZCLS)
+NQNAME   0137,CSNE,10:19:59,USIBMWZ  MVS10137
+DFHZC5966 I 10/22/2026 10:19:59 CICSAOR1 DELETE started for TERMINAL (  0137) (Module name: DFHBSTZ).
+DFHZC6966 I 10/22/2026 10:19:59 CICSAOR1 Autoinstall delete for terminal 0137 with netname MVS10137 was successful.
+DFHZC6907 I 10/22/2026 16:45:27 CICSAOR1 Autoinstall starting for netname MVS10036. Network qualified name is USIBMWZ.MVS10036.
+DFHZC6908 I 10/22/2026 16:45:27 CICSAOR1 Autoinstall in progress for netname MVS10036. TN3270 IP address is 192.168.0.84 53373.
+DFHZC5966 I 10/22/2026 16:45:27 CICSAOR1 INSTALL started for TERMINAL (  0036) (Module name: DFHBSTZ).
+DFHZC6935 I 10/22/2026 16:45:27 CICSAOR1 Autoinstall for terminal 0036 with netname MVS10036 using model or template DFHLU2E3
+           successful.
+DFHZC3461 I 10/22/2026 16:45:27 CICSAOR1 0036 CSNE Node MVS10036 session started.  ((2) Module name: DFHZOPX)
+NQNAME   0036,CSNE,16:45:27,USIBMWZ  MVS10036
+TNADDR   0036,CSNE,16:45:27,192.168.0.84 53373
+DFHSN1100 10/22/2026 16:45:31 CICSAOR1 CESN Signon at netname MVS10036 TN3270 IP Address 192.168.0.84 by user COMPTON in group SYS1
+           is complete after 0 failed attempts. User ID was last accessed on 10/22/2026 at 16:29:01.
+DFHFC0200 10/22/2026 16:46:15 CICSAOR1 Non-RLS file DFHCSD has been allocated to data set CICSPRD.SHARED.DFHCSD. Module DFHFCN.
+DFHFC0201 10/22/2026 16:46:55 CICSAOR1 Non-RLS file DFHCSD has been deallocated. Module DFHFCN.
+DFHSN1200 10/22/2026 16:47:03 CICSAOR1 Signoff at netname MVS10036 by user COMPTON is complete. 3 transactions entered with 0
+           errors.
+DFHZC3462 I 10/22/2026 16:47:03 CICSAOR1 0036 CSNE Node MVS10036 session terminated.  ((2) Module name: DFHZCLS)
+NQNAME   0036,CSNE,16:47:03,USIBMWZ  MVS10036
+DFHZC5966 I 10/22/2026 16:47:03 CICSAOR1 DELETE started for TERMINAL (  0036) (Module name: DFHBSTZ).
+DFHZC6966 I 10/22/2026 16:47:03 CICSAOR1 Autoinstall delete for terminal 0036 with netname MVS10036 was successful.
+DFHFC0200 10/22/2026 17:02:59 CICSAOR1 Non-RLS file DFHCSD has been allocated to data set CICSPRD.SHARED.DFHCSD. Module DFHFCN.
+DFHFC0201 10/22/2026 17:03:00 CICSAOR1 Non-RLS file DFHCSD has been deallocated. Module DFHFCN.
+DFHFC0200 10/22/2026 17:03:06 CICSAOR1 Non-RLS file DFHCSD has been allocated to data set CICSPRD.SHARED.DFHCSD. Module DFHFCN.
+DFHFC0201 10/22/2026 17:03:06 CICSAOR1 Non-RLS file DFHCSD has been deallocated. Module DFHFCN.
+DFHZC6907 I 10/23/2026 12:52:19 CICSAOR1 Autoinstall starting for netname MVS10162. Network qualified name is USIBMWZ.MVS10162.
+DFHZC6908 I 10/23/2026 12:52:19 CICSAOR1 Autoinstall in progress for netname MVS10162. TN3270 IP address is 192.168.0.157 63731.
+DFHZC5966 I 10/23/2026 12:52:19 CICSAOR1 INSTALL started for TERMINAL (  0162) (Module name: DFHBSTZ).
+DFHZC6935 I 10/23/2026 12:52:19 CICSAOR1 Autoinstall for terminal 0162 with netname MVS10162 using model or template DFHLU2
+           successful.
+DFHZC3461 I 10/23/2026 12:52:19 CICSAOR1 0162 CSNE Node MVS10162 session started.  ((2) Module name: DFHZOPX)
+NQNAME   0162,CSNE,12:52:19,USIBMWZ  MVS10162
+TNADDR   0162,CSNE,12:52:19,192.168.0.157 63731
+DFHSN1100 10/23/2026 12:52:24 CICSAOR1 CESN Signon at netname MVS10162 TN3270 IP Address 192.168.0.157 by user HIGGINS in group
+           ZTECUSER is complete after 0 failed attempts. User ID was last accessed on 10/23/2026 at 10:50:01.
+DFHZC6907 I 10/23/2026 14:53:34 CICSAOR1 Autoinstall starting for netname MVS10176. Network qualified name is USIBMWZ.MVS10176.
+DFHZC6908 I 10/23/2026 14:53:34 CICSAOR1 Autoinstall in progress for netname MVS10176. TN3270 IP address is 192.168.0.224 50542.
+DFHZC5966 I 10/23/2026 14:53:34 CICSAOR1 INSTALL started for TERMINAL (  0176) (Module name: DFHBSTZ).
+DFHZC6935 I 10/23/2026 14:53:34 CICSAOR1 Autoinstall for terminal 0176 with netname MVS10176 using model or template DFHLU2
+           successful.
+DFHZC3461 I 10/23/2026 14:53:34 CICSAOR1 0176 CSNE Node MVS10176 session started.  ((2) Module name: DFHZOPX)
+NQNAME   0176,CSNE,14:53:34,USIBMWZ  MVS10176
+TNADDR   0176,CSNE,14:53:34,192.168.0.224 50542
+DFHSN1105 10/23/2026 14:53:36 CICSAOR1 Signon at netname MVS10176 by a user requires a password.
+DFHSN1100 10/23/2026 14:53:38 CICSAOR1 CESN Signon at netname MVS10176 TN3270 IP Address 192.168.0.224 by user RAFAELT in group
+           ZTECUSER is complete after 0 failed attempts. User ID was last accessed on 10/23/2026 at 14:52:01.
+DFHZC2410 E 10/23/2026 14:53:46 CICSAOR1 0176 CSNE Node Unrecoverable. VTAM LOSTERM Error Code X'14'.  ((1) Module name: DFHZLTX)
+DFHZC3424 E 10/23/2026 14:53:46 CICSAOR1 0176 CSNE Session failure. Session terminated immediately.  ((1) Module name: DFHZNSP)
+NQNAME   0176,CSNE,14:53:46,USIBMWZ  MVS10176
+DFHZC3437 I 10/23/2026 14:53:46 CICSAOR1 0176 CSNE Node MVS10176 action taken: NOCREATE CLSDST ABTASK ABSEND ABRECV SIMLOGON ((1)
+           Module name: DFHZNAC)
+DFHZC2467 E 10/23/2026 14:53:46 CICSAOR1 0176 CSNE Invalid communications ID (CID) detected.  VTAM RETURN CODE 1413 ((1) Module
+           name: DFHZLEX)
+NQNAME   0176,CSNE,14:53:46,USIBMWZ  MVS10176
+RPL_A    0176,CSNE,14:53:46,00001F70 A396F952 A3970960 00141300 00000004 00000000 000C3D98 00000000
+                            00000000 24B04030 08000000 00000000 00000000 00000000 00080000 00000000
+                            00000000 24000000 00000000 00000000 00000000 00000000 00000000 26A3F030
+                            00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+                            00000000 00000000 00000000 00000000 00000000
+NIB      0176,CSNE,14:53:46,D0000040 2C000011 A6A3F030 D4E5E2F1 F0F1F7F6 D9C5C3D6 D9C44040 00000000
+                            00000000 11080002 20000000 000C3E50 00000000 00000000 24B04070 00000000
+TCTTE    0176,CSNE,14:53:46,F0F1F7F6 91F20007 26A3F034 00000000 00000000 00000000 00000000 00000000
+                            00000000 0C404040 C5D5E400 00000910 03407D14 40404040 40404040 00000000
+                            00000000 0000C080 07801850 0A002050 D023A000 03200000 00000000 24BB4760
+                            02B90025 08000000 00800001 24BB9260 24B02030 00000000 24AFF9D0 00000000
+                            00000000 00000000 00000000 00000000 00000000 00000000 00000000 24B1F030
+                            005A5A00 41000000 00000000 00000000 00000000 00000000 00840000 00000003
+                            00000005 00020000 00040000 04000000 80000000 00004000 00C00000 00000000
+                            0000000C 01000000 00000000 00000000 00000000 00000000 00000000 00000000
+                            01000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+                            00008400 00030007 00000000 00000000 00000000 FFFF0000 00000040 00000000
+                            E3796C80 5E6BE5C8 00000000 00000000 00000000 00000000 00000000 00000000
+                            00000000 00000000 00000000 00000000 C0A800E0 00000000 00000000 00000000
+                            C56E0440 40404040 40404040 40404040 40404040 40404040 40404040 40404040
+                            40404040 40404040 40404040 40404040 40404040 40404040 40404040 40404040
+                            40404040 40404040 40404040 40404040 40404040 40404040 40404040 40404040
+                            40404040 40404040 40404040 40404040 40404040 40404040 40404040 40404040
+                            40404000 00000000 00000000 00000000 00000000 00000000 00000000 2C000011
+                            FFFFFFFF 00000000 00070000 00070000 0F000FA0 04000000 00000000 00000000
+                            00000000 00000000 00000000 00000000 00000000 00000000 00005000 80000000
+                            00000000 00008000 00000014 00101040 0AA10000 01002012 00000000 00000000
+                            00000000 00000000 00000000 24AA73D1 00440000 000116CC D4000000 00000014
+                            00000000 00010000 00000000 00000000 E3796C80 5E6F9178 00000000 00000000
+                            00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+                            00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+                            00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+TCTTEXTN 0176,CSNE,14:53:46,00000070 24B04030 26A3F030 D4E5E2F1 F0F1F7F6 00000000 00000000 00000100
+                            00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+                            00000000 00000000 00000000 00000000 00000000 FFFFFFFF C4F4C3F3 F2E7E7F3
+                            E4E2C9C2 D4E6E940 D4E5E2F1 F0F1F7F6
+DFHZC3437 I 10/23/2026 14:53:46 CICSAOR1 0176 CSNE Node MVS10176 action taken: CLSDST ABTASK ABSEND ABRECV ((1) Module name:
+           DFHZNAC)
+DFHSN1200 10/23/2026 14:53:46 CICSAOR1 Signoff at netname MVS10176 by user RAFAELT is complete. 0 transactions entered with 0
+           errors.
+DFHZC3462 I 10/23/2026 14:53:46 CICSAOR1 0176 CSNE Node MVS10176 session terminated.  ((2) Module name: DFHZCLS)
+NQNAME   0176,CSNE,14:53:46,USIBMWZ  MVS10176
+DFHZC5966 I 10/23/2026 14:53:46 CICSAOR1 DELETE started for TERMINAL (  0176) (Module name: DFHBSTZ).
+DFHZC6966 I 10/23/2026 14:53:46 CICSAOR1 Autoinstall delete for terminal 0176 with netname MVS10176 was successful.
+DFHZC2410 E 10/23/2026 18:53:08 CICSAOR1 0162 CSNE Node Unrecoverable. VTAM LOSTERM Error Code X'14'.  ((1) Module name: DFHZLTX)
+DFHZC3437 I 10/23/2026 18:53:08 CICSAOR1 0162 CSNE Node MVS10162 action taken: NOCREATE CLSDST ABTASK ABSEND ABRECV ((1) Module
+           name: DFHZNAC)
+DFHSN1200 10/23/2026 18:53:08 CICSAOR1 Signoff at netname MVS10162 by user HIGGINS is complete. 3 transactions entered with 0
+           errors.
+DFHZC3462 I 10/23/2026 18:53:08 CICSAOR1 0162 CSNE Node MVS10162 session terminated.  ((2) Module name: DFHZCLS)
+NQNAME   0162,CSNE,18:53:08,USIBMWZ  MVS10162
+DFHZC5966 I 10/23/2026 18:53:08 CICSAOR1 DELETE started for TERMINAL (  0162) (Module name: DFHBSTZ).
+DFHZC6966 I 10/23/2026 18:53:08 CICSAOR1 Autoinstall delete for terminal 0162 with netname MVS10162 was successful.
+DFHZC6907 I 10/24/2026 17:07:43 CICSAOR1 Autoinstall starting for netname MVS10189. Network qualified name is USIBMWZ.MVS10189.
+DFHZC6908 I 10/24/2026 17:07:43 CICSAOR1 Autoinstall in progress for netname MVS10189. TN3270 IP address is 192.168.0.9 63864.
+DFHZC5966 I 10/24/2026 17:07:43 CICSAOR1 INSTALL started for TERMINAL (  0189) (Module name: DFHBSTZ).
+DFHZC6935 I 10/24/2026 17:07:43 CICSAOR1 Autoinstall for terminal 0189 with netname MVS10189 using model or template DFHLU2
+           successful.
+DFHZC3461 I 10/24/2026 17:07:43 CICSAOR1 0189 CSNE Node MVS10189 session started.  ((2) Module name: DFHZOPX)
+NQNAME   0189,CSNE,17:07:43,USIBMWZ  MVS10189
+TNADDR   0189,CSNE,17:07:43,192.168.0.9 63864
+DFHSN1105 10/24/2026 17:07:45 CICSAOR1 Signon at netname MVS10189 by a user requires a password.
+DFHSN1100 10/24/2026 17:07:47 CICSAOR1 CESN Signon at netname MVS10189 TN3270 IP Address 192.168.0.9 by user RAFAELT in group
+           ZTECUSER is complete after 0 failed attempts. User ID was last accessed on 10/24/2026 at 17:07:00.
+DFHAP1900 10/24/2026 17:14:56 CICSAOR1 MVS10189 RAFAELT OMEN SET TDQUEUE(CINI) OPENSTATUS(OPEN) RESP(NORMAL) RESP2(0).
+DFHAP1900 10/24/2026 17:14:56 CICSAOR1 MVS10189 RAFAELT OMEN SET TDQUEUE(CINI) OPENSTATUS(CLOSED) RESP(NORMAL) RESP2(0).
+DFHAP1900 10/24/2026 17:14:56 CICSAOR1 MVS10189 RAFAELT OMEN SET TDQUEUE(CINI) OPENSTATUS(OPEN) RESP(NORMAL) RESP2(0).
+DFHAP1900 10/24/2026 17:14:56 CICSAOR1 MVS10189 RAFAELT OMEN SET TDQUEUE(CINI) OPENSTATUS(CLOSED) RESP(NORMAL) RESP2(0).
+DFHPG0210 10/24/2026 17:14:56 CICSAOR1 0189 RAFAELT OMEN Resource definition for IEWBNDD has been system autoinstalled.
+DFHAP1900 10/24/2026 17:14:56 CICSAOR1 MVS10189 RAFAELT OMEN SET TDQUEUE(CINI) OPENSTATUS(OPEN) RESP(NORMAL) RESP2(0).
+DFHAP1900 10/24/2026 17:14:56 CICSAOR1 MVS10189 RAFAELT OMEN SET TDQUEUE(CINI) OPENSTATUS(CLOSED) RESP(NORMAL) RESP2(0).
+DFHAP1900 10/24/2026 17:14:56 CICSAOR1 MVS10189 RAFAELT OMEN SET TDQUEUE(CINO) OPENSTATUS(OPEN) RESP(IOERR) RESP2(14).
+DFHAP1900 10/24/2026 17:14:56 CICSAOR1 MVS10189 RAFAELT OMEN SET TDQUEUE(CINO) OPENSTATUS(CLOSED) RESP(NORMAL) RESP2(0).
+DFHPG0210 10/24/2026 17:14:56 CICSAOR1 0189 RAFAELT OMEN Resource definition for CEEMENU2 has been system autoinstalled.
+DFHPG0210 10/24/2026 17:14:56 CICSAOR1 0189 RAFAELT OMEN Resource definition for CEEMENU3 has been system autoinstalled.
+DFHAC2236 10/24/2026 17:14:56 CICSAOR1 Transaction OMEN transaction number 69904 abend 4038 in program BNKMENU term 0189. Updates to
+           local recoverable resources will be backed out.
+DFHZC2410 E 10/24/2026 17:15:00 CICSAOR1 0189 CSNE Node Unrecoverable. VTAM LOSTERM Error Code X'14'.  ((1) Module name: DFHZLTX)
+DFHZC3424 E 10/24/2026 17:15:00 CICSAOR1 0189 CSNE Session failure. Session terminated immediately.  ((1) Module name: DFHZNSP)
+NQNAME   0189,CSNE,17:15:00,USIBMWZ  MVS10189
+DFHZC3437 I 10/24/2026 17:15:00 CICSAOR1 0189 CSNE Node MVS10189 action taken: NOCREATE CLSDST ABTASK ABSEND ABRECV SIMLOGON ((1)
+           Module name: DFHZNAC)
+DFHZC2467 E 10/24/2026 17:15:00 CICSAOR1 0189 CSNE Invalid communications ID (CID) detected.  VTAM RETURN CODE 1413 ((1) Module
+           name: DFHZLEX)
+NQNAME   0189,CSNE,17:15:00,USIBMWZ  MVS10189
+RPL_A    0189,CSNE,17:15:00,00001F70 A396F952 A3970960 00141300 00000004 00000000 000C3D98 00000000
+                            00000000 24B04030 08000000 00000000 00000000 00000000 00080000 00000000
+                            00000000 24000000 00000000 00000000 00000000 00000000 00000000 24B2FCB0
+                            00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+                            00000000 00000000 00000000 00000000 00000000
+NIB      0189,CSNE,17:15:00,D0000040 48000005 A4B2FCB0 D4E5E2F1 F0F1F8F9 D9C5C3D6 D9C44040 00000000
+                            00000000 11080002 20000000 000C3E50 00000000 00000000 24B04070 00000000
+TCTTE    0189,CSNE,17:15:00,F0F1F8F9 91F20007 24B2FCB4 00000000 00000000 00000000 00000000 00000000
+                            00000000 0C404040 C5D5E400 00000910 0000F314 40404040 40404040 00000000
+                            00000000 0000C080 07801850 0A002050 D023A000 03200000 00000000 24BB4710
+                            02B90025 08000000 00800001 24BB91F0 24B02030 00000000 24AFF998 00000000
+                            00000000 00000000 00000000 00000000 00000000 00000000 00000000 24B1F030
+                            005A5A00 41000000 00000000 00000000 00000000 00000000 00840000 00000004
+                            00000004 00020000 00030003 00000000 80000000 00000000 00C00000 00000000
+                            0000000C 01000000 00000000 00000000 00000000 00000000 00000000 00000000
+                            01000000 100307D1 00000000 00000000 00000000 00000000 00000000 00000000
+                            00008400 0008000C 00000000 00000000 00000000 FFFF0000 00000040 00000000
+                            E37ACC59 F29CC8A6 00000000 00000000 00000000 00000000 00000000 00000000
+                            00000000 00000000 00000000 00000000 C0A80009 00000000 00000000 00000000
+                            F9780440 40404040 40404040 40404040 40404040 40404040 40404040 40404040
+                            40404040 40404040 40404040 40404040 40404040 40404040 40404040 40404040
+                            40404040 40404040 40404040 40404040 40404040 40404040 40404040 40404040
+                            40404040 40404040 40404040 40404040 40404040 40404040 40404040 40404040
+                            40404000 00000000 00000000 00000000 00000000 00000000 00000000 48000005
+                            FFFFFFFF 00000000 000C0000 000C0000 0F000FA0 04000000 00000000 00000000
+                            00000000 00000000 00000000 00000000 00000000 00000000 00005000 80000000
+                            00000000 00008000 00000014 00101040 0AA10000 01002013 00000000 00000000
+                            00000000 00000000 00000000 24AA73A1 00440000 000116CC D4000000 00000014
+                            00000000 00010000 00000000 00000000 E37ACC59 F2A08488 00000000 00000000
+                            00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+                            00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+                            00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+TCTTEXTN 0189,CSNE,17:15:00,00000070 24B04030 24B2FCB0 D4E5E2F1 F0F1F8F9 00000000 00000000 00000100
+                            00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+                            00000000 00000000 00000000 00000000 00000000 FFFFFFFF C4F4C3F3 F2E7E7F3
+                            E4E2C9C2 D4E6E940 D4E5E2F1 F0F1F8F9
+DFHZC3437 I 10/24/2026 17:15:00 CICSAOR1 0189 CSNE Node MVS10189 action taken: CLSDST ABTASK ABSEND ABRECV ((1) Module name:
+           DFHZNAC)
+DFHSN1200 10/24/2026 17:15:00 CICSAOR1 Signoff at netname MVS10189 by user RAFAELT is complete. 4 transactions entered with 3
+           errors.
+DFHZC3462 I 10/24/2026 17:15:00 CICSAOR1 0189 CSNE Node MVS10189 session terminated.  ((2) Module name: DFHZCLS)
+NQNAME   0189,CSNE,17:15:00,USIBMWZ  MVS10189
+DFHZC5966 I 10/24/2026 17:15:00 CICSAOR1 DELETE started for TERMINAL (  0189) (Module name: DFHBSTZ).
+DFHZC6966 I 10/24/2026 17:15:00 CICSAOR1 Autoinstall delete for terminal 0189 with netname MVS10189 was successful.
+DFHZC6907 I 10/24/2026 17:15:23 CICSAOR1 Autoinstall starting for netname MVS10190. Network qualified name is USIBMWZ.MVS10190.
+DFHZC6908 I 10/24/2026 17:15:23 CICSAOR1 Autoinstall in progress for netname MVS10190. TN3270 IP address is 192.168.0.9 63940.
+DFHZC5966 I 10/24/2026 17:15:23 CICSAOR1 INSTALL started for TERMINAL (  0190) (Module name: DFHBSTZ).
+DFHZC6935 I 10/24/2026 17:15:23 CICSAOR1 Autoinstall for terminal 0190 with netname MVS10190 using model or template DFHLU2
+           successful.
+DFHZC3461 I 10/24/2026 17:15:23 CICSAOR1 0190 CSNE Node MVS10190 session started.  ((2) Module name: DFHZOPX)
+NQNAME   0190,CSNE,17:15:23,USIBMWZ  MVS10190
+TNADDR   0190,CSNE,17:15:23,192.168.0.9 63940
+DFHSN1105 10/24/2026 17:15:26 CICSAOR1 Signon at netname MVS10190 by a user requires a password.
+DFHSN1100 10/24/2026 17:15:28 CICSAOR1 CESN Signon at netname MVS10190 TN3270 IP Address 192.168.0.9 by user RAFAELT in group
+           ZTECUSER is complete after 0 failed attempts. User ID was last accessed on 10/24/2026 at 17:09:00.
+DFHAP1900 10/24/2026 17:15:33 CICSAOR1 MVS10190 RAFAELT OMEN SET TDQUEUE(CINI) OPENSTATUS(OPEN) RESP(NORMAL) RESP2(0).
+DFHAP1900 10/24/2026 17:15:33 CICSAOR1 MVS10190 RAFAELT OMEN SET TDQUEUE(CINI) OPENSTATUS(CLOSED) RESP(NORMAL) RESP2(0).
+DFHAP1900 10/24/2026 17:15:33 CICSAOR1 MVS10190 RAFAELT OMEN SET TDQUEUE(CINI) OPENSTATUS(OPEN) RESP(NORMAL) RESP2(0).
+DFHAP1900 10/24/2026 17:15:33 CICSAOR1 MVS10190 RAFAELT OMEN SET TDQUEUE(CINI) OPENSTATUS(CLOSED) RESP(NORMAL) RESP2(0).
+DFHAP1900 10/24/2026 17:15:33 CICSAOR1 MVS10190 RAFAELT OMEN SET TDQUEUE(CINI) OPENSTATUS(OPEN) RESP(NORMAL) RESP2(0).
+DFHAP1900 10/24/2026 17:15:33 CICSAOR1 MVS10190 RAFAELT OMEN SET TDQUEUE(CINI) OPENSTATUS(CLOSED) RESP(NORMAL) RESP2(0).
+DFHAP1900 10/24/2026 17:15:33 CICSAOR1 MVS10190 RAFAELT OMEN SET TDQUEUE(CINO) OPENSTATUS(OPEN) RESP(IOERR) RESP2(14).
+DFHAP1900 10/24/2026 17:15:33 CICSAOR1 MVS10190 RAFAELT OMEN SET TDQUEUE(CINO) OPENSTATUS(CLOSED) RESP(NORMAL) RESP2(0).
+DFHAC2236 10/24/2026 17:15:33 CICSAOR1 Transaction OMEN transaction number 69921 abend 4038 in program BNKMENU term 0190. Updates to
+           local recoverable resources will be backed out.
+DFHZC2410 E 10/24/2026 17:16:01 CICSAOR1 0190 CSNE Node Unrecoverable. VTAM LOSTERM Error Code X'14'.  ((1) Module name: DFHZLTX)
+DFHZC3437 I 10/24/2026 17:16:01 CICSAOR1 0190 CSNE Node MVS10190 action taken: NOCREATE CLSDST ABTASK ABSEND ABRECV ((1) Module
+           name: DFHZNAC)
+DFHSN1200 10/24/2026 17:16:01 CICSAOR1 Signoff at netname MVS10190 by user RAFAELT is complete. 2 transactions entered with 2
+           errors.
+DFHZC3462 I 10/24/2026 17:16:01 CICSAOR1 0190 CSNE Node MVS10190 session terminated.  ((2) Module name: DFHZCLS)
+NQNAME   0190,CSNE,17:16:01,USIBMWZ  MVS10190
+DFHZC5966 I 10/24/2026 17:16:01 CICSAOR1 DELETE started for TERMINAL (  0190) (Module name: DFHBSTZ).
+DFHZC6966 I 10/24/2026 17:16:01 CICSAOR1 Autoinstall delete for terminal 0190 with netname MVS10190 was successful.
+DFHUS0200 10/24/2026 17:45:48 CICSAOR1 User RAFAELT in group ZTECUSER has been timed out.
+DFHZC6907 I 10/26/2026 08:12:51 CICSAOR1 Autoinstall starting for netname MVS10192. Network qualified name is USIBMWZ.MVS10192.
+DFHZC6908 I 10/26/2026 08:12:51 CICSAOR1 Autoinstall in progress for netname MVS10192. TN3270 IP address is 192.168.0.105 53521.
+DFHZC5966 I 10/26/2026 08:12:51 CICSAOR1 INSTALL started for TERMINAL (  0192) (Module name: DFHBSTZ).
+DFHZC6935 I 10/26/2026 08:12:51 CICSAOR1 Autoinstall for terminal 0192 with netname MVS10192 using model or template DFHLU2
+           successful.
+DFHZC3461 I 10/26/2026 08:12:51 CICSAOR1 0192 CSNE Node MVS10192 session started.  ((2) Module name: DFHZOPX)
+NQNAME   0192,CSNE, 8:12:51,USIBMWZ  MVS10192
+TNADDR   0192,CSNE, 8:12:51,192.168.0.105 53521
+DFHSN1105 10/26/2026 08:12:54 CICSAOR1 Signon at netname MVS10192 by a user requires a password.
+DFHSN1100 10/26/2026 08:12:55 CICSAOR1 CESN Signon at netname MVS10192 TN3270 IP Address 192.168.0.105 by user RAFAELT in group
+           ZTECUSER is complete after 0 failed attempts. User ID was last accessed on 10/26/2026 at 06:54:00.
+DFHDU0203I 10/26/2026 08:13:11 CICSAOR1 A transaction dump was taken for dumpcode: AD2U, Dumpid: 13/0002, Tranid: ODCS, Tranum:
+           00098291, Program: DFHD2EX1.
+DFHDU0203I 10/26/2026 08:13:11 CICSAOR1 A transaction dump was taken for dumpcode: AD2U, Dumpid: 13/0003, Tranid: ODCS, Tranum:
+           00098291, Program: DFHD2EX1.
+DFHPG0210 10/26/2026 08:13:11 CICSAOR1 0192 RAFAELT ODCS Resource definition for IGZUOPT has been system autoinstalled.
+DFHPG0210 10/26/2026 08:13:11 CICSAOR1 0192 RAFAELT ODCS Resource definition for IGZXCDA has been system autoinstalled.
+DFHPG0210 10/26/2026 08:13:11 CICSAOR1 0192 RAFAELT ODCS Resource definition for CDAEEDE has been system autoinstalled.
+DFHAC2236 10/26/2026 08:13:12 CICSAOR1 Transaction ODCS transaction number 98291 abend HBNK in program DELCUS term 0192. Updates to
+           local recoverable resources will be backed out.
+DFHZC2410 E 10/26/2026 08:13:38 CICSAOR1 0192 CSNE Node Unrecoverable. VTAM LOSTERM Error Code X'14'.  ((1) Module name: DFHZLTX)
+DFHZC3424 E 10/26/2026 08:13:38 CICSAOR1 0192 CSNE Session failure. Session terminated immediately.  ((1) Module name: DFHZNSP)
+NQNAME   0192,CSNE, 8:13:38,USIBMWZ  MVS10192
+DFHZC3437 I 10/26/2026 08:13:38 CICSAOR1 0192 CSNE Node MVS10192 action taken: NOCREATE CLSDST ABTASK ABSEND ABRECV SIMLOGON ((1)
+           Module name: DFHZNAC)
+DFHZC2467 E 10/26/2026 08:13:38 CICSAOR1 0192 CSNE Invalid communications ID (CID) detected.  VTAM RETURN CODE 1413 ((1) Module
+           name: DFHZLEX)
+NQNAME   0192,CSNE, 8:13:38,USIBMWZ  MVS10192
+RPL_A    0192,CSNE, 8:13:38,00001F70 A396F952 A3970960 00141300 00000004 00000000 000C3D98 00000000
+                            00000000 24B04030 08000000 00000000 00000000 00000000 00080000 00000000
+                            00000000 24000000 00000000 00000000 00000000 00000000 00000000 24B2FCB0
+                            00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+                            00000000 00000000 00000000 00000000 00000000
+NIB      0192,CSNE, 8:13:38,D0000040 9A000003 A4B2FCB0 D4E5E2F1 F0F1F9F2 D9C5C3D6 D9C44040 00000000
+                            00000000 11080002 20000000 000C3E50 00000000 00000000 24B04070 00000000
+TCTTE    0192,CSNE, 8:13:38,F0F1F9F2 91F20007 24B2FCB4 00000000 00000000 00000000 00000000 00000000
+                            00000000 0C404040 C5D5E400 00000910 0151F514 40404040 40404040 00000000
+                            00000000 0000C080 07801850 0A002050 D023A000 03200000 00000000 24BB4710
+                            02B90025 08000000 00800001 24BB91F0 24B02030 00000000 24AFF998 00000000
+                            00000000 00000000 00000000 00000000 00000000 00000000 00000000 24B1F030
+                            005A5A00 41000000 00000000 00000000 00000000 00000000 00840000 00000007
+                            00000009 00020000 00090001 00000000 80000000 00000000 00C00000 00000000
+                            0000000C 01000000 00000000 00000000 00000000 00000000 00000000 00000000
+                            01000000 0824089E 00000000 00000000 00000000 00000000 00000000 00000000
+                            00008400 0007000B 00000000 00000000 00000000 FFFF0000 00000040 00000000
+                            E37CD888 1F9E7664 00000000 00000000 00000000 00000000 00000000 00000000
+                            00000000 00000000 00000000 00000000 C0A80069 00000000 00000000 00000000
+                            D1110440 40404040 40404040 40404040 40404040 40404040 40404040 40404040
+                            40404040 40404040 40404040 40404040 40404040 40404040 40404040 40404040
+                            40404040 40404040 40404040 40404040 40404040 40404040 40404040 40404040
+                            40404040 40404040 40404040 40404040 40404040 40404040 40404040 40404040
+                            40404000 00000000 00000000 00000000 00000000 00000000 00000000 9A000003
+                            FFFFFFFF 00000000 000B0000 000B0000 0F000FA0 04000000 00000000 00000000
+                            00000000 00000000 00000000 00000000 00000000 00000000 00005000 80000000
+                            00000000 00008000 00000014 00101040 0AA10000 01002013 00000000 00000000
+                            00000000 00000000 00000000 24AA73A1 00440000 000116CC D4000000 00000014
+                            00000000 00010000 00000000 00000000 E37CD888 1FA367B2 00000000 00000000
+                            00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+                            00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+                            00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+TCTTEXTN 0192,CSNE, 8:13:38,00000070 24B04030 24B2FCB0 D4E5E2F1 F0F1F9F2 00000000 00000000 00000100
+                            00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+                            00000000 00000000 00000000 00000000 00000000 FFFFFFFF C4F4C3F3 F2E7E7F3
+                            E4E2C9C2 D4E6E940 D4E5E2F1 F0F1F9F2
+DFHZC3437 I 10/26/2026 08:13:38 CICSAOR1 0192 CSNE Node MVS10192 action taken: CLSDST ABTASK ABSEND ABRECV ((1) Module name:
+           DFHZNAC)
+DFHSN1200 10/26/2026 08:13:38 CICSAOR1 Signoff at netname MVS10192 by user RAFAELT is complete. 5 transactions entered with 1
+           errors.
+DFHZC3462 I 10/26/2026 08:13:38 CICSAOR1 0192 CSNE Node MVS10192 session terminated.  ((2) Module name: DFHZCLS)
+NQNAME   0192,CSNE, 8:13:38,USIBMWZ  MVS10192
+DFHZC5966 I 10/26/2026 08:13:38 CICSAOR1 DELETE started for TERMINAL (  0192) (Module name: DFHBSTZ).
+DFHZC6966 I 10/26/2026 08:13:38 CICSAOR1 Autoinstall delete for terminal 0192 with netname MVS10192 was successful.
+DFHUS0200 10/26/2026 08:49:03 CICSAOR1 User JANAINA in group ZTECUSER has been timed out.
