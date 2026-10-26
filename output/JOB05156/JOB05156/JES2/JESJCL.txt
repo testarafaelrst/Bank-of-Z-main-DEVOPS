@@ -1,0 +1,18 @@
+        1 //LSTCUST  JOB 'Customer List',NOTIFY=&SYSUID,CLASS=A,                  JOB05156
+          //          MSGCLASS=H,MSGLEVEL=(1,1),REGION=4M
+          //*=============================================================
+          //* LISTAGEM GERAL DE CUSTOMERS - BANCO XYZ
+          //*=============================================================
+          IEFC653I SUBSTITUTION JCL - 'Customer List',NOTIFY=RAFAELT,CLASS=A,MSGCLASS=H,MSGLEVEL=(1,1),REGION=4M
+        2 //STEP1    EXEC PGM=IKJEFT01
+        3 //STEPLIB  DD  DISP=SHR,DSN=DSN1310.DB2.SDSNEXIT
+        4 //         DD  DISP=SHR,DSN=DSN1310.DB2.SDSNLOAD
+        5 //         DD  DISP=SHR,DSN=RAFAELT.BANKZ.LOAD
+        6 //LSTOUT   DD  DSN=RAFAELT.BANK.LSTCUST.REPORT,
+          //             DISP=(NEW,CATLG,DELETE),
+          //             SPACE=(TRK,(50,10),RLSE),
+          //             DCB=(RECFM=FB,LRECL=133,BLKSIZE=27930)
+        7 //SYSPRINT DD  SYSOUT=*
+        8 //SYSOUT   DD  SYSOUT=*
+        9 //SYSTSPRT DD  SYSOUT=*
+       10 //SYSTSIN  DD *

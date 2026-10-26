@@ -1,0 +1,108 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. GRANTPLN.
+       ENVIRONMENT DIVISION.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+      *****EXEC SQL INCLUDE SQLCA END-EXEC.
+        01 SQLCA.
+           05 SQLCAID     PIC X(8).
+           05 SQLCABC     PIC S9(9) COMP-5.
+           05 SQLCODE     PIC S9(9) COMP-5.
+           05 SQLERRM.
+              49 SQLERRML PIC S9(4) COMP-5.
+              49 SQLERRMC PIC X(70).
+           05 SQLERRP     PIC X(8).
+           05 SQLERRD     OCCURS 6 TIMES
+                          PIC S9(9) COMP-5.
+           05 SQLWARN.
+              10 SQLWARN0 PIC X.
+              10 SQLWARN1 PIC X.
+              10 SQLWARN2 PIC X.
+              10 SQLWARN3 PIC X.
+              10 SQLWARN4 PIC X.
+              10 SQLWARN5 PIC X.
+              10 SQLWARN6 PIC X.
+              10 SQLWARN7 PIC X.
+           05 SQLEXT.
+              10 SQLWARN8 PIC X.
+              10 SQLWARN9 PIC X.
+              10 SQLWARNA PIC X.
+              10 SQLSTATE PIC X(5).
+       01 WS-STMT.
+          49 WS-STMT-LEN PIC S9(4) COMP VALUE 40.
+          49 WS-STMT-TXT PIC X(40)
+             VALUE 'GRANT EXECUTE ON PLAN BANKZPLN TO PUBLIC'.
+        77 SQL-TEMP      PIC X(128).
+        77 DSN-TEMP      PIC S9(9)  COMP-5.
+        77 DSN-TMP2      PIC S9(18) COMP-3.
+        77 DSNNROWS      PIC S9(9)  COMP-5.
+        77 DSNNTYPE      PIC S9(4)  COMP-5.
+        77 DSNNLEN       PIC S9(4)  COMP-5.
+        77 SQL-NULL      PIC S9(9) COMP-5 VALUE +0.
+        77 SQL-INIT-FLAG PIC S9(4) COMP-5 VALUE +0.
+           88 SQL-INIT-DONE VALUE +1.
+        77 SQL-FILE-READ      PIC S9(9) COMP-5 VALUE +2.
+        77 SQL-FILE-CREATE    PIC S9(9) COMP-5 VALUE +8.
+        77 SQL-FILE-OVERWRITE PIC S9(9) COMP-5 VALUE +16.
+        77 SQL-FILE-APPEND    PIC S9(9) COMP-5 VALUE +32.
+        01 SQL-PLIST1.
+           05 SQL-PLIST-CON   PIC S9(9) COMP-5 VALUE +4210688.
+           05 SQL-CALLTYPE    PIC S9(4) COMP-5 VALUE +30.
+           05 SQL-PROG-NAME   PIC X(8)  VALUE X"4752414E54504C4E".
+           05 SQL-TIMESTAMP-1 PIC S9(9) COMP-5 VALUE +477079497.
+           05 SQL-TIMESTAMP-2 PIC S9(9) COMP-5 VALUE +510896425.
+           05 SQL-SECTION     PIC S9(4) COMP-5 VALUE +1.
+           05 SQL-CODEPTR     PIC S9(9) COMP-5.
+           05 SQL-VPARMPTR    PIC S9(9) COMP-5 VALUE +0.
+           05 SQL-APARMPTR    PIC S9(9) COMP-5 VALUE +0.
+           05 FILLER          PIC S9(4) COMP-5 VALUE +1208.
+           05 SQL-STMT-TYPE   PIC S9(4) COMP-5 VALUE +16.
+           05 SQL-STMT-NUM    PIC S9(9) COMP-5 VALUE +13.
+           05 SQL-PLIST-FLG   PIC S9(4) COMP-5 VALUE +0.
+           05 FILLER          PIC X(18) VALUE
+              X"000000000000000000000000000000000000".
+           05 SQL-PVAR-LIST1.
+              10 PRE-SQLDAID  PIC X(8)  VALUE "SQLDA  ".
+              10 PRE-SQLDABC  PIC S9(9) COMP-5 VALUE +104.
+              10 PRE-SQLN     PIC S9(4) COMP-5 VALUE +2.
+              10 PRE-SQLLD    PIC S9(4) COMP-5 VALUE +2.
+              10 PRE-SQLVAR.
+                12 SQLVAR-BASE1.
+                  15 SQL-PVAR-TYPE1      PIC S9(4) COMP-5 VALUE +452.
+                  15 SQL-PVAR-LEN1       PIC S9(4) COMP-5 VALUE +0.
+                  15 SQL-PVAR-ADDRS1.
+                     20 SQL-PVAR-ADDR1   PIC S9(9) COMP-5 VALUE +0.
+                     20 SQL-PVAR-IND1    PIC S9(9) COMP-5.
+                  15 SQL-PVAR-NAME1.
+                     20 SQL-PVAR-NAMEL1  PIC S9(4) COMP-5 VALUE +0.
+                     20 SQL-PVAR-NAMEC1  PIC X(30) VALUE " ".
+                12 SQLVAR-BASE2.
+                  15 SQL-PVAR-TYPE2      PIC S9(4) COMP-5 VALUE +448.
+                  15 SQL-PVAR-LEN2       PIC S9(4) COMP-5 VALUE +40.
+                  15 SQL-PVAR-ADDRS2.
+                     20 SQL-PVAR-ADDR2   PIC S9(9) COMP-5.
+                     20 SQL-PVAR-IND2    PIC S9(9) COMP-5.
+                  15 SQL-PVAR-NAME2.
+                     20 SQL-PVAR-NAMEL2  PIC S9(4) COMP-5 VALUE +0.
+                     20 SQL-PVAR-NAMEC2  PIC X(30) VALUE " ".
+ 
+       PROCEDURE DIVISION.
+       DSNSQL SECTION.
+       SQL-SKIP.
+           GO TO SQL-INIT-END.
+       SQL-INITIAL.
+           MOVE 1 TO SQL-INIT-FLAG.
+           CALL "DSNHADDR" USING SQL-VPARMPTR OF SQL-PLIST1 SQL-PVAR-LIS
+      -    T1.
+           CALL "DSNHADD2" USING SQL-PVAR-ADDRS2 IN
+           SQL-PVAR-LIST1 WS-STMT SQL-NULL
+           CALL "DSNHADDR" USING SQL-CODEPTR OF SQL-PLIST1 SQLCA.
+       SQL-INIT-END.
+           CONTINUE.
+ 
+       MAIN-PROCESS.
+      *****EXEC SQL EXECUTE IMMEDIATE :WS-STMT END-EXEC.
+           PERFORM SQL-INITIAL UNTIL SQL-INIT-DONE
+           CALL "DSNHLI" USING SQL-PLIST1
+           END-CALL.
+           STOP RUN.

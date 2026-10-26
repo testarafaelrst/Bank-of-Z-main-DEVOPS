@@ -1,0 +1,26 @@
+IDCAMS  SYSTEM SERVICES                                           TIME: 12:00:59        10/26/26     PAGE      1
+ 
+  LISTCAT LEVEL('DB2') NONVSAM
+IDC3012I LEVEL DB2 NOT FOUND
+IDC3007I ** VSAM CATALOG RETURN-CODE IS 8
+IDC1566I ** DB2 NOT LISTED
+IDCAMS  SYSTEM SERVICES                                           TIME: 12:00:59        10/26/26     PAGE      2
+         THE NUMBER OF ENTRIES PROCESSED WAS:
+                   AIX -------------------0
+                   ALIAS -----------------0
+                   CLUSTER ---------------0
+                   DATA ------------------0
+                   GDG -------------------0
+                   INDEX -----------------0
+                   NONVSAM ---------------0
+                   PAGESPACE -------------0
+                   PATH ------------------0
+                   SPACE -----------------0
+                   USERCATALOG -----------0
+                   TAPELIBRARY -----------0
+                   TAPEVOLUME ------------0
+                   TOTAL -----------------0
+         THE NUMBER OF PROTECTED ENTRIES SUPPRESSED WAS 0
+IDC0001I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 4
+ 
+IDC0002I IDCAMS PROCESSING COMPLETE. MAXIMUM CONDITION CODE WAS 4

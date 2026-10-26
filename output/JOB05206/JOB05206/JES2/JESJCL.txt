@@ -1,0 +1,14 @@
+        1 //GRANTPLN JOB 'Grant Plan',NOTIFY=&SYSUID,CLASS=A,                     JOB05206
+          //          MSGCLASS=H,MSGLEVEL=(1,1),REGION=4M
+          //*=============================================================
+          //* JOB:  GRANTPLN
+          //* DESC: REBIND DO PLANO BANKZPLN COM GRANT(EXECUTE) TO PUBLIC
+          //*=============================================================
+          IEFC653I SUBSTITUTION JCL - 'Grant Plan',NOTIFY=RAFAELT,CLASS=A,MSGCLASS=H,MSGLEVEL=(1,1),REGION=4M
+        2 //STEP1    EXEC PGM=IKJEFT01
+        3 //STEPLIB  DD  DISP=SHR,DSN=DSN1310.DB2.SDSNEXIT
+        4 //         DD  DISP=SHR,DSN=DSN1310.DB2.SDSNLOAD
+        5 //         DD  DISP=SHR,DSN=RAFAELT.BANKZ.LOAD
+        6 //SYSPRINT DD  SYSOUT=*
+        7 //SYSTSPRT DD  SYSOUT=*
+        8 //SYSTSIN  DD  *

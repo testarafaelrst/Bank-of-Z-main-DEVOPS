@@ -1,0 +1,304 @@
+IDCAMS  SYSTEM SERVICES                                           TIME: 11:58:49        10/26/26     PAGE      1
+ 
+  LISTCAT ENTRIES('IGY.V6R5M0.SIGYCOMP') ALL
+IDC3012I ENTRY IGY.V6R5M0.SIGYCOMP NOT FOUND
+IDC3009I ** VSAM CATALOG RETURN CODE IS 8 - REASON CODE IS IGG0CLEG-42
+IDC1566I ** IGY.V6R5M0.SIGYCOMP NOT LISTED
+IDCAMS  SYSTEM SERVICES                                           TIME: 11:58:49        10/26/26     PAGE      2
+         THE NUMBER OF ENTRIES PROCESSED WAS:
+                   AIX -------------------0
+                   ALIAS -----------------0
+                   CLUSTER ---------------0
+                   DATA ------------------0
+                   GDG -------------------0
+                   INDEX -----------------0
+                   NONVSAM ---------------0
+                   PAGESPACE -------------0
+                   PATH ------------------0
+                   SPACE -----------------0
+                   USERCATALOG -----------0
+                   TAPELIBRARY -----------0
+                   TAPEVOLUME ------------0
+                   TOTAL -----------------0
+         THE NUMBER OF PROTECTED ENTRIES SUPPRESSED WAS 0
+IDC0001I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 4
+ 
+  LISTCAT ENTRIES('CEE.SCEELKED') ALL
+ALIAS --------- CEE.SCEELKED
+     IN-CAT --- CATALOG.ESYSMVS.MASTER
+     HISTORY
+       RELEASE----------------2     CREATION--------2020.255
+     ENCRYPTIONDATA
+       DATA SET ENCRYPTION-----(NO)
+     ASSOCIATIONS
+       NONVSAM--SYS1.LEMVS.SCEELKED
+IDCAMS  SYSTEM SERVICES                                           TIME: 11:58:49        10/26/26     PAGE      3
+         THE NUMBER OF ENTRIES PROCESSED WAS:
+                   AIX -------------------0
+                   ALIAS -----------------1
+                   CLUSTER ---------------0
+                   DATA ------------------0
+                   GDG -------------------0
+                   INDEX -----------------0
+                   NONVSAM ---------------0
+                   PAGESPACE -------------0
+                   PATH ------------------0
+                   SPACE -----------------0
+                   USERCATALOG -----------0
+                   TAPELIBRARY -----------0
+                   TAPEVOLUME ------------0
+                   TOTAL -----------------1
+         THE NUMBER OF PROTECTED ENTRIES SUPPRESSED WAS 0
+IDC0001I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 0
+ 
+  LISTCAT ENTRIES('CEE.SCEERUN') ALL
+ALIAS --------- CEE.SCEERUN
+     IN-CAT --- CATALOG.ESYSMVS.MASTER
+     HISTORY
+       RELEASE----------------2     CREATION--------2020.255
+     ENCRYPTIONDATA
+       DATA SET ENCRYPTION-----(NO)
+     ASSOCIATIONS
+       NONVSAM--SYS1.LEMVS.SCEERUN
+IDCAMS  SYSTEM SERVICES                                           TIME: 11:58:49        10/26/26     PAGE      4
+         THE NUMBER OF ENTRIES PROCESSED WAS:
+                   AIX -------------------0
+                   ALIAS -----------------1
+                   CLUSTER ---------------0
+                   DATA ------------------0
+                   GDG -------------------0
+                   INDEX -----------------0
+                   NONVSAM ---------------0
+                   PAGESPACE -------------0
+                   PATH ------------------0
+                   SPACE -----------------0
+                   USERCATALOG -----------0
+                   TAPELIBRARY -----------0
+                   TAPEVOLUME ------------0
+                   TOTAL -----------------1
+         THE NUMBER OF PROTECTED ENTRIES SUPPRESSED WAS 0
+IDC0001I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 0
+ 
+  LISTCAT ENTRIES('DB2V13.SDSNLOAD') ALL
+IDC3012I ENTRY DB2V13.SDSNLOAD NOT FOUND
+IDC3009I ** VSAM CATALOG RETURN CODE IS 8 - REASON CODE IS IGG0CLEG-42
+IDC1566I ** DB2V13.SDSNLOAD NOT LISTED
+IDCAMS  SYSTEM SERVICES                                           TIME: 11:58:49        10/26/26     PAGE      5
+         THE NUMBER OF ENTRIES PROCESSED WAS:
+                   AIX -------------------0
+                   ALIAS -----------------0
+                   CLUSTER ---------------0
+                   DATA ------------------0
+                   GDG -------------------0
+                   INDEX -----------------0
+                   NONVSAM ---------------0
+                   PAGESPACE -------------0
+                   PATH ------------------0
+                   SPACE -----------------0
+                   USERCATALOG -----------0
+                   TAPELIBRARY -----------0
+                   TAPEVOLUME ------------0
+                   TOTAL -----------------0
+         THE NUMBER OF PROTECTED ENTRIES SUPPRESSED WAS 0
+IDC0001I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 4
+ 
+  LISTCAT ENTRIES('DB2V13.SDSNC.H') ALL
+IDC3012I ENTRY DB2V13.SDSNC.H NOT FOUND
+IDC3009I ** VSAM CATALOG RETURN CODE IS 8 - REASON CODE IS IGG0CLEG-42
+IDC1566I ** DB2V13.SDSNC.H NOT LISTED
+IDCAMS  SYSTEM SERVICES                                           TIME: 11:58:49        10/26/26     PAGE      6
+         THE NUMBER OF ENTRIES PROCESSED WAS:
+                   AIX -------------------0
+                   ALIAS -----------------0
+                   CLUSTER ---------------0
+                   DATA ------------------0
+                   GDG -------------------0
+                   INDEX -----------------0
+                   NONVSAM ---------------0
+                   PAGESPACE -------------0
+                   PATH ------------------0
+                   SPACE -----------------0
+                   USERCATALOG -----------0
+                   TAPELIBRARY -----------0
+                   TAPEVOLUME ------------0
+                   TOTAL -----------------0
+         THE NUMBER OF PROTECTED ENTRIES SUPPRESSED WAS 0
+IDC0001I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 4
+ 
+  LISTCAT ENTRIES('RAFAELT.BANKZ.LOAD') ALL
+NONVSAM ------- RAFAELT.BANKZ.LOAD
+     IN-CAT --- CATALOG.ESYSMVS.USER
+     HISTORY
+       DATASET-OWNER-----(NULL)     CREATION--------2026.299
+       RELEASE----------------2     EXPIRATION------0000.000
+       ACCOUNT-INFO-----------------------------------(NULL)
+       DSNTYPE----------LIBRARY
+     SMSDATA
+       STORAGECLASS ---STANDARD     MANAGEMENTCLASS---(NULL)
+       DATACLASS ------STANDARD     LBACKUP ---0000.000.0000
+     ENCRYPTIONDATA
+       DATA SET ENCRYPTION-----(NO)
+     VOLUMES
+       VOLSER------------SMSE09     DEVTYPE------X'3010200F'     FSEQN------------------0
+     ASSOCIATIONS--------(NULL)
+     ATTRIBUTES
+IDCAMS  SYSTEM SERVICES                                           TIME: 11:58:49        10/26/26     PAGE      7
+         THE NUMBER OF ENTRIES PROCESSED WAS:
+                   AIX -------------------0
+                   ALIAS -----------------0
+                   CLUSTER ---------------0
+                   DATA ------------------0
+                   GDG -------------------0
+                   INDEX -----------------0
+                   NONVSAM ---------------1
+                   PAGESPACE -------------0
+                   PATH ------------------0
+                   SPACE -----------------0
+                   USERCATALOG -----------0
+                   TAPELIBRARY -----------0
+                   TAPEVOLUME ------------0
+                   TOTAL -----------------1
+         THE NUMBER OF PROTECTED ENTRIES SUPPRESSED WAS 0
+IDC0001I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 0
+ 
+  LISTCAT ENTRIES('RAFAELT.BANKZ.OBJ') ALL
+NONVSAM ------- RAFAELT.BANKZ.OBJ
+     IN-CAT --- CATALOG.ESYSMVS.USER
+     HISTORY
+       DATASET-OWNER-----(NULL)     CREATION--------2026.299
+       RELEASE----------------2     EXPIRATION------0000.000
+       ACCOUNT-INFO-----------------------------------(NULL)
+     SMSDATA
+       STORAGECLASS ---STANDARD     MANAGEMENTCLASS---(NULL)
+       DATACLASS ------STANDARD     LBACKUP ---0000.000.0000
+     ENCRYPTIONDATA
+       DATA SET ENCRYPTION-----(NO)
+     VOLUMES
+       VOLSER------------SMSE03     DEVTYPE------X'3010200F'     FSEQN------------------0
+     ASSOCIATIONS--------(NULL)
+     ATTRIBUTES
+IDCAMS  SYSTEM SERVICES                                           TIME: 11:58:49        10/26/26     PAGE      8
+         THE NUMBER OF ENTRIES PROCESSED WAS:
+                   AIX -------------------0
+                   ALIAS -----------------0
+                   CLUSTER ---------------0
+                   DATA ------------------0
+                   GDG -------------------0
+                   INDEX -----------------0
+                   NONVSAM ---------------1
+                   PAGESPACE -------------0
+                   PATH ------------------0
+                   SPACE -----------------0
+                   USERCATALOG -----------0
+                   TAPELIBRARY -----------0
+                   TAPEVOLUME ------------0
+                   TOTAL -----------------1
+         THE NUMBER OF PROTECTED ENTRIES SUPPRESSED WAS 0
+IDC0001I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 0
+ 
+  LISTCAT ENTRIES('RAFAELT.BANKZ.DBRMLIB') ALL
+NONVSAM ------- RAFAELT.BANKZ.DBRMLIB
+     IN-CAT --- CATALOG.ESYSMVS.USER
+     HISTORY
+       DATASET-OWNER-----(NULL)     CREATION--------2026.299
+       RELEASE----------------2     EXPIRATION------0000.000
+       ACCOUNT-INFO-----------------------------------(NULL)
+     SMSDATA
+       STORAGECLASS ---STANDARD     MANAGEMENTCLASS---(NULL)
+       DATACLASS ------STANDARD     LBACKUP ---0000.000.0000
+     ENCRYPTIONDATA
+       DATA SET ENCRYPTION-----(NO)
+     VOLUMES
+       VOLSER------------SMSE07     DEVTYPE------X'3010200F'     FSEQN------------------0
+     ASSOCIATIONS--------(NULL)
+     ATTRIBUTES
+IDCAMS  SYSTEM SERVICES                                           TIME: 11:58:49        10/26/26     PAGE      9
+         THE NUMBER OF ENTRIES PROCESSED WAS:
+                   AIX -------------------0
+                   ALIAS -----------------0
+                   CLUSTER ---------------0
+                   DATA ------------------0
+                   GDG -------------------0
+                   INDEX -----------------0
+                   NONVSAM ---------------1
+                   PAGESPACE -------------0
+                   PATH ------------------0
+                   SPACE -----------------0
+                   USERCATALOG -----------0
+                   TAPELIBRARY -----------0
+                   TAPEVOLUME ------------0
+                   TOTAL -----------------1
+         THE NUMBER OF PROTECTED ENTRIES SUPPRESSED WAS 0
+IDC0001I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 0
+ 
+  LISTCAT ENTRIES('RAFAELT.BANK.COBOL') ALL
+NONVSAM ------- RAFAELT.BANK.COBOL
+     IN-CAT --- CATALOG.ESYSMVS.USER
+     HISTORY
+       DATASET-OWNER-----(NULL)     CREATION--------2026.299
+       RELEASE----------------2     EXPIRATION------0000.000
+       ACCOUNT-INFO-----------------------------------(NULL)
+     SMSDATA
+       STORAGECLASS ---STANDARD     MANAGEMENTCLASS---(NULL)
+       DATACLASS ------STANDARD     LBACKUP ---0000.000.0000
+     ENCRYPTIONDATA
+       DATA SET ENCRYPTION-----(NO)
+     VOLUMES
+       VOLSER------------SMSE05     DEVTYPE------X'3010200F'     FSEQN------------------0
+     ASSOCIATIONS--------(NULL)
+     ATTRIBUTES
+IDCAMS  SYSTEM SERVICES                                           TIME: 11:58:49        10/26/26     PAGE     10
+         THE NUMBER OF ENTRIES PROCESSED WAS:
+                   AIX -------------------0
+                   ALIAS -----------------0
+                   CLUSTER ---------------0
+                   DATA ------------------0
+                   GDG -------------------0
+                   INDEX -----------------0
+                   NONVSAM ---------------1
+                   PAGESPACE -------------0
+                   PATH ------------------0
+                   SPACE -----------------0
+                   USERCATALOG -----------0
+                   TAPELIBRARY -----------0
+                   TAPEVOLUME ------------0
+                   TOTAL -----------------1
+         THE NUMBER OF PROTECTED ENTRIES SUPPRESSED WAS 0
+IDC0001I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 0
+ 
+  LISTCAT ENTRIES('RAFAELT.BANK.COPY') ALL
+NONVSAM ------- RAFAELT.BANK.COPY
+     IN-CAT --- CATALOG.ESYSMVS.USER
+     HISTORY
+       DATASET-OWNER-----(NULL)     CREATION--------2026.299
+       RELEASE----------------2     EXPIRATION------0000.000
+       ACCOUNT-INFO-----------------------------------(NULL)
+     SMSDATA
+       STORAGECLASS ---STANDARD     MANAGEMENTCLASS---(NULL)
+       DATACLASS ------STANDARD     LBACKUP ---0000.000.0000
+     ENCRYPTIONDATA
+       DATA SET ENCRYPTION-----(NO)
+     VOLUMES
+       VOLSER------------SMSE04     DEVTYPE------X'3010200F'     FSEQN------------------0
+     ASSOCIATIONS--------(NULL)
+     ATTRIBUTES
+IDCAMS  SYSTEM SERVICES                                           TIME: 11:58:49        10/26/26     PAGE     11
+         THE NUMBER OF ENTRIES PROCESSED WAS:
+                   AIX -------------------0
+                   ALIAS -----------------0
+                   CLUSTER ---------------0
+                   DATA ------------------0
+                   GDG -------------------0
+                   INDEX -----------------0
+                   NONVSAM ---------------1
+                   PAGESPACE -------------0
+                   PATH ------------------0
+                   SPACE -----------------0
+                   USERCATALOG -----------0
+                   TAPELIBRARY -----------0
+                   TAPEVOLUME ------------0
+                   TOTAL -----------------1
+         THE NUMBER OF PROTECTED ENTRIES SUPPRESSED WAS 0
+IDC0001I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 0
+ 
+IDC0002I IDCAMS PROCESSING COMPLETE. MAXIMUM CONDITION CODE WAS 4

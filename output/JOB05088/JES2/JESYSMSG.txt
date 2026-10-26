@@ -1,0 +1,47 @@
+ICH70001I RAFAELT  LAST ACCESS AT 12:04:18 ON MONDAY, OCTOBER 26, 2026
+IEFA111I LSTCKHL4 IS USING THE FOLLOWING JOB RELATED SETTINGS:
+         SWA=ABOVE,TIOT SIZE=64K,DSENQSHR=DISALLOW,GDGBIAS=JOB
+IEF236I ALLOC. FOR LSTCKHL4 LISTCAT
+IEF237I JES2 ALLOCATED TO SYSPRINT
+IEF237I JES2 ALLOCATED TO SYSIN
+IEF142I LSTCKHL4 LISTCAT - STEP WAS EXECUTED - COND CODE 0004
+IEF285I   RAFAELT.LSTCKHL4.JOB05088.D0000102.?         SYSOUT
+IEF285I   RAFAELT.LSTCKHL4.JOB05088.D0000101.?         SYSIN
++- Step Statistics - WSCACTRT 3.4 ---------------------------------- HBB77F0 -+
+|JOB(LSTCKHL4) Step#  1 (*Noproc*.LISTCAT ) Pgm(IDCAMS  ) - Return Code    04 |
++-----------------------------------------------------------------------------+
+|Elapsed Time: 00:00:00.04  CPU Time(TCB): 00:00:00.00  (SRB): 00:00:00.00    |
+|RCT CPU Time: None         I/O Int. Time: None         ICSF Count: None      |
+|Service Units: CPU=      448  SRB=        9  I/O=        0  MSO=        0    |
+|Transactions: ended:None   Active for: 00:00:00.03 Resident for: 00:00:00.03 |
+|WLM: Workload: BAT_WKL  Service Class:BAT_MED   Resource Group: None         |
++-----------------------------------------------------------------------------+
+|Region Requested f/Step=2,048K,   Private Size=(    9M/1,497M)   Key Used(8) |
+|Virtual Used Maximums:   For User=(  500K/  668K) For System=(  308K/   10M) |
+|Pvt Paging(I/O):     0 /    0  VIO(I/O/R):     0 /    0 /    0  Stolen:    0 |
+|Common Pagein:     0  LPA Pagein:     0  Data + Hiper space (MB):          0 |
+|Average Working Set (Page Seconds/CPU Time) for this step, this time:  ----  |
+|There were no swap sequences recorded for this step.                         |
++-------------------------- I / O  ACTIVITY  TOTALS --------------------------+
+|DASD=      0  Tape=      0  VIO=      0  Other=      0  Without a DD=    121 |
++-----------------------------------------------------------------------------+
+IEF373I STEP/LISTCAT /START 2026299.1204
+IEF032I STEP/LISTCAT /STOP  2026299.1204
+        CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+        VIRT:   500K  SYS:   308K  EXT:      668K  SYS:    10700K
+        ATB- REAL:                  1264K  SLOTS:                     0K
+             VIRT- ALLOC:      15M SHRD:       0M
++- Job  Statistics - WSCACTRT 3.4 ---------------------------------- HBB77F0 -+
+|JOB LSTCKHL4(JOB05088) ended: Steps(  1) Class(A) Userid(RAFAELT )           |
++-----------------------------------------------------------------------------+
+|Elapsed Time: 00:00:00.05  CPU Time(TCB): 00:00:00.00  (SRB): 00:00:00.00    |
+|RCT CPU Time: None         I/O Int. Time: None         ICSF Count: None      |
+|Service Units: CPU=      448  SRB=        9  I/O=        0  MSO=        0    |
+|Transactions: ended:None   Active for: 00:00:00.03 Resident for: 00:00:00.03 |
+|WLM: Workload: BAT_WKL  Service Class:BAT_MED   Resource Group: None         |
++-------------------------- I / O  ACTIVITY  TOTALS --------------------------+
+|DASD=      0  Tape=      0  VIO=      0  Other=      0  Without a DD=    121 |
++-----------------------------------------------------------------------------+
+IEF375I  JOB/LSTCKHL4/START 2026299.1204
+IEF033I  JOB/LSTCKHL4/STOP  2026299.1204
+        CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC

@@ -1,0 +1,2 @@
+                              SYSTEMS SUPPORT UTILITIES---IEHLIST                               PAGE    1
+IEH103I  INVALID CONTROL CARD---  LISTPDS DD=DD1

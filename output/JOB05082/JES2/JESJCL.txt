@@ -1,0 +1,13 @@
+        1 //LSTCKHLQ JOB 'Check HLQs',NOTIFY=&SYSUID,CLASS=A,                     JOB05082
+          //          MSGCLASS=H,MSGLEVEL=(1,1)
+          //*=============================================================
+          //* Verifica existencia dos HLQs utilizados pelo LSTCCMP.jcl
+          //*   1. IGY.V6R5M0   - Compilador COBOL V6R5
+          //*   2. CEE          - Language Environment (SCEELKED/SCEERUN)
+          //*   3. DB2V13       - DB2 V13 (SDSNLOAD, SDSNC.H)
+          //*   4. RAFAELT.BANKZ- Datasets da aplicacao
+          //*=============================================================
+          IEFC653I SUBSTITUTION JCL - 'Check HLQs',NOTIFY=RAFAELT,CLASS=A,MSGCLASS=H,MSGLEVEL=(1,1)
+        2 //LISTCAT  EXEC PGM=IDCAMS
+        3 //SYSPRINT DD  SYSOUT=*
+        4 //SYSIN    DD  *

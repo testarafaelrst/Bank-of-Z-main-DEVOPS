@@ -1,0 +1,39 @@
+IDCAMS  SYSTEM SERVICES                                           TIME: 15:26:58        10/26/26     PAGE      1
+ 
+  LISTCAT ENTRIES(DSN1310.DB2.SDSNLOAD) ALL
+NONVSAM ------- DSN1310.DB2.SDSNLOAD
+     IN-CAT --- CATALOG.PRODUCTS.USER
+     HISTORY
+       DATASET-OWNER-----(NULL)     CREATION--------2022.132
+       RELEASE----------------2     EXPIRATION------0000.000
+       ACCOUNT-INFO-----------------------------------(NULL)
+       DSNTYPE----------LIBRARY
+     SMSDATA
+       STORAGECLASS ----PRODLIB     MANAGEMENTCLASS---(NULL)
+       DATACLASS --------(NULL)     LBACKUP ---0000.000.0000
+     ENCRYPTIONDATA
+       DATA SET ENCRYPTION-----(NO)
+     VOLUMES
+       VOLSER------------PROD03     DEVTYPE------X'3010200F'     FSEQN------------------0
+     ASSOCIATIONS--------(NULL)
+     ATTRIBUTES
+IDCAMS  SYSTEM SERVICES                                           TIME: 15:26:58        10/26/26     PAGE      2
+         THE NUMBER OF ENTRIES PROCESSED WAS:
+                   AIX -------------------0
+                   ALIAS -----------------0
+                   CLUSTER ---------------0
+                   DATA ------------------0
+                   GDG -------------------0
+                   INDEX -----------------0
+                   NONVSAM ---------------1
+                   PAGESPACE -------------0
+                   PATH ------------------0
+                   SPACE -----------------0
+                   USERCATALOG -----------0
+                   TAPELIBRARY -----------0
+                   TAPEVOLUME ------------0
+                   TOTAL -----------------1
+         THE NUMBER OF PROTECTED ENTRIES SUPPRESSED WAS 0
+IDC0001I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 0
+ 
+IDC0002I IDCAMS PROCESSING COMPLETE. MAXIMUM CONDITION CODE WAS 0

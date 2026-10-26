@@ -1,0 +1,326 @@
+z/OS V3 R2 BINDER     13:58:37 MONDAY OCTOBER 26, 2026
+BATCH EMULATOR  JOB(LSTCCMP ) STEP(STEP3   ) PGM= IEWL
+IEW2278I B352 INVOCATION PARAMETERS - MAP,LIST,XREF,LET,RENT
+IEW2322I 1220  1        INCLUDE OBJ(LSTCUST)
+IEW2322I 1220  2        ENTRY LSTCUST
+IEW2322I 1220  3        NAME  LSTCUST(R)
+IEW2745S D80F ABEND 213-04 OCCURRED WHILE PROCESSING PARTITIONED DATA SET WITH DDNAME SYSLIB.
+IEW2453E 920D UNABLE TO PROCESS LIBRARY SYSLIB DURING AUTOCALL PROCESSING.
+IEW2456E 9207 SYMBOL CEESTART UNRESOLVED.  MEMBER COULD NOT BE INCLUDED FROM THE DESIGNATED CALL LIBRARY.
+IEW2456E 9207 SYMBOL CEEBETBL UNRESOLVED.  MEMBER COULD NOT BE INCLUDED FROM THE DESIGNATED CALL LIBRARY.
+IEW2456E 9207 SYMBOL IGZXBST3 UNRESOLVED.  MEMBER COULD NOT BE INCLUDED FROM THE DESIGNATED CALL LIBRARY.
+IEW2456E 9207 SYMBOL DSNHADDR UNRESOLVED.  MEMBER COULD NOT BE INCLUDED FROM THE DESIGNATED CALL LIBRARY.
+IEW2456E 9207 SYMBOL DSNHADD2 UNRESOLVED.  MEMBER COULD NOT BE INCLUDED FROM THE DESIGNATED CALL LIBRARY.
+IEW2456E 9207 SYMBOL DSNHLI UNRESOLVED.  MEMBER COULD NOT BE INCLUDED FROM THE DESIGNATED CALL LIBRARY.
+IEW2456E 9207 SYMBOL IGZXPRS UNRESOLVED.  MEMBER COULD NOT BE INCLUDED FROM THE DESIGNATED CALL LIBRARY.
+IEW2456E 9207 SYMBOL IGZXCMSG UNRESOLVED.  MEMBER COULD NOT BE INCLUDED FROM THE DESIGNATED CALL LIBRARY.
+IEW2456E 9207 SYMBOL IGZXTREC UNRESOLVED.  MEMBER COULD NOT BE INCLUDED FROM THE DESIGNATED CALL LIBRARY.
+IEW2456E 9207 SYMBOL IGZXCDT UNRESOLVED.  MEMBER COULD NOT BE INCLUDED FROM THE DESIGNATED CALL LIBRARY.
+IEW2456E 9207 SYMBOL IGZXQOPN UNRESOLVED.  MEMBER COULD NOT BE INCLUDED FROM THE DESIGNATED CALL LIBRARY.
+IEW2456E 9207 SYMBOL IGZXDSP UNRESOLVED.  MEMBER COULD NOT BE INCLUDED FROM THE DESIGNATED CALL LIBRARY.
+IEW2456E 9207 SYMBOL IGZXQCLS UNRESOLVED.  MEMBER COULD NOT BE INCLUDED FROM THE DESIGNATED CALL LIBRARY.
+IEW2456E 9207 SYMBOL IGZXRT1 UNRESOLVED.  MEMBER COULD NOT BE INCLUDED FROM THE DESIGNATED CALL LIBRARY.
+IEW2456E 9207 SYMBOL CEESG004 UNRESOLVED.  MEMBER COULD NOT BE INCLUDED FROM THE DESIGNATED CALL LIBRARY.
+IEW2456E 9207 SYMBOL IGZXBS61 UNRESOLVED.  MEMBER COULD NOT BE INCLUDED FROM THE DESIGNATED CALL LIBRARY.
+IEW2638S 5384 AN EXECUTABLE VERSION OF MODULE LSTCUST EXISTS AND CANNOT BE REPLACED BY THE NON-EXECUTABLE MODULE JUST
+         CREATED.
+ 
+                         *** M O D U L E  M A P ***
+ 
+---------------
+CLASS  C_CODE            LENGTH =     27E8  ATTRIBUTES = CAT,   LOAD, RMODE=ANY
+                         OFFSET =        0 IN SEGMENT 001     ALIGN = DBLWORD
+---------------
+ 
+ SECTION    CLASS                                      ------- SOURCE --------
+  OFFSET   OFFSET  NAME                TYPE    LENGTH  DDNAME   SEQ  MEMBER
+ 
+                0  LSTCUST            CSECT      27E8  OBJ       01  LSTCUST
+       0        0     LSTCUST#C          LABEL
+       0        0     LSTCUST            LABEL
+ 
+---------------
+CLASS  C_@@PPA2          LENGTH =        8  ATTRIBUTES = MRG,   LOAD, RMODE=ANY
+                         OFFSET =     27E8 IN SEGMENT 001     ALIGN = DBLWORD
+---------------
+ 
+            CLASS
+           OFFSET  NAME                TYPE    LENGTH   SECTION
+                0  $PRIV000010      PART             8  LSTCUST
+ 
+---------------
+CLASS  C_@@CSINIT        LENGTH =        4  ATTRIBUTES = MRG,   LOAD, RMODE=ANY
+                         OFFSET =     27F0 IN SEGMENT 001     ALIGN = DBLWORD
+---------------
+ 
+            CLASS
+           OFFSET  NAME                TYPE    LENGTH   SECTION
+                0  $PRIV000011      PART             4  LSTCUST
+ 
+---------------
+CLASS  B_LIT             LENGTH =      100  ATTRIBUTES = CAT,   LOAD, RMODE=ANY
+                         OFFSET =     27F8 IN SEGMENT 001     ALIGN = DBLWORD
+---------------
+ 
+ SECTION    CLASS                                      ------- SOURCE --------
+  OFFSET   OFFSET  NAME                TYPE    LENGTH  DDNAME   SEQ  MEMBER
+ 
+                0  IEWBLIT            CSECT       100                **NULL**
+       0        0     IEWBLIT            LABEL
+ 
+---------------
+CLASS  C_WSA             LENGTH =      2A0  ATTRIBUTES = MRG, DEFER , RMODE=ANY
+                         OFFSET =        0 IN SEGMENT 002     ALIGN = DBLWORD
+---------------
+ 
+            CLASS
+           OFFSET  NAME                TYPE    LENGTH   SECTION
+                0  $PRIV000012      PART            10
+               10  LSTCUST#S        PART           290  LSTCUST
+                         *** M O D U L E  M A P ***
+ 
+---------------
+CLASS  C_CEESG003        LENGTH =        0  ATTRIBUTES = CAT, NOLOAD
+ 
+---------------
+ 
+ SECTION    CLASS                                      ------- SOURCE --------
+  OFFSET   OFFSET  NAME                TYPE    LENGTH  DDNAME   SEQ  MEMBER
+ 
+                0  LSTCUST            CSECT         0  OBJ       01  LSTCUST
+          ***  DATA SET SUMMARY  ***
+ 
+DDNAME    CONCAT   FILE IDENTIFICATION
+ 
+OBJ         01     RAFAELT.BANKZ.OBJ
+ 
+          *** E N D  O F  M O D U L E  M A P ***
+ 
+ 
+                                       C R O S S - R E F E R E N C E  T A B L E
+                                       _________________________________________
+ 
+TEXT CLASS = C_CODE
+ 
+---------------  R E F E R E N C E  --------------------------  T A R G E T  -------------------------------------------
+  CLASS                            ELEMENT       |                                            ELEMENT                  |
+  OFFSET SECT/PART(ABBREV)          OFFSET  TYPE | SYMBOL(ABBREV)   SECTION (ABBREV)           OFFSET CLASS NAME       |
+                                                 |                                                                     |
+      24 LSTCUST                        24 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+      2C LSTCUST                        2C A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+      30 LSTCUST                        30 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+      34 LSTCUST                        34 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+      38 LSTCUST                        38 V-CON | IGZXBST3         $UNRESOLVED                                        |
+      3C LSTCUST                        3C A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+      44 LSTCUST                        44 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+    1D50 LSTCUST                      1D50 Q-CON | LSTCUST#S        $NON-RELOCATABLE               10 C_WSA            |
+    1D54 LSTCUST                      1D54 V-CON | DSNHADDR         $UNRESOLVED                                        |
+    1D58 LSTCUST                      1D58 V-CON | DSNHADD2         $UNRESOLVED                                        |
+    1D5C LSTCUST                      1D5C V-CON | DSNHLI           $UNRESOLVED                                        |
+    1D60 LSTCUST                      1D60 V-CON | IGZXPRS          $UNRESOLVED                                        |
+    1D64 LSTCUST                      1D64 V-CON | IGZXCMSG         $UNRESOLVED                                        |
+    1D68 LSTCUST                      1D68 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+    1D6C LSTCUST                      1D6C A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+    1D70 LSTCUST                      1D70 V-CON | IGZXTREC         $UNRESOLVED                                        |
+    1D74 LSTCUST                      1D74 V-CON | IGZXCDT          $UNRESOLVED                                        |
+    1D78 LSTCUST                      1D78 V-CON | IGZXQOPN         $UNRESOLVED                                        |
+    1D7C LSTCUST                      1D7C V-CON | IGZXDSP          $UNRESOLVED                                        |
+    1D80 LSTCUST                      1D80 V-CON | IGZXQCLS         $UNRESOLVED                                        |
+    1D84 LSTCUST                      1D84 V-CON | IGZXRT1          $UNRESOLVED                                        |
+    1DA4 LSTCUST                      1DA4 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+    1DB0 LSTCUST                      1DB0 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+    1DE0 LSTCUST                      1DE0 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+    1E08 LSTCUST                      1E08 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+    1E3C LSTCUST                      1E3C A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+    1E60 LSTCUST                      1E60 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+    1E84 LSTCUST                      1E84 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+    1EA8 LSTCUST                      1EA8 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+    1ECC LSTCUST                      1ECC A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+    1EF0 LSTCUST                      1EF0 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+    1F14 LSTCUST                      1F14 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+    1F38 LSTCUST                      1F38 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+    1F5C LSTCUST                      1F5C A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+    1F80 LSTCUST                      1F80 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+    1FB8 LSTCUST                      1FB8 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+    1FDC LSTCUST                      1FDC A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+    23CC LSTCUST                      23CC A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+    2744 LSTCUST                      2744 A-CON | CEESTART         $UNRESOLVED                                        |
+    2744 LSTCUST                      2744 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+    275C LSTCUST                      275C A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+    2760 LSTCUST                      2760 V-CON | CEESTART         $UNRESOLVED                                        |
+    2764 LSTCUST                      2764 V-CON | CEEBETBL         $UNRESOLVED                                        |
+    27A4 LSTCUST                      27A4 Q-CON | LSTCUST#S        $NON-RELOCATABLE               10 C_WSA            |
+ 
+ 
+TEXT CLASS = C_@@PPA2
+ 
+---------------  R E F E R E N C E  --------------------------  T A R G E T  -------------------------------------------
+  CLASS                            ELEMENT       |                                            ELEMENT                  |
+  OFFSET SECT/PART(ABBREV)          OFFSET  TYPE | SYMBOL(ABBREV)   SECTION (ABBREV)           OFFSET CLASS NAME       |
+                                                 |                                                                     |
+       4 $PRIV000010                     4 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+ 
+ 
+                                       C R O S S - R E F E R E N C E  T A B L E
+                                       _________________________________________
+ 
+TEXT CLASS = C_@@PPA2
+ 
+---------------  R E F E R E N C E  --------------------------  T A R G E T  -------------------------------------------
+  CLASS                            ELEMENT       |                                            ELEMENT                  |
+  OFFSET SECT/PART(ABBREV)          OFFSET  TYPE | SYMBOL(ABBREV)   SECTION (ABBREV)           OFFSET CLASS NAME       |
+                                                 |                                                                     |
+ 
+ 
+TEXT CLASS = C_@@CSINIT
+ 
+---------------  R E F E R E N C E  --------------------------  T A R G E T  -------------------------------------------
+  CLASS                            ELEMENT       |                                            ELEMENT                  |
+  OFFSET SECT/PART(ABBREV)          OFFSET  TYPE | SYMBOL(ABBREV)   SECTION (ABBREV)           OFFSET CLASS NAME       |
+                                                 |                                                                     |
+       0 $PRIV000011                     0 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+ 
+ 
+TEXT CLASS = B_LIT
+ 
+---------------  R E F E R E N C E  --------------------------  T A R G E T  -------------------------------------------
+  CLASS                            ELEMENT       |                                            ELEMENT                  |
+  OFFSET SECT/PART(ABBREV)          OFFSET  TYPE | SYMBOL(ABBREV)   SECTION (ABBREV)           OFFSET CLASS NAME       |
+                                                 |                                                                     |
+      28 IEWBLIT                        28 L TOKE|                                                                     |
+      50 IEWBLIT                        50 C-LEN |                  $NON-RELOCATABLE                  B_TEXT           |
+      54 IEWBLIT                        54 A-CON |                                                    B_TEXT           |
+      70 IEWBLIT                        70 C-LEN |                  $NON-RELOCATABLE                  C_CODE           |
+      74 IEWBLIT                        74 A-CON |                                                    C_CODE           |
+      90 IEWBLIT                        90 C-LEN |                  $NON-RELOCATABLE                  C_WSA            |
+      B0 IEWBLIT                        B0 C-LEN |                  $NON-RELOCATABLE                  C_@@PPA2         |
+      B4 IEWBLIT                        B4 A-CON |                                                    C_@@PPA2         |
+      D0 IEWBLIT                        D0 C-LEN |                  $NON-RELOCATABLE                  C_@@CSINIT       |
+      D4 IEWBLIT                        D4 A-CON |                                                    C_@@CSINIT       |
+      F0 IEWBLIT                        F0 C-LEN |                  $NON-RELOCATABLE                  B_LIT            |
+      F4 IEWBLIT                        F4 A-CON |                                                    B_LIT            |
+ 
+ 
+TEXT CLASS = C_WSA
+ 
+---------------  R E F E R E N C E  --------------------------  T A R G E T  -------------------------------------------
+  CLASS                            ELEMENT       |                                            ELEMENT                  |
+  OFFSET SECT/PART(ABBREV)          OFFSET  TYPE | SYMBOL(ABBREV)   SECTION (ABBREV)           OFFSET CLASS NAME       |
+                                                 |                                                                     |
+      20 LSTCUST#S                      20 A-CON | LSTCUST#S        $PRIV000003                    10 C_WSA            |
+      24 LSTCUST#S                      24 A-CON | LSTCUST#S        $PRIV000003                    10 C_WSA            |
+      60 LSTCUST#S                      60 A-CON | LSTCUST#S        $PRIV000003                    10 C_WSA            |
+     188 LSTCUST#S                     188 A-CON | LSTCUST#S        $PRIV000003                    10 C_WSA            |
+     1F8 LSTCUST#S                     1F8 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+     1FC LSTCUST#S                     1FC A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+     200 LSTCUST#S                     200 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+     204 LSTCUST#S                     204 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+     208 LSTCUST#S                     208 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+     20C LSTCUST#S                     20C A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+ 
+ 
+                                       C R O S S - R E F E R E N C E  T A B L E
+                                       _________________________________________
+ 
+TEXT CLASS = C_WSA
+ 
+---------------  R E F E R E N C E  --------------------------  T A R G E T  -------------------------------------------
+  CLASS                            ELEMENT       |                                            ELEMENT                  |
+  OFFSET SECT/PART(ABBREV)          OFFSET  TYPE | SYMBOL(ABBREV)   SECTION (ABBREV)           OFFSET CLASS NAME       |
+                                                 |                                                                     |
+     210 LSTCUST#S                     210 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+     214 LSTCUST#S                     214 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+     218 LSTCUST#S                     218 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+     21C LSTCUST#S                     21C A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+     220 LSTCUST#S                     220 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+     22C LSTCUST#S                     22C A-CON | LSTCUST#S        $PRIV000003                    10 C_WSA            |
+     230 LSTCUST#S                     230 A-CON | LSTCUST#C        LSTCUST                         0 C_CODE           |
+     244 LSTCUST#S                     244 A-CON | LSTCUST#S        $PRIV000003                    10 C_WSA            |
+     26C LSTCUST#S                     26C V-CON | LSTCUST          LSTCUST                         0 C_CODE           |
+     274 LSTCUST#S                     274 A-CON | LSTCUST#S        $PRIV000003                    10 C_WSA            |
+     280 LSTCUST#S                     280 A-CON | LSTCUST#S        $PRIV000003                    10 C_WSA            |
+                                       *** E N D  O F  C R O S S  R E F E R E N C E ***
+ 
+ 
+ 
+                                *** O P E R A T I O N   S U M M A R Y   R E P O R T ***
+ 
+PROCESSING OPTIONS:
+ 
+   ALIASES             NO
+   ALIGN2              NO
+   AMODE               UNSPECIFIED
+   CALL                YES
+   CASE                UPPER
+   COMPAT              UNSPECIFIED
+   COMPRESS            AUTO
+   DCBS                NO
+   DYNAM               NO
+   EXTATTR             UNSPECIFIED
+   EXITS:              NONE
+   FILL                NONE
+   GID                 UNSPECIFIED
+   HOBSET              NO
+   INFO                NO
+   LET                 08
+   LINECT              060
+   LIST                SUMMARY
+   LISTPRIV            NO
+   LONGPARM            NO
+   MAP                 YES
+   MAXBLK              032760
+   MODMAP              NO
+   MSGLEVEL            00
+   OVLY                NO
+   PRINT               YES
+   RES                 NO
+   REUSABILITY         REENTRANT
+   RMODE               UNSPECIFIED
+   RMODEX              NO
+   SIGN                NO
+   STORENX             NOREPLACE
+   STRIPCL             NO
+   STRIPSEC            NO
+   SYMTRACE
+   TERM                NO
+   TRAP                ON
+   UID                 UNSPECIFIED
+   UPCASE              NO
+   WKSPACE             000000K,000000K
+   XCAL                NO
+   XREF                YES
+   ***END OF OPTIONS***
+ 
+ 
+ 
+                         *** E N D   O F   O P E R A T I O N   S U M M A R Y   R E P O R T ***
+ 
+ 
+ 
+z/OS V3 R2 BINDER     13:58:37 MONDAY OCTOBER 26, 2026
+BATCH EMULATOR  JOB(LSTCCMP ) STEP(STEP3   ) PGM= IEWL
+IEW2008I 0F03 PROCESSING COMPLETED.  RETURN CODE =  12.
+ 
+ 
+ 
+----------------------
+MESSAGE SUMMARY REPORT
+----------------------
+ TERMINAL MESSAGES      (SEVERITY = 16)
+ NONE
+ 
+ SEVERE MESSAGES        (SEVERITY = 12)
+ 2638  2745
+ 
+ ERROR MESSAGES         (SEVERITY = 08)
+ 2453  2456
+ 
+ WARNING MESSAGES       (SEVERITY = 04)
+ NONE
+ 
+ INFORMATIONAL MESSAGES (SEVERITY = 00)
+ 2008  2278  2322
+ 
+ 
+ **** END OF MESSAGE SUMMARY REPORT ****
+ 

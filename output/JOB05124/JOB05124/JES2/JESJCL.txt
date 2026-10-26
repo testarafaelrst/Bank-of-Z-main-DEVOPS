@@ -1,0 +1,33 @@
+        1 //LSTCUST  JOB 'Customer List',NOTIFY=&SYSUID,CLASS=A,                  JOB05124
+          //          MSGCLASS=H,MSGLEVEL=(1,1),REGION=4M
+          //*=============================================================
+          //* JOB:  LSTCUST
+          //* DESC: LISTAGEM GERAL DE CUSTOMERS - BANCO XYZ
+          //* PROG: LSTCUST
+          //* SAIDA: RAFAELT.BANK.LSTCUST.REPORT
+          //*        RECFM=FB  LRECL=133  BLKSIZE=27930
+          //*
+          //* CODIGOS DE RETORNO:
+          //*   RC= 0  Execucao bem-sucedida
+          //*   RC= 4  Nenhum customer encontrado (tabela vazia)
+          //*   RC= 8  Erro de I/O no dataset de saida
+          //*   RC=12  Erro DB2 (SQLCODE negativo)
+          //*
+          //* PRE-REQUISITOS:
+          //*   - Plano DB2 BANKZPLN deve incluir o programa LSTCUST
+          //*   - Dataset de saida NAO deve existir (DISP=NEW)
+          //*   - Autoridade SELECT na tabela CUSTOMER
+          //*=============================================================
+          IEFC653I SUBSTITUTION JCL - 'Customer List',NOTIFY=RAFAELT,CLASS=A,MSGCLASS=H,MSGLEVEL=(1,1),REGION=4M
+        2 //STEP1    EXEC PGM=IKJEFT01
+        3 //STEPLIB  DD  DISP=SHR,DSN=DB2V13.SDSNEXIT
+        4 //         DD  DISP=SHR,DSN=DB2V13.SDSNLOAD
+        5 //         DD  DISP=SHR,DSN=BANKZ.V0R1M0.LOAD
+        6 //LSTOUT   DD  DSN=RAFAELT.BANK.LSTCUST.REPORT,
+          //             DISP=(NEW,CATLG,DELETE),
+          //             SPACE=(TRK,(50,10),RLSE),
+          //             DCB=(RECFM=FB,LRECL=133,BLKSIZE=27930)
+        7 //SYSPRINT DD  SYSOUT=*
+        8 //SYSOUT   DD  SYSOUT=*
+        9 //SYSTSPRT DD  SYSOUT=*
+       10 //SYSTSIN  DD *

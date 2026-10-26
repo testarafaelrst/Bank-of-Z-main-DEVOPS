@@ -1,0 +1,161 @@
+        1 //LSTCCMP  JOB 'Compile LSTCUST',NOTIFY=&SYSUID,CLASS=A,                JOB05098
+          //          MSGCLASS=H,MSGLEVEL=(1,1),REGION=256M
+          //*=============================================================
+          //* JOB:  LSTCCMP
+          //* DESC: COMPILACAO E LINKEDIT DO PROGRAMA LSTCUST
+          //*       LSTCUST E UM PROGRAMA COBOL COM SQL EMBARCADO (DB2)
+          //*
+          //* PASSOS:
+          //*   STEP1 - DSNHPC  : Pre-compilador DB2 (expande EXEC SQL)
+          //*   STEP2 - IGYCRCTL: Compilador COBOL Enterprise
+          //*   STEP3 - IEWL    : Link-Editor (gera modulo de carga)
+          //*
+          //* DATASETS REQUERIDOS ANTES DA PRIMEIRA EXECUCAO:
+          //*   &HLQ..BANKZ.OBJ   - PDS para modulos objeto  (se nao existe)
+          //*   BANKZ.V0R1M0.LOAD  - PDS para modulos de carga (deve existir)
+          //*
+          //* DATASETS DE FONTE E COPYBOOKS:
+          //*   &HLQ..BANK.COBOL(LSTCUST)  - fonte COBOL
+          //*   &HLQ..BANK.COPY            - copybooks (CUSTDB2, CUSTOMER, SORTCODE)
+          //*=============================================================
+          IEFC653I SUBSTITUTION JCL - 'Compile LSTCUST',NOTIFY=RAFAELT,CLASS=A,MSGCLASS=H,MSGLEVEL=(1,1),REGION=256M
+        2 //    SET HLQ='RAFAELT'                       *TSO USER ID
+        3 //    SET CMPLLIB='COBOL.V6R2.SIGYCOMP'       *COMPILADOR COBOL
+        4 //    SET LINKLIB='CEE.SCEELKED'              *LINK LIBRARY LE (ALIAS -> SYS1.LE
+          //    SET DB2HLQ='DSN1310.DB2'                *HLQ DO DB2
+        5 //    SET LOADLIB=&HLQ..BANKZ.LOAD            *LOAD LIBRARY
+          IEFC653I SUBSTITUTION JCL - LOADLIB=RAFAELT.BANKZ.LOAD
+        6 //    SET OBJLIB=&HLQ..BANKZ.OBJ              *OBJECT LIBRARY
+          IEFC653I SUBSTITUTION JCL - OBJLIB=RAFAELT.BANKZ.OBJ
+        7 //    SET COBOLSRC=&HLQ..BANK.COBOL           *FONTE COBOL
+          IEFC653I SUBSTITUTION JCL - COBOLSRC=RAFAELT.BANK.COBOL
+        8 //    SET COPYLIB=&HLQ..BANK.COPY             *COPYBOOKS
+          IEFC653I SUBSTITUTION JCL - COPYLIB=RAFAELT.BANK.COPY
+        9 //    SET SPACE1='SYSALLDA,SPACE=(CYL,(2,1))' *ESPACO TEMP
+          //*
+          //*=============================================================
+          //* STEP1 - PRE-COMPILADOR DB2 (DSNHPC)
+          //*   Entrada : Fonte COBOL com EXEC SQL
+          //*   Saida   : Fonte COBOL modificado (DBRM dataset + fonte expandido)
+          //*   DBRM    : Database Request Module - usado no BIND posterior
+          //*=============================================================
+       10 //STEP1    EXEC PGM=DSNHPC,
+          //          PARM='HOST(IBMCOB),APOSTSQL,MARGINS(8,72),SOURCE,XREF'
+       11 //STEPLIB  DD  DISP=SHR,DSN=&DB2HLQ..SDSNLOAD
+       12 //DBRMLIB  DD  DISP=SHR,DSN=&HLQ..BANKZ.DBRMLIB(LSTCUST)
+          IEFC653I SUBSTITUTION JCL - DISP=SHR,DSN=RAFAELT.BANKZ.DBRMLIB(LSTCUST)
+       13 //SYSCIN   DD  DISP=(NEW,PASS),
+          //             UNIT=&SPACE1,
+          //             DCB=(RECFM=FB,LRECL=80,BLKSIZE=3200)
+          IEFC653I SUBSTITUTION JCL - DISP=(NEW,PASS),UNIT=SYSALLDA,SPACE=(CYL,(2,1)),DCB=(RECFM=FB,LRECL=80,
+          BLKSIZE=3200)
+       14 //SYSIN    DD  DISP=SHR,DSN=&COBOLSRC(LSTCUST)
+          IEFC653I SUBSTITUTION JCL - DISP=SHR,DSN=RAFAELT.BANK.COBOL(LSTCUST)
+       15 //SYSLIB   DD  DISP=SHR,DSN=&COPYLIB
+          IEFC653I SUBSTITUTION JCL - DISP=SHR,DSN=RAFAELT.BANK.COPY
+       16 //SYSPRINT DD  SYSOUT=*
+       17 //SYSTERM  DD  SYSOUT=*
+       18 //SYSUT1   DD  UNIT=&SPACE1
+          IEFC653I SUBSTITUTION JCL - UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       19 //SYSUT2   DD  UNIT=&SPACE1
+          IEFC653I SUBSTITUTION JCL - UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       20 //SYSDBOUT DD  SYSOUT=*
+          //*
+          //*=============================================================
+          //* STEP2 - COMPILADOR COBOL (IGYCRCTL)
+          //*   Entrada : Saida do pre-compilador DB2 (SYSCIN passado)
+          //*   Saida   : Modulo objeto em &OBJLIB(LSTCUST)
+          //*   PARM    : OBJECT  - gera codigo objeto
+          //*             LIST    - listagem completa da compilacao
+          //*             MAP     - mapa de dados (variaveis e offsets)
+          //*             XREF    - referencias cruzadas de nomes
+          //*             TRUNC(BIN) - truncamento binario para host vars DB2
+          //*             OFFSET  - offsets para debug
+          //*=============================================================
+       21 //STEP2    EXEC PGM=IGYCRCTL,COND=(4,LT,STEP1),
+          //          PARM='OBJECT,LIST,MAP,XREF,TRUNC(BIN),OFFSET,NODYN'
+       22 //STEPLIB  DD  DISP=SHR,DSN=&CMPLLIB
+          IEFC653I SUBSTITUTION JCL - DISP=SHR,DSN=COBOL.V6R2.SIGYCOMP
+       23 //SYSIN    DD  DSN=*.STEP1.SYSCIN,DISP=(OLD,DELETE)
+       24 //SYSLIB   DD  DISP=SHR,DSN=&COPYLIB
+          IEFC653I SUBSTITUTION JCL - DISP=SHR,DSN=RAFAELT.BANK.COPY
+       25 //         DD  DISP=SHR,DSN=&DB2HLQ..SDSNC.H
+       26 //SYSLIN   DD  DISP=SHR,DSN=&OBJLIB(LSTCUST)
+          IEFC653I SUBSTITUTION JCL - DISP=SHR,DSN=RAFAELT.BANKZ.OBJ(LSTCUST)
+       27 //SYSPRINT DD  SYSOUT=*
+       28 //SYSMDECK DD  UNIT=&SPACE1
+          IEFC653I SUBSTITUTION JCL - UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       29 //SYSUT1   DD  UNIT=&SPACE1
+          IEFC653I SUBSTITUTION JCL - UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       30 //SYSUT2   DD  UNIT=&SPACE1
+          IEFC653I SUBSTITUTION JCL - UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       31 //SYSUT3   DD  UNIT=&SPACE1
+          IEFC653I SUBSTITUTION JCL - UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       32 //SYSUT4   DD  UNIT=&SPACE1
+          IEFC653I SUBSTITUTION JCL - UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       33 //SYSUT5   DD  UNIT=&SPACE1
+          IEFC653I SUBSTITUTION JCL - UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       34 //SYSUT6   DD  UNIT=&SPACE1
+          IEFC653I SUBSTITUTION JCL - UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       35 //SYSUT7   DD  UNIT=&SPACE1
+          IEFC653I SUBSTITUTION JCL - UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       36 //SYSUT8   DD  UNIT=&SPACE1
+          IEFC653I SUBSTITUTION JCL - UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       37 //SYSUT9   DD  UNIT=&SPACE1
+          IEFC653I SUBSTITUTION JCL - UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       38 //SYSUT10  DD  UNIT=&SPACE1
+          IEFC653I SUBSTITUTION JCL - UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       39 //SYSUT11  DD  UNIT=&SPACE1
+          IEFC653I SUBSTITUTION JCL - UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       40 //SYSUT12  DD  UNIT=&SPACE1
+          IEFC653I SUBSTITUTION JCL - UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       41 //SYSUT13  DD  UNIT=&SPACE1
+          IEFC653I SUBSTITUTION JCL - UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       42 //SYSUT14  DD  UNIT=&SPACE1
+          IEFC653I SUBSTITUTION JCL - UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       43 //SYSUT15  DD  UNIT=&SPACE1
+          //*
+          //*=============================================================
+          //* STEP3 - LINK-EDITOR (IEWL)
+          //*   Entrada : Modulo objeto LSTCUST
+          //*             Modulo de interface DB2 (DSNELI - stub de entrada)
+          //*   Saida   : Modulo de carga em &LOADLIB(LSTCUST)
+          //*   ENTRY   : LSTCUST - define o ponto de entrada do modulo
+          //*=============================================================
+          IEFC653I SUBSTITUTION JCL - UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       44 //STEP3    EXEC PGM=IEWL,COND=(4,LT,STEP2),REGION=3000K,
+          //          PARM='MAP,LIST,XREF,LET,RENT'
+       45 //SYSLMOD  DD  DISP=SHR,DSN=&LOADLIB
+          IEFC653I SUBSTITUTION JCL - DISP=SHR,DSN=RAFAELT.BANKZ.LOAD
+       46 //SYSPRINT DD  SYSOUT=*
+       47 //SYSUT1   DD  UNIT=&SPACE1
+          IEFC653I SUBSTITUTION JCL - UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       48 //SYSLIB   DD  DISP=SHR,DSN=&LINKLIB
+          IEFC653I SUBSTITUTION JCL - DISP=SHR,DSN=CEE.SCEELKED
+       49 //         DD  DISP=SHR,DSN=CEE.SCEERUN            <-- ALIAS->SYS1.LEMVS.SCEERUN
+          //         DD  DISP=SHR,DSN=&DB2HLQ..SDSNLOAD
+       50 //         DD  DISP=SHR,DSN=SYS1.SIEALNKE
+       51 //         DD  DISP=SHR,DSN=&LOADLIB
+          IEFC653I SUBSTITUTION JCL - DISP=SHR,DSN=RAFAELT.BANKZ.LOAD
+       52 //OBJ      DD  DISP=SHR,DSN=&OBJLIB
+          IEFC653I SUBSTITUTION JCL - DISP=SHR,DSN=RAFAELT.BANKZ.OBJ
+       53 //SYSLIN   DD *
+          //*=============================================================
+          //* OBSERVACOES POS-COMPILACAO:
+          //*
+          //* Apos compilacao bem-sucedida (todos os RCs = 0):
+          //*
+          //*   1. Executar BIND do DBRM para incluir LSTCUST no plano DB2:
+          //*      BIND PACKAGE(BANKZPKG/LSTCUST) -
+          //*           MEMBER(LSTCUST) -
+          //*           LIBRARY('&HLQ..BANKZ.DBRMLIB') -
+          //*           ISOLATION(CS) ACTION(REPLACE)
+          //*
+          //*      BIND PLAN(BANKZPLN) -
+          //*           PKLIST(BANKZPKG.LSTCUST) -
+          //*           ACTION(REPLACE)
+          //*
+          //*   2. Conceder autoridade de execucao:
+          //*      GRANT EXECUTE ON PLAN BANKZPLN TO PUBLIC
+          //*
+          //*=============================================================

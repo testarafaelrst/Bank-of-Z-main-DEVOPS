@@ -1,0 +1,45 @@
+        1 //GRANTPLN JOB 'Grant Plan',NOTIFY=&SYSUID,CLASS=A,                     JOB05212
+          //          MSGCLASS=H,MSGLEVEL=(1,1),REGION=4M
+          //*=============================================================
+          //* Compila e executa um programa COBOL inline que emite
+          //* GRANT EXECUTE ON PLAN BANKZPLN TO PUBLIC via SQL dinamico
+          //*=============================================================
+          IEFC653I SUBSTITUTION JCL - 'Grant Plan',NOTIFY=RAFAELT,CLASS=A,MSGCLASS=H,MSGLEVEL=(1,1),REGION=4M
+        2 //COMP     EXEC PGM=DSNHPC,
+          //          PARM='HOST(IBMCOB),APOSTSQL,MARGINS(8,72)'
+        3 //STEPLIB  DD  DISP=SHR,DSN=DSN1310.DB2.SDSNLOAD
+        4 //DBRMLIB  DD  DISP=SHR,DSN=RAFAELT.BANKZ.DBRMLIB(GRANTPLN)
+        5 //SYSCIN   DD  DISP=(NEW,PASS),UNIT=SYSALLDA,
+          //             SPACE=(CYL,(1,1)),
+          //             DCB=(RECFM=FB,LRECL=80,BLKSIZE=3200)
+        6 //SYSPRINT DD  SYSOUT=*
+        7 //SYSIN    DD  *
+        8 //COBC     EXEC PGM=IGYCRCTL,COND=(4,LT,COMP),
+          //          PARM='OBJECT,NODYN'
+        9 //STEPLIB  DD  DISP=SHR,DSN=COBOL.V6R2.SIGYCOMP
+       10 //SYSIN    DD  DSN=*.COMP.SYSCIN,DISP=(OLD,DELETE)
+       11 //SYSLIN   DD  DISP=SHR,DSN=RAFAELT.BANKZ.OBJ(GRANTPLN)
+       12 //SYSPRINT DD  SYSOUT=*
+       13 //SYSUT1   DD  UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       14 //SYSUT2   DD  UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       15 //SYSUT3   DD  UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       16 //SYSUT4   DD  UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       17 //SYSUT5   DD  UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       18 //SYSUT6   DD  UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       19 //SYSUT7   DD  UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       20 //LINK     EXEC PGM=IEWL,COND=(4,LT,COBC),REGION=3000K,
+          //          PARM='MAP,LIST,LET,RENT'
+       21 //SYSLMOD  DD  DISP=SHR,DSN=RAFAELT.BANKZ.LOAD
+       22 //SYSPRINT DD  SYSOUT=*
+       23 //SYSUT1   DD  UNIT=SYSALLDA,SPACE=(CYL,(2,1))
+       24 //SYSLIB   DD  DISP=SHR,DSN=SYS1.CEE.SCEELKED
+       25 //         DD  DISP=SHR,DSN=DSN1310.DB2.SDSNLOAD
+       26 //OBJ      DD  DISP=SHR,DSN=RAFAELT.BANKZ.OBJ
+       27 //SYSLIN   DD  *
+       28 //BIND     EXEC PGM=IKJEFT01,COND=(4,LT,LINK)
+       29 //STEPLIB  DD  DISP=SHR,DSN=DSN1310.DB2.SDSNEXIT
+       30 //         DD  DISP=SHR,DSN=DSN1310.DB2.SDSNLOAD
+       31 //         DD  DISP=SHR,DSN=RAFAELT.BANKZ.LOAD
+       32 //SYSPRINT DD  SYSOUT=*
+       33 //SYSTSPRT DD  SYSOUT=*
+       34 //SYSTSIN  DD  *

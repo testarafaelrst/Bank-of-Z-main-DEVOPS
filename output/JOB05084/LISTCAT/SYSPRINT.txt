@@ -1,0 +1,217 @@
+IDCAMS  SYSTEM SERVICES                                           TIME: 12:00:37        10/26/26     PAGE      1
+ 
+  LISTCAT ENTRIES('SYS1.LEMVS.SCEELKED') ALL
+NONVSAM ------- SYS1.LEMVS.SCEELKED
+     IN-CAT --- CATALOG.ESYSMVS.MASTER
+     HISTORY
+       DATASET-OWNER-----(NULL)     CREATION--------2020.112
+       RELEASE----------------2     EXPIRATION------0000.000
+     ENCRYPTIONDATA
+       DATA SET ENCRYPTION-----(NO)
+     VOLUMES
+       VOLSER------------******     DEVTYPE------X'00000000'     FSEQN------------------0
+     ASSOCIATIONS
+       ALIAS----CEE.SCEELKED
+     ATTRIBUTES
+IDCAMS  SYSTEM SERVICES                                           TIME: 12:00:37        10/26/26     PAGE      2
+         THE NUMBER OF ENTRIES PROCESSED WAS:
+                   AIX -------------------0
+                   ALIAS -----------------0
+                   CLUSTER ---------------0
+                   DATA ------------------0
+                   GDG -------------------0
+                   INDEX -----------------0
+                   NONVSAM ---------------1
+                   PAGESPACE -------------0
+                   PATH ------------------0
+                   SPACE -----------------0
+                   USERCATALOG -----------0
+                   TAPELIBRARY -----------0
+                   TAPEVOLUME ------------0
+                   TOTAL -----------------1
+         THE NUMBER OF PROTECTED ENTRIES SUPPRESSED WAS 0
+IDC0001I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 0
+ 
+  LISTCAT ENTRIES('SYS1.LEMVS.SCEERUN') ALL
+NONVSAM ------- SYS1.LEMVS.SCEERUN
+     IN-CAT --- CATALOG.ESYSMVS.MASTER
+     HISTORY
+       DATASET-OWNER-----(NULL)     CREATION--------2020.112
+       RELEASE----------------2     EXPIRATION------0000.000
+     ENCRYPTIONDATA
+       DATA SET ENCRYPTION-----(NO)
+     VOLUMES
+       VOLSER------------******     DEVTYPE------X'00000000'     FSEQN------------------0
+     ASSOCIATIONS
+       ALIAS----CEE.SCEERUN
+     ATTRIBUTES
+IDCAMS  SYSTEM SERVICES                                           TIME: 12:00:37        10/26/26     PAGE      3
+         THE NUMBER OF ENTRIES PROCESSED WAS:
+                   AIX -------------------0
+                   ALIAS -----------------0
+                   CLUSTER ---------------0
+                   DATA ------------------0
+                   GDG -------------------0
+                   INDEX -----------------0
+                   NONVSAM ---------------1
+                   PAGESPACE -------------0
+                   PATH ------------------0
+                   SPACE -----------------0
+                   USERCATALOG -----------0
+                   TAPELIBRARY -----------0
+                   TAPEVOLUME ------------0
+                   TOTAL -----------------1
+         THE NUMBER OF PROTECTED ENTRIES SUPPRESSED WAS 0
+IDC0001I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 0
+ 
+  LISTCAT LEVEL('IGY') NONVSAM
+IDC3012I LEVEL IGY NOT FOUND
+IDC3007I ** VSAM CATALOG RETURN-CODE IS 8
+IDC1566I ** IGY NOT LISTED
+IDCAMS  SYSTEM SERVICES                                           TIME: 12:00:37        10/26/26     PAGE      4
+         THE NUMBER OF ENTRIES PROCESSED WAS:
+                   AIX -------------------0
+                   ALIAS -----------------0
+                   CLUSTER ---------------0
+                   DATA ------------------0
+                   GDG -------------------0
+                   INDEX -----------------0
+                   NONVSAM ---------------0
+                   PAGESPACE -------------0
+                   PATH ------------------0
+                   SPACE -----------------0
+                   USERCATALOG -----------0
+                   TAPELIBRARY -----------0
+                   TAPEVOLUME ------------0
+                   TOTAL -----------------0
+         THE NUMBER OF PROTECTED ENTRIES SUPPRESSED WAS 0
+IDC0001I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 4
+ 
+  LISTCAT LEVEL('DSN') NONVSAM
+IDC3012I LEVEL DSN NOT FOUND
+IDC3007I ** VSAM CATALOG RETURN-CODE IS 8
+IDC1566I ** DSN NOT LISTED
+IDCAMS  SYSTEM SERVICES                                           TIME: 12:00:37        10/26/26     PAGE      5
+         THE NUMBER OF ENTRIES PROCESSED WAS:
+                   AIX -------------------0
+                   ALIAS -----------------0
+                   CLUSTER ---------------0
+                   DATA ------------------0
+                   GDG -------------------0
+                   INDEX -----------------0
+                   NONVSAM ---------------0
+                   PAGESPACE -------------0
+                   PATH ------------------0
+                   SPACE -----------------0
+                   USERCATALOG -----------0
+                   TAPELIBRARY -----------0
+                   TAPEVOLUME ------------0
+                   TOTAL -----------------0
+         THE NUMBER OF PROTECTED ENTRIES SUPPRESSED WAS 0
+IDC0001I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 4
+ 
+  LISTCAT LEVEL('COBOL') NONVSAM
+IDCAMS  SYSTEM SERVICES                                           TIME: 12:00:37        10/26/26     PAGE      6
+                             LISTING FROM CATALOG -- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.ADTOOLS.VSCLLIB
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.ADTOOLS.VSCOLIB
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.COBOLII.R31.COB2COMP
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.COBOLII.R31.COB2LIB
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.COBOLII.R40.COB2COMP
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.COBOLII.R40.COB2LIB
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.MVSVM.R12.SIGYCOMP
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.OS390VM.SIGYCOMP
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.VSCOBOL2.V1R4M0.COB2CICS
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.VSCOBOL2.V1R4M0.COB2CLIB
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.VSCOBOL2.V1R4M0.COB2COMP
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.VSCOBOL2.V1R4M0.COB2LIB
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.VSCOBOL2.V1R4M0.COB2MLIB
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.VSCOBOL2.V1R4M0.COB2PLIB
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.VSCOBOL2.V1R4M0.HELP
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.VSCOBOL2.V1R4M0.INSTALL
+     IN-CAT --- CATALOG.PRODUCTS.USER
+IDCAMS  SYSTEM SERVICES                                           TIME: 12:00:37        10/26/26     PAGE      7
+                             LISTING FROM CATALOG -- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.VSCOBOL2.V1R4M0.MACLIB
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.VSCOBOL2.V1R4M0.OBJ
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.VSCOBOL2.V1R4M0.PROCLIB
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.VSCOBOL2.V1R4M0.SAMPLIB
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.V3R4.SIGYPROC
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.V3R4.SIGYSAMP
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.V4R2.SIGYCOMP
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.V4R2.SIGYMAC
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.V4R2.SIGYPROC
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.V4R2.SIGYSAMP
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.V5R2.SIGYCOMP
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.V5R2.SIGYMAC
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.V5R2.SIGYPROC
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.V5R2.SIGYSAMP
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.V6R1.SIGYCOMP
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.V6R1.SIGYMAC
+     IN-CAT --- CATALOG.PRODUCTS.USER
+IDCAMS  SYSTEM SERVICES                                           TIME: 12:00:37        10/26/26     PAGE      8
+                             LISTING FROM CATALOG -- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.V6R1.SIGYPROC
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.V6R1.SIGYSAMP
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.V6R2.SIGYCOMP
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.V6R2.SIGYMAC
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.V6R2.SIGYPROC
+     IN-CAT --- CATALOG.PRODUCTS.USER
+NONVSAM ------- COBOL.V6R2.SIGYSAMP
+     IN-CAT --- CATALOG.PRODUCTS.USER
+IDCAMS  SYSTEM SERVICES                                           TIME: 12:00:37        10/26/26     PAGE      9
+                             LISTING FROM CATALOG -- CATALOG.PRODUCTS.USER
+         THE NUMBER OF ENTRIES PROCESSED WAS:
+                   AIX -------------------0
+                   ALIAS -----------------0
+                   CLUSTER ---------------0
+                   DATA ------------------0
+                   GDG -------------------0
+                   INDEX -----------------0
+                   NONVSAM --------------38
+                   PAGESPACE -------------0
+                   PATH ------------------0
+                   SPACE -----------------0
+                   USERCATALOG -----------0
+                   TAPELIBRARY -----------0
+                   TAPEVOLUME ------------0
+                   TOTAL ----------------38
+         THE NUMBER OF PROTECTED ENTRIES SUPPRESSED WAS 0
+IDC0001I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 0
+IDCAMS  SYSTEM SERVICES                                           TIME: 12:00:37        10/26/26     PAGE     10
+ 
+IDC0002I IDCAMS PROCESSING COMPLETE. MAXIMUM CONDITION CODE WAS 4

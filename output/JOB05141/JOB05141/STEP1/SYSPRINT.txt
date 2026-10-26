@@ -1,0 +1,1004 @@
+DB2 SQL PRECOMPILER         VERSION 13 REL. 1.0                                                       PAGE 1
+DSNH527I W     DSNHOPTS  THE PRECOMPILER OR DB2 COPROCESSOR ATTEMPTED TO USE THE DB2-SUPPLIED DSNHDECP MODULE.
+OPTIONS SPECIFIED: HOST(IBMCOB),APOSTSQL,MARGINS(8,72),SOURCE,XREF
+DSNHDECP LOADED FROM - (DSN1310.DB2.SDSNLOAD(DSNHDECP))
+OPTIONS USED - SPECIFIED OR DEFAULTED
+     APOSTSQL
+     ATTACH(TSO)
+     CCSID(500)
+     CONNECT(2)
+     DEC(15)
+     DECP(DSNHDECP)
+     FLAG(I)
+     HOST(IBMCOB)
+     LINECOUNT(60)
+     MARGINS(8,72)
+     SQLLEVEL(V13R1M500)
+     ONEPASS
+     OPTIONS
+     PERIOD
+     QUOTE
+     SOURCE
+     SQL(DB2)
+     STDSQL(NO)
+     XREF
+DB2 SQL PRECOMPILER         VERSION 13 REL. 1.0                                                       PAGE 2
+        1           ******************************************************************
+        2           *                                                                *
+        3           *  Copyright IBM Corp. 2025                                      *
+        4           *                                                                *
+        5           *  Program:     LSTCUST                                          *
+        6           *  Type:        Batch  Relatorio Sequencial                     *
+        7           *  Description: Lista todos os customers da tabela DB2 CUSTOMER  *
+        8           *               gerando relatorio sequencial com cabecalho de    *
+        9           *               pagina, colunas alinhadas e totalizador final.   *
+       10           *                                                                *
+       11           *  Input:       Tabela DB2 CUSTOMER (cursor sequencial)          *
+       12           *  Output:      DD LSTOUT  RAFAELT.BANK.LSTCUST.REPORT          *
+       13           *               LRECL=133 RECFM=FB                               *
+       14           *                                                                *
+       15           *  Return codes:                                                 *
+       16           *    0  = Execucao bem-sucedida                                  *
+       17           *    4  = Aviso  nenhum customer encontrado                     *
+       18           *    8  = Erro de I/O no arquivo de saida                        *
+       19           *   12  = Erro DB2 (SQLCODE negativo)                            *
+       20           *                                                                *
+       21           ******************************************************************
+       22            IDENTIFICATION DIVISION.
+       23            PROGRAM-ID.    LSTCUST.
+       24            AUTHOR.        IBM Bank-of-Z.
+       25            DATE-WRITTEN.  2025-07-09.
+       26
+       27           ******************************************************************
+       28            ENVIRONMENT DIVISION.
+       29            CONFIGURATION SECTION.
+       30            SOURCE-COMPUTER.  IBM-Z.
+       31            OBJECT-COMPUTER.  IBM-Z.
+       32            INPUT-OUTPUT SECTION.
+       33            FILE-CONTROL.
+       34                SELECT REPORT-FILE
+       35                    ASSIGN TO LSTOUT
+       36                    ORGANIZATION IS SEQUENTIAL
+       37                    ACCESS MODE  IS SEQUENTIAL
+       38                    FILE STATUS  IS WS-FILE-STATUS.
+       39
+       40           ******************************************************************
+       41            DATA DIVISION.
+       42            FILE SECTION.
+       43
+       44            FD  REPORT-FILE
+       45                RECORDING MODE IS F
+       46                BLOCK CONTAINS 0 RECORDS
+       47                RECORD CONTAINS 133 CHARACTERS.
+       48            01  REPORT-RECORD               PIC X(133).
+       49
+       50           ******************************************************************
+       51            WORKING-STORAGE SECTION.
+       52
+       53           *-----------------------------------------------------------------
+       54           * DB2  SQLCA e DECLARE TABLE
+       55           *-----------------------------------------------------------------
+       56                EXEC SQL
+       57                    INCLUDE SQLCA
+       58                END-EXEC.
+DB2 SQL PRECOMPILER         VERSION 13 REL. 1.0                                                       PAGE 3
+       59
+       60                EXEC SQL
+       61                    INCLUDE CUSTDB2
+       62                END-EXEC.
+       63           ******************************************************************
+       64           *                                                                *
+       65           *  Copyright IBM Corp. 2023                                      *
+       66           *                                                                *
+       67           *  Db2 CUSTOMER Table Declaration                               *
+       68           *                                                                *
+       69           ******************************************************************
+       70                EXEC SQL DECLARE CUSTOMER TABLE
+       71                   ( CUSTOMER_EYECATCHER            CHAR(4),
+       72                     CUSTOMER_SORTCODE              CHAR(6) NOT NULL,
+       73                     CUSTOMER_NUMBER                CHAR(10) NOT NULL,
+       74                     CUSTOMER_TITLE                 CHAR(10),
+       75                     CUSTOMER_FIRST_NAME            CHAR(50),
+       76                     CUSTOMER_LAST_NAME             CHAR(50),
+       77                     CUSTOMER_DATE_OF_BIRTH         INTEGER,
+       78                     CUSTOMER_PHONE                 CHAR(20),
+       79                     CUSTOMER_ADDR_LINE1            CHAR(50),
+       80                     CUSTOMER_ADDR_LINE2            CHAR(50),
+       81                     CUSTOMER_CITY                  CHAR(50),
+       82                     CUSTOMER_POSTCODE              CHAR(10),
+       83                     CUSTOMER_COUNTRY               CHAR(50),
+       84                     CUSTOMER_STATUS                CHAR(10),
+       85                     CUSTOMER_CREATED_DATE          INTEGER,
+       86                     CUSTOMER_CREDIT_SCORE          SMALLINT,
+       87                     CUSTOMER_CS_REVIEW_DATE        INTEGER )
+       88                END-EXEC.
+       89
+       90
+       91           *-----------------------------------------------------------------
+       92           * DB2  Host Variables (dentro da DECLARE SECTION)
+       93           *-----------------------------------------------------------------
+       94                EXEC SQL BEGIN DECLARE SECTION END-EXEC.
+       95
+       96            01  HOST-CUSTOMER-ROW.
+       97                03  HV-CUSTOMER-EYECATCHER   PIC X(4).
+       98                03  HV-CUSTOMER-SORTCODE     PIC X(6).
+       99                03  HV-CUSTOMER-NUMBER       PIC X(10).
+      100                03  HV-CUSTOMER-TITLE        PIC X(10).
+      101                03  HV-CUSTOMER-FIRST-NAME   PIC X(50).
+      102                03  HV-CUSTOMER-LAST-NAME    PIC X(50).
+      103                03  HV-CUSTOMER-DOB          PIC S9(9) COMP-5.
+      104                03  HV-CUSTOMER-PHONE        PIC X(20).
+      105                03  HV-CUSTOMER-ADDR-LINE1   PIC X(50).
+      106                03  HV-CUSTOMER-ADDR-LINE2   PIC X(50).
+      107                03  HV-CUSTOMER-CITY         PIC X(50).
+      108                03  HV-CUSTOMER-POSTCODE     PIC X(10).
+      109                03  HV-CUSTOMER-COUNTRY      PIC X(50).
+      110                03  HV-CUSTOMER-STATUS       PIC X(10).
+      111                03  HV-CUSTOMER-CREATE-DATE  PIC S9(9) COMP-5.
+      112                03  HV-CUSTOMER-CREDIT-SCORE PIC S9(4) COMP-5.
+      113                03  HV-CUSTOMER-CS-REVIEW    PIC S9(9) COMP-5.
+      114
+      115           * Null Indicators  PIC S9(4) COMP-5 para qualquer tipo nullable
+      116            01  NULL-INDICATORS.
+DB2 SQL PRECOMPILER         VERSION 13 REL. 1.0                                                       PAGE 4
+      117                05  NI-EYECATCHER            PIC S9(4) COMP-5.
+      118                05  NI-TITLE                 PIC S9(4) COMP-5.
+      119                05  NI-FIRST-NAME            PIC S9(4) COMP-5.
+      120                05  NI-LAST-NAME             PIC S9(4) COMP-5.
+      121                05  NI-DOB                   PIC S9(4) COMP-5.
+      122                05  NI-PHONE                 PIC S9(4) COMP-5.
+      123                05  NI-ADDR-LINE1            PIC S9(4) COMP-5.
+      124                05  NI-ADDR-LINE2            PIC S9(4) COMP-5.
+      125                05  NI-CITY                  PIC S9(4) COMP-5.
+      126                05  NI-POSTCODE              PIC S9(4) COMP-5.
+      127                05  NI-COUNTRY               PIC S9(4) COMP-5.
+      128                05  NI-STATUS                PIC S9(4) COMP-5.
+      129                05  NI-CREATE-DATE           PIC S9(4) COMP-5.
+      130                05  NI-CREDIT-SCORE          PIC S9(4) COMP-5.
+      131                05  NI-CS-REVIEW             PIC S9(4) COMP-5.
+      132
+      133                EXEC SQL END DECLARE SECTION END-EXEC.
+      134
+      135           *-----------------------------------------------------------------
+      136           * Flags e chaves de controle
+      137           *-----------------------------------------------------------------
+      138            01  WS-SWITCHES.
+      139                05  WS-EOF-SW                PIC X VALUE 'N'.
+      140                    88  WS-EOF              VALUE 'Y'.
+      141                05  WS-DB2-ERROR-SW          PIC X VALUE 'N'.
+      142                    88  WS-DB2-ERROR        VALUE 'Y'.
+      143                05  WS-FILE-STATUS           PIC XX VALUE SPACES.
+      144                    88  WS-FILE-OK          VALUE '00'.
+      145
+      146           *-----------------------------------------------------------------
+      147           * Contadores e controle de pagina
+      148           *-----------------------------------------------------------------
+      149            01  WS-COUNTERS.
+      150                05  WS-LINE-COUNT            PIC 9(5) VALUE ZEROS.
+      151                05  WS-PAGE-COUNT            PIC 9(5) VALUE ZEROS.
+      152                05  WS-CUST-COUNT            PIC 9(9) VALUE ZEROS.
+      153                05  WS-LINES-PER-PAGE        PIC 9(3) VALUE 60.
+      154
+      155           *-----------------------------------------------------------------
+      156           * Data e hora correntes
+      157           *-----------------------------------------------------------------
+      158            01  WS-DATE-WORK.
+      159                05  WS-CURRENT-DATE          PIC 9(8).
+      160                05  WS-CURR-DATE-GRP REDEFINES WS-CURRENT-DATE.
+      161                    10  WS-CURR-YYYY         PIC 9(4).
+      162                    10  WS-CURR-MM           PIC 9(2).
+      163                    10  WS-CURR-DD           PIC 9(2).
+      164                05  WS-CURRENT-TIME          PIC 9(6).
+      165
+      166            01  WS-DATE-FORMATTED            PIC X(10).
+      167            01  WS-TIME-FORMATTED            PIC X(8).
+      168
+      169           *-----------------------------------------------------------------
+      170           * Conversao de datas INTEGER (YYYYMMDD) -> DD/MM/YYYY
+      171           * Regra IBM: REDEFINES fora da DECLARE SECTION, sobre area display
+      172           *-----------------------------------------------------------------
+      173            01  WS-DATE-INT-WORK             PIC 9(8).
+      174            01  WS-DATE-INT-GRP REDEFINES WS-DATE-INT-WORK.
+DB2 SQL PRECOMPILER         VERSION 13 REL. 1.0                                                       PAGE 5
+      175                05  WS-DATE-YYYY             PIC 9(4).
+      176                05  WS-DATE-MM               PIC 9(2).
+      177                05  WS-DATE-DD               PIC 9(2).
+      178
+      179            01  WS-DATE-OUT                  PIC X(10).
+      180
+      181           *-----------------------------------------------------------------
+      182           * Codigo de retorno do programa
+      183           *-----------------------------------------------------------------
+      184            01  WS-RETURN-CODE               PIC S9(4) COMP VALUE ZEROS.
+      185
+      186           *-----------------------------------------------------------------
+      187           * Linhas de relatorio  cabecalho 1 (titulo)
+      188           *-----------------------------------------------------------------
+      189            01  RPT-HEADER-1.
+      190                05  FILLER       PIC X(1)  VALUE SPACES.
+      191                05  FILLER       PIC X(40) VALUE
+      192                    'BANCO XYZ - LISTAGEM GERAL DE CUSTOMERS'.
+      193                05  FILLER       PIC X(22) VALUE SPACES.
+      194                05  FILLER       PIC X(6)  VALUE 'DATA: '.
+      195                05  HDR1-DATE    PIC X(10).
+      196                05  FILLER       PIC X(3)  VALUE SPACES.
+      197                05  FILLER       PIC X(6)  VALUE 'HORA: '.
+      198                05  HDR1-TIME    PIC X(8).
+      199                05  FILLER       PIC X(3)  VALUE SPACES.
+      200                05  FILLER       PIC X(6)  VALUE 'PAG.: '.
+      201                05  HDR1-PAGE    PIC ZZZZZ.
+      202                05  FILLER       PIC X(21) VALUE SPACES.
+      203
+      204           *-----------------------------------------------------------------
+      205           * Cabecalho 2  linha em branco separadora
+      206           *-----------------------------------------------------------------
+      207            01  RPT-HEADER-2.
+      208                05  FILLER       PIC X(133) VALUE SPACES.
+      209
+      210           *-----------------------------------------------------------------
+      211           * Cabecalho 3  titulos de colunas
+      212           *-----------------------------------------------------------------
+      213            01  RPT-HEADER-3.
+      214                05  FILLER       PIC X(1)  VALUE SPACES.
+      215                05  FILLER       PIC X(4)  VALUE 'LIN '.
+      216                05  FILLER       PIC X(3)  VALUE SPACES.
+      217                05  FILLER       PIC X(8)  VALUE 'SORTCODE'.
+      218                05  FILLER       PIC X(2)  VALUE SPACES.
+      219                05  FILLER       PIC X(11) VALUE 'CUST-NUMBER'.
+      220                05  FILLER       PIC X(3)  VALUE SPACES.
+      221                05  FILLER       PIC X(6)  VALUE 'TITULO'.
+      222                05  FILLER       PIC X(6)  VALUE SPACES.
+      223                05  FILLER       PIC X(34) VALUE
+      224                    'NOME COMPLETO                     '.
+      225                05  FILLER       PIC X(10) VALUE 'STATUS    '.
+      226                05  FILLER       PIC X(4)  VALUE SPACES.
+      227                05  FILLER       PIC X(20) VALUE 'TELEFONE            '.
+      228                05  FILLER       PIC X(3)  VALUE SPACES.
+      229                05  FILLER       PIC X(19) VALUE 'CIDADE             '.
+      230                05  FILLER       PIC X(3)  VALUE SPACES.
+      231                05  FILLER       PIC X(8)  VALUE 'CR-SCORE'.
+      232                05  FILLER       PIC X(6)  VALUE SPACES.
+DB2 SQL PRECOMPILER         VERSION 13 REL. 1.0                                                       PAGE 6
+      233
+      234           *-----------------------------------------------------------------
+      235           * Cabecalho 4  linha de separacao com tracejado
+      236           *-----------------------------------------------------------------
+      237            01  RPT-HEADER-4.
+      238                05  FILLER       PIC X(1)  VALUE SPACES.
+      239                05  FILLER       PIC X(4)  VALUE '----'.
+      240                05  FILLER       PIC X(3)  VALUE SPACES.
+      241                05  FILLER       PIC X(8)  VALUE '--------'.
+      242                05  FILLER       PIC X(2)  VALUE SPACES.
+      243                05  FILLER       PIC X(10) VALUE '----------'.
+      244                05  FILLER       PIC X(3)  VALUE SPACES.
+      245                05  FILLER       PIC X(10) VALUE '----------'.
+      246                05  FILLER       PIC X(2)  VALUE SPACES.
+      247                05  FILLER       PIC X(34) VALUE
+      248                    '----------------------------------'.
+      249                05  FILLER       PIC X(10) VALUE '----------'.
+      250                05  FILLER       PIC X(4)  VALUE SPACES.
+      251                05  FILLER       PIC X(20) VALUE '--------------------'.
+      252                05  FILLER       PIC X(3)  VALUE SPACES.
+      253                05  FILLER       PIC X(19) VALUE '-------------------'.
+      254                05  FILLER       PIC X(3)  VALUE SPACES.
+      255                05  FILLER       PIC X(3)  VALUE '---'.
+      256                05  FILLER       PIC X(11) VALUE SPACES.
+      257
+      258           *-----------------------------------------------------------------
+      259           * Linha de detalhe principal (linha 1 por registro)
+      260           *-----------------------------------------------------------------
+      261            01  RPT-DETAIL-1.
+      262                05  FILLER       PIC X(1)  VALUE SPACES.
+      263                05  DET1-LINE-NO PIC ZZZZZ.
+      264                05  FILLER       PIC X(2)  VALUE SPACES.
+      265                05  DET1-SORTCODE PIC X(6).
+      266                05  FILLER       PIC X(3)  VALUE SPACES.
+      267                05  DET1-CUST-NO  PIC X(10).
+      268                05  FILLER       PIC X(3)  VALUE SPACES.
+      269                05  DET1-TITLE    PIC X(10).
+      270                05  FILLER       PIC X(2)  VALUE SPACES.
+      271                05  DET1-FNAME    PIC X(50).
+      272                05  FILLER       PIC X(1)  VALUE SPACES.
+      273                05  DET1-LNAME    PIC X(10).
+      274                05  FILLER       PIC X(3)  VALUE SPACES.
+      275                05  DET1-STATUS   PIC X(10).
+      276                05  FILLER       PIC X(4)  VALUE SPACES.
+      277                05  DET1-PHONE    PIC X(20).
+      278                05  FILLER       PIC X(3)  VALUE SPACES.
+      279                05  DET1-CITY     PIC X(20).
+      280
+      281           *-----------------------------------------------------------------
+      282           * Campo adicional para score de credito (formatado separadamente)
+      283           *-----------------------------------------------------------------
+      284            01  WS-CREDIT-SCORE-DISP         PIC ZZZ.
+      285            01  WS-CREDIT-SCORE-NA           PIC X(3) VALUE 'N/A'.
+      286
+      287           *-----------------------------------------------------------------
+      288           * Linha de continuacao (linha 2 por registro  datas e endereco)
+      289           *-----------------------------------------------------------------
+      290            01  RPT-DETAIL-2.
+DB2 SQL PRECOMPILER         VERSION 13 REL. 1.0                                                       PAGE 7
+      291                05  FILLER       PIC X(6)  VALUE SPACES.
+      292                05  FILLER       PIC X(4)  VALUE 'NAC:'.
+      293                05  DET2-DOB      PIC X(10).
+      294                05  FILLER       PIC X(2)  VALUE SPACES.
+      295                05  FILLER       PIC X(8)  VALUE 'CRIADO: '.
+      296                05  DET2-CREATED  PIC X(10).
+      297                05  FILLER       PIC X(2)  VALUE SPACES.
+      298                05  FILLER       PIC X(10) VALUE 'REV.CRED: '.
+      299                05  DET2-CS-REV   PIC X(10).
+      300                05  FILLER       PIC X(2)  VALUE SPACES.
+      301                05  FILLER       PIC X(6)  VALUE 'PAIS: '.
+      302                05  DET2-COUNTRY  PIC X(20).
+      303                05  FILLER       PIC X(2)  VALUE SPACES.
+      304                05  FILLER       PIC X(5)  VALUE 'CEP: '.
+      305                05  DET2-POSTCODE PIC X(10).
+      306                05  FILLER       PIC X(26) VALUE SPACES.
+      307
+      308           *-----------------------------------------------------------------
+      309           * Linha de totalizador final
+      310           *-----------------------------------------------------------------
+      311            01  RPT-TOTAL-LINE.
+      312                05  FILLER       PIC X(6)  VALUE SPACES.
+      313                05  FILLER       PIC X(32) VALUE
+      314                    '================================'.
+      315                05  FILLER       PIC X(32) VALUE
+      316                    '================================'.
+      317                05  FILLER       PIC X(63) VALUE SPACES.
+      318
+      319            01  RPT-TOTAL-VALUE.
+      320                05  FILLER       PIC X(6)  VALUE SPACES.
+      321                05  FILLER       PIC X(30) VALUE
+      322                    'TOTAL DE CUSTOMERS LISTADOS: '.
+      323                05  TOT-CUST-CNT  PIC ZZZZZZZZZ.
+      324                05  FILLER       PIC X(88) VALUE SPACES.
+      325
+      326           *-----------------------------------------------------------------
+      327           * Linha de separacao generica
+      328           *-----------------------------------------------------------------
+      329            01  RPT-BLANK-LINE.
+      330                05  FILLER       PIC X(133) VALUE SPACES.
+      331
+      332           ******************************************************************
+      333            PROCEDURE DIVISION.
+      334
+      335           *-----------------------------------------------------------------
+      336           * DECLARE CURSOR  instrucao nao-executavel; processada pelo
+      337           * pre-compilador. Posicionada antes do primeiro uso do cursor.
+      338           *-----------------------------------------------------------------
+      339                EXEC SQL
+      340                    DECLARE CUST-CURSOR CURSOR FOR
+      341                        SELECT CUSTOMER_EYECATCHER,
+      342                               CUSTOMER_SORTCODE,
+      343                               CUSTOMER_NUMBER,
+      344                               CUSTOMER_TITLE,
+      345                               CUSTOMER_FIRST_NAME,
+      346                               CUSTOMER_LAST_NAME,
+      347                               CUSTOMER_DATE_OF_BIRTH,
+      348                               CUSTOMER_PHONE,
+DB2 SQL PRECOMPILER         VERSION 13 REL. 1.0                                                       PAGE 8
+      349                               CUSTOMER_ADDR_LINE1,
+      350                               CUSTOMER_ADDR_LINE2,
+      351                               CUSTOMER_CITY,
+      352                               CUSTOMER_POSTCODE,
+      353                               CUSTOMER_COUNTRY,
+      354                               CUSTOMER_STATUS,
+      355                               CUSTOMER_CREATED_DATE,
+      356                               CUSTOMER_CREDIT_SCORE,
+      357                               CUSTOMER_CS_REVIEW_DATE
+      358                        FROM   CUSTOMER
+      359                        ORDER  BY CUSTOMER_SORTCODE ASC,
+      360                                  CUSTOMER_NUMBER   ASC
+      361                END-EXEC.
+      362
+      363           *-----------------------------------------------------------------
+      364           * MAIN-PROCESS
+      365           *   Ponto de entrada: coordena o fluxo geral do programa.
+      366           *-----------------------------------------------------------------
+      367            MAIN-PROCESS.
+      368                PERFORM OPEN-FILES.
+      369                IF WS-DB2-ERROR
+      370                    MOVE 12 TO WS-RETURN-CODE
+      371                    PERFORM CLOSE-FILES
+      372                    MOVE WS-RETURN-CODE TO RETURN-CODE
+      373                    STOP RUN
+      374                END-IF.
+      375
+      376                PERFORM PRINT-HEADER.
+      377
+      378           *   Primeiro FETCH fora do loop (padrao IBM):
+      379           *   O PERFORM UNTIL testa a condicao ANTES de executar o corpo.
+      380           *   Se o FETCH nao fosse antecipado, a primeira linha seria ignorada.
+      381                EXEC SQL
+      382                    FETCH CUST-CURSOR
+      383                    INTO :HV-CUSTOMER-EYECATCHER  :NI-EYECATCHER,
+      384                         :HV-CUSTOMER-SORTCODE,
+      385                         :HV-CUSTOMER-NUMBER,
+      386                         :HV-CUSTOMER-TITLE        :NI-TITLE,
+      387                         :HV-CUSTOMER-FIRST-NAME   :NI-FIRST-NAME,
+      388                         :HV-CUSTOMER-LAST-NAME    :NI-LAST-NAME,
+      389                         :HV-CUSTOMER-DOB          :NI-DOB,
+      390                         :HV-CUSTOMER-PHONE        :NI-PHONE,
+      391                         :HV-CUSTOMER-ADDR-LINE1   :NI-ADDR-LINE1,
+      392                         :HV-CUSTOMER-ADDR-LINE2   :NI-ADDR-LINE2,
+      393                         :HV-CUSTOMER-CITY         :NI-CITY,
+      394                         :HV-CUSTOMER-POSTCODE     :NI-POSTCODE,
+      395                         :HV-CUSTOMER-COUNTRY      :NI-COUNTRY,
+      396                         :HV-CUSTOMER-STATUS       :NI-STATUS,
+      397                         :HV-CUSTOMER-CREATE-DATE  :NI-CREATE-DATE,
+      398                         :HV-CUSTOMER-CREDIT-SCORE :NI-CREDIT-SCORE,
+      399                         :HV-CUSTOMER-CS-REVIEW    :NI-CS-REVIEW
+      400                END-EXEC.
+      401
+      402                PERFORM FETCH-LOOP
+      403                    UNTIL SQLCODE NOT EQUAL ZERO.
+      404
+      405           *   Apos sair do loop: distinguir fim normal de erro DB2
+      406                IF SQLCODE = +100
+DB2 SQL PRECOMPILER         VERSION 13 REL. 1.0                                                       PAGE 9
+      407                    IF WS-CUST-COUNT = ZERO
+      408                        MOVE 4 TO WS-RETURN-CODE
+      409                    END-IF
+      410                    PERFORM PRINT-TOTALS
+      411                    PERFORM CLOSE-FILES
+      412                ELSE
+      413                    PERFORM DB2-ERROR-HANDLING
+      414                    MOVE 12 TO WS-RETURN-CODE
+      415                    PERFORM CLOSE-FILES
+      416                END-IF.
+      417
+      418                MOVE WS-RETURN-CODE TO RETURN-CODE.
+      419                STOP RUN.
+      420
+      421           *-----------------------------------------------------------------
+      422           * OPEN-FILES
+      423           *   Abre REPORT-FILE e cursor DB2.
+      424           *-----------------------------------------------------------------
+      425            OPEN-FILES.
+      426           *   Obter data e hora correntes
+      427                MOVE FUNCTION CURRENT-DATE(1:8)  TO WS-CURRENT-DATE.
+      428                MOVE FUNCTION CURRENT-DATE(9:6)  TO WS-CURRENT-TIME.
+      429
+      430           *   Formatar data corrente: YYYYMMDD -> DD/MM/YYYY
+      431                STRING WS-CURR-DD    DELIMITED SIZE
+      432                       '/'            DELIMITED SIZE
+      433                       WS-CURR-MM    DELIMITED SIZE
+      434                       '/'            DELIMITED SIZE
+      435                       WS-CURR-YYYY  DELIMITED SIZE
+      436                    INTO WS-DATE-FORMATTED.
+      437
+      438           *   Formatar hora corrente: HHMMSS -> HH:MM:SS
+      439                MOVE WS-CURRENT-TIME(1:6) TO WS-TIME-FORMATTED(1:6).
+      440                MOVE WS-CURRENT-TIME(1:2) TO WS-TIME-FORMATTED(1:2).
+      441                MOVE ':'                   TO WS-TIME-FORMATTED(3:1).
+      442                MOVE WS-CURRENT-TIME(3:2) TO WS-TIME-FORMATTED(4:2).
+      443                MOVE ':'                   TO WS-TIME-FORMATTED(6:1).
+      444                MOVE WS-CURRENT-TIME(5:2) TO WS-TIME-FORMATTED(7:2).
+      445
+      446           *   Abrir arquivo de saida
+      447                OPEN OUTPUT REPORT-FILE.
+      448                IF NOT WS-FILE-OK
+      449                    DISPLAY 'LSTCUST - ERRO AO ABRIR REPORT-FILE'
+      450                    DISPLAY 'FILE-STATUS: ' WS-FILE-STATUS
+      451                    MOVE 8 TO WS-RETURN-CODE
+      452                    SET WS-DB2-ERROR TO TRUE
+      453                    EXIT PARAGRAPH
+      454                END-IF.
+      455
+      456           *   Abrir cursor DB2
+      457                EXEC SQL OPEN CUST-CURSOR END-EXEC.
+      458                IF SQLCODE NOT EQUAL ZERO
+      459                    PERFORM DB2-ERROR-HANDLING
+      460                    SET WS-DB2-ERROR TO TRUE
+      461                END-IF.
+      462
+      463           *-----------------------------------------------------------------
+      464           * PRINT-HEADER
+DB2 SQL PRECOMPILER         VERSION 13 REL. 1.0                                                       PAGE 10
+      465           *   Imprime cabecalho de pagina e incrementa numero de pagina.
+      466           *-----------------------------------------------------------------
+      467            PRINT-HEADER.
+      468                ADD 1 TO WS-PAGE-COUNT.
+      469                MOVE WS-PAGE-COUNT   TO HDR1-PAGE.
+      470                MOVE WS-DATE-FORMATTED TO HDR1-DATE.
+      471                MOVE WS-TIME-FORMATTED TO HDR1-TIME.
+      472
+      473                WRITE REPORT-RECORD FROM RPT-HEADER-1.
+      474                IF NOT WS-FILE-OK
+      475                    PERFORM IO-ERROR-HANDLING
+      476                END-IF.
+      477                WRITE REPORT-RECORD FROM RPT-HEADER-2.
+      478                WRITE REPORT-RECORD FROM RPT-HEADER-3.
+      479                WRITE REPORT-RECORD FROM RPT-HEADER-4.
+      480
+      481                MOVE ZERO TO WS-LINE-COUNT.
+      482
+      483           *-----------------------------------------------------------------
+      484           * FETCH-LOOP
+      485           *   Processa a linha atual, depois executa o proximo FETCH.
+      486           *   O loop termina quando SQLCODE <> 0 (fim ou erro).
+      487           *-----------------------------------------------------------------
+      488            FETCH-LOOP.
+      489                PERFORM FORMAT-DETAIL-LINE.
+      490                PERFORM FORMAT-CONT-LINE.
+      491                PERFORM PRINT-DETAIL.
+      492
+      493                ADD 1 TO WS-CUST-COUNT.
+      494                ADD 1 TO WS-LINE-COUNT.
+      495
+      496                IF WS-LINE-COUNT >= WS-LINES-PER-PAGE
+      497                    PERFORM PRINT-HEADER
+      498                END-IF.
+      499
+      500           *   FETCH proximo registro
+      501                EXEC SQL
+      502                    FETCH CUST-CURSOR
+      503                    INTO :HV-CUSTOMER-EYECATCHER  :NI-EYECATCHER,
+      504                         :HV-CUSTOMER-SORTCODE,
+      505                         :HV-CUSTOMER-NUMBER,
+      506                         :HV-CUSTOMER-TITLE        :NI-TITLE,
+      507                         :HV-CUSTOMER-FIRST-NAME   :NI-FIRST-NAME,
+      508                         :HV-CUSTOMER-LAST-NAME    :NI-LAST-NAME,
+      509                         :HV-CUSTOMER-DOB          :NI-DOB,
+      510                         :HV-CUSTOMER-PHONE        :NI-PHONE,
+      511                         :HV-CUSTOMER-ADDR-LINE1   :NI-ADDR-LINE1,
+      512                         :HV-CUSTOMER-ADDR-LINE2   :NI-ADDR-LINE2,
+      513                         :HV-CUSTOMER-CITY         :NI-CITY,
+      514                         :HV-CUSTOMER-POSTCODE     :NI-POSTCODE,
+      515                         :HV-CUSTOMER-COUNTRY      :NI-COUNTRY,
+      516                         :HV-CUSTOMER-STATUS       :NI-STATUS,
+      517                         :HV-CUSTOMER-CREATE-DATE  :NI-CREATE-DATE,
+      518                         :HV-CUSTOMER-CREDIT-SCORE :NI-CREDIT-SCORE,
+      519                         :HV-CUSTOMER-CS-REVIEW    :NI-CS-REVIEW
+      520                END-EXEC.
+      521
+      522           *-----------------------------------------------------------------
+DB2 SQL PRECOMPILER         VERSION 13 REL. 1.0                                                       PAGE 11
+      523           * FORMAT-DETAIL-LINE
+      524           *   Formata a linha principal de detalhe do registro.
+      525           *-----------------------------------------------------------------
+      526            FORMAT-DETAIL-LINE.
+      527                INITIALIZE RPT-DETAIL-1.
+      528
+      529                MOVE WS-CUST-COUNT          TO DET1-LINE-NO.
+      530                MOVE HV-CUSTOMER-SORTCODE   TO DET1-SORTCODE.
+      531                MOVE HV-CUSTOMER-NUMBER     TO DET1-CUST-NO.
+      532
+      533                IF NI-TITLE < ZERO
+      534                    MOVE SPACES             TO DET1-TITLE
+      535                ELSE
+      536                    MOVE HV-CUSTOMER-TITLE  TO DET1-TITLE
+      537                END-IF.
+      538
+      539                IF NI-FIRST-NAME < ZERO
+      540                    MOVE SPACES             TO DET1-FNAME
+      541                ELSE
+      542                    MOVE HV-CUSTOMER-FIRST-NAME TO DET1-FNAME
+      543                END-IF.
+      544
+      545                IF NI-LAST-NAME < ZERO
+      546                    MOVE SPACES             TO DET1-LNAME
+      547                ELSE
+      548                    MOVE HV-CUSTOMER-LAST-NAME(1:10) TO DET1-LNAME
+      549                END-IF.
+      550
+      551                IF NI-STATUS < ZERO
+      552                    MOVE SPACES             TO DET1-STATUS
+      553                ELSE
+      554                    MOVE HV-CUSTOMER-STATUS TO DET1-STATUS
+      555                END-IF.
+      556
+      557                IF NI-PHONE < ZERO
+      558                    MOVE SPACES             TO DET1-PHONE
+      559                ELSE
+      560                    MOVE HV-CUSTOMER-PHONE  TO DET1-PHONE
+      561                END-IF.
+      562
+      563                IF NI-CITY < ZERO
+      564                    MOVE SPACES             TO DET1-CITY
+      565                ELSE
+      566                    MOVE HV-CUSTOMER-CITY(1:20) TO DET1-CITY
+      567                END-IF.
+      568
+      569           *   Score de credito: ZZZ ou N/A se null
+      570                IF NI-CREDIT-SCORE < ZERO
+      571                    MOVE WS-CREDIT-SCORE-NA TO RPT-DETAIL-1(130:3)
+      572                ELSE
+      573                    MOVE HV-CUSTOMER-CREDIT-SCORE TO WS-CREDIT-SCORE-DISP
+      574                    MOVE WS-CREDIT-SCORE-DISP     TO RPT-DETAIL-1(130:3)
+      575                END-IF.
+      576
+      577           *-----------------------------------------------------------------
+      578           * FORMAT-CONT-LINE
+      579           *   Formata a linha de continuacao (datas e endereco completo).
+      580           *-----------------------------------------------------------------
+DB2 SQL PRECOMPILER         VERSION 13 REL. 1.0                                                       PAGE 12
+      581            FORMAT-CONT-LINE.
+      582                INITIALIZE RPT-DETAIL-2.
+      583
+      584           *   Data de nascimento
+      585                IF NI-DOB < ZERO
+      586                    MOVE 'N/A       ' TO DET2-DOB
+      587                ELSE
+      588                    MOVE HV-CUSTOMER-DOB TO WS-DATE-INT-WORK
+      589                    STRING WS-DATE-DD   DELIMITED SIZE
+      590                           '/'           DELIMITED SIZE
+      591                           WS-DATE-MM   DELIMITED SIZE
+      592                           '/'           DELIMITED SIZE
+      593                           WS-DATE-YYYY DELIMITED SIZE
+      594                       INTO WS-DATE-OUT
+      595                    MOVE WS-DATE-OUT TO DET2-DOB
+      596                END-IF.
+      597
+      598           *   Data de criacao
+      599                IF NI-CREATE-DATE < ZERO
+      600                    MOVE 'N/A       ' TO DET2-CREATED
+      601                ELSE
+      602                    MOVE HV-CUSTOMER-CREATE-DATE TO WS-DATE-INT-WORK
+      603                    STRING WS-DATE-DD   DELIMITED SIZE
+      604                           '/'           DELIMITED SIZE
+      605                           WS-DATE-MM   DELIMITED SIZE
+      606                           '/'           DELIMITED SIZE
+      607                           WS-DATE-YYYY DELIMITED SIZE
+      608                       INTO WS-DATE-OUT
+      609                    MOVE WS-DATE-OUT TO DET2-CREATED
+      610                END-IF.
+      611
+      612           *   Data de revisao de credito
+      613                IF NI-CS-REVIEW < ZERO
+      614                    MOVE 'N/A       ' TO DET2-CS-REV
+      615                ELSE
+      616                    MOVE HV-CUSTOMER-CS-REVIEW TO WS-DATE-INT-WORK
+      617                    STRING WS-DATE-DD   DELIMITED SIZE
+      618                           '/'           DELIMITED SIZE
+      619                           WS-DATE-MM   DELIMITED SIZE
+      620                           '/'           DELIMITED SIZE
+      621                           WS-DATE-YYYY DELIMITED SIZE
+      622                       INTO WS-DATE-OUT
+      623                    MOVE WS-DATE-OUT TO DET2-CS-REV
+      624                END-IF.
+      625
+      626           *   Pais
+      627                IF NI-COUNTRY < ZERO
+      628                    MOVE SPACES                    TO DET2-COUNTRY
+      629                ELSE
+      630                    MOVE HV-CUSTOMER-COUNTRY(1:20) TO DET2-COUNTRY
+      631                END-IF.
+      632
+      633           *   CEP
+      634                IF NI-POSTCODE < ZERO
+      635                    MOVE SPACES                    TO DET2-POSTCODE
+      636                ELSE
+      637                    MOVE HV-CUSTOMER-POSTCODE      TO DET2-POSTCODE
+      638                END-IF.
+DB2 SQL PRECOMPILER         VERSION 13 REL. 1.0                                                       PAGE 13
+      639
+      640           *-----------------------------------------------------------------
+      641           * PRINT-DETAIL
+      642           *   Escreve as duas linhas do registro no arquivo de saida.
+      643           *-----------------------------------------------------------------
+      644            PRINT-DETAIL.
+      645                WRITE REPORT-RECORD FROM RPT-DETAIL-1.
+      646                IF NOT WS-FILE-OK
+      647                    PERFORM IO-ERROR-HANDLING
+      648                END-IF.
+      649                WRITE REPORT-RECORD FROM RPT-DETAIL-2.
+      650                IF NOT WS-FILE-OK
+      651                    PERFORM IO-ERROR-HANDLING
+      652                END-IF.
+      653
+      654           *-----------------------------------------------------------------
+      655           * PRINT-TOTALS
+      656           *   Imprime linha totalizadora no final do relatorio.
+      657           *-----------------------------------------------------------------
+      658            PRINT-TOTALS.
+      659                WRITE REPORT-RECORD FROM RPT-BLANK-LINE.
+      660                WRITE REPORT-RECORD FROM RPT-TOTAL-LINE.
+      661                MOVE WS-CUST-COUNT TO TOT-CUST-CNT.
+      662                WRITE REPORT-RECORD FROM RPT-TOTAL-VALUE.
+      663                WRITE REPORT-RECORD FROM RPT-TOTAL-LINE.
+      664                WRITE REPORT-RECORD FROM RPT-BLANK-LINE.
+      665
+      666           *-----------------------------------------------------------------
+      667           * CLOSE-FILES
+      668           *   Fecha REPORT-FILE e cursor DB2.
+      669           *-----------------------------------------------------------------
+      670            CLOSE-FILES.
+      671                EXEC SQL CLOSE CUST-CURSOR END-EXEC.
+      672                CLOSE REPORT-FILE.
+      673
+      674           *-----------------------------------------------------------------
+      675           * DB2-ERROR-HANDLING
+      676           *   Registra SQLCODE e mensagem de erro em SYSOUT.
+      677           *   O chamador define o RETURN-CODE apos retornar desta secao.
+      678           *-----------------------------------------------------------------
+      679            DB2-ERROR-HANDLING.
+      680                DISPLAY '*** LSTCUST - ERRO DB2 ***'.
+      681                DISPLAY 'SQLCODE  : ' SQLCODE.
+      682                DISPLAY 'SQLERRM  : ' SQLERRM.
+      683                DISPLAY 'SQLERRP  : ' SQLERRP.
+      684                DISPLAY 'SQLERRD 1: ' SQLERRD(1).
+      685                DISPLAY 'SQLERRD 2: ' SQLERRD(2).
+      686                DISPLAY 'SQLERRD 3: ' SQLERRD(3).
+      687                DISPLAY 'SQLERRD 4: ' SQLERRD(4).
+      688                DISPLAY 'SQLERRD 5: ' SQLERRD(5).
+      689                DISPLAY 'SQLERRD 6: ' SQLERRD(6).
+      690                SET WS-DB2-ERROR TO TRUE.
+      691
+      692           *-----------------------------------------------------------------
+      693           * IO-ERROR-HANDLING
+      694           *   Registra erro de I/O no arquivo de saida.
+      695           *-----------------------------------------------------------------
+      696            IO-ERROR-HANDLING.
+DB2 SQL PRECOMPILER         VERSION 13 REL. 1.0                                                       PAGE 14
+      697                DISPLAY '*** LSTCUST - ERRO DE I/O ***'.
+      698                DISPLAY 'FILE-STATUS: ' WS-FILE-STATUS.
+      699                MOVE 8 TO WS-RETURN-CODE.
+      700                MOVE WS-RETURN-CODE TO RETURN-CODE.
+      701                STOP RUN.
+      702
+DB2 SQL PRECOMPILER         SYMBOL CROSS-REFERENCE LISTING                                            PAGE 15
+DATA NAMES                     DEFN     REFERENCE
+"CUST-CURSOR"                  340      CURSOR
+                                        382 457 502 671
+"CUSTOMER"                     70       TABLE
+                                        358
+"CUSTOMER_ADDR_LINE1"          79       CHARACTER(50) COLUMN IN "CUSTOMER"
+ 
+"CUSTOMER_ADDR_LINE1"          ****     COLUMN OR GLOBAL VARIABLE
+                                        349
+"CUSTOMER_ADDR_LINE2"          80       CHARACTER(50) COLUMN IN "CUSTOMER"
+ 
+"CUSTOMER_ADDR_LINE2"          ****     COLUMN OR GLOBAL VARIABLE
+                                        350
+"CUSTOMER_CITY"                81       CHARACTER(50) COLUMN IN "CUSTOMER"
+ 
+"CUSTOMER_CITY"                ****     COLUMN OR GLOBAL VARIABLE
+                                        351
+"CUSTOMER_COUNTRY"             83       CHARACTER(50) COLUMN IN "CUSTOMER"
+ 
+"CUSTOMER_COUNTRY"             ****     COLUMN OR GLOBAL VARIABLE
+                                        353
+"CUSTOMER_CREATED_DATE"        85       INTEGER COLUMN IN "CUSTOMER"
+ 
+"CUSTOMER_CREATED_DATE"        ****     COLUMN OR GLOBAL VARIABLE
+                                        355
+"CUSTOMER_CREDIT_SCORE"        86       SMALL INTEGER COLUMN IN "CUSTOMER"
+ 
+"CUSTOMER_CREDIT_SCORE"        ****     COLUMN OR GLOBAL VARIABLE
+                                        356
+"CUSTOMER_CS_REVIEW_DATE"      87       INTEGER COLUMN IN "CUSTOMER"
+ 
+"CUSTOMER_CS_REVIEW_DATE"      ****     COLUMN OR GLOBAL VARIABLE
+                                        357
+"CUSTOMER_DATE_OF_BIRTH"       77       INTEGER COLUMN IN "CUSTOMER"
+ 
+"CUSTOMER_DATE_OF_BIRTH"       ****     COLUMN OR GLOBAL VARIABLE
+                                        347
+"CUSTOMER_EYECATCHER"          71       CHARACTER(4) COLUMN IN "CUSTOMER"
+ 
+"CUSTOMER_EYECATCHER"          ****     COLUMN OR GLOBAL VARIABLE
+                                        341
+"CUSTOMER_FIRST_NAME"          75       CHARACTER(50) COLUMN IN "CUSTOMER"
+ 
+"CUSTOMER_FIRST_NAME"          ****     COLUMN OR GLOBAL VARIABLE
+                                        345
+"CUSTOMER_LAST_NAME"           76       CHARACTER(50) COLUMN IN "CUSTOMER"
+ 
+"CUSTOMER_LAST_NAME"           ****     COLUMN OR GLOBAL VARIABLE
+                                        346
+"CUSTOMER_NUMBER"              73       CHARACTER(10) COLUMN (NOT NULL) IN "CUSTOMER"
+ 
+"CUSTOMER_NUMBER"              ****     COLUMN OR GLOBAL VARIABLE
+                                        343 360
+"CUSTOMER_PHONE"               78       CHARACTER(20) COLUMN IN "CUSTOMER"
+ 
+"CUSTOMER_PHONE"               ****     COLUMN OR GLOBAL VARIABLE
+                                        348
+DB2 SQL PRECOMPILER         SYMBOL CROSS-REFERENCE LISTING                                            PAGE 16
+DATA NAMES                     DEFN     REFERENCE
+"CUSTOMER_POSTCODE"            82       CHARACTER(10) COLUMN IN "CUSTOMER"
+ 
+"CUSTOMER_POSTCODE"            ****     COLUMN OR GLOBAL VARIABLE
+                                        352
+"CUSTOMER_SORTCODE"            72       CHARACTER(6) COLUMN (NOT NULL) IN "CUSTOMER"
+ 
+"CUSTOMER_SORTCODE"            ****     COLUMN OR GLOBAL VARIABLE
+                                        342 359
+"CUSTOMER_STATUS"              84       CHARACTER(10) COLUMN IN "CUSTOMER"
+ 
+"CUSTOMER_STATUS"              ****     COLUMN OR GLOBAL VARIABLE
+                                        354
+"CUSTOMER_TITLE"               74       CHARACTER(10) COLUMN IN "CUSTOMER"
+ 
+"CUSTOMER_TITLE"               ****     COLUMN OR GLOBAL VARIABLE
+                                        344
+DET1-CITY                      279      CHARACTER(20) IN RPT-DETAIL-1
+ 
+DET1-CUST-NO                   267      CHARACTER(10) IN RPT-DETAIL-1
+ 
+DET1-FNAME                     271      CHARACTER(50) IN RPT-DETAIL-1
+ 
+DET1-LINE-NO                   263      IN RPT-DETAIL-1
+ 
+DET1-LNAME                     273      CHARACTER(10) IN RPT-DETAIL-1
+ 
+DET1-PHONE                     277      CHARACTER(20) IN RPT-DETAIL-1
+ 
+DET1-SORTCODE                  265      CHARACTER(6) IN RPT-DETAIL-1
+ 
+DET1-STATUS                    275      CHARACTER(10) IN RPT-DETAIL-1
+ 
+DET1-TITLE                     269      CHARACTER(10) IN RPT-DETAIL-1
+ 
+DET2-COUNTRY                   302      CHARACTER(20) IN RPT-DETAIL-2
+ 
+DET2-CREATED                   296      CHARACTER(10) IN RPT-DETAIL-2
+ 
+DET2-CS-REV                    299      CHARACTER(10) IN RPT-DETAIL-2
+ 
+DET2-DOB                       293      CHARACTER(10) IN RPT-DETAIL-2
+ 
+DET2-POSTCODE                  305      CHARACTER(10) IN RPT-DETAIL-2
+ 
+HDR1-DATE                      195      CHARACTER(10) IN RPT-HEADER-1
+ 
+HDR1-PAGE                      201      IN RPT-HEADER-1
+ 
+HDR1-TIME                      198      CHARACTER(8) IN RPT-HEADER-1
+ 
+HOST-CUSTOMER-ROW              96       STRUCTURE
+ 
+HV-CUSTOMER-ADDR-LINE1         105      CHARACTER(50) IN HOST-CUSTOMER-ROW
+                                        391 511
+HV-CUSTOMER-ADDR-LINE2         106      CHARACTER(50) IN HOST-CUSTOMER-ROW
+                                        392 512
+DB2 SQL PRECOMPILER         SYMBOL CROSS-REFERENCE LISTING                                            PAGE 17
+DATA NAMES                     DEFN     REFERENCE
+HV-CUSTOMER-CITY               107      CHARACTER(50) IN HOST-CUSTOMER-ROW
+                                        393 513
+HV-CUSTOMER-COUNTRY            109      CHARACTER(50) IN HOST-CUSTOMER-ROW
+                                        395 515
+HV-CUSTOMER-CREATE-DATE        111      INTEGER IN HOST-CUSTOMER-ROW
+                                        397 517
+HV-CUSTOMER-CREDIT-SCORE       112      SMALL INTEGER IN HOST-CUSTOMER-ROW
+                                        398 518
+HV-CUSTOMER-CS-REVIEW          113      INTEGER IN HOST-CUSTOMER-ROW
+                                        399 519
+HV-CUSTOMER-DOB                103      INTEGER IN HOST-CUSTOMER-ROW
+                                        389 509
+HV-CUSTOMER-EYECATCHER         97       CHARACTER(4) IN HOST-CUSTOMER-ROW
+                                        383 503
+HV-CUSTOMER-FIRST-NAME         101      CHARACTER(50) IN HOST-CUSTOMER-ROW
+                                        387 507
+HV-CUSTOMER-LAST-NAME          102      CHARACTER(50) IN HOST-CUSTOMER-ROW
+                                        388 508
+HV-CUSTOMER-NUMBER             99       CHARACTER(10) IN HOST-CUSTOMER-ROW
+                                        385 505
+HV-CUSTOMER-PHONE              104      CHARACTER(20) IN HOST-CUSTOMER-ROW
+                                        390 510
+HV-CUSTOMER-POSTCODE           108      CHARACTER(10) IN HOST-CUSTOMER-ROW
+                                        394 514
+HV-CUSTOMER-SORTCODE           98       CHARACTER(6) IN HOST-CUSTOMER-ROW
+                                        384 504
+HV-CUSTOMER-STATUS             110      CHARACTER(10) IN HOST-CUSTOMER-ROW
+                                        396 516
+HV-CUSTOMER-TITLE              100      CHARACTER(10) IN HOST-CUSTOMER-ROW
+                                        386 506
+NI-ADDR-LINE1                  123      SMALL INTEGER IN NULL-INDICATORS
+                                        391 511
+NI-ADDR-LINE2                  124      SMALL INTEGER IN NULL-INDICATORS
+                                        392 512
+NI-CITY                        125      SMALL INTEGER IN NULL-INDICATORS
+                                        393 513
+NI-COUNTRY                     127      SMALL INTEGER IN NULL-INDICATORS
+                                        395 515
+NI-CREATE-DATE                 129      SMALL INTEGER IN NULL-INDICATORS
+                                        397 517
+NI-CREDIT-SCORE                130      SMALL INTEGER IN NULL-INDICATORS
+                                        398 518
+NI-CS-REVIEW                   131      SMALL INTEGER IN NULL-INDICATORS
+                                        399 519
+NI-DOB                         121      SMALL INTEGER IN NULL-INDICATORS
+                                        389 509
+NI-EYECATCHER                  117      SMALL INTEGER IN NULL-INDICATORS
+                                        383 503
+NI-FIRST-NAME                  119      SMALL INTEGER IN NULL-INDICATORS
+                                        387 507
+NI-LAST-NAME                   120      SMALL INTEGER IN NULL-INDICATORS
+                                        388 508
+NI-PHONE                       122      SMALL INTEGER IN NULL-INDICATORS
+                                        390 510
+NI-POSTCODE                    126      SMALL INTEGER IN NULL-INDICATORS
+                                        394 514
+DB2 SQL PRECOMPILER         SYMBOL CROSS-REFERENCE LISTING                                            PAGE 18
+DATA NAMES                     DEFN     REFERENCE
+NI-STATUS                      128      SMALL INTEGER IN NULL-INDICATORS
+                                        396 516
+NI-TITLE                       118      SMALL INTEGER IN NULL-INDICATORS
+                                        386 506
+NULL-INDICATORS                116      STRUCTURE
+ 
+REPORT-RECORD                  48       CHARACTER(133)
+ 
+RPT-BLANK-LINE                 329
+RPT-DETAIL-1                   261      STRUCTURE
+ 
+RPT-DETAIL-2                   290      STRUCTURE
+ 
+RPT-HEADER-1                   189      STRUCTURE
+ 
+RPT-HEADER-2                   207
+RPT-HEADER-3                   213
+RPT-HEADER-4                   237
+RPT-TOTAL-LINE                 311
+RPT-TOTAL-VALUE                319      STRUCTURE
+ 
+TOT-CUST-CNT                   323      IN RPT-TOTAL-VALUE
+ 
+WS-COUNTERS                    149      STRUCTURE
+ 
+WS-CREDIT-SCORE-DISP           284
+WS-CREDIT-SCORE-NA             285      CHARACTER(3)
+ 
+WS-CURR-DATE-GRP               160      STRUCTURE IN WS-DATE-WORK
+ 
+WS-CURR-DD                     163      IN WS-CURR-DATE-GRP
+ 
+WS-CURR-MM                     162      IN WS-CURR-DATE-GRP
+ 
+WS-CURR-YYYY                   161      IN WS-CURR-DATE-GRP
+ 
+WS-CURRENT-DATE                159      IN WS-DATE-WORK
+ 
+WS-CURRENT-TIME                164      IN WS-DATE-WORK
+ 
+WS-CUST-COUNT                  152      IN WS-COUNTERS
+ 
+WS-DATE-DD                     177      IN WS-DATE-INT-GRP
+ 
+WS-DATE-FORMATTED              166      CHARACTER(10)
+ 
+WS-DATE-INT-GRP                174      STRUCTURE
+ 
+WS-DATE-INT-WORK               173
+WS-DATE-MM                     176      IN WS-DATE-INT-GRP
+ 
+WS-DATE-OUT                    179      CHARACTER(10)
+ 
+WS-DATE-WORK                   158      STRUCTURE
+ 
+WS-DATE-YYYY                   175      IN WS-DATE-INT-GRP
+DB2 SQL PRECOMPILER         SYMBOL CROSS-REFERENCE LISTING                                            PAGE 19
+DATA NAMES                     DEFN     REFERENCE
+ 
+WS-DB2-ERROR-SW                141      CHARACTER(1) IN WS-SWITCHES
+ 
+WS-EOF-SW                      139      CHARACTER(1) IN WS-SWITCHES
+ 
+WS-FILE-STATUS                 143      CHARACTER(2) IN WS-SWITCHES
+ 
+WS-LINE-COUNT                  150      IN WS-COUNTERS
+ 
+WS-LINES-PER-PAGE              153      IN WS-COUNTERS
+ 
+WS-PAGE-COUNT                  151      IN WS-COUNTERS
+ 
+WS-RETURN-CODE                 184      SMALL INTEGER
+ 
+WS-SWITCHES                    138      STRUCTURE
+ 
+WS-TIME-FORMATTED              167      CHARACTER(8)
+ 
+DB2 SQL PRECOMPILER         MESSAGES                                                                  PAGE 20
+DSNH084I W     DSNHLEXC LINE 94 COL 21  UNACCEPTABLE SQL STATEMENT
+DSNH084I W     DSNHLEXC LINE 133 COL 21  UNACCEPTABLE SQL STATEMENT
+DB2 SQL PRECOMPILER         STATISTICS                                                                PAGE 21
+SOURCE STATISTICS
+  SOURCE LINES READ: 702
+  NUMBER OF SYMBOLS: 126
+  SYMBOL TABLE BYTES EXCLUDING ATTRIBUTES: 13840
+THERE WERE 3 MESSAGES FOR THIS PROGRAM.
+THERE WERE 0 MESSAGES SUPPRESSED BY THE FLAG OPTION.
+250752 BYTES OF STORAGE WERE USED BY THE PRECOMPILER.
+RETURN CODE IS 4

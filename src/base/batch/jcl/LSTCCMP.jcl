@@ -20,22 +20,22 @@
 //*=============================================================
 //    SET HLQ='RAFAELT'                       *TSO USER ID
 //    SET CMPLLIB='COBOL.V6R2.SIGYCOMP'       *COMPILADOR COBOL
-//    SET LINKLIB='CEE.SCEELKED'              *LINK LIBRARY LE
+//    SET LINKLIB='SYS1.CEE.SCEELKED'         *LINK LIBRARY LE
 //    SET DB2HLQ='DSN1310.DB2'                *HLQ DO DB2
 //    SET LOADLIB=&HLQ..BANKZ.LOAD            *LOAD LIBRARY
 //    SET OBJLIB=&HLQ..BANKZ.OBJ              *OBJECT LIBRARY
 //    SET COBOLSRC=&HLQ..BANK.COBOL           *FONTE COBOL
 //    SET COPYLIB=&HLQ..BANK.COPY             *COPYBOOKS
-//    SET SPACE1='SYSALLDA,SPACE=(CYL,(2,1))' *ESPAÇO TEMP
+//    SET SPACE1='SYSALLDA,SPACE=(CYL,(2,1))' *ESPACO TEMP
 //*
 //*=============================================================
 //* STEP1 - PRE-COMPILADOR DB2 (DSNHPC)
 //*   Entrada : Fonte COBOL com EXEC SQL
 //*   Saida   : Fonte COBOL modificado (DBRM dataset + fonte expandido)
-//*   DBRM    : Database Request Module — usado no BIND posterior
+//*   DBRM    : Database Request Module - usado no BIND posterior
 //*=============================================================
 //STEP1    EXEC PGM=DSNHPC,
-//          PARM='HOST(COBOL),APOSTSQL,MARGINS(1,72),SOURCE,XREF'
+//          PARM='HOST(IBMCOB),APOSTSQL,MARGINS(8,72),SOURCE,XREF'
 //STEPLIB  DD  DISP=SHR,DSN=&DB2HLQ..SDSNLOAD
 //DBRMLIB  DD  DISP=SHR,DSN=&HLQ..BANKZ.DBRMLIB(LSTCUST)
 //SYSCIN   DD  DISP=(NEW,PASS),
@@ -88,16 +88,17 @@
 //*=============================================================
 //* STEP3 - LINK-EDITOR (IEWL)
 //*   Entrada : Modulo objeto LSTCUST
-//*             Modulo de interface DB2 (DSNELI — stub de entrada)
+//*             Modulo de interface DB2 (DSNELI - stub de entrada)
 //*   Saida   : Modulo de carga em &LOADLIB(LSTCUST)
-//*   ENTRY   : LSTCUST — define o ponto de entrada do modulo
+//*   ENTRY   : LSTCUST - define o ponto de entrada do modulo
 //*=============================================================
 //STEP3    EXEC PGM=IEWL,COND=(4,LT,STEP2),REGION=3000K,
-//          PARM='MAP,LIST,XREF,LET,RENT,DYNAM'
+//          PARM='MAP,LIST,XREF,LET,RENT'
 //SYSLMOD  DD  DISP=SHR,DSN=&LOADLIB
 //SYSPRINT DD  SYSOUT=*
 //SYSUT1   DD  UNIT=&SPACE1
-//SYSLIB   DD  DISP=SHR,DSN=&DB2HLQ..SDSNLOAD
+//SYSLIB   DD  DISP=SHR,DSN=&LINKLIB
+//         DD  DISP=SHR,DSN=&DB2HLQ..SDSNLOAD
 //         DD  DISP=SHR,DSN=SYS1.SIEALNKE
 //         DD  DISP=SHR,DSN=&LOADLIB
 //OBJ      DD  DISP=SHR,DSN=&OBJLIB
@@ -121,7 +122,8 @@
 //*           PKLIST(BANKZPKG.LSTCUST) -
 //*           ACTION(REPLACE)
 //*
-//*   2. Conceder autoridade de execucao:
+//*   2. Conceder autoridade de execucao (executar via SPUFI ou
+//*      TSO com usuario SYSADM/DBADM):
 //*      GRANT EXECUTE ON PLAN BANKZPLN TO PUBLIC
 //*
 //*=============================================================

@@ -1,0 +1,231 @@
+ICH70001I RAFAELT  LAST ACCESS AT 10:38:09 ON MONDAY, OCTOBER 26, 2026
+IEFA111I LSTCCMP IS USING THE FOLLOWING JOB RELATED SETTINGS:
+         SWA=ABOVE,TIOT SIZE=64K,DSENQSHR=DISALLOW,GDGBIAS=JOB
+IEF236I ALLOC. FOR LSTCCMP STEP1
+IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+IGD103I SMS ALLOCATED TO DDNAME DBRMLIB
+IGD100I 2608 ALLOCATED TO DDNAME SYSCIN   DATACLAS (        )
+IGD103I SMS ALLOCATED TO DDNAME SYSIN
+IGD103I SMS ALLOCATED TO DDNAME SYSLIB
+IEF237I JES2 ALLOCATED TO SYSPRINT
+IEF237I JES2 ALLOCATED TO SYSTERM
+IGD100I B308 ALLOCATED TO DDNAME SYSUT1   DATACLAS (        )
+IGD100I B308 ALLOCATED TO DDNAME SYSUT2   DATACLAS (        )
+IEF237I JES2 ALLOCATED TO SYSDBOUT
+IEF142I LSTCCMP STEP1 - STEP WAS EXECUTED - COND CODE 0004
+IGD104I DSN1310.DB2.SDSNLOAD                         RETAINED,  DDNAME=STEPLIB
+IGD104I RAFAELT.BANKZ.DBRMLIB                        RETAINED,  DDNAME=DBRMLIB
+IEF285I   SYS26299.T103809.RA000.LSTCCMP.R0107636      PASSED
+IEF285I   VOL SER NOS= EUSER1.
+IGD104I RAFAELT.BANK.COBOL                           RETAINED,  DDNAME=SYSIN
+IGD104I RAFAELT.BANK.COPY                            RETAINED,  DDNAME=SYSLIB
+IEF285I   RAFAELT.LSTCCMP.JOB05058.D0000102.?          SYSOUT
+IEF285I   RAFAELT.LSTCCMP.JOB05058.D0000103.?          SYSOUT
+IEF285I   SYS26299.T103809.RA000.LSTCCMP.R0107637      DELETED
+IEF285I   VOL SER NOS= EUSER2.
+IEF285I   SYS26299.T103809.RA000.LSTCCMP.R0107638      DELETED
+IEF285I   VOL SER NOS= EUSER2.
+IEF285I   RAFAELT.LSTCCMP.JOB05058.D0000104.?          SYSOUT
++- Step Statistics - WSCACTRT 3.4 ---------------------------------- HBB77F0 -+
+|JOB(LSTCCMP ) Step#  1 (*Noproc*.STEP1   ) Pgm(DSNHPC  ) - Return Code    04 |
++-----------------------------------------------------------------------------+
+|Elapsed Time: 00:00:00.05  CPU Time(TCB): 00:00:00.01  (SRB): 00:00:00.00    |
+|RCT CPU Time: None         I/O Int. Time: None         ICSF Count: None      |
+|Service Units: CPU=      820  SRB=       20  I/O=        0  MSO=        0    |
+|Transactions: ended:None   Active for: 00:00:00.03 Resident for: 00:00:00.03 |
+|WLM: Workload: BAT_WKL  Service Class:BAT_MED   Resource Group: None         |
++-----------------------------------------------------------------------------+
+|Region Requested f/Step=  256M,   Private Size=(    9M/1,497M)   Key Used(8) |
+|Virtual Used Maximums:   For User=(  128K/2,696K) For System=(  344K/   10M) |
+|Pvt Paging(I/O):     0 /    0  VIO(I/O/R):     0 /    0 /    0  Stolen:    0 |
+|Common Pagein:     0  LPA Pagein:     0  Data + Hiper space (MB):          0 |
+|Average Working Set (Page Seconds/CPU Time) for this step, this time:    924 |
+|There were no swap sequences recorded for this step.                         |
++------------------------ I / O  Statistics Section --------------------------+
+| * JES Sysin/Sysout Datasets, DUMMY, and Unused Datasets are not included. * |
+| DDname   Dev#=    Count (BLKSZ/ConnT)| DDname   Dev#=    Count (BLKSZ/ConnT)|
++--------------------------------------+--------------------------------------+
+| STEPLIB  3324=      382 (32760/  0.0)| DBRMLIB  3330=        2 ( 3200/  0.0)|
+| SYSCIN   2608=       30 ( 3200/  0.0)| SYSIN    332E=       18 ( 3200/  0.0)|
+| SYSLIB   332D=        2 ( 3200/  0.1)| SYSUT1   3308=        5 ( 4000/  0.0)|
+| SYSUT2   3308=       17 ( 4000/  0.0)|                                      |
++-------------------------- I / O  ACTIVITY  TOTALS --------------------------+
+|DASD=    456  Tape=      0  VIO=      0  Other=      0  Without a DD=     87 |
++-----------------------------------------------------------------------------+
+IEF373I STEP/STEP1   /START 2026299.1038
+IEF032I STEP/STEP1   /STOP  2026299.1038
+        CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+        VIRT:   128K  SYS:   344K  EXT:     2696K  SYS:    11056K
+        ATB- REAL:                  1272K  SLOTS:                     0K
+             VIRT- ALLOC:      16M SHRD:       0M
+IEF236I ALLOC. FOR LSTCCMP STEP2
+IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+IEF237I 2608 ALLOCATED TO SYSIN
+IGD103I SMS ALLOCATED TO DDNAME SYSLIB
+IGD103I SMS ALLOCATED TO DDNAME
+IGD103I SMS ALLOCATED TO DDNAME SYSLIN
+IEF237I JES2 ALLOCATED TO SYSPRINT
+IGD100I B308 ALLOCATED TO DDNAME SYSMDECK DATACLAS (        )
+IGD100I B308 ALLOCATED TO DDNAME SYSUT1   DATACLAS (        )
+IGD100I 2608 ALLOCATED TO DDNAME SYSUT2   DATACLAS (        )
+IGD100I 2608 ALLOCATED TO DDNAME SYSUT3   DATACLAS (        )
+IGD100I 2608 ALLOCATED TO DDNAME SYSUT4   DATACLAS (        )
+IGD100I B308 ALLOCATED TO DDNAME SYSUT5   DATACLAS (        )
+IGD100I 2608 ALLOCATED TO DDNAME SYSUT6   DATACLAS (        )
+IGD100I B308 ALLOCATED TO DDNAME SYSUT7   DATACLAS (        )
+IGD100I B308 ALLOCATED TO DDNAME SYSUT8   DATACLAS (        )
+IGD100I 2608 ALLOCATED TO DDNAME SYSUT9   DATACLAS (        )
+IGD100I 2608 ALLOCATED TO DDNAME SYSUT10  DATACLAS (        )
+IGD100I B308 ALLOCATED TO DDNAME SYSUT11  DATACLAS (        )
+IGD100I 2608 ALLOCATED TO DDNAME SYSUT12  DATACLAS (        )
+IGD100I 2608 ALLOCATED TO DDNAME SYSUT13  DATACLAS (        )
+IGD100I 2608 ALLOCATED TO DDNAME SYSUT14  DATACLAS (        )
+IGD100I B308 ALLOCATED TO DDNAME SYSUT15  DATACLAS (        )
+IEF142I LSTCCMP STEP2 - STEP WAS EXECUTED - COND CODE 0004
+IGD104I COBOL.V6R2.SIGYCOMP                          RETAINED,  DDNAME=STEPLIB
+IEF285I   SYS26299.T103809.RA000.LSTCCMP.R0107636      DELETED
+IEF285I   VOL SER NOS= EUSER1.
+IGD104I RAFAELT.BANK.COPY                            RETAINED,  DDNAME=SYSLIB
+IGD104I DSN1310.DB2.SDSNC.H                          RETAINED,  DDNAME=
+IGD104I RAFAELT.BANKZ.OBJ                            RETAINED,  DDNAME=SYSLIN
+IEF285I   RAFAELT.LSTCCMP.JOB05058.D0000105.?          SYSOUT
+IEF285I   SYS26299.T103809.RA000.LSTCCMP.R0107639      DELETED
+IEF285I   VOL SER NOS= EUSER2.
+IEF285I   SYS26299.T103809.RA000.LSTCCMP.R0107640      DELETED
+IEF285I   VOL SER NOS= EUSER2.
+IEF285I   SYS26299.T103809.RA000.LSTCCMP.R0107641      DELETED
+IEF285I   VOL SER NOS= EUSER1.
+IEF285I   SYS26299.T103809.RA000.LSTCCMP.R0107642      DELETED
+IEF285I   VOL SER NOS= EUSER1.
+IEF285I   SYS26299.T103809.RA000.LSTCCMP.R0107643      DELETED
+IEF285I   VOL SER NOS= EUSER1.
+IEF285I   SYS26299.T103809.RA000.LSTCCMP.R0107644      DELETED
+IEF285I   VOL SER NOS= EUSER2.
+IEF285I   SYS26299.T103809.RA000.LSTCCMP.R0107645      DELETED
+IEF285I   VOL SER NOS= EUSER1.
+IEF285I   SYS26299.T103809.RA000.LSTCCMP.R0107646      DELETED
+IEF285I   VOL SER NOS= EUSER2.
+IEF285I   SYS26299.T103809.RA000.LSTCCMP.R0107647      DELETED
+IEF285I   VOL SER NOS= EUSER2.
+IEF285I   SYS26299.T103809.RA000.LSTCCMP.R0107648      DELETED
+IEF285I   VOL SER NOS= EUSER1.
+IEF285I   SYS26299.T103809.RA000.LSTCCMP.R0107649      DELETED
+IEF285I   VOL SER NOS= EUSER1.
+IEF285I   SYS26299.T103809.RA000.LSTCCMP.R0107650      DELETED
+IEF285I   VOL SER NOS= EUSER2.
+IEF285I   SYS26299.T103809.RA000.LSTCCMP.R0107651      DELETED
+IEF285I   VOL SER NOS= EUSER1.
+IEF285I   SYS26299.T103809.RA000.LSTCCMP.R0107652      DELETED
+IEF285I   VOL SER NOS= EUSER1.
+IEF285I   SYS26299.T103809.RA000.LSTCCMP.R0107653      DELETED
+IEF285I   VOL SER NOS= EUSER1.
+IEF285I   SYS26299.T103809.RA000.LSTCCMP.R0107654      DELETED
+IEF285I   VOL SER NOS= EUSER2.
++- Step Statistics - WSCACTRT 3.4 ---------------------------------- HBB77F0 -+
+|JOB(LSTCCMP ) Step#  2 (*Noproc*.STEP2   ) Pgm(IGYCRCTL) - Return Code    04 |
++-----------------------------------------------------------------------------+
+|Elapsed Time: 00:00:00.92  CPU Time(TCB): 00:00:00.06  (SRB): 00:00:00.00    |
+|RCT CPU Time: None         I/O Int. Time: 00:00:00.01  ICSF Count: None      |
+|Service Units: CPU=    5,976  SRB=      258  I/O=        0  MSO=        0    |
+|Transactions: ended:None   Active for: 00:00:00.71 Resident for: 00:00:00.71 |
+|WLM: Workload: BAT_WKL  Service Class:BAT_MED   Resource Group: None         |
++-----------------------------------------------------------------------------+
+|Region Requested f/Step=  256M,   Private Size=(    9M/1,497M)   Key Used(8) |
+|Virtual Used Maximums:   For User=(  520K/  128M) For System=(  368K/   13M) |
+|Pvt Paging(I/O):     0 /    0  VIO(I/O/R):     0 /    0 /    0  Stolen:    0 |
+|Common Pagein:     0  LPA Pagein:     0  Data + Hiper space (MB):          0 |
+|Average Working Set (Page Seconds/CPU Time) for this step, this time:  1,317 |
+|There were no swap sequences recorded for this step.                         |
++------------------------ I / O  Statistics Section --------------------------+
+| * JES Sysin/Sysout Datasets, DUMMY, and Unused Datasets are not included. * |
+| DDname   Dev#=    Count (BLKSZ/ConnT)| DDname   Dev#=    Count (BLKSZ/ConnT)|
++--------------------------------------+--------------------------------------+
+| STEPLIB  3329=   11,876 (32760/  0.0)| SYSIN    2608=       31 ( 3200/  0.0)|
+| SYSLIN   262F=        6 ( 3200/  0.0)| SYSMDECK 3308=       28 (27920/  0.0)|
+| SYSUT1   3308=       13 ( 4096/  0.0)| SYSUT2   2608=       13 ( 4096/  0.0)|
+| SYSUT3   2608=        9 ( 4096/  0.0)| SYSUT4   2608=       16 ( 4096/  0.1)|
+| SYSUT5   3308=       71 ( 4096/  0.0)| SYSUT6   2608=        7 ( 4096/  0.1)|
+| SYSUT7   3308=       65 ( 4096/  0.0)| SYSUT8   3308=       46 ( 4096/  0.0)|
+| SYSUT9   2608=       29 ( 4096/  0.0)| SYSUT10  2608=        4 ( 4096/  0.0)|
+| SYSUT11  3308=       31 ( 4096/  0.0)| SYSUT12  2608=       13 ( 4096/  0.1)|
+| SYSUT13  2608=        7 ( 4096/  0.0)|                                      |
++-------------------------- I / O  ACTIVITY  TOTALS --------------------------+
+|DASD= 12,265  Tape=      0  VIO=      0  Other=      0  Without a DD=  6,994 |
++-----------------------------------------------------------------------------+
+IEF373I STEP/STEP2   /START 2026299.1038
+IEF032I STEP/STEP2   /STOP  2026299.1038
+        CPU:     0 HR  00 MIN  00.06 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+        VIRT:   520K  SYS:   368K  EXT:   131496K  SYS:    13384K
+        ATB- REAL:                  8868K  SLOTS:                     0K
+             VIRT- ALLOC:     534M SHRD:       0M
+IEF236I ALLOC. FOR LSTCCMP STEP3
+IGD103I SMS ALLOCATED TO DDNAME SYSLMOD
+IEF237I JES2 ALLOCATED TO SYSPRINT
+IGD100I B308 ALLOCATED TO DDNAME SYSUT1   DATACLAS (        )
+IEF237I 622C ALLOCATED TO SYSLIB
+IEF237I 622C ALLOCATED TO
+IGD103I SMS ALLOCATED TO DDNAME
+IEF237I 622C ALLOCATED TO
+IGD103I SMS ALLOCATED TO DDNAME
+IGD103I SMS ALLOCATED TO DDNAME OBJ
+IEF237I JES2 ALLOCATED TO SYSLIN
+IEC143I 213-04,IFG0194D,LSTCCMP,STEP3,SYSLIB,622C,EA2RS1,
+SYS1.LEMVS.SCEELKED
+IEF142I LSTCCMP STEP3 - STEP WAS EXECUTED - COND CODE 0012
+IGD104I RAFAELT.BANKZ.LOAD                           RETAINED,  DDNAME=SYSLMOD
+IEF285I   RAFAELT.LSTCCMP.JOB05058.D0000106.?          SYSOUT
+IEF285I   SYS26299.T103809.RA000.LSTCCMP.R0107655      DELETED
+IEF285I   VOL SER NOS= EUSER2.
+IEF285I   CEE.SCEELKED                                 KEPT
+IEF285I   VOL SER NOS= EA2RS1.
+IEF285I   CEE.SCEERUN                                  KEPT
+IEF285I   VOL SER NOS= EA2RS1.
+IGD104I DSN1310.DB2.SDSNLOAD                         RETAINED,  DDNAME=
+IEF285I   SYS1.SIEALNKE                                KEPT
+IEF285I   VOL SER NOS= EA2RS1.
+IGD104I RAFAELT.BANKZ.LOAD                           RETAINED,  DDNAME=
+IGD104I RAFAELT.BANKZ.OBJ                            RETAINED,  DDNAME=OBJ
+IEF285I   RAFAELT.LSTCCMP.JOB05058.D0000101.?          SYSIN
++- Step Statistics - WSCACTRT 3.4 ---------------------------------- HBB77F0 -+
+|JOB(LSTCCMP ) Step#  3 (*Noproc*.STEP3   ) Pgm(IEWL    ) - Return Code    12 |
++-----------------------------------------------------------------------------+
+|Elapsed Time: 00:00:00.06  CPU Time(TCB): 00:00:00.01  (SRB): 00:00:00.00    |
+|RCT CPU Time: None         I/O Int. Time: None         ICSF Count: None      |
+|Service Units: CPU=      589  SRB=       13  I/O=        0  MSO=        0    |
+|Transactions: ended:None   Active for: 00:00:00.02 Resident for: 00:00:00.02 |
+|WLM: Workload: BAT_WKL  Service Class:BAT_MED   Resource Group: None         |
++-----------------------------------------------------------------------------+
+|Region Requested f/Step=  256M,   Private Size=(    9M/1,497M)   Key Used(8) |
+|Virtual Used Maximums:   For User=(  100K/1,640K) For System=(  324K/   10M) |
+|Pvt Paging(I/O):     0 /    0  VIO(I/O/R):     0 /    0 /    0  Stolen:    0 |
+|Common Pagein:     0  LPA Pagein:     0  Data + Hiper space (MB):      2,048 |
+|Average Working Set (Page Seconds/CPU Time) for this step, this time:    715 |
+|There were no swap sequences recorded for this step.                         |
++------------------------ I / O  Statistics Section --------------------------+
+| * JES Sysin/Sysout Datasets, DUMMY, and Unused Datasets are not included. * |
+| DDname   Dev#=    Count (BLKSZ/ConnT)| DDname   Dev#=    Count (BLKSZ/ConnT)|
++--------------------------------------+--------------------------------------+
+| SYSLMOD  263C=       12 (32760/  0.0)| OBJ      262F=        7 ( 3200/  0.0)|
++-------------------------- I / O  ACTIVITY  TOTALS --------------------------+
+|DASD=     19  Tape=      0  VIO=      0  Other=      0  Without a DD=     67 |
++-----------------------------------------------------------------------------+
+IEF373I STEP/STEP3   /START 2026299.1038
+IEF032I STEP/STEP3   /STOP  2026299.1038
+        CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+        VIRT:   100K  SYS:   324K  EXT:     1640K  SYS:    11232K
+        ATB- REAL:                  1272K  SLOTS:                     0K
+             VIRT- ALLOC:      16M SHRD:       0M
++- Job  Statistics - WSCACTRT 3.4 ---------------------------------- HBB77F0 -+
+|JOB LSTCCMP (JOB05058) ended: Steps(  3) Class(A) Userid(RAFAELT )           |
++-----------------------------------------------------------------------------+
+|Elapsed Time: 00:00:01.04  CPU Time(TCB): 00:00:00.08  (SRB): 00:00:00.00    |
+|RCT CPU Time: None         I/O Int. Time: 00:00:00.01  ICSF Count: None      |
+|Service Units: CPU=    7,385  SRB=      291  I/O=        0  MSO=        0    |
+|Transactions: ended:None   Active for: 00:00:00.77 Resident for: 00:00:00.77 |
+|WLM: Workload: BAT_WKL  Service Class:BAT_MED   Resource Group: None         |
++-------------------------- I / O  ACTIVITY  TOTALS --------------------------+
+|DASD= 12,740  Tape=      0  VIO=      0  Other=      0  Without a DD=  7,148 |
++-----------------------------------------------------------------------------+
+IEF375I  JOB/LSTCCMP /START 2026299.1038
+IEF033I  JOB/LSTCCMP /STOP  2026299.1038
+        CPU:     0 HR  00 MIN  00.08 SEC    SRB:     0 HR  00 MIN  00.00 SEC

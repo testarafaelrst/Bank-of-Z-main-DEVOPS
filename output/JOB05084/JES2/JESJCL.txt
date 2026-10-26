@@ -1,0 +1,10 @@
+        1 //LSTCKHL2 JOB 'Check HLQs 2',NOTIFY=&SYSUID,CLASS=A,                   JOB05084
+          //          MSGCLASS=H,MSGLEVEL=(1,1)
+          //*=============================================================
+          //* Verifica o dataset fisico SYS1.LEMVS.SCEELKED e
+          //* descobre o HLQ real do compilador COBOL e DB2
+          //*=============================================================
+          IEFC653I SUBSTITUTION JCL - 'Check HLQs 2',NOTIFY=RAFAELT,CLASS=A,MSGCLASS=H,MSGLEVEL=(1,1)
+        2 //LISTCAT  EXEC PGM=IDCAMS
+        3 //SYSPRINT DD  SYSOUT=*
+        4 //SYSIN    DD  *

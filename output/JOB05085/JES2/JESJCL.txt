@@ -1,0 +1,6 @@
+        1 //LSTCKHL3 JOB 'Check HLQs 3',NOTIFY=&SYSUID,CLASS=A,                   JOB05085
+          //          MSGCLASS=H,MSGLEVEL=(1,1)
+          IEFC653I SUBSTITUTION JCL - 'Check HLQs 3',NOTIFY=RAFAELT,CLASS=A,MSGCLASS=H,MSGLEVEL=(1,1)
+        2 //LISTCAT  EXEC PGM=IDCAMS
+        3 //SYSPRINT DD  SYSOUT=*
+        4 //SYSIN    DD  *

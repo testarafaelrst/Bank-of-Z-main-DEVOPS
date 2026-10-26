@@ -1,0 +1,187 @@
+ICH70001I RAFAELT  LAST ACCESS AT 15:46:44 ON MONDAY, OCTOBER 26, 2026
+IEFA111I GRANTPLN IS USING THE FOLLOWING JOB RELATED SETTINGS:
+         SWA=ABOVE,TIOT SIZE=64K,DSENQSHR=DISALLOW,GDGBIAS=JOB
+IEF236I ALLOC. FOR GRANTPLN COMP
+IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+IGD103I SMS ALLOCATED TO DDNAME DBRMLIB
+IGD100I B308 ALLOCATED TO DDNAME SYSCIN   DATACLAS (        )
+IEF237I JES2 ALLOCATED TO SYSPRINT
+IEF237I JES2 ALLOCATED TO SYSTERM
+IGD100I 2608 ALLOCATED TO DDNAME SYSUT1   DATACLAS (        )
+IGD100I B308 ALLOCATED TO DDNAME SYSUT2   DATACLAS (        )
+IGD103I SMS ALLOCATED TO DDNAME SYSIN
+IEF142I GRANTPLN COMP - STEP WAS EXECUTED - COND CODE 0004
+IGD104I DSN1310.DB2.SDSNLOAD                         RETAINED,  DDNAME=STEPLIB
+IGD104I RAFAELT.BANKZ.DBRMLIB                        RETAINED,  DDNAME=DBRMLIB
+IEF285I   SYS26299.T154644.RA000.GRANTPLN.R0108599     PASSED
+IEF285I   VOL SER NOS= EUSER2.
+IEF285I   RAFAELT.GRANTPLN.JOB05223.D0000103.?         SYSOUT
+IEF285I   RAFAELT.GRANTPLN.JOB05223.D0000104.?         SYSOUT
+IEF285I   SYS26299.T154644.RA000.GRANTPLN.R0108600     DELETED
+IEF285I   VOL SER NOS= EUSER1.
+IEF285I   SYS26299.T154644.RA000.GRANTPLN.R0108601     DELETED
+IEF285I   VOL SER NOS= EUSER2.
+IGD104I RAFAELT.BANK.COBOL                           RETAINED,  DDNAME=SYSIN
++- Step Statistics - WSCACTRT 3.4 ---------------------------------- HBB77F0 -+
+|JOB(GRANTPLN) Step#  1 (*Noproc*.COMP    ) Pgm(DSNHPC  ) - Return Code    04 |
++-----------------------------------------------------------------------------+
+|Elapsed Time: 00:00:00.05  CPU Time(TCB): 00:00:00.00  (SRB): 00:00:00.00    |
+|RCT CPU Time: None         I/O Int. Time: None         ICSF Count: None      |
+|Service Units: CPU=      427  SRB=       14  I/O=        0  MSO=        0    |
+|Transactions: ended:None   Active for: 00:00:00.02 Resident for: 00:00:00.02 |
+|WLM: Workload: BAT_WKL  Service Class:BAT_MED   Resource Group: None         |
++-----------------------------------------------------------------------------+
+|Region Requested f/Step=4,096K,   Private Size=(    9M/1,497M)   Key Used(8) |
+|Virtual Used Maximums:   For User=(  128K/2,648K) For System=(  348K/   10M) |
+|Pvt Paging(I/O):     0 /    0  VIO(I/O/R):     0 /    0 /    0  Stolen:    0 |
+|Common Pagein:     0  LPA Pagein:     0  Data + Hiper space (MB):          0 |
+|Average Working Set (Page Seconds/CPU Time) for this step, this time:  ----  |
+|There were no swap sequences recorded for this step.                         |
++------------------------ I / O  Statistics Section --------------------------+
+| * JES Sysin/Sysout Datasets, DUMMY, and Unused Datasets are not included. * |
+| DDname   Dev#=    Count (BLKSZ/ConnT)| DDname   Dev#=    Count (BLKSZ/ConnT)|
++--------------------------------------+--------------------------------------+
+| STEPLIB  3324=      301 (32760/  0.0)| DBRMLIB  3330=        1 ( 3200/  0.1)|
+| SYSCIN   3308=        3 ( 3200/  0.0)| SYSUT1   2608=        3 ( 4000/  0.1)|
+| SYSUT2   3308=        3 ( 4000/  0.0)| SYSIN    332E=        2 ( 3200/  0.0)|
++-------------------------- I / O  ACTIVITY  TOTALS --------------------------+
+|DASD=    313  Tape=      0  VIO=      0  Other=      0  Without a DD=     63 |
++-----------------------------------------------------------------------------+
+IEF373I STEP/COMP    /START 2026299.1546
+IEF032I STEP/COMP    /STOP  2026299.1546
+        CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+        VIRT:   128K  SYS:   348K  EXT:     2648K  SYS:    11028K
+        ATB- REAL:                  1268K  SLOTS:                     0K
+             VIRT- ALLOC:      16M SHRD:       0M
+IEF236I ALLOC. FOR GRANTPLN COBC
+IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+IEF237I B308 ALLOCATED TO SYSIN
+IGD103I SMS ALLOCATED TO DDNAME SYSLIN
+IEF237I JES2 ALLOCATED TO SYSPRINT
+IGD103I SMS ALLOCATED TO DDNAME SYSLIB
+IGD103I SMS ALLOCATED TO DDNAME
+IGD100I 2608 ALLOCATED TO DDNAME SYSUT1   DATACLAS (        )
+IGD100I B308 ALLOCATED TO DDNAME SYSUT2   DATACLAS (        )
+IGD100I 2608 ALLOCATED TO DDNAME SYSUT3   DATACLAS (        )
+IGD100I 2608 ALLOCATED TO DDNAME SYSUT4   DATACLAS (        )
+IGD100I 2608 ALLOCATED TO DDNAME SYSUT5   DATACLAS (        )
+IGD100I 2608 ALLOCATED TO DDNAME SYSUT6   DATACLAS (        )
+IGD100I B308 ALLOCATED TO DDNAME SYSUT7   DATACLAS (        )
+IDI0055E Fault Analyzer processing excluded because 1 meg of 31 bit storage is not currently available
+IDI0087I 16.1 Meg of 31 bit storage could be provided by SETPROG LPA,ADD,MOD=(IDIDA,IPVLANGX),DSN=LNKLST
+IDI0126I Recovery fault recording fault ID F09511 assigned in history file FANALYZR.MVS1.HIST
+IKJ56893I DATA SET IDIRFRHQ.IDIRFR.MVS1.D261026.T194644.S00028 NOT ALLOCATED+
+IGD17273I ALLOCATION HAS FAILED FOR ALL VOLUMES SELECTED FOR DATA SET
+IDIRFRHQ.IDIRFR.MVS1.D261026.T194644.S00028
+IGD17277I THERE ARE (19) CANDIDATE VOLUMES OF WHICH (10) ARE ENABLED OR QUIESCED
+IGD17290I THERE WERE 1 CANDIDATE STORAGE GROUPS OF WHICH THE FIRST 1
+WERE ELIGIBLE FOR VOLUME SELECTION.
+THE CANDIDATE STORAGE GROUPS WERE:STANDARD
+IGD17279I 9 VOLUMES WERE REJECTED BECAUSE THEY WERE NOT ONLINE
+IGD17279I 9 VOLUMES WERE REJECTED BECAUSE THE UCB WAS NOT AVAILABLE
+IGD17279I 9 VOLUMES WERE REJECTED BECAUSE THEY DID NOT HAVE SUFFICIENT SPACE (041A041D)
+IGD17279I 1 VOLUMES WERE REJECTED BECAUSE THEY DID NOT HAVE SUFFICIENT SPACE (0425009B)
+IEA820I TRANSACTION DUMP REQUESTED BUT NOT TAKEN
+        AUTOMATIC ALLOCATION OF DUMP DATA SET FAILED
+IDI0129W Recovery fault recording IEATDUMP failure, rc=8 reason=26 dump=IDIRFRHQ.IDIRFR.MVS1.D261026.T194644.S00028
+IEA995I SYMPTOM DUMP OUTPUT
+  USER COMPLETION CODE=4093 REASON CODE=0000001C
+ TIME=15.46.44  SEQ=02985  CPU=0000  ASID=0038
+ PSW AT TIME OF ERROR  078D1000   87F445FE  ILC 2  INTC 0D
+   NO ACTIVE MODULE FOUND
+   NAME=UNKNOWN
+   DATA AT PSW  07F445F8 - 00181610  0A0DA7F4  001C1811
+   AR/GR 0: 7F6A7CC8/00000000_84000000   1: 00000000/00000000_84000FFD
+         2: 00000000/00000000_0000001C   3: 00000000/00000000_00000001
+         4: 00000000/00000000_2273B848   5: 00000000/00000000_2273C390
+         6: 00000000/00000000_2273ABF8   7: 00000000/00000000_07F445C2
+         8: 00000000/00000000_80000000   9: 00000000/00000000_00008000
+         A: 00000000/00000000_00000001   B: 00000000/00000000_87F44520
+         C: 00000000/00000000_22731018   D: 00000000/00000000_2272D348
+         E: 00000000/00000000_880DC5EA   F: 10000000/000001EF_0000001C
+ END OF SYMPTOM DUMP
+IEF472I GRANTPLN COBC - COMPLETION CODE - SYSTEM=000 USER=4093 REASON=0000001C
+IGD104I COBOL.V6R2.SIGYCOMP                          RETAINED,  DDNAME=STEPLIB
+IEF285I   SYS26299.T154644.RA000.GRANTPLN.R0108599     DELETED
+IEF285I   VOL SER NOS= EUSER2.
+IGD104I RAFAELT.BANKZ.OBJ                            RETAINED,  DDNAME=SYSLIN
+IEF285I   RAFAELT.GRANTPLN.JOB05223.D0000105.?         SYSOUT
+IGD104I RAFAELT.BANK.COPY                            RETAINED,  DDNAME=SYSLIB
+IGD104I DSN1310.DB2.SDSNC.H                          RETAINED,  DDNAME=
+IEF285I   SYS26299.T154644.RA000.GRANTPLN.R0108602     DELETED
+IEF285I   VOL SER NOS= EUSER1.
+IEF285I   SYS26299.T154644.RA000.GRANTPLN.R0108603     DELETED
+IEF285I   VOL SER NOS= EUSER2.
+IEF285I   SYS26299.T154644.RA000.GRANTPLN.R0108604     DELETED
+IEF285I   VOL SER NOS= EUSER1.
+IEF285I   SYS26299.T154644.RA000.GRANTPLN.R0108605     DELETED
+IEF285I   VOL SER NOS= EUSER1.
+IEF285I   SYS26299.T154644.RA000.GRANTPLN.R0108606     DELETED
+IEF285I   VOL SER NOS= EUSER1.
+IEF285I   SYS26299.T154644.RA000.GRANTPLN.R0108607     DELETED
+IEF285I   VOL SER NOS= EUSER1.
+IEF285I   SYS26299.T154644.RA000.GRANTPLN.R0108608     DELETED
+IEF285I   VOL SER NOS= EUSER2.
++- Step Statistics - WSCACTRT 3.4 ---------------------------------- HBB77F0 -+
+|JOB(GRANTPLN) Step#  2 (*Noproc*.COBC    ) Pgm(IGYCRCTL) - Return Code U4093 |
++-----------------------------------------------------------------------------+
+|Elapsed Time: 00:00:01.31  CPU Time(TCB): 00:00:00.48  (SRB): 00:00:00.00    |
+|RCT CPU Time: None         I/O Int. Time: None         ICSF Count: None      |
+|Service Units: CPU=   50,436  SRB=       77  I/O=        0  MSO=        0    |
+|Transactions: ended:None   Active for: 00:00:01.25 Resident for: 00:00:01.25 |
+|WLM: Workload: BAT_WKL  Service Class:BAT_MED   Resource Group: None         |
++-----------------------------------------------------------------------------+
+|Region Requested f/Step=4,096K,   Private Size=(    9M/1,497M)   Key Used(8) |
+|Virtual Used Maximums:   For User=(  224K/9,004K) For System=(  332K/   11M) |
+|Pvt Paging(I/O):     0 /    0  VIO(I/O/R):     0 /    0 /    0  Stolen:    0 |
+|Common Pagein:    34  LPA Pagein:   213  Data + Hiper space (MB):          0 |
+|Average Working Set (Page Seconds/CPU Time) for this step, this time:  1,298 |
+|There were no swap sequences recorded for this step.                         |
++------------------------ I / O  Statistics Section --------------------------+
+| * JES Sysin/Sysout Datasets, DUMMY, and Unused Datasets are not included. * |
+| DDname   Dev#=    Count (BLKSZ/ConnT)| DDname   Dev#=    Count (BLKSZ/ConnT)|
++--------------------------------------+--------------------------------------+
+| STEPLIB  3329=      189 (32760/  0.0)|                                      |
++-------------------------- I / O  ACTIVITY  TOTALS --------------------------+
+|DASD=    189  Tape=      0  VIO=      0  Other=      0  Without a DD=  2,692 |
++-----------------------------------------------------------------------------+
+IEF373I STEP/COBC    /START 2026299.1546
+IEF032I STEP/COBC    /STOP  2026299.1546
+        CPU:     0 HR  00 MIN  00.48 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+        VIRT:   224K  SYS:   332K  EXT:     9004K  SYS:    11572K
+        ATB- REAL:                  2292K  SLOTS:                     0K
+             VIRT- ALLOC:      17M SHRD:       0M
+IEF272I GRANTPLN LINK - STEP WAS NOT EXECUTED.
++- Step Statistics - WSCACTRT 3.4 ---------------------------------- HBB77F0 -+
+|JOB(GRANTPLN) Step#  3 (*Noproc*.LINK    ) Pgm(IEWL    ) - Return Code    ** |
++-----------------------------------------------------------------------------+
+IEF373I STEP/LINK    /START 2026299.1546
+IEF032I STEP/LINK    /STOP  2026299.1546
+        CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+        VIRT:     0K  SYS:     0K  EXT:        0K  SYS:        0K
+        ATB- REAL:                  1268K  SLOTS:                     0K
+             VIRT- ALLOC:      16M SHRD:       0M
+IEF272I GRANTPLN BIND - STEP WAS NOT EXECUTED.
++- Step Statistics - WSCACTRT 3.4 ---------------------------------- HBB77F0 -+
+|JOB(GRANTPLN) Step#  4 (*Noproc*.BIND    ) Pgm(IKJEFT01) - Return Code    ** |
++-----------------------------------------------------------------------------+
+IEF373I STEP/BIND    /START 2026299.1546
+IEF032I STEP/BIND    /STOP  2026299.1546
+        CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+        VIRT:     0K  SYS:     0K  EXT:        0K  SYS:        0K
+        ATB- REAL:                  1268K  SLOTS:                     0K
+             VIRT- ALLOC:      16M SHRD:       0M
++- Job  Statistics - WSCACTRT 3.4 ---------------------------------- HBB77F0 -+
+|JOB GRANTPLN(JOB05223) ended: Steps(  4) Class(A) Userid(RAFAELT )           |
++-----------------------------------------------------------------------------+
+|Elapsed Time: 00:00:01.36  CPU Time(TCB): 00:00:00.48  (SRB): 00:00:00.00    |
+|RCT CPU Time: None         I/O Int. Time: None         ICSF Count: None      |
+|Service Units: CPU=   50,863  SRB=       91  I/O=        0  MSO=        0    |
+|Transactions: ended:None   Active for: 00:00:01.27 Resident for: 00:00:01.27 |
+|WLM: Workload: BAT_WKL  Service Class:BAT_MED   Resource Group: None         |
++-------------------------- I / O  ACTIVITY  TOTALS --------------------------+
+|DASD=    502  Tape=      0  VIO=      0  Other=      0  Without a DD=  2,755 |
++-----------------------------------------------------------------------------+
+IEF375I  JOB/GRANTPLN/START 2026299.1546
+IEF033I  JOB/GRANTPLN/STOP  2026299.1546
+        CPU:     0 HR  00 MIN  00.48 SEC    SRB:     0 HR  00 MIN  00.00 SEC

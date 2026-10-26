@@ -1,0 +1,11 @@
+        1 //DB2GRT4  JOB 'DB2 Grant',NOTIFY=&SYSUID,CLASS=A,                      JOB05171
+          //          MSGCLASS=H,MSGLEVEL=(1,1)
+          IEFC653I SUBSTITUTION JCL - 'DB2 Grant',NOTIFY=RAFAELT,CLASS=A,MSGCLASS=H,MSGLEVEL=(1,1)
+        2 //STEP1    EXEC PGM=IKJEFT01
+        3 //STEPLIB  DD  DISP=SHR,DSN=DSN1310.DB2.SDSNEXIT
+        4 //         DD  DISP=SHR,DSN=DSN1310.DB2.SDSNLOAD
+        5 //SYSTSPRT DD  SYSOUT=*
+        6 //SYSPRINT DD  SYSOUT=*
+        7 //SYSOUT   DD  SYSOUT=*
+        8 //SYSTSIN  DD *
+        9 //SYSIN    DD *

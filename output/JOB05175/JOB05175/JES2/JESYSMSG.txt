@@ -1,0 +1,62 @@
+ICH70001I RAFAELT  LAST ACCESS AT 14:42:18 ON MONDAY, OCTOBER 26, 2026
+IEFA111I DB2GRT7 IS USING THE FOLLOWING JOB RELATED SETTINGS:
+         SWA=ABOVE,TIOT SIZE=64K,DSENQSHR=DISALLOW,GDGBIAS=JOB
+IEF236I ALLOC. FOR DB2GRT7 DB2GRANT
+IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+IGD103I SMS ALLOCATED TO DDNAME
+IEF237I JES2 ALLOCATED TO SYSUDUMP
+IEF237I JES2 ALLOCATED TO SYSPRINT
+IEF237I JES2 ALLOCATED TO SYSTSPRT
+IEF237I JES2 ALLOCATED TO SYSTSIN
+IEF237I JES2 ALLOCATED TO SYSIN
+IEF142I DB2GRT7 DB2GRANT - STEP WAS EXECUTED - COND CODE 0008
+IGD104I DSN1310.DB2.SDSNEXIT                         RETAINED,  DDNAME=STEPLIB
+IGD104I DSN1310.DB2.SDSNLOAD                         RETAINED,  DDNAME=
+IEF285I   RAFAELT.DB2GRT7.JOB05175.D0000103.?          SYSOUT
+IEF285I   RAFAELT.DB2GRT7.JOB05175.D0000104.?          SYSOUT
+IEF285I   RAFAELT.DB2GRT7.JOB05175.D0000105.?          SYSOUT
+IEF285I   RAFAELT.DB2GRT7.JOB05175.D0000101.?          SYSIN
+IEF285I   RAFAELT.DB2GRT7.JOB05175.D0000102.?          SYSIN
++- Step Statistics - WSCACTRT 3.4 ---------------------------------- HBB77F0 -+
+|JOB(DB2GRT7 ) Step#  1 (*Noproc*.DB2GRANT) Pgm(IKJEFT01) - Return Code    08 |
++-----------------------------------------------------------------------------+
+|Elapsed Time: 00:00:00.15  CPU Time(TCB): 00:00:00.01  (SRB): 00:00:00.00    |
+|RCT CPU Time: None         I/O Int. Time: None         ICSF Count: None      |
+|Service Units: CPU=      660  SRB=       53  I/O=        0  MSO=        0    |
+|Transactions: ended:None   Active for: 00:00:00.14 Resident for: 00:00:00.14 |
+|WLM: Workload: BAT_WKL  Service Class:BAT_MED   Resource Group: None         |
++-----------------------------------------------------------------------------+
+|Region Requested f/Step=4,096K,   Private Size=(    9M/1,497M)   Key Used(8) |
+|Virtual Used Maximums:   For User=(  512K/  472K) For System=(  392K/   10M) |
+|Pvt Paging(I/O):     0 /    0  VIO(I/O/R):     0 /    0 /    0  Stolen:    0 |
+|Common Pagein:     0  LPA Pagein:     0  Data + Hiper space (MB):          0 |
+|Average Working Set (Page Seconds/CPU Time) for this step, this time:    900 |
+|There were no swap sequences recorded for this step.                         |
++------------------------ I / O  Statistics Section --------------------------+
+| * JES Sysin/Sysout Datasets, DUMMY, and Unused Datasets are not included. * |
+| DDname   Dev#=    Count (BLKSZ/ConnT)| DDname   Dev#=    Count (BLKSZ/ConnT)|
++--------------------------------------+--------------------------------------+
+| STEPLIB  3324=       99 (32760/  0.0)|                                      |
++-------------------------- I / O  ACTIVITY  TOTALS --------------------------+
+|DASD=     99  Tape=      0  VIO=      0  Other=      0  Without a DD=    361 |
++-----------------------------------------------------------------------------+
+IEF373I STEP/DB2GRANT/START 2026299.1442
+IEF032I STEP/DB2GRANT/STOP  2026299.1442
+        CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+        VIRT:   512K  SYS:   392K  EXT:      472K  SYS:    11216K
+        ATB- REAL:                  1256K  SLOTS:                     0K
+             VIRT- ALLOC:      14M SHRD:       0M
++- Job  Statistics - WSCACTRT 3.4 ---------------------------------- HBB77F0 -+
+|JOB DB2GRT7 (JOB05175) ended: Steps(  1) Class(A) Userid(RAFAELT )           |
++-----------------------------------------------------------------------------+
+|Elapsed Time: 00:00:00.15  CPU Time(TCB): 00:00:00.01  (SRB): 00:00:00.00    |
+|RCT CPU Time: None         I/O Int. Time: None         ICSF Count: None      |
+|Service Units: CPU=      660  SRB=       53  I/O=        0  MSO=        0    |
+|Transactions: ended:None   Active for: 00:00:00.14 Resident for: 00:00:00.14 |
+|WLM: Workload: BAT_WKL  Service Class:BAT_MED   Resource Group: None         |
++-------------------------- I / O  ACTIVITY  TOTALS --------------------------+
+|DASD=     99  Tape=      0  VIO=      0  Other=      0  Without a DD=    361 |
++-----------------------------------------------------------------------------+
+IEF375I  JOB/DB2GRT7 /START 2026299.1442
+IEF033I  JOB/DB2GRT7 /STOP  2026299.1442
+        CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC

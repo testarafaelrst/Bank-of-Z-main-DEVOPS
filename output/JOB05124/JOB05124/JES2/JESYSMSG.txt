@@ -1,0 +1,28 @@
+ICH70001I RAFAELT  LAST ACCESS AT 14:02:20 ON MONDAY, OCTOBER 26, 2026
+IEFA111I LSTCUST IS USING THE FOLLOWING JOB RELATED SETTINGS:
+         SWA=ABOVE,TIOT SIZE=64K,DSENQSHR=DISALLOW,GDGBIAS=JOB
+IEFA107I LSTCUST STEP1 STEPLIB - DATA SET DB2V13.SDSNEXIT NOT FOUND
+IEF272I LSTCUST STEP1 - STEP WAS NOT EXECUTED.
++- Step Statistics - WSCACTRT 3.4 ---------------------------------- HBB77F0 -+
+|JOB(LSTCUST ) Step#  1 (*Noproc*.STEP1   ) Pgm(IKJEFT01) - Return Code    ** |
++-----------------------------------------------------------------------------+
+IEF373I STEP/STEP1   /START 2026299.1402
+IEF032I STEP/STEP1   /STOP  2026299.1402
+        CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+        VIRT:     0K  SYS:     0K  EXT:        0K  SYS:        0K
+        ATB- REAL:                  1252K  SLOTS:                     0K
+             VIRT- ALLOC:      14M SHRD:       0M
++- Job  Statistics - WSCACTRT 3.4 ---------------------------------- HBB77F0 -+
+|JOB LSTCUST (JOB05124) ended: Steps(  1) Class(A) Userid(RAFAELT )           |
++-----------------------------------------------------------------------------+
+|Elapsed Time: 00:00:00.00  CPU Time(TCB): 00:00:00.00  (SRB): 00:00:00.00    |
+|RCT CPU Time: None         I/O Int. Time: None         ICSF Count: None      |
+|Service Units: CPU=        0  SRB=        0  I/O=        0  MSO=        0    |
+|Transactions: ended:None   Active for: 00:00:00.00 Resident for: 00:00:00.00 |
+|WLM: Workload: BAT_WKL  Service Class:BAT_MED   Resource Group: None         |
++-------------------------- I / O  ACTIVITY  TOTALS --------------------------+
+|DASD=      0  Tape=      0  VIO=      0  Other=      0  Without a DD=      0 |
++-----------------------------------------------------------------------------+
+IEF375I  JOB/LSTCUST /START 2026299.1402
+IEF033I  JOB/LSTCUST /STOP  2026299.1402
+        CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC
