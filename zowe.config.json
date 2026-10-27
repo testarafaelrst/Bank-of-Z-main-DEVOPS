@@ -19,8 +19,6 @@
                         "dpsPort": 8192,
                         "dpsContextRoot": "api/v1",
                         "dpsSecured": true,
-                        "rdsPort": 8002,
-                        "rdsSecured": true,
                         "rejectUnauthorized": false,
                         "uuid": "a1b79adf-c291-45a0-a1fe-ee25ca2d0c1d"
                     },
@@ -98,23 +96,6 @@
                 "tokenValue"
             ]
         },
-        "zOpenDebug": {
-            "type": "zOpenDebug",
-            "properties": {
-                "host": "ESYSMVS.wsclab.washington.ibm.com",
-                "dpsPort": 8143,
-                "dpsContextRoot": "api/v1",
-                "dpsSecured": true,
-                "rdsPort": 8002,
-                "rdsSecured": true,
-                "rejectUnauthorized": false,
-                "uuid": "e6cc7154-fb97-4b00-84eb-11207cab1cbc"
-            },
-            "secure": [
-                "user",
-                "password"
-            ]
-        },
         "zftp": {
             "type": "zftp",
             "properties": {
@@ -167,7 +148,7 @@
         "cics": "cics",
         "apa": "apa",
         "rse": "rse",
-        "zOpenDebug": "zOpenDebug",
+        "zOpenDebug": "bank-of-z.zOpenDebug",
         "zftp": "zftp",
         "base": "global_base",
         "cicsia": "cicsia",
