@@ -1,6 +1,36 @@
 {
     "$schema": "./zowe.schema.json",
     "profiles": {
+        "bank-of-z": {
+            "type": "base",
+            "properties": {
+                "host": "ESYSMVS.wsclab.washington.ibm.com",
+                "rejectUnauthorized": false
+            },
+            "secure": [
+                "user",
+                "password"
+            ],
+            "profiles": {
+                "zOpenDebug": {
+                    "type": "zOpenDebug",
+                    "properties": {
+                        "host": "ESYSMVS.wsclab.washington.ibm.com",
+                        "dpsPort": 8192,
+                        "dpsContextRoot": "api/v1",
+                        "dpsSecured": true,
+                        "rdsPort": 8002,
+                        "rdsSecured": true,
+                        "rejectUnauthorized": false,
+                        "uuid": "a1b79adf-c291-45a0-a1fe-ee25ca2d0c1d"
+                    },
+                    "secure": [
+                        "user",
+                        "password"
+                    ]
+                }
+            }
+        },
         "zosmf": {
             "type": "zosmf",
             "properties": {

@@ -19,8 +19,31 @@
       "name": "Z Open Debug: Connect to a parked debug session",
       "connection": {
         "type": "zowe",
-        "name": "bank-of-z.zOpenDebug",
+        "name": "bank-of-z.zOpenDebug"
       }
     },
+    {
+      "type": "zOpenDebug",
+      "request": "launch",
+      "name": "Z Open Debug: DEVOPSPL (Batch)",
+      "debugProfile": "zopendebug-batch",
+      "connection": {
+        "type": "zowe",
+        "name": "bank-of-z.zOpenDebug"
+      },
+      "programName": "DEVOPSPL"
+    },
+    {
+      "type": "zOpenDebug",
+      "request": "launch",
+      "name": "Z Open Debug: LSTCUST (Batch)",
+      "debugProfile": "zopendebug-batch",
+      "connection": {
+        "type": "zowe",
+        "name": "bank-of-z.zOpenDebug"
+      },
+      "jclFile": "src/base/batch/jcl/LSTCUST.jcl",
+      "programName": "LSTCUST"
+    }
   ]
 }

@@ -370,6 +370,16 @@ profiles:
   #     outputDataSet: ${HLQ}.PREPROC.OUTPUT()
   #     commandParameters: <SYSPRINT>${HLQ}.LOG.OUTPUT()</SYSPRINT>
 
+  # zOpenDebug - Debug profile for Batch programs (DEVOPSPL, LSTCUST)
+  # Used by the Z Open Debug extension to launch a debug session via JCL.
+  - name: zopendebug-batch
+    type: debugProfile
+    settings:
+      debugLaunch:
+        type: batch
+        jclFile: src/base/batch/jcl/RUNDEVOPS.jcl
+        zoweProfile: ${defaultZoweProfile}
+
   # EDT (Early Development Testing) - Test profile for Batch programs
   # Used by IBM Early Development Testing extension (IBM TAZ EDT) to record,
   # replay and unit test BANKTRX and DEVOPSPL batch programs.
