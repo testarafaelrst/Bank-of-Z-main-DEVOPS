@@ -26,6 +26,7 @@ propertyGroups:
         type: mvs
         locations:
           - "${HLQ}.SAMPLE.COPY"
+          - "${HLQ}.SEQAMOD"
       - name: MYLIB
         type: mvs
         locations:
@@ -380,9 +381,8 @@ profiles:
       recording:
         applicationToCapture:
           recordingType: Batch
-          jclSteps: JCL/RUNBANK.jcl
+          jclSteps: src/base/batch/jcl/RUNDEVOPS.jcl/RUNDEVOP
           programs:
-            - BANKTRX
             - DEVOPSPL
         hostRecordingSettings:
           dteEngineLocation: ${HLQ}.SEQAMOD
