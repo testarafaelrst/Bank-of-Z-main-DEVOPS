@@ -63,7 +63,7 @@
            PERFORM 110-CARREGAR-TABELA
            DISPLAY '=================================================='
            DISPLAY
-              '*** ESTEIRA DEVOPS IBM Z - SIMULACAO VIA DISPLAY ***'
+              '*** ESTEIRA*DEVOPS IBM Z - SIMULACAO VIA DISPLAY ***'
            DISPLAY '=================================================='
            DISPLAY 'DATA/HORA: '
                    WS-DATA-HORA(1:8)

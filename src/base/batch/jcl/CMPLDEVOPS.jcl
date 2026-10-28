@@ -63,7 +63,7 @@
      INCLUDE OBJ(DEVOPSPL)
      NAME DEVOPSPL(R)
 /*
-//
+//*
 //***************************
 //*                         *
 //*  RUN DEVOPSPL           *
