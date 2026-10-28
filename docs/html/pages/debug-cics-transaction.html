@@ -1,0 +1,846 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial: Debug a CICS Transaction - Bank of Z – IBM Z Modern Development Reference</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/mermaid.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: { useMaxWidth: true }
+        });
+    </script>
+
+    <!-- Prism.js for syntax highlighting (bundled — no CDN required) -->
+    <link rel="stylesheet" href="../assets/prism-tomorrow.css">
+    <script src="../assets/prism-core.js"></script>
+    <script src="../assets/prism-languages.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <span class="header-app-name"><a href="../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – IBM Z Modern Development Reference</a></span>
+        </div>
+        <div class="header-right">
+        </div>
+    </header>
+    <div class="shell">
+        <aside class="sidebar" id="wiki-sidebar">
+            <nav>
+                
+        <div class="nav-home-wrap">
+            <a href="../../index.html" class="nav-home">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                Home
+            </a>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Application Documentation</div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">About Bank of Z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="about-overview.html" class="nav-link" data-page-id="about-overview">Project Overview</a>
+                <a href="architecture-overview.html" class="nav-link" data-page-id="architecture-overview">Architecture Overview</a>
+                <a href="key-capabilities.html" class="nav-link" data-page-id="key-capabilities">Key Capabilities</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Architecture</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="application-components.html" class="nav-link" data-page-id="application-components">Application Components</a>
+                <a href="application-flow.html" class="nav-link" data-page-id="application-flow">Application Flow</a>
+                <a href="build-and-deployment-arch.html" class="nav-link" data-page-id="build-and-deployment-arch">Build &amp; Deployment Architecture</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Installation &amp; Setup</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="prerequisites-env.html" class="nav-link" data-page-id="prerequisites-env">Prerequisites &amp; Environment Configuration</a>
+                <a href="deploying-options.html" class="nav-link" data-page-id="deploying-options">Deployment Options</a>
+                <a href="local-tools-setup.html" class="nav-link" data-page-id="local-tools-setup">Local Tools Setup</a>
+                <a href="zowe-cli-setup.html" class="nav-link" data-page-id="zowe-cli-setup">Zowe CLI &amp; Profile Setup</a>
+                <a href="verification.html" class="nav-link" data-page-id="verification">Installation Verification</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Development Workflows</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="workflow-overview.html" class="nav-link" data-page-id="workflow-overview">Development Workflow Overview</a>
+                <a href="zowe-cli-workflow.html" class="nav-link" data-page-id="zowe-cli-workflow">Zowe CLI Workflow</a>
+                <a href="grub-workflow.html" class="nav-link" data-page-id="grub-workflow">Grub Workflow</a>
+                <a href="development-best-practices.html" class="nav-link" data-page-id="development-best-practices">Development Best Practices</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle open" type="button">
+                <span class="nav-toggle-text">Tutorials</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items open">
+                <a href="deploy-bank-of-z.html" class="nav-link" data-page-id="deploy-bank-of-z">Tutorial: Deploy Bank of Z</a>
+                <a href="cics-enhancement.html" class="nav-link" data-page-id="cics-enhancement">Tutorial: CICS Enhancement Scenario</a>
+                <a href="incremental-build.html" class="nav-link" data-page-id="incremental-build">Tutorial: Incremental Build</a>
+                <a href="debug-cics-transaction.html" class="nav-link active" data-page-id="debug-cics-transaction">Tutorial: Debug a CICS Transaction</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Reference</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="commands-reference.html" class="nav-link" data-page-id="commands-reference">Commands Reference</a>
+                <a href="configuration-reference.html" class="nav-link" data-page-id="configuration-reference">Configuration Reference</a>
+                <a href="glossary.html" class="nav-link" data-page-id="glossary">Glossary</a>
+                <a href="repository-structure.html" class="nav-link" data-page-id="repository-structure">Repository Structure</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Troubleshooting</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="troubleshooting-overview.html" class="nav-link" data-page-id="troubleshooting-overview">Troubleshooting Overview</a>
+                <a href="fix-abend-cino.html" class="nav-link" data-page-id="fix-abend-cino">Fix: OMEN ABEND CINO</a>
+                <a href="program-internals.html" class="nav-link" data-page-id="program-internals">Program Internals: CRDTAGY2 Credit Agency Simulator</a>
+            </div>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Program Documentation</div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">docs</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">about-bank-of-z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">program</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">src</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+            <div class="nav-section">
+                <button class="nav-section-toggle" type="button">
+                    <span class="nav-toggle-text">base</span>
+                    <span class="nav-section-chevron">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="nav-section-items">
+                <div class="nav-section">
+                    <button class="nav-section-toggle" type="button">
+                        <span class="nav-toggle-text">cics</span>
+                        <span class="nav-section-chevron">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="nav-section-items">
+                    <div class="nav-section">
+                        <button class="nav-section-toggle" type="button">
+                            <span class="nav-toggle-text">cobol</span>
+                            <span class="nav-section-chevron">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="nav-section-items">
+                            <a href="../sources/program/src/base/cics/cobol/CRDTAGY2.html" class="nav-link">CRDTAGY2</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+            </nav>
+        </aside>
+        <main class="main">
+            <div class="page-container">
+                <div class="content-layout">
+                    <div class="prose">
+                        
+                        <h1 id="tutorial-debug-a-cics-transaction" tabindex="-1">Tutorial: Debug a CICS Transaction</h1>
+<p>This tutorial walks you through debugging the Bank of Z <code>INQCUST</code> COBOL program — the CICS customer inquiry transaction — using <strong>IBM Z Open Debug</strong> in Visual Studio Code. It covers tooling setup, debug profile configuration, breakpoint management, and how to interpret diagnostic output during a live CICS debug session.</p>
+<hr>
+<h2 id="1-overview" tabindex="-1">1. Overview</h2>
+<p>The Bank of Z application exposes a customer inquiry feature through the <code>INQCUST</code> COBOL program, which runs as a CICS transaction. When a user looks up a customer from the web UI, the request travels from the browser through <strong>z/OS Connect</strong> into <strong>CICS</strong>, where <code>INQCUST</code> is executed.</p>
+<p>Debugging this transaction requires intercepting a live CICS task and attaching a source-level debugger to it — without disrupting other users sharing the same CICS region. This is achieved through two server-side daemons:</p>
+<ul>
+<li><strong>Debug Profile Service (DPS):</strong> Manages debug profiles that identify which transactions and which user IDs to intercept.</li>
+<li><strong>Remote Debug Service (RDS):</strong> Acts as a protocol bridge that routes an intercepted CICS task to a specific VS Code instance using the Debug Adapter Protocol (DAP).</li>
+</ul>
+<p>Together, they allow a developer to step through COBOL source, inspect working-storage variables, and diagnose issues in a running CICS environment safely.</p>
+<hr>
+<h2 id="2-system-architecture" tabindex="-1">2. System Architecture</h2>
+<p>The following diagram illustrates how VS Code, the debug daemons, and the CICS region interact during a debug session.</p>
+<div class="mermaid">
+graph TD
+    A[Browser / Bank of Z Web UI] -->|HTTP Request| B[z/OS Connect]
+    B -->|IPIC Connection| C[CICS Region]
+    C -->|Executes| D[INQCUST COBOL Program]
+    D -->|Task Intercepted| E[Debug Profile Service DPS :8192]
+    E -->|Parks Session| F[Remote Debug Service RDS :8194]
+    F -->|DAP Protocol| G[VS Code - IBM Z Open Debug]
+    G -->|Breakpoints / Step Commands| F
+</div>
+<p>When a matching transaction is triggered under the profiled user ID, CICS suspends the task and notifies the DPS. The RDS then bridges that parked session to VS Code over the Debug Adapter Protocol, making source-level debugging possible in real time.</p>
+<h3 id="21-component-reference-table" tabindex="-1">2.1 Component Reference Table</h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Role</th>
+<th>Default Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Debug Profile Service (DPS)</td>
+<td>Stores and serves debug profiles; identifies which transactions to intercept</td>
+<td><code>8192</code></td>
+</tr>
+<tr>
+<td>Remote Debug Service (RDS)</td>
+<td>Protocol bridge between DPS and VS Code DAP</td>
+<td><code>8194</code></td>
+</tr>
+<tr>
+<td>IBM Z Open Debug (VS Code)</td>
+<td>DAP client; renders source, breakpoints, and variables</td>
+<td>—</td>
+</tr>
+<tr>
+<td>z/OS Connect</td>
+<td>REST-to-CICS gateway for the Bank of Z web UI</td>
+<td>—</td>
+</tr>
+<tr>
+<td>CICS Region</td>
+<td>Hosts and executes the <code>INQCUST</code> program</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="3-prerequisites" tabindex="-1">3. Prerequisites</h2>
+<p>Before starting this tutorial, ensure the following are in place:</p>
+<ul>
+<li>The <a href="../installation-and-setup/quick-start.md">Quick Start</a> has been completed and Bank of Z is successfully built and deployed.</li>
+<li><strong>VS Code</strong> is installed with the <strong>IBM Developer for z/OS Enterprise Edition (IDzEE)</strong> extension pack, which includes IBM Z Open Debug.</li>
+<li>The Bank of Z CICS region is running and the <code>OMEN</code> transaction is reachable.</li>
+<li>The <code>INQCUST</code> load module was compiled with the <code>TEST</code> or <code>TEST(SOURCE)</code> compiler option so that a side-file listing (<code>.dbg</code>) exists on USS.</li>
+</ul>
+<hr>
+<h2 id="4-how-the-debug-flow-works" tabindex="-1">4. How the Debug Flow Works</h2>
+<p>The sequence below shows the full lifecycle of a debug session — from triggering the transaction to stepping through COBOL source in VS Code.</p>
+<div class="mermaid">
+sequenceDiagram
+    participant Dev as Developer (VS Code)
+    participant DPS as Debug Profile Service (DPS :8192)
+    participant RDS as Remote Debug Service (RDS :8194)
+    participant CICS as CICS Region
+    participant App as INQCUST Program
+
+    Dev->>DPS: Create & Activate Debug Profile (INQCUST / CICSUSER)
+    Dev->>App: Trigger transaction via Bank of Z Web UI
+    CICS->>DPS: Transaction intercepted — park session
+    DPS-->>CICS: Session parked, waiting for debugger
+    Dev->>RDS: Press F5 — Connect to parked session
+    RDS->>DPS: Retrieve parked session
+    DPS-->>RDS: Session details returned
+    RDS-->>Dev: DAP session established, source loaded
+    Dev->>CICS: Step Over / Step Into / Inspect Variables
+    CICS-->>Dev: Variable values, program counter updates
+    Dev->>RDS: Disconnect (let task complete normally)
+    RDS-->>CICS: Task resumes and completes
+</div>
+<hr>
+<h2 id="5-step-1--configure-the-zowe-zopendebug-profile" tabindex="-1">5. Step 1 — Configure the Zowe zOpenDebug Profile</h2>
+<p>The Bank of Z repository ships a pre-configured <code>zOpenDebug</code> profile block in <code>zowe.config.json</code> with DPS port <code>8192</code> and RDS port <code>8194</code>. You need to supply your host name and credentials in <code>zowe.config.user.json</code>.</p>
+<h3 id="51-set-the-host-in-zoweconfiguserjson" tabindex="-1">5.1 Set the Host in zowe.config.user.json</h3>
+<p>Copy <code>zowe.config.user.json.template</code> to <code>zowe.config.user.json</code> (if not already done), then open it and set the host and credentials for the <code>bank-of-z</code> profile:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">JSON</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-json">{
+  &quot;profiles&quot;: {
+    &quot;bank-of-z&quot;: {
+      &quot;properties&quot;: {
+        &quot;host&quot;: &quot;192.168.1.10&quot;
+      },
+      &quot;secure&quot;: [&quot;user&quot;, &quot;password&quot;]
+    }
+  }
+}</code></pre>
+</div>
+<p>Replace <code>192.168.1.10</code> with the IP address or hostname of your z/OS system.</p>
+<h3 id="52-store-credentials-in-the-secure-credential-store" tabindex="-1">5.2 Store Credentials in the Secure Credential Store</h3>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe config secure</code></pre>
+</div>
+<p>Enter your TSO user ID and password when prompted. Zowe stores these securely so they are never written in plaintext to the config file.</p>
+<h3 id="53-verify-the-debug-profile-resolves-correctly" tabindex="-1">5.3 Verify the Debug Profile Resolves Correctly</h3>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe config list --root</code></pre>
+</div>
+<p>Confirm that <code>bank-of-z.zOpenDebug</code> appears under <code>defaults</code> with:</p>
+<ul>
+<li><code>dpsPort: 8192</code></li>
+<li><code>rdsPort: 8194</code></li>
+</ul>
+<hr>
+<h2 id="6-step-2--verify-the-launch-configuration" tabindex="-1">6. Step 2 — Verify the Launch Configuration</h2>
+<p>The repository includes a ready-to-use debug launch configuration in <code>.vscode/launch.json</code>. Open it and confirm it contains the following entry:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">JSON</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-json">{
+  &quot;version&quot;: &quot;0.2.0&quot;,
+  &quot;configurations&quot;: [
+    {
+      &quot;type&quot;: &quot;zOpenDebug&quot;,
+      &quot;request&quot;: &quot;launch&quot;,
+      &quot;name&quot;: &quot;Z Open Debug: Connect to a parked debug session&quot;,
+      &quot;connection&quot;: {
+        &quot;type&quot;: &quot;zowe&quot;,
+        &quot;name&quot;: &quot;bank-of-z.zOpenDebug&quot;
+      }
+    }
+  ]
+}</code></pre>
+</div>
+<blockquote>
+<p><strong>Key points:</strong></p>
+<ul>
+<li><code>type: &quot;zOpenDebug&quot;</code> activates the IBM Z Open Debug adapter.</li>
+<li><code>request: &quot;launch&quot;</code> instructs Z Open Debug to connect to a session that is <strong>already parked</strong> on the DPS — i.e., a CICS task that has been intercepted and is waiting for a debugger to attach.</li>
+<li>The <code>connection.name</code> references the Zowe profile (<code>bank-of-z.zOpenDebug</code>), which supplies the DPS/RDS host and port details automatically. No extra configuration is required.</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="7-step-3--create-a-debug-profile-service-profile" tabindex="-1">7. Step 3 — Create a Debug Profile Service Profile</h2>
+<p>The DPS profile tells CICS <strong>which programs to intercept</strong> and <strong>for which user ID</strong>. This ensures only your transactions are affected — other users on the same CICS region continue uninterrupted.</p>
+<h3 id="71-open-the-zos-debugger-profiles-view" tabindex="-1">7.1 Open the Z/OS Debugger Profiles View</h3>
+<p>In the VS Code Activity Bar, open the <strong>Zowe Explorer</strong> panel.</p>
+<h3 id="72-create-a-new-cics-debug-profile" tabindex="-1">7.2 Create a New CICS Debug Profile</h3>
+<p>In the <strong>Z/OS DEBUGGER PROFILES</strong> section, expand the <strong>Debug Profiles</strong> tree node. Right-click on <strong>CICS</strong> and select <strong>Create</strong>.</p>
+<h3 id="73-fill-in-the-profile-details" tabindex="-1">7.3 Fill In the Profile Details</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Profile name</td>
+<td><code>INQCUST-debug</code> (any descriptive name)</td>
+</tr>
+<tr>
+<td>CICS system</td>
+<td>Your CICS region name, e.g. <code>CICSBOZ</code></td>
+</tr>
+<tr>
+<td>Load module / program</td>
+<td><code>INQCUST</code></td>
+</tr>
+<tr>
+<td>Qualified user ID</td>
+<td>Your TSO user ID, e.g. <code>CICSUSER</code></td>
+</tr>
+</tbody>
+</table>
+<p>Select <strong>Save</strong>. The profile is registered with the DPS on z/OS.</p>
+<h3 id="74-activate-the-profile" tabindex="-1">7.4 Activate the Profile</h3>
+<p>Right-click the newly created profile and select <strong>Activate for Debug</strong>. A bug icon with a green dot appears next to the profile to confirm it is active.</p>
+<blockquote>
+<p>With the profile active, any invocation of <code>INQCUST</code> under the specified TSO user ID (<code>CICSUSER</code>) is intercepted by CICS and parked until VS Code attaches. Transactions belonging to other user IDs are unaffected.</p>
+</blockquote>
+<hr>
+<h2 id="8-step-4--trigger-the-cics-transaction" tabindex="-1">8. Step 4 — Trigger the CICS Transaction</h2>
+<p>Open the Bank of Z web application and look up a customer whose ID starts with <code>C</code> (for example, <code>C0001</code>). The UI sends the request through the following path:</p>
+<div class="mermaid">
+graph LR
+    A[Bank of Z Web UI] -->|REST API Call| B[z/OS Connect]
+    B -->|IPIC| C[CICS Transaction]
+    C -->|Intercept by DPS| D[Session Parked]
+    D -->|Waiting for Debugger| E[VS Code Attach]
+</div>
+<blockquote>
+<p><strong>⚠️ Note on Timeout:</strong> For transactions coming from the web interface, a timeout is configured in the <code>cics.xml</code> file for z/OS Connect. In this project it is set to <strong>5 minutes</strong>. If you need longer debug sessions, edit the <code>requestTimeout</code> attribute of the <code>zosconnect_cicsIpicConnection</code> tag in <code>cics.xml</code>.</p>
+<p>The <code>cics.xml</code> file is generated by <code>.setup/setup/setup-zosconnect-server.sh</code>.</p>
+</blockquote>
+<hr>
+<h2 id="9-step-5--attach-the-debug-session-in-vs-code" tabindex="-1">9. Step 5 — Attach the Debug Session in VS Code</h2>
+<h3 id="91-open-the-run-and-debug-view" tabindex="-1">9.1 Open the Run and Debug View</h3>
+<p>In VS Code, open the <strong>Run and Debug</strong> view using:</p>
+<ul>
+<li><strong>Windows/Linux:</strong> <code>Ctrl+Shift+D</code></li>
+<li><strong>macOS:</strong> <code>⇧⌘D</code></li>
+</ul>
+<h3 id="92-select-the-launch-configuration" tabindex="-1">9.2 Select the Launch Configuration</h3>
+<p>From the configuration dropdown at the top of the panel, select:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">CODE</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code>Z Open Debug: Connect to a parked debug session</code></pre>
+</div>
+<p>This corresponds to the entry defined in <code>.vscode/launch.json</code>.</p>
+<h3 id="93-start-the-debug-session" tabindex="-1">9.3 Start the Debug Session</h3>
+<p>Press <code>F5</code> or click the green <strong>Start Debugging</strong> arrow.</p>
+<p>Z Open Debug contacts the RDS at port <code>8194</code>, which retrieves the parked session from the DPS at port <code>8192</code>. VS Code opens the <code>INQCUST</code> COBOL source file and the program counter stops at the first intercepted statement — ready for inspection.</p>
+<hr>
+<h2 id="10-step-6--inspect-variables-and-step-through-code" tabindex="-1">10. Step 6 — Inspect Variables and Step Through Code</h2>
+<p>Once attached, use the standard VS Code debug toolbar and panels to navigate through the COBOL program.</p>
+<h3 id="101-debug-toolbar-actions" tabindex="-1">10.1 Debug Toolbar Actions</h3>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Shortcut</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Continue</td>
+<td><code>F5</code></td>
+<td>Run to next breakpoint or program end</td>
+</tr>
+<tr>
+<td>Step Over</td>
+<td><code>F10</code></td>
+<td>Execute current statement; stay at the same call level</td>
+</tr>
+<tr>
+<td>Step Into</td>
+<td><code>F11</code></td>
+<td>Step into a called sub-program or paragraph</td>
+</tr>
+<tr>
+<td>Step Out</td>
+<td><code>⇧F11</code></td>
+<td>Run to end of current program or paragraph</td>
+</tr>
+<tr>
+<td>Stop</td>
+<td><code>⇧F5</code></td>
+<td>Terminate the debug session; CICS task abends (<code>ADBS</code>)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="102-inspecting-variables" tabindex="-1">10.2 Inspecting Variables</h3>
+<ul>
+<li>Open the <strong>Variables</strong> panel on the left side of the debug view to inspect Working Storage and Linkage Section fields.</li>
+<li>Hover over a variable name in the source editor to see its current value inline.</li>
+<li>Use the <strong>Watch</strong> panel to track specific fields as you step through the program.</li>
+</ul>
+<h3 id="103-setting-breakpoints" tabindex="-1">10.3 Setting Breakpoints</h3>
+<p>Click in the <strong>gutter</strong> (left margin) next to any source line in the <code>INQCUST</code> COBOL file to set a breakpoint. A solid red circle confirms the breakpoint is verified against the loaded listing. A hollow circle indicates an unverified breakpoint — see the Troubleshooting section for resolution steps.</p>
+<hr>
+<h2 id="11-troubleshooting" tabindex="-1">11. Troubleshooting</h2>
+<p>The table below covers the most common issues encountered during CICS debug sessions with IBM Z Open Debug.</p>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely Cause</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VS Code cannot connect to a parked session</td>
+<td>Transaction ran and completed before <code>F5</code> was pressed; profile was not active</td>
+<td>Ensure the DPS profile is <strong>activated</strong> before triggering the transaction, then trigger it again</td>
+</tr>
+<tr>
+<td>Source not shown — only assembler disassembly</td>
+<td>Listing file not found or <code>.zdx.json</code> path is incorrect</td>
+<td>Verify the USS listing path in <code>.zdx.json</code>; confirm the build produced a <code>.dbg</code> side file</td>
+</tr>
+<tr>
+<td>CICS transaction abends with <code>ADBS</code></td>
+<td>Debug session was <strong>stopped</strong> (terminated) rather than disconnected</td>
+<td>Use <strong>Disconnect</strong> instead of <strong>Stop</strong> to let the CICS task complete normally</td>
+</tr>
+<tr>
+<td>Other users’ transactions are being intercepted</td>
+<td>DPS profile <code>userId</code> field was left blank or wildcarded</td>
+<td>Edit the profile and set <code>userId</code> to your specific TSO user ID</td>
+</tr>
+<tr>
+<td>RDS connection refused</td>
+<td>Port <code>8194</code> is blocked or the RDS started task is not running</td>
+<td>Check network access to the z/OS host on port <code>8194</code>; verify the RDS started task is active</td>
+</tr>
+<tr>
+<td>Breakpoints shown as unverified (hollow circles)</td>
+<td>Source file in VS Code does not match the listing file on z/OS</td>
+<td>Ensure you are viewing the same source version that was compiled; rebuild and redeploy if necessary</td>
+</tr>
+</tbody>
+</table>
+
+                        <div class="related-pages">
+                            <p class="related-pages-title">Related Pages</p>
+                            <div class="card-grid">
+                                
+            <a href="cics-enhancement.html" class="card">
+                <span class="card-title">Tutorial: CICS Enhancement Scenario</span>
+                <span class="card-description">Tutorial demonstrating how to extend and enhance a CICS transaction in Bank of Z, illustrating a realistic application modernization or feature-addition scenario.</span>
+            </a>
+            <a href="troubleshooting-overview.html" class="card">
+                <span class="card-title">Troubleshooting Overview</span>
+                <span class="card-description">General troubleshooting guidance for Bank of Z, covering common installation, deployment, and runtime issues with diagnostic steps and resolution strategies.</span>
+            </a>
+            <a href="fix-abend-cino.html" class="card">
+                <span class="card-title">Fix: OMEN ABEND CINO</span>
+                <span class="card-description">Targeted fix guide for resolving the OMEN ABEND CINO error in Bank of Z CICS transactions, including root cause analysis, corrective steps, and verification.</span>
+            </a>
+                            </div>
+                        </div>
+                    </div>
+                    <nav class="toc-panel" aria-label="On this page">
+  <span class="toc-panel-label">On this page</span>
+  <ul class="toc-list">
+<li class="toc-level-2"><a href="#1-overview">1. Overview</a></li>
+<li class="toc-level-2"><a href="#2-system-architecture">2. System Architecture</a>
+<ul>
+<li class="toc-level-3"><a href="#21-component-reference-table">2.1 Component Reference Table</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#3-prerequisites">3. Prerequisites</a></li>
+<li class="toc-level-2"><a href="#4-how-the-debug-flow-works">4. How the Debug Flow Works</a></li>
+<li class="toc-level-2"><a href="#5-step-1--configure-the-zowe-zopendebug-profile">5. Step 1 — Configure the Zowe zOpenDebug Profile</a>
+<ul>
+<li class="toc-level-3"><a href="#51-set-the-host-in-zoweconfiguserjson">5.1 Set the Host in zowe.config.user.json</a></li>
+<li class="toc-level-3"><a href="#52-store-credentials-in-the-secure-credential-store">5.2 Store Credentials in the Secure Credential Store</a></li>
+<li class="toc-level-3"><a href="#53-verify-the-debug-profile-resolves-correctly">5.3 Verify the Debug Profile Resolves Correctly</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#6-step-2--verify-the-launch-configuration">6. Step 2 — Verify the Launch Configuration</a></li>
+<li class="toc-level-2"><a href="#7-step-3--create-a-debug-profile-service-profile">7. Step 3 — Create a Debug Profile Service Profile</a>
+<ul>
+<li class="toc-level-3"><a href="#71-open-the-zos-debugger-profiles-view">7.1 Open the Z/OS Debugger Profiles View</a></li>
+<li class="toc-level-3"><a href="#72-create-a-new-cics-debug-profile">7.2 Create a New CICS Debug Profile</a></li>
+<li class="toc-level-3"><a href="#73-fill-in-the-profile-details">7.3 Fill In the Profile Details</a></li>
+<li class="toc-level-3"><a href="#74-activate-the-profile">7.4 Activate the Profile</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#8-step-4--trigger-the-cics-transaction">8. Step 4 — Trigger the CICS Transaction</a></li>
+<li class="toc-level-2"><a href="#9-step-5--attach-the-debug-session-in-vs-code">9. Step 5 — Attach the Debug Session in VS Code</a>
+<ul>
+<li class="toc-level-3"><a href="#91-open-the-run-and-debug-view">9.1 Open the Run and Debug View</a></li>
+<li class="toc-level-3"><a href="#92-select-the-launch-configuration">9.2 Select the Launch Configuration</a></li>
+<li class="toc-level-3"><a href="#93-start-the-debug-session">9.3 Start the Debug Session</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#10-step-6--inspect-variables-and-step-through-code">10. Step 6 — Inspect Variables and Step Through Code</a>
+<ul>
+<li class="toc-level-3"><a href="#101-debug-toolbar-actions">10.1 Debug Toolbar Actions</a></li>
+<li class="toc-level-3"><a href="#102-inspecting-variables">10.2 Inspecting Variables</a></li>
+<li class="toc-level-3"><a href="#103-setting-breakpoints">10.3 Setting Breakpoints</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#11-troubleshooting">11. Troubleshooting</a></li>
+</ul>
+
+</nav>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+    /* toc-spy.js — highlights the active heading in the TOC panel on scroll */
+    (function () {
+      function init() {
+        var panel = document.querySelector('.toc-panel');
+        if (!panel) return;
+        var links = Array.prototype.slice.call(panel.querySelectorAll('a[href^="#"]'));
+        if (!links.length) return;
+
+        var headingIds = links.map(function (a) { return a.getAttribute('href').slice(1); });
+        var headings = headingIds.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+
+        function clearActive() {
+          panel.querySelectorAll('.toc-active').forEach(function (el) { el.classList.remove('toc-active'); });
+          panel.querySelectorAll('.toc-parent-active').forEach(function (el) { el.classList.remove('toc-parent-active'); });
+        }
+
+        function setActive(id) {
+          clearActive();
+          var link = panel.querySelector('a[href="#' + id + '"]');
+          if (!link) return;
+          link.classList.add('toc-active');
+          var li = link.closest('li');
+          if (li) {
+            var parentLi = li.parentElement && li.parentElement.closest('li');
+            if (parentLi) parentLi.classList.add('toc-parent-active');
+          }
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              setActive(entry.target.id);
+            }
+          });
+        }, { rootMargin: '0px 0px -70% 0px', threshold: 0 });
+
+        headings.forEach(function (h) { observer.observe(h); });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+    </script>
+    <script>
+    /* sidebar-toggle.js — persists open/closed state across navigation */
+    (function () {
+
+      var STORAGE_KEY = 'sb_open';
+
+      function getOpenSet() {
+        try {
+          var raw = sessionStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (e) { return null; }
+      }
+
+      function saveOpenSet(set) {
+        try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(set)); } catch (e) {}
+      }
+
+      function findItems(toggle) {
+        var node = toggle.nextSibling;
+        while (node) {
+          if (node.nodeType === 1 && node.classList.contains('nav-section-items'))
+            return node;
+          node = node.nextSibling;
+        }
+        return null;
+      }
+
+      function toggleKey(toggle, index) {
+        var label = (toggle.querySelector('.nav-toggle-text') || toggle).textContent.trim().replace(/\s+/g, ' ');
+        return index + ':' + label;
+      }
+
+      function openSection(toggle, items, key, set) {
+        toggle.classList.add('open');
+        items.classList.add('open');
+        if (set) set[key] = true;
+      }
+
+      function closeSection(toggle, items, key, set) {
+        toggle.classList.remove('open');
+        items.classList.remove('open');
+        if (set) set[key] = false;
+      }
+
+      function init() {
+        var sidebar = document.getElementById('wiki-sidebar');
+        var toggles = Array.prototype.slice.call(
+          document.querySelectorAll('.nav-section-toggle')
+        );
+
+        var activeIdx = -1;
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+          if (items.querySelector('.nav-link.active')) {
+            activeIdx = idx;
+          }
+        });
+
+        var savedSet = getOpenSet();
+        var openSet = savedSet || {};
+
+        if (activeIdx !== -1) {
+          openSet[toggleKey(toggles[activeIdx], activeIdx)] = true;
+        }
+
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+
+          var key = toggleKey(toggle, idx);
+          var shouldOpen = openSet[key] === true;
+
+          if (shouldOpen) {
+            toggle.classList.add('open');
+            items.classList.add('open');
+          }
+
+          toggle.addEventListener('click', function () {
+            var nowOpen = toggle.classList.contains('open');
+            if (nowOpen) {
+              closeSection(toggle, items, key, openSet);
+            } else {
+              openSection(toggle, items, key, openSet);
+            }
+            saveOpenSet(openSet);
+          });
+        });
+
+        saveOpenSet(openSet);
+
+        /* Restore sidebar scroll position after sections are expanded so the
+           scroll height is correct when we apply scrollTop. */
+        if (sidebar) {
+          try {
+            var savedScroll = sessionStorage.getItem('sb_scroll');
+            if (savedScroll !== null) { sidebar.scrollTop = parseInt(savedScroll, 10) || 0; }
+          } catch (_e) {}
+        }
+
+        window.addEventListener('pagehide', function () {
+          saveOpenSet(openSet);
+          if (sidebar) {
+            try { sessionStorage.setItem('sb_scroll', String(sidebar.scrollTop)); } catch (_e) {}
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+
+    })();
+    </script>
+    <script>
+    /* nav-tracking.js — only stamps sessionStorage when clicking a source-file link
+       that lives inside the "Source Files" disclosure section, not from sidebar or cards. */
+    (function () {
+      document.addEventListener('click', function (e) {
+        var link = e.target.closest('a[href]');
+        if (!link) return;
+        var href = link.getAttribute('href');
+        if (!href || href.indexOf('sources/') === -1) return;
+        /* Only set referrer when the click originates from inside the Source Files
+           disclosure (.source-files-disclosure). Any other path — sidebar, cards,
+           direct navigation — must not set a referrer. */
+        if (!link.closest('.source-files-disclosure')) return;
+        try {
+          sessionStorage.setItem('wiki_referrer', JSON.stringify({
+            href: location.href,
+            title: document.title,
+            file: location.pathname.split('/').pop()
+          }));
+        } catch (_e) {}
+      });
+    })();
+    </script>
+    <footer class="wiki-footer">Made by IBM Bob Premium Package for Z</footer>
+</body>
+</html>

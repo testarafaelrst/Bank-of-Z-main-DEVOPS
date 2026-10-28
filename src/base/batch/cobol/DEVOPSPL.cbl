@@ -21,14 +21,14 @@
        DATA DIVISION.
        WORKING-STORAGE SECTION.
        01 WS-CONTROLE.
-        05 WS-IDX             PIC 9(02) VALUE 0.
-        05 WS-NUM-ETAPA       PIC 9(01) VALUE 0.
-        05 WS-QTD-ETAPAS      PIC 9(02) VALUE 7.
-        05 WS-QTD-OK          PIC 9(02) VALUE 0.
-        05 WS-IDX-FALHA       PIC 9(02) VALUE 0.
-        05 WS-FALHA-SIMULADA  PIC 9(02) VALUE 0.
-        05 WS-TAM             PIC 9(02) VALUE 0.
-        05 WS-RC-EXIBIR       PIC 9(04) VALUE 0.
+        05 WS-IDX             PIC S9(04) BINARY SYNC VALUE 0.
+        05 WS-NUM-ETAPA       PIC 9(01)  VALUE 0.
+        05 WS-QTD-ETAPAS      PIC S9(04) BINARY SYNC VALUE 7.
+        05 WS-QTD-OK          PIC S9(04) BINARY SYNC VALUE 0.
+        05 WS-IDX-FALHA       PIC S9(04) BINARY SYNC VALUE 0.
+        05 WS-FALHA-SIMULADA  PIC S9(04) BINARY SYNC VALUE 0.
+        05 WS-TAM             PIC S9(04) BINARY SYNC VALUE 0.
+        05 WS-RC-EXIBIR       PIC S9(04) BINARY SYNC VALUE 0.
         05 WS-FLAG-ABORTA     PIC X(01) VALUE 'N'.
          88 ESTEIRA-ABORTADA VALUE 'S'.
          88 ESTEIRA-EM-CURSO VALUE 'N'.
@@ -71,10 +71,8 @@
                    WS-DATA-HORA(9:6).
 
        110-CARREGAR-TABELA.
-           PERFORM VARYING WS-IDX FROM 1 BY 1
-              UNTIL WS-IDX > WS-QTD-ETAPAS
-            MOVE 'PENDENTE' TO WS-ET-STATUS(WS-IDX)
-           END-PERFORM
+           INITIALIZE WS-TABELA-ETAPAS
+              REPLACING ALPHANUMERIC DATA BY 'PENDENTE'
 
            MOVE 'PLAN' TO WS-ET-NOME(1)
            MOVE 'IBM Z Understand / IBM EWM'
@@ -120,46 +118,20 @@
 
        200-EXECUTAR-ETAPA.
            MOVE WS-IDX TO WS-NUM-ETAPA
-           PERFORM 210-EXIBIR-INICIO
-           PERFORM 220-EXIBIR-PRODUTO
-           PERFORM 230-EXIBIR-ATIVIDADE
-           PERFORM 240-AVALIAR-STATUS
-           PERFORM 250-EXIBIR-CONCLUSAO.
-
-       210-EXIBIR-INICIO.
            DISPLAY '--------------------------------------------------'
            DISPLAY '['
                    WS-NUM-ETAPA
                    '/7] INICIO   : '
-                   FUNCTION TRIM(WS-ET-NOME(WS-IDX) TRAILING).
-
-       220-EXIBIR-PRODUTO.
+                   FUNCTION TRIM(WS-ET-NOME(WS-IDX) TRAILING)
            DISPLAY '['
                    WS-NUM-ETAPA
                    '/7] PRODUTO  : '
-                   FUNCTION TRIM(WS-ET-PRODUTO(WS-IDX) TRAILING).
-
-       230-EXIBIR-ATIVIDADE.
+                   FUNCTION TRIM(WS-ET-PRODUTO(WS-IDX) TRAILING)
            DISPLAY '['
                    WS-NUM-ETAPA
                    '/7] ATIVIDADE: '
-                   FUNCTION TRIM(WS-ET-ATIVIDADE(WS-IDX) TRAILING).
-
-       240-AVALIAR-STATUS.
-           IF WS-IDX = WS-FALHA-SIMULADA
-            MOVE 'FALHA' TO WS-STATUS-ETAPA
-           ELSE
-            MOVE 'SUCESSO' TO WS-STATUS-ETAPA
-           END-IF
-           MOVE WS-STATUS-ETAPA TO WS-ET-STATUS(WS-IDX)
-           IF WS-STATUS-ETAPA = 'SUCESSO'
-            ADD 1 TO WS-QTD-OK
-           ELSE
-            MOVE WS-IDX TO WS-IDX-FALHA
-            SET ESTEIRA-ABORTADA TO TRUE
-           END-IF.
-
-       250-EXIBIR-CONCLUSAO.
+                   FUNCTION TRIM(WS-ET-ATIVIDADE(WS-IDX) TRAILING)
+           PERFORM 240-AVALIAR-STATUS
            DISPLAY '['
                    WS-NUM-ETAPA
                    '/7] STATUS   : '
@@ -174,6 +146,21 @@
                     WS-NUM-ETAPA
                     '/7] FALHA    : '
                     FUNCTION TRIM(WS-ET-NOME(WS-IDX) TRAILING)
+           END-IF.
+
+
+       240-AVALIAR-STATUS.
+           IF WS-IDX = WS-FALHA-SIMULADA
+            MOVE 'FALHA' TO WS-STATUS-ETAPA
+           ELSE
+            MOVE 'SUCESSO' TO WS-STATUS-ETAPA
+           END-IF
+           MOVE WS-STATUS-ETAPA TO WS-ET-STATUS(WS-IDX)
+           IF WS-STATUS-ETAPA = 'SUCESSO'
+            ADD 1 TO WS-QTD-OK
+           ELSE
+            MOVE WS-IDX TO WS-IDX-FALHA
+            SET ESTEIRA-ABORTADA TO TRUE
            END-IF.
 
        800-ABORTAR-ESTEIRA.

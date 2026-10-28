@@ -1,0 +1,842 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial: Deploy Bank of Z - Bank of Z – IBM Z Modern Development Reference</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/mermaid.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: { useMaxWidth: true }
+        });
+    </script>
+
+    <!-- Prism.js for syntax highlighting (bundled — no CDN required) -->
+    <link rel="stylesheet" href="../assets/prism-tomorrow.css">
+    <script src="../assets/prism-core.js"></script>
+    <script src="../assets/prism-languages.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <span class="header-app-name"><a href="../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – IBM Z Modern Development Reference</a></span>
+        </div>
+        <div class="header-right">
+        </div>
+    </header>
+    <div class="shell">
+        <aside class="sidebar" id="wiki-sidebar">
+            <nav>
+                
+        <div class="nav-home-wrap">
+            <a href="../../index.html" class="nav-home">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                Home
+            </a>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Application Documentation</div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">About Bank of Z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="about-overview.html" class="nav-link" data-page-id="about-overview">Project Overview</a>
+                <a href="architecture-overview.html" class="nav-link" data-page-id="architecture-overview">Architecture Overview</a>
+                <a href="key-capabilities.html" class="nav-link" data-page-id="key-capabilities">Key Capabilities</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Architecture</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="application-components.html" class="nav-link" data-page-id="application-components">Application Components</a>
+                <a href="application-flow.html" class="nav-link" data-page-id="application-flow">Application Flow</a>
+                <a href="build-and-deployment-arch.html" class="nav-link" data-page-id="build-and-deployment-arch">Build &amp; Deployment Architecture</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Installation &amp; Setup</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="prerequisites-env.html" class="nav-link" data-page-id="prerequisites-env">Prerequisites &amp; Environment Configuration</a>
+                <a href="deploying-options.html" class="nav-link" data-page-id="deploying-options">Deployment Options</a>
+                <a href="local-tools-setup.html" class="nav-link" data-page-id="local-tools-setup">Local Tools Setup</a>
+                <a href="zowe-cli-setup.html" class="nav-link" data-page-id="zowe-cli-setup">Zowe CLI &amp; Profile Setup</a>
+                <a href="verification.html" class="nav-link" data-page-id="verification">Installation Verification</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Development Workflows</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="workflow-overview.html" class="nav-link" data-page-id="workflow-overview">Development Workflow Overview</a>
+                <a href="zowe-cli-workflow.html" class="nav-link" data-page-id="zowe-cli-workflow">Zowe CLI Workflow</a>
+                <a href="grub-workflow.html" class="nav-link" data-page-id="grub-workflow">Grub Workflow</a>
+                <a href="development-best-practices.html" class="nav-link" data-page-id="development-best-practices">Development Best Practices</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle open" type="button">
+                <span class="nav-toggle-text">Tutorials</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items open">
+                <a href="deploy-bank-of-z.html" class="nav-link active" data-page-id="deploy-bank-of-z">Tutorial: Deploy Bank of Z</a>
+                <a href="cics-enhancement.html" class="nav-link" data-page-id="cics-enhancement">Tutorial: CICS Enhancement Scenario</a>
+                <a href="incremental-build.html" class="nav-link" data-page-id="incremental-build">Tutorial: Incremental Build</a>
+                <a href="debug-cics-transaction.html" class="nav-link" data-page-id="debug-cics-transaction">Tutorial: Debug a CICS Transaction</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Reference</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="commands-reference.html" class="nav-link" data-page-id="commands-reference">Commands Reference</a>
+                <a href="configuration-reference.html" class="nav-link" data-page-id="configuration-reference">Configuration Reference</a>
+                <a href="glossary.html" class="nav-link" data-page-id="glossary">Glossary</a>
+                <a href="repository-structure.html" class="nav-link" data-page-id="repository-structure">Repository Structure</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Troubleshooting</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="troubleshooting-overview.html" class="nav-link" data-page-id="troubleshooting-overview">Troubleshooting Overview</a>
+                <a href="fix-abend-cino.html" class="nav-link" data-page-id="fix-abend-cino">Fix: OMEN ABEND CINO</a>
+                <a href="program-internals.html" class="nav-link" data-page-id="program-internals">Program Internals: CRDTAGY2 Credit Agency Simulator</a>
+            </div>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Program Documentation</div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">docs</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">about-bank-of-z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">program</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">src</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+            <div class="nav-section">
+                <button class="nav-section-toggle" type="button">
+                    <span class="nav-toggle-text">base</span>
+                    <span class="nav-section-chevron">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="nav-section-items">
+                <div class="nav-section">
+                    <button class="nav-section-toggle" type="button">
+                        <span class="nav-toggle-text">cics</span>
+                        <span class="nav-section-chevron">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="nav-section-items">
+                    <div class="nav-section">
+                        <button class="nav-section-toggle" type="button">
+                            <span class="nav-toggle-text">cobol</span>
+                            <span class="nav-section-chevron">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="nav-section-items">
+                            <a href="../sources/program/src/base/cics/cobol/CRDTAGY2.html" class="nav-link">CRDTAGY2</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+            </nav>
+        </aside>
+        <main class="main">
+            <div class="page-container">
+                <div class="content-layout">
+                    <div class="prose">
+                        <details class="source-files-disclosure">
+            <summary>
+                <svg class="sf-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Source Files
+                <span style="margin-left:4px;font-size:11px;color:var(--fg-subtle)">(1)</span>
+            </summary>
+            <div class="source-files-body">
+                <ul class="source-files-list">
+            <li><a href="../sources/docs/about-bank-of-z/index.html">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+                    <path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M10 2v4h4" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                index
+            </a></li>
+                </ul>
+            </div>
+        </details>
+                        <h1 id="tutorial-deploy-bank-of-z" tabindex="-1">Tutorial: Deploy Bank of Z</h1>
+<p>Bank of Z includes a guided first-time deployment experience that demonstrates how the application moves from source code to a running hybrid IBM Z banking solution. This tutorial walks through the end-to-end deployment flow described in the project documentation: preparing a z/OS environment with prerequisites in place, cloning the Bank of Z repository to USS, running the three setup stages, and bringing up the full application stack so you can execute an initial banking transaction.</p>
+<h2 id="1-overview" tabindex="-1">1. Overview</h2>
+<p>This tutorial is part of the broader Bank of Z tutorial set, which is designed to help users understand common development, deployment, and modernization workflows. The tutorials build on one another and show how application changes move from source code to deployment in a hybrid IBM Z environment.</p>
+<p>By completing this deployment tutorial, you learn how to:</p>
+<ul>
+<li>Build and deploy Bank of Z application components</li>
+<li>Provision the required runtime stack</li>
+<li>Deploy application code from source</li>
+<li>Work with a hybrid IBM Z environment</li>
+<li>Validate that the application is running successfully</li>
+<li>Prepare for incremental day-to-day development workflows</li>
+</ul>
+<p>The deployment shown here uses the <strong>Direct USS method</strong>, which starts from a prepared z/OS environment and performs a complete first-time setup.</p>
+<h3 id="11-tutorial-scope" tabindex="-1">1.1. Tutorial scope</h3>
+<p>This page covers the application-level deployment flow for Bank of Z:</p>
+<ol>
+<li>Start from a z/OS system where prerequisites are already installed</li>
+<li>Clone the Bank of Z repository into USS</li>
+<li>Run the three setup stages</li>
+<li>Automatically provision the runtime stack</li>
+<li>Build and deploy the application from source</li>
+<li>Access the frontend and perform initial validation</li>
+<li>Transition to incremental development using the remote pipeline script</li>
+</ol>
+<h3 id="12-what-is-deployed" tabindex="-1">1.2. What is deployed</h3>
+<p>A full first-time deployment provisions and deploys the main Bank of Z application components, including:</p>
+<ul>
+<li><strong>CICS</strong></li>
+<li><strong>IMS</strong></li>
+<li><strong>z/OS Connect</strong></li>
+<li><strong>Liberty frontend server</strong></li>
+</ul>
+<p>These components work together to expose and process banking application functionality.</p>
+<h2 id="2-system-architecture" tabindex="-1">2. System Architecture</h2>
+<p>At a high level, Bank of Z is deployed as a multi-component application stack on IBM Z. The deployment process provisions middleware services and deploys application artifacts so that frontend requests can be routed to backend banking services.</p>
+<div class="mermaid">
+graph TD
+    A[Developer or Operator] --> B[USS Working Copy of Bank of Z]
+    B --> C[Setup Stage 1]
+    C --> D[Setup Stage 2]
+    D --> E[Setup Stage 3]
+    E --> F[Liberty Frontend Server]
+    E --> G[z/OS Connect]
+    E --> H[CICS]
+    E --> I[IMS]
+    F --> G
+    G --> H
+    G --> I
+</div>
+<p>The diagram shows the first-time deployment path from source in USS through the staged setup flow into the runtime components that make up the Bank of Z application stack.</p>
+<h3 id="21-core-runtime-components" tabindex="-1">2.1. Core runtime components</h3>
+<h4 id="211-uss-source-workspace" tabindex="-1">2.1.1. USS source workspace</h4>
+<p>The Bank of Z repository is cloned into <strong>USS</strong> and serves as the deployment working directory. This is where the deployment starts and where the setup stages are run.</p>
+<h4 id="212-three-setup-stages" tabindex="-1">2.1.2. Three setup stages</h4>
+<p>The documentation describes <strong>three setup stages</strong> that are executed during first-time deployment. Together, these stages automate environment setup, stack provisioning, and build/deploy operations.</p>
+<h4 id="213-liberty-frontend-server" tabindex="-1">2.1.3. Liberty frontend server</h4>
+<p>The <strong>Liberty frontend server</strong> provides the web-facing layer for the application and is part of the stack provisioned during setup.</p>
+<h4 id="214-zos-connect" tabindex="-1">2.1.4. z/OS Connect</h4>
+<p><strong>z/OS Connect</strong> acts as an integration layer between frontend-facing interfaces and backend IBM Z services.</p>
+<h4 id="215-cics-and-ims" tabindex="-1">2.1.5. CICS and IMS</h4>
+<p><strong>CICS</strong> and <strong>IMS</strong> provide core transactional backend environments for Bank of Z application processing.</p>
+<h3 id="22-component-relationships" tabindex="-1">2.2. Component relationships</h3>
+<p>The following diagram highlights the relationships between the main entities involved in deployment and runtime execution.</p>
+<div class="mermaid">
+graph TD
+    A[Bank of Z Source Repository] --> B[USS]
+    B --> C[Deployment Scripts]
+    C --> D[Provisioned Application Stack]
+    D --> E[Liberty Frontend]
+    D --> F[z/OS Connect]
+    D --> G[CICS Services]
+    D --> H[IMS Services]
+    E --> F
+    F --> G
+    F --> H
+</div>
+<p>This relationship view emphasizes that the repository and scripts are not separate from the deployment story—they are the mechanism used to create and connect the full Bank of Z runtime stack.</p>
+<h2 id="3-deployment-prerequisites" tabindex="-1">3. Deployment Prerequisites</h2>
+<p>Before starting the tutorial, ensure the deployment environment is ready.</p>
+<h3 id="31-required-starting-point" tabindex="-1">3.1. Required starting point</h3>
+<p>The documented deployment assumes:</p>
+<ul>
+<li>A <strong>z/OS environment</strong> is already available</li>
+<li>All <strong>prerequisites are in place</strong></li>
+<li>You are performing a <strong>first-time deployment</strong></li>
+<li>You are using the <strong>Direct USS method</strong></li>
+</ul>
+<p>Because this tutorial page focuses on the application-level process, prerequisite installation details are referenced rather than repeated here.</p>
+<h3 id="32-reference-for-setup-details" tabindex="-1">3.2. Reference for setup details</h3>
+<p>For the actual deployment procedure and prerequisite preparation, use the project’s deployment documentation:</p>
+<ul>
+<li><strong>Deploying Bank of Z</strong>: <code>../installation-and-setup/deploying.html</code></li>
+</ul>
+<h2 id="4-end-to-end-deployment-flow" tabindex="-1">4. End-to-End Deployment Flow</h2>
+<p>The first-time deployment follows a simple but important sequence: move the source to USS, execute the setup stages, provision the stack, and deploy the application.</p>
+<div class="mermaid">
+sequenceDiagram
+    participant U as User
+    participant Z as z/OS Environment
+    participant S as USS Source Copy
+    participant P as Setup Stages
+    participant R as Runtime Stack
+
+    U->>Z: Start with prerequisites installed
+    U->>S: Clone Bank of Z repository to USS
+    U->>P: Run setup stage 1
+    U->>P: Run setup stage 2
+    U->>P: Run setup stage 3
+    P->>R: Provision CICS, IMS, z/OS Connect, Liberty
+    P->>R: Build and deploy application from source
+    R-->>U: Bank of Z environment ready
+</div>
+<p>This sequence captures the main operational path shown in the tutorial: setup stages are both provisioning and deployment mechanisms, not just initialization steps.</p>
+<h3 id="41-step-1-prepare-the-environment" tabindex="-1">4.1. Step 1: Prepare the environment</h3>
+<p>Begin with a z/OS environment where all required prerequisites have already been installed and verified.</p>
+<p>Expected outcome:</p>
+<ul>
+<li>The system is ready for Direct USS deployment</li>
+<li>Middleware dependencies required by Bank of Z are available</li>
+<li>You can proceed directly to source onboarding and setup execution</li>
+</ul>
+<h3 id="42-step-2-clone-the-repository-to-uss" tabindex="-1">4.2. Step 2: Clone the repository to USS</h3>
+<p>Clone the Bank of Z repository into USS. This creates the local working copy from which deployment scripts and setup stages are run.</p>
+<p>Example command pattern:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">git clone &lt;bank-of-z-repository-url&gt;
+cd Bank-of-Z</code></pre>
+</div>
+<p>This code example reflects the repository cloning step described in the tutorial narrative.</p>
+<h3 id="43-step-3-run-the-three-setup-stages" tabindex="-1">4.3. Step 3: Run the three setup stages</h3>
+<p>After cloning the repository into USS, run the three setup stages in order. The documentation states that these stages automatically provision the complete application stack and build/deploy the application from source.</p>
+<p>General staged flow:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">./stage1.sh
+./stage2.sh
+./stage3.sh</code></pre>
+</div>
+<p>If your environment uses different script names, follow the deployment instructions in the referenced setup documentation. The important concept from the tutorial is that <strong>all three stages are required for a complete first-time deployment</strong>.</p>
+<h3 id="44-step-4-provision-the-full-application-stack" tabindex="-1">4.4. Step 4: Provision the full application stack</h3>
+<p>During the staged setup, Bank of Z provisions:</p>
+<ul>
+<li><strong>CICS</strong></li>
+<li><strong>IMS</strong></li>
+<li><strong>z/OS Connect</strong></li>
+<li><strong>Liberty frontend server</strong></li>
+</ul>
+<p>This means the deployment is not limited to copying code. It creates the application runtime context needed for the banking solution to function end to end.</p>
+<h3 id="45-step-5-build-and-deploy-from-source" tabindex="-1">4.5. Step 5: Build and deploy from source</h3>
+<p>The setup stages also perform the build and deployment of Bank of Z application components from the cloned source repository.</p>
+<p>Expected result:</p>
+<ul>
+<li>Application components are built from source</li>
+<li>Artifacts are deployed into the target runtime stack</li>
+<li>Frontend and backend services are connected and ready for validation</li>
+</ul>
+<h2 id="5-data-flow-through-the-deployed-application" tabindex="-1">5. Data Flow Through the Deployed Application</h2>
+<p>Once deployed, Bank of Z supports business transactions through a layered flow from frontend to backend services.</p>
+<div class="mermaid">
+graph TD
+    A[User Request] --> B[Liberty Frontend Server]
+    B --> C[z/OS Connect]
+    C --> D[CICS Transaction Processing]
+    C --> E[IMS Transaction Processing]
+    D --> F[Banking Response]
+    E --> F
+</div>
+<p>This data flow illustrates how a user-initiated banking action can traverse the deployed architecture. The frontend receives the request, z/OS Connect mediates access to backend services, and the transactional environments process the operation and return the result.</p>
+<h3 id="51-why-this-flow-matters" tabindex="-1">5.1. Why this flow matters</h3>
+<p>This flow is central to understanding Bank of Z as a hybrid IBM Z application:</p>
+<ul>
+<li>The frontend is separated from backend transaction engines</li>
+<li>Integration is handled through z/OS Connect</li>
+<li>Business processing can span multiple IBM Z middleware environments</li>
+<li>Validation after deployment should confirm not just startup, but successful end-to-end transaction behavior</li>
+</ul>
+<h2 id="6-running-the-first-banking-transaction" tabindex="-1">6. Running the First Banking Transaction</h2>
+<p>After deployment completes successfully, the next milestone is to validate the system by running an initial banking transaction through the deployed application.</p>
+<h3 id="61-validation-objective" tabindex="-1">6.1. Validation objective</h3>
+<p>The goal of the first transaction is to confirm that:</p>
+<ul>
+<li>The frontend is reachable</li>
+<li>z/OS Connect is functioning</li>
+<li>Backend transaction services are available</li>
+<li>The deployed application behaves correctly after provisioning and build/deploy</li>
+</ul>
+<h3 id="62-example-validation-flow" tabindex="-1">6.2. Example validation flow</h3>
+<div class="mermaid">
+sequenceDiagram
+    participant User
+    participant Frontend as Liberty Frontend
+    participant API as z/OS Connect
+    participant Tx as CICS/IMS
+    participant App as Bank of Z Application
+
+    User->>Frontend: Submit banking action
+    Frontend->>API: Send service request
+    API->>Tx: Invoke backend transaction
+    Tx->>App: Execute business logic
+    App-->>Tx: Return result
+    Tx-->>API: Transaction response
+    API-->>Frontend: Service response
+    Frontend-->>User: Confirmation or result
+</div>
+<p>This sequence is useful when troubleshooting deployment validation because it shows each stage that must be working correctly for the first transaction to succeed.</p>
+<h3 id="63-success-criteria" tabindex="-1">6.3. Success criteria</h3>
+<p>A successful first transaction indicates that the deployment has achieved its intended outcome:</p>
+<ul>
+<li>Source has been correctly deployed</li>
+<li>Runtime services are active</li>
+<li>End-to-end connectivity is working</li>
+<li>The application is ready for further development and testing</li>
+</ul>
+<h2 id="7-transition-to-day-to-day-development" tabindex="-1">7. Transition to Day-to-Day Development</h2>
+<p>After a successful first-time deployment, the recommended workflow changes.</p>
+<h3 id="71-use-incremental-build-and-deploy" tabindex="-1">7.1. Use incremental build and deploy</h3>
+<p>The documentation explicitly recommends using the incremental remote pipeline workflow for normal development instead of repeating full deployment after every code change.</p>
+<p>Use:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">pipeline-remote.sh</code></pre>
+</div>
+<p>This is the preferred day-to-day workflow once the full environment has already been established.</p>
+<h3 id="72-why-incremental-deployment-is-recommended" tabindex="-1">7.2. Why incremental deployment is recommended</h3>
+<p>A full first-time deployment is designed to establish the entire Bank of Z runtime stack. After that baseline exists, incremental deployment is more efficient because it allows developers to:</p>
+<ul>
+<li>Apply changes faster</li>
+<li>Avoid recreating the whole stack unnecessarily</li>
+<li>Validate updates in a more typical development cycle</li>
+<li>Focus on application changes rather than environment recreation</li>
+</ul>
+<h2 id="8-relationship-to-other-tutorials" tabindex="-1">8. Relationship to Other Tutorials</h2>
+<p>This deployment tutorial is the foundation for the broader Bank of Z tutorial set.</p>
+<h3 id="81-how-it-fits-in" tabindex="-1">8.1. How it fits in</h3>
+<p>The Bank of Z tutorials collectively help users learn how to:</p>
+<ul>
+<li>Build and deploy application components</li>
+<li>Modify and validate code</li>
+<li>Deploy changes to CICS and IMS environments</li>
+<li>Use modern IBM Z development workflows and tooling</li>
+<li>Verify application behavior after deployment</li>
+</ul>
+<h3 id="82-follow-on-tutorial-paths" tabindex="-1">8.2. Follow-on tutorial paths</h3>
+<p>After completing this deployment tutorial, users can continue with scenarios such as:</p>
+<ul>
+<li><strong>CICS Enhancement Scenario</strong></li>
+<li><strong>CICS Debugging Scenario</strong></li>
+</ul>
+<p>These build on the deployed environment and demonstrate change-based workflows after the initial setup is complete.</p>
+<h2 id="9-example-command-summary" tabindex="-1">9. Example Command Summary</h2>
+<p>The exact operational commands depend on the environment-specific deployment instructions, but the deployment pattern described in the documentation can be summarized as follows:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">git clone &lt;bank-of-z-repository-url&gt;
+cd Bank-of-Z
+
+./stage1.sh
+./stage2.sh
+./stage3.sh</code></pre>
+</div>
+<p>For ongoing development after the initial deployment:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">pipeline-remote.sh</code></pre>
+</div>
+<h2 id="10-expected-outcome" tabindex="-1">10. Expected Outcome</h2>
+<p>By the end of this tutorial, you should have:</p>
+<ul>
+<li>Cloned Bank of Z into USS</li>
+<li>Run the three setup stages</li>
+<li>Provisioned the complete application stack</li>
+<li>Built and deployed Bank of Z from source</li>
+<li>Validated the environment by executing an initial banking transaction</li>
+<li>Switched to an incremental development workflow for future changes</li>
+</ul>
+<p>Bank of Z is then ready to serve as the foundation for additional modernization, enhancement, debugging, and deployment tutorials across a hybrid IBM Z environment.</p>
+
+                        <div class="related-pages">
+                            <p class="related-pages-title">Related Pages</p>
+                            <div class="card-grid">
+                                
+            <a href="deploying-options.html" class="card">
+                <span class="card-title">Deployment Options</span>
+                <span class="card-description">Comprehensive guide to the available deployment paths for Bank of Z, including direct deployment, Zowe CLI-based deployment, and Grub-based deployment approaches.</span>
+            </a>
+            <a href="cics-enhancement.html" class="card">
+                <span class="card-title">Tutorial: CICS Enhancement Scenario</span>
+                <span class="card-description">Tutorial demonstrating how to extend and enhance a CICS transaction in Bank of Z, illustrating a realistic application modernization or feature-addition scenario.</span>
+            </a>
+            <a href="verification.html" class="card">
+                <span class="card-title">Installation Verification</span>
+                <span class="card-description">Post-installation verification steps to confirm that Bank of Z has been correctly deployed and all components are operational on IBM Z.</span>
+            </a>
+                            </div>
+                        </div>
+                    </div>
+                    <nav class="toc-panel" aria-label="On this page">
+  <span class="toc-panel-label">On this page</span>
+  <ul class="toc-list">
+<li class="toc-level-2"><a href="#1-overview">1. Overview</a>
+<ul>
+<li class="toc-level-3"><a href="#11-tutorial-scope">1.1. Tutorial scope</a></li>
+<li class="toc-level-3"><a href="#12-what-is-deployed">1.2. What is deployed</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#2-system-architecture">2. System Architecture</a>
+<ul>
+<li class="toc-level-3"><a href="#21-core-runtime-components">2.1. Core runtime components</a>
+<ul>
+<li class="toc-level-4"><a href="#211-uss-source-workspace">2.1.1. USS source workspace</a></li>
+<li class="toc-level-4"><a href="#212-three-setup-stages">2.1.2. Three setup stages</a></li>
+<li class="toc-level-4"><a href="#213-liberty-frontend-server">2.1.3. Liberty frontend server</a></li>
+<li class="toc-level-4"><a href="#214-zos-connect">2.1.4. z/OS Connect</a></li>
+<li class="toc-level-4"><a href="#215-cics-and-ims">2.1.5. CICS and IMS</a></li>
+</ul>
+</li>
+<li class="toc-level-3"><a href="#22-component-relationships">2.2. Component relationships</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#3-deployment-prerequisites">3. Deployment Prerequisites</a>
+<ul>
+<li class="toc-level-3"><a href="#31-required-starting-point">3.1. Required starting point</a></li>
+<li class="toc-level-3"><a href="#32-reference-for-setup-details">3.2. Reference for setup details</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#4-end-to-end-deployment-flow">4. End-to-End Deployment Flow</a>
+<ul>
+<li class="toc-level-3"><a href="#41-step-1-prepare-the-environment">4.1. Step 1: Prepare the environment</a></li>
+<li class="toc-level-3"><a href="#42-step-2-clone-the-repository-to-uss">4.2. Step 2: Clone the repository to USS</a></li>
+<li class="toc-level-3"><a href="#43-step-3-run-the-three-setup-stages">4.3. Step 3: Run the three setup stages</a></li>
+<li class="toc-level-3"><a href="#44-step-4-provision-the-full-application-stack">4.4. Step 4: Provision the full application stack</a></li>
+<li class="toc-level-3"><a href="#45-step-5-build-and-deploy-from-source">4.5. Step 5: Build and deploy from source</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#5-data-flow-through-the-deployed-application">5. Data Flow Through the Deployed Application</a>
+<ul>
+<li class="toc-level-3"><a href="#51-why-this-flow-matters">5.1. Why this flow matters</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#6-running-the-first-banking-transaction">6. Running the First Banking Transaction</a>
+<ul>
+<li class="toc-level-3"><a href="#61-validation-objective">6.1. Validation objective</a></li>
+<li class="toc-level-3"><a href="#62-example-validation-flow">6.2. Example validation flow</a></li>
+<li class="toc-level-3"><a href="#63-success-criteria">6.3. Success criteria</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#7-transition-to-day-to-day-development">7. Transition to Day-to-Day Development</a>
+<ul>
+<li class="toc-level-3"><a href="#71-use-incremental-build-and-deploy">7.1. Use incremental build and deploy</a></li>
+<li class="toc-level-3"><a href="#72-why-incremental-deployment-is-recommended">7.2. Why incremental deployment is recommended</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#8-relationship-to-other-tutorials">8. Relationship to Other Tutorials</a>
+<ul>
+<li class="toc-level-3"><a href="#81-how-it-fits-in">8.1. How it fits in</a></li>
+<li class="toc-level-3"><a href="#82-follow-on-tutorial-paths">8.2. Follow-on tutorial paths</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#9-example-command-summary">9. Example Command Summary</a></li>
+<li class="toc-level-2"><a href="#10-expected-outcome">10. Expected Outcome</a></li>
+</ul>
+
+</nav>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+    /* toc-spy.js — highlights the active heading in the TOC panel on scroll */
+    (function () {
+      function init() {
+        var panel = document.querySelector('.toc-panel');
+        if (!panel) return;
+        var links = Array.prototype.slice.call(panel.querySelectorAll('a[href^="#"]'));
+        if (!links.length) return;
+
+        var headingIds = links.map(function (a) { return a.getAttribute('href').slice(1); });
+        var headings = headingIds.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+
+        function clearActive() {
+          panel.querySelectorAll('.toc-active').forEach(function (el) { el.classList.remove('toc-active'); });
+          panel.querySelectorAll('.toc-parent-active').forEach(function (el) { el.classList.remove('toc-parent-active'); });
+        }
+
+        function setActive(id) {
+          clearActive();
+          var link = panel.querySelector('a[href="#' + id + '"]');
+          if (!link) return;
+          link.classList.add('toc-active');
+          var li = link.closest('li');
+          if (li) {
+            var parentLi = li.parentElement && li.parentElement.closest('li');
+            if (parentLi) parentLi.classList.add('toc-parent-active');
+          }
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              setActive(entry.target.id);
+            }
+          });
+        }, { rootMargin: '0px 0px -70% 0px', threshold: 0 });
+
+        headings.forEach(function (h) { observer.observe(h); });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+    </script>
+    <script>
+    /* sidebar-toggle.js — persists open/closed state across navigation */
+    (function () {
+
+      var STORAGE_KEY = 'sb_open';
+
+      function getOpenSet() {
+        try {
+          var raw = sessionStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (e) { return null; }
+      }
+
+      function saveOpenSet(set) {
+        try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(set)); } catch (e) {}
+      }
+
+      function findItems(toggle) {
+        var node = toggle.nextSibling;
+        while (node) {
+          if (node.nodeType === 1 && node.classList.contains('nav-section-items'))
+            return node;
+          node = node.nextSibling;
+        }
+        return null;
+      }
+
+      function toggleKey(toggle, index) {
+        var label = (toggle.querySelector('.nav-toggle-text') || toggle).textContent.trim().replace(/\s+/g, ' ');
+        return index + ':' + label;
+      }
+
+      function openSection(toggle, items, key, set) {
+        toggle.classList.add('open');
+        items.classList.add('open');
+        if (set) set[key] = true;
+      }
+
+      function closeSection(toggle, items, key, set) {
+        toggle.classList.remove('open');
+        items.classList.remove('open');
+        if (set) set[key] = false;
+      }
+
+      function init() {
+        var sidebar = document.getElementById('wiki-sidebar');
+        var toggles = Array.prototype.slice.call(
+          document.querySelectorAll('.nav-section-toggle')
+        );
+
+        var activeIdx = -1;
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+          if (items.querySelector('.nav-link.active')) {
+            activeIdx = idx;
+          }
+        });
+
+        var savedSet = getOpenSet();
+        var openSet = savedSet || {};
+
+        if (activeIdx !== -1) {
+          openSet[toggleKey(toggles[activeIdx], activeIdx)] = true;
+        }
+
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+
+          var key = toggleKey(toggle, idx);
+          var shouldOpen = openSet[key] === true;
+
+          if (shouldOpen) {
+            toggle.classList.add('open');
+            items.classList.add('open');
+          }
+
+          toggle.addEventListener('click', function () {
+            var nowOpen = toggle.classList.contains('open');
+            if (nowOpen) {
+              closeSection(toggle, items, key, openSet);
+            } else {
+              openSection(toggle, items, key, openSet);
+            }
+            saveOpenSet(openSet);
+          });
+        });
+
+        saveOpenSet(openSet);
+
+        /* Restore sidebar scroll position after sections are expanded so the
+           scroll height is correct when we apply scrollTop. */
+        if (sidebar) {
+          try {
+            var savedScroll = sessionStorage.getItem('sb_scroll');
+            if (savedScroll !== null) { sidebar.scrollTop = parseInt(savedScroll, 10) || 0; }
+          } catch (_e) {}
+        }
+
+        window.addEventListener('pagehide', function () {
+          saveOpenSet(openSet);
+          if (sidebar) {
+            try { sessionStorage.setItem('sb_scroll', String(sidebar.scrollTop)); } catch (_e) {}
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+
+    })();
+    </script>
+    <script>
+    /* nav-tracking.js — only stamps sessionStorage when clicking a source-file link
+       that lives inside the "Source Files" disclosure section, not from sidebar or cards. */
+    (function () {
+      document.addEventListener('click', function (e) {
+        var link = e.target.closest('a[href]');
+        if (!link) return;
+        var href = link.getAttribute('href');
+        if (!href || href.indexOf('sources/') === -1) return;
+        /* Only set referrer when the click originates from inside the Source Files
+           disclosure (.source-files-disclosure). Any other path — sidebar, cards,
+           direct navigation — must not set a referrer. */
+        if (!link.closest('.source-files-disclosure')) return;
+        try {
+          sessionStorage.setItem('wiki_referrer', JSON.stringify({
+            href: location.href,
+            title: document.title,
+            file: location.pathname.split('/').pop()
+          }));
+        } catch (_e) {}
+      });
+    })();
+    </script>
+    <footer class="wiki-footer">Made by IBM Bob Premium Package for Z</footer>
+</body>
+</html>

@@ -1,0 +1,792 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Development Workflow Overview - Bank of Z – IBM Z Modern Development Reference</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/mermaid.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: { useMaxWidth: true }
+        });
+    </script>
+
+    <!-- Prism.js for syntax highlighting (bundled — no CDN required) -->
+    <link rel="stylesheet" href="../assets/prism-tomorrow.css">
+    <script src="../assets/prism-core.js"></script>
+    <script src="../assets/prism-languages.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <span class="header-app-name"><a href="../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – IBM Z Modern Development Reference</a></span>
+        </div>
+        <div class="header-right">
+        </div>
+    </header>
+    <div class="shell">
+        <aside class="sidebar" id="wiki-sidebar">
+            <nav>
+                
+        <div class="nav-home-wrap">
+            <a href="../../index.html" class="nav-home">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                Home
+            </a>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Application Documentation</div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">About Bank of Z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="about-overview.html" class="nav-link" data-page-id="about-overview">Project Overview</a>
+                <a href="architecture-overview.html" class="nav-link" data-page-id="architecture-overview">Architecture Overview</a>
+                <a href="key-capabilities.html" class="nav-link" data-page-id="key-capabilities">Key Capabilities</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Architecture</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="application-components.html" class="nav-link" data-page-id="application-components">Application Components</a>
+                <a href="application-flow.html" class="nav-link" data-page-id="application-flow">Application Flow</a>
+                <a href="build-and-deployment-arch.html" class="nav-link" data-page-id="build-and-deployment-arch">Build &amp; Deployment Architecture</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Installation &amp; Setup</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="prerequisites-env.html" class="nav-link" data-page-id="prerequisites-env">Prerequisites &amp; Environment Configuration</a>
+                <a href="deploying-options.html" class="nav-link" data-page-id="deploying-options">Deployment Options</a>
+                <a href="local-tools-setup.html" class="nav-link" data-page-id="local-tools-setup">Local Tools Setup</a>
+                <a href="zowe-cli-setup.html" class="nav-link" data-page-id="zowe-cli-setup">Zowe CLI &amp; Profile Setup</a>
+                <a href="verification.html" class="nav-link" data-page-id="verification">Installation Verification</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle open" type="button">
+                <span class="nav-toggle-text">Development Workflows</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items open">
+                <a href="workflow-overview.html" class="nav-link active" data-page-id="workflow-overview">Development Workflow Overview</a>
+                <a href="zowe-cli-workflow.html" class="nav-link" data-page-id="zowe-cli-workflow">Zowe CLI Workflow</a>
+                <a href="grub-workflow.html" class="nav-link" data-page-id="grub-workflow">Grub Workflow</a>
+                <a href="development-best-practices.html" class="nav-link" data-page-id="development-best-practices">Development Best Practices</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Tutorials</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="deploy-bank-of-z.html" class="nav-link" data-page-id="deploy-bank-of-z">Tutorial: Deploy Bank of Z</a>
+                <a href="cics-enhancement.html" class="nav-link" data-page-id="cics-enhancement">Tutorial: CICS Enhancement Scenario</a>
+                <a href="incremental-build.html" class="nav-link" data-page-id="incremental-build">Tutorial: Incremental Build</a>
+                <a href="debug-cics-transaction.html" class="nav-link" data-page-id="debug-cics-transaction">Tutorial: Debug a CICS Transaction</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Reference</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="commands-reference.html" class="nav-link" data-page-id="commands-reference">Commands Reference</a>
+                <a href="configuration-reference.html" class="nav-link" data-page-id="configuration-reference">Configuration Reference</a>
+                <a href="glossary.html" class="nav-link" data-page-id="glossary">Glossary</a>
+                <a href="repository-structure.html" class="nav-link" data-page-id="repository-structure">Repository Structure</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Troubleshooting</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="troubleshooting-overview.html" class="nav-link" data-page-id="troubleshooting-overview">Troubleshooting Overview</a>
+                <a href="fix-abend-cino.html" class="nav-link" data-page-id="fix-abend-cino">Fix: OMEN ABEND CINO</a>
+                <a href="program-internals.html" class="nav-link" data-page-id="program-internals">Program Internals: CRDTAGY2 Credit Agency Simulator</a>
+            </div>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Program Documentation</div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">docs</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">about-bank-of-z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">program</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">src</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+            <div class="nav-section">
+                <button class="nav-section-toggle" type="button">
+                    <span class="nav-toggle-text">base</span>
+                    <span class="nav-section-chevron">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="nav-section-items">
+                <div class="nav-section">
+                    <button class="nav-section-toggle" type="button">
+                        <span class="nav-toggle-text">cics</span>
+                        <span class="nav-section-chevron">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="nav-section-items">
+                    <div class="nav-section">
+                        <button class="nav-section-toggle" type="button">
+                            <span class="nav-toggle-text">cobol</span>
+                            <span class="nav-section-chevron">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="nav-section-items">
+                            <a href="../sources/program/src/base/cics/cobol/CRDTAGY2.html" class="nav-link">CRDTAGY2</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+            </nav>
+        </aside>
+        <main class="main">
+            <div class="page-container">
+                <div class="content-layout">
+                    <div class="prose">
+                        <details class="source-files-disclosure">
+            <summary>
+                <svg class="sf-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Source Files
+                <span style="margin-left:4px;font-size:11px;color:var(--fg-subtle)">(1)</span>
+            </summary>
+            <div class="source-files-body">
+                <ul class="source-files-list">
+            <li><a href="../sources/docs/about-bank-of-z/index.html">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+                    <path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M10 2v4h4" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                index
+            </a></li>
+                </ul>
+            </div>
+        </details>
+                        <h1 id="development-workflow-overview" tabindex="-1">Development Workflow Overview</h1>
+<p>Bank of Z supports modern, Git-based development practices for z/OS application assets. This page provides a comparison and selection guide for the two supported development workflows — the <strong>Zowe CLI workflow</strong> and the <strong>GRUB workflow</strong> — helping developers choose the right approach based on tooling, environment, and team preferences.</p>
+<p>Both workflows enable developers to modify application source code, build and validate changes, and deploy updates to the target z/OS environment, leveraging enterprise technologies such as Db2, CICS, IMS, z/OS Connect, IBM Dependency Based Build (DBB), and Wazi Deploy.</p>
+<hr>
+<h2 id="1-system-architecture" tabindex="-1">1. System Architecture</h2>
+<p>The Bank of Z development environment is built around a z/OS target system and a Git-based source repository. Both workflows interact with the same core infrastructure but differ in how changes are synchronized and how pipeline activities are triggered.</p>
+<div class="mermaid">
+graph TD
+    DEV[Developer Workstation]
+    GIT[Git Repository / GitHub]
+    VSCODE[VS Code + Zowe CLI Extension]
+    ZUSS[z/OS USS - Unix System Services]
+    DBB[IBM Dependency Based Build - DBB]
+    WAZI[Wazi Deploy]
+    RUNTIME[z/OS Runtime Environments\nCICS · Db2 · IMS · z/OS Connect]
+
+    DEV -->|Edit source code| VSCODE
+    VSCODE -->|Commit & push| GIT
+
+    GIT -->|Clone branch via Zowe CLI| ZUSS
+    VSCODE -->|Sync files via SSH/GRUB| ZUSS
+
+    ZUSS --> DBB
+    DBB -->|Package artifacts| WAZI
+    WAZI -->|Deploy & activate| RUNTIME
+</div>
+<p>The diagram above illustrates the high-level architecture shared by both workflows. Source changes originate on the developer workstation and are delivered to z/OS USS, where IBM DBB performs the build and Wazi Deploy activates the updated components in the target runtime environments. The key architectural difference is the synchronization path: the Zowe CLI workflow routes changes through the Git repository, while the GRUB workflow pushes files directly to USS via SSH.</p>
+<hr>
+<h2 id="2-overview" tabindex="-1">2. Overview</h2>
+<h3 id="21-development-workflow-lifecycle" tabindex="-1">2.1 Development Workflow Lifecycle</h3>
+<p>Every Bank of Z development cycle follows the same six-step lifecycle, regardless of which workflow is selected:</p>
+<div class="mermaid">
+graph LR
+    A[1. Make Changes] --> B[2. Commit Changes]
+    B --> C[3. Run Pipeline]
+    C --> D[4. Review Results]
+    D --> E[5. Deploy Changes]
+    E --> F[6. Validate Changes]
+    F -->|Iterate| A
+</div>
+<p>Each step is described in detail below.</p>
+<h4 id="211-make-changes" tabindex="-1">2.1.1 Make Changes</h4>
+<p>Modify application source code, configuration files, or deployment artifacts. Common changes include:</p>
+<ul>
+<li>COBOL programs</li>
+<li>BMS maps</li>
+<li>Copybooks</li>
+<li>z/OS Connect APIs</li>
+<li>Web application components</li>
+</ul>
+<h4 id="212-commit-changes" tabindex="-1">2.1.2 Commit Changes</h4>
+<p>Review and commit changes to the source repository. Use meaningful commit messages to document modifications and support traceability.</p>
+<blockquote>
+<p><strong>Note (GRUB workflow):</strong> The GRUB workflow does not require a commit before testing. Changes are synchronized directly to z/OS USS, enabling rapid iteration without going through Git.</p>
+</blockquote>
+<h4 id="213-run-the-pipeline" tabindex="-1">2.1.3 Run the Pipeline</h4>
+<p>Run the build pipeline using the supported development workflow. The pipeline:</p>
+<ul>
+<li>Analyzes source changes</li>
+<li>Builds affected components</li>
+<li>Packages deployment artifacts</li>
+<li>Prepares deployment plans</li>
+</ul>
+<h4 id="214-review-results" tabindex="-1">2.1.4 Review Results</h4>
+<p>Review build logs, reports, and generated artifacts. Address any build, dependency, or deployment issues identified during the pipeline run.</p>
+<h4 id="215-deploy-changes" tabindex="-1">2.1.5 Deploy Changes</h4>
+<p>Deploy validated artifacts to the target environment. Updated components are activated in the appropriate runtime environments, including CICS, Db2, IMS, and z/OS Connect.</p>
+<h4 id="216-validate-changes" tabindex="-1">2.1.6 Validate Changes</h4>
+<p>Verify that the deployed changes function as expected. Run application tests and review runtime behavior before promoting changes to additional environments.</p>
+<hr>
+<h2 id="3-supported-workflows" tabindex="-1">3. Supported Workflows</h2>
+<p>Bank of Z supports two distinct development approaches. Each workflow targets a different development style and access model.</p>
+<h3 id="31-zowe-cli-workflow" tabindex="-1">3.1 Zowe CLI Workflow</h3>
+<p>A task-based workflow that uses <strong>Zowe CLI</strong> to clone your branch on z/OS USS and run the setup and pipeline scripts. It can be triggered from:</p>
+<ul>
+<li>The <strong>command line</strong> using <code>setup-local.sh</code></li>
+<li>A <strong>VS Code task</strong> via the Zowe CLI VS Code extension</li>
+</ul>
+<p>This workflow is inherently branch-based and version-controlled, making it well suited for team collaboration, feature development, and environments where direct SSH access to z/OS USS is limited or unavailable.</p>
+<p><strong>Example: Triggering the setup script from the command line</strong></p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash"># Clone the feature branch to z/OS USS and run the setup
+./setup-local.sh --branch feature/my-cobol-update</code></pre>
+</div>
+<p><strong>Example: VS Code task definition (tasks.json)</strong></p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">JSON</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-json">{
+  &quot;label&quot;: &quot;Run Bank of Z Pipeline (Zowe CLI)&quot;,
+  &quot;type&quot;: &quot;shell&quot;,
+  &quot;command&quot;: &quot;./setup-local.sh&quot;,
+  &quot;args&quot;: [&quot;--branch&quot;, &quot;${input:branchName}&quot;],
+  &quot;problemMatcher&quot;: []
+}</code></pre>
+</div>
+<hr>
+<h3 id="32-grub-workflow" tabindex="-1">3.2 GRUB Workflow</h3>
+<p>A development workflow optimized for <strong>rapid iteration</strong>, allowing developers to synchronize local file changes directly to the z/OS USS target environment and run build and deployment activities without requiring committed changes.</p>
+<p>This workflow is ideal for fast feedback cycles, frequent incremental changes, and individual development and testing scenarios where the developer has SSH access to z/OS USS.</p>
+<p><strong>Example: Syncing a changed COBOL file via SSH/GRUB</strong></p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash"># Synchronize a modified COBOL source file directly to z/OS USS
+grub sync src/COBPGM1.cbl /u/developer/bankofz/src/COBPGM1.cbl</code></pre>
+</div>
+<p>After synchronization, the setup and build activities are <strong>initiated automatically</strong>, eliminating the need for a manual commit-push-clone cycle.</p>
+<hr>
+<h2 id="4-workflow-comparison" tabindex="-1">4. Workflow Comparison</h2>
+<h3 id="41-feature-comparison-table" tabindex="-1">4.1 Feature Comparison Table</h3>
+<p>The table below summarizes the key differences between the two workflows:</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Zowe CLI Workflow</th>
+<th>GRUB Workflow</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Source synchronization</strong></td>
+<td>Git clone via Zowe CLI to z/OS USS</td>
+<td>Direct file sync to z/OS USS</td>
+</tr>
+<tr>
+<td><strong>Commit required before testing</strong></td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>GitHub dependency</strong></td>
+<td>Required</td>
+<td>Not required for daily development</td>
+</tr>
+<tr>
+<td><strong>Remote access method</strong></td>
+<td>Zowe CLI</td>
+<td>SSH and GRUB</td>
+</tr>
+<tr>
+<td><strong>Development style</strong></td>
+<td>Branch-based and version-controlled</td>
+<td>Rapid local iteration</td>
+</tr>
+<tr>
+<td><strong>Change transfer</strong></td>
+<td>Repository clone and setup execution</td>
+<td>Synchronization of changed files</td>
+</tr>
+<tr>
+<td><strong>Collaboration</strong></td>
+<td>Well suited for shared branch-based development</td>
+<td>Primarily individual development and testing</td>
+</tr>
+<tr>
+<td><strong>Setup execution</strong></td>
+<td>VS Code task or <code>setup-local.sh</code></td>
+<td>Initiated automatically after synchronization</td>
+</tr>
+<tr>
+<td><strong>Best suited for</strong></td>
+<td>Feature development, team collaboration, restricted SSH environments</td>
+<td>Fast testing, frequent changes, rapid development cycles</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="42-workflow-selection-guide" tabindex="-1">4.2 Workflow Selection Guide</h3>
+<p>Use the decision flowchart below to determine which workflow best fits your needs:</p>
+<div class="mermaid">
+graph TD
+    START([Start: Choose a Workflow]) --> Q1{Do you have\ndirect SSH access\nto z/OS USS?}
+
+    Q1 -->|No| ZOWE[Use Zowe CLI Workflow]
+    Q1 -->|Yes| Q2{Do you need to commit\nchanges before testing?}
+
+    Q2 -->|Yes| ZOWE
+    Q2 -->|No| Q3{Are you working\non a shared team\nbranch?}
+
+    Q3 -->|Yes| ZOWE
+    Q3 -->|No| Q4{Do you need\nrapid iteration\nand fast feedback?}
+
+    Q4 -->|Yes| GRUB[Use GRUB Workflow]
+    Q4 -->|No| ZOWE
+
+    ZOWE --> ENV[Same Bank of Z\nTarget Environment]
+    GRUB --> ENV
+</div>
+<hr>
+<h4 id="421-use-the-zowe-cli-workflow-when" tabindex="-1">4.2.1 Use the Zowe CLI Workflow When:</h4>
+<ul>
+<li>You work in a <strong>branch-based development model</strong></li>
+<li>Changes should be <strong>committed and tracked</strong> through Git</li>
+<li>You want to use <strong>Zowe CLI and VS Code integration</strong></li>
+<li><strong>SSH access</strong> to z/OS USS is limited or unavailable</li>
+<li>You are collaborating on a <strong>shared team branch</strong></li>
+</ul>
+<h4 id="422-use-the-grub-workflow-when" tabindex="-1">4.2.2 Use the GRUB Workflow When:</h4>
+<ul>
+<li>You need to <strong>test changes quickly</strong> without committing them</li>
+<li>You want <strong>rapid feedback</strong> during development</li>
+<li>You have <strong>SSH access</strong> to z/OS USS</li>
+<li>You frequently make and validate <strong>incremental changes</strong></li>
+</ul>
+<hr>
+<h2 id="5-workflow-sequence-diagrams" tabindex="-1">5. Workflow Sequence Diagrams</h2>
+<h3 id="51-zowe-cli-workflow--end-to-end-sequence" tabindex="-1">5.1 Zowe CLI Workflow — End-to-End Sequence</h3>
+<div class="mermaid">
+sequenceDiagram
+    participant Dev as Developer
+    participant GIT as Git Repository
+    participant VSCODE as VS Code / CLI
+    participant USS as z/OS USS
+    participant DBB as IBM DBB
+    participant WAZI as Wazi Deploy
+    participant RT as z/OS Runtime
+
+    Dev->>VSCODE: Edit source files
+    Dev->>GIT: git commit & git push
+    Dev->>VSCODE: Trigger VS Code task or run setup-local.sh
+    VSCODE->>USS: Clone branch via Zowe CLI
+    USS->>DBB: Execute build pipeline
+    DBB-->>USS: Build artifacts packaged
+    USS->>WAZI: Initiate deployment
+    WAZI->>RT: Activate updated components
+    RT-->>Dev: Validate runtime behavior
+</div>
+<hr>
+<h3 id="52-grub-workflow--end-to-end-sequence" tabindex="-1">5.2 GRUB Workflow — End-to-End Sequence</h3>
+<div class="mermaid">
+sequenceDiagram
+    participant Dev as Developer
+    participant GRUB as GRUB / SSH
+    participant USS as z/OS USS
+    participant DBB as IBM DBB
+    participant WAZI as Wazi Deploy
+    participant RT as z/OS Runtime
+
+    Dev->>Dev: Edit source files locally
+    Dev->>GRUB: Sync changed files via SSH/GRUB
+    GRUB->>USS: Transfer changed files
+    USS->>DBB: Automatically trigger build pipeline
+    DBB-->>USS: Build artifacts packaged
+    USS->>WAZI: Initiate deployment
+    WAZI->>RT: Activate updated components
+    RT-->>Dev: Validate runtime behavior
+</div>
+<hr>
+<h2 id="6-summary" tabindex="-1">6. Summary</h2>
+<p>Both the <strong>Zowe CLI workflow</strong> and the <strong>GRUB workflow</strong> ultimately prepare and update the same Bank of Z environment. The choice between them depends on your development process, tooling preferences, and access requirements:</p>
+<ul>
+<li>Choose the <strong>Zowe CLI workflow</strong> for structured, team-based, version-controlled development — especially where SSH access is restricted.</li>
+<li>Choose the <strong>GRUB workflow</strong> for speed and agility during individual development, where rapid iteration and immediate feedback are the priority.</li>
+</ul>
+<p>The following sections provide detailed setup and usage instructions for each workflow.</p>
+
+                        <div class="related-pages">
+                            <p class="related-pages-title">Related Pages</p>
+                            <div class="card-grid">
+                                
+            <a href="zowe-cli-workflow.html" class="card">
+                <span class="card-title">Zowe CLI Workflow</span>
+                <span class="card-description">Full walkthrough of the Zowe CLI-based development workflow for Bank of Z, covering editing, building, uploading, and testing COBOL and CICS changes from a local workstation.</span>
+            </a>
+            <a href="grub-workflow.html" class="card">
+                <span class="card-title">Grub Workflow</span>
+                <span class="card-description">Step-by-step guide for using the Grub-based development workflow in Bank of Z, including project setup, build execution, and deployment automation via Grub.</span>
+            </a>
+            <a href="development-best-practices.html" class="card">
+                <span class="card-title">Development Best Practices</span>
+                <span class="card-description">Recommended best practices for developing, testing, and maintaining Bank of Z code on IBM Z, covering branching strategies, code quality, and collaboration guidelines.</span>
+            </a>
+                            </div>
+                        </div>
+                    </div>
+                    <nav class="toc-panel" aria-label="On this page">
+  <span class="toc-panel-label">On this page</span>
+  <ul class="toc-list">
+<li class="toc-level-2"><a href="#1-system-architecture">1. System Architecture</a></li>
+<li class="toc-level-2"><a href="#2-overview">2. Overview</a>
+<ul>
+<li class="toc-level-3"><a href="#21-development-workflow-lifecycle">2.1 Development Workflow Lifecycle</a>
+<ul>
+<li class="toc-level-4"><a href="#211-make-changes">2.1.1 Make Changes</a></li>
+<li class="toc-level-4"><a href="#212-commit-changes">2.1.2 Commit Changes</a></li>
+<li class="toc-level-4"><a href="#213-run-the-pipeline">2.1.3 Run the Pipeline</a></li>
+<li class="toc-level-4"><a href="#214-review-results">2.1.4 Review Results</a></li>
+<li class="toc-level-4"><a href="#215-deploy-changes">2.1.5 Deploy Changes</a></li>
+<li class="toc-level-4"><a href="#216-validate-changes">2.1.6 Validate Changes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#3-supported-workflows">3. Supported Workflows</a>
+<ul>
+<li class="toc-level-3"><a href="#31-zowe-cli-workflow">3.1 Zowe CLI Workflow</a></li>
+<li class="toc-level-3"><a href="#32-grub-workflow">3.2 GRUB Workflow</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#4-workflow-comparison">4. Workflow Comparison</a>
+<ul>
+<li class="toc-level-3"><a href="#41-feature-comparison-table">4.1 Feature Comparison Table</a></li>
+<li class="toc-level-3"><a href="#42-workflow-selection-guide">4.2 Workflow Selection Guide</a>
+<ul>
+<li class="toc-level-4"><a href="#421-use-the-zowe-cli-workflow-when">4.2.1 Use the Zowe CLI Workflow When:</a></li>
+<li class="toc-level-4"><a href="#422-use-the-grub-workflow-when">4.2.2 Use the GRUB Workflow When:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#5-workflow-sequence-diagrams">5. Workflow Sequence Diagrams</a>
+<ul>
+<li class="toc-level-3"><a href="#51-zowe-cli-workflow--end-to-end-sequence">5.1 Zowe CLI Workflow — End-to-End Sequence</a></li>
+<li class="toc-level-3"><a href="#52-grub-workflow--end-to-end-sequence">5.2 GRUB Workflow — End-to-End Sequence</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#6-summary">6. Summary</a></li>
+</ul>
+
+</nav>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+    /* toc-spy.js — highlights the active heading in the TOC panel on scroll */
+    (function () {
+      function init() {
+        var panel = document.querySelector('.toc-panel');
+        if (!panel) return;
+        var links = Array.prototype.slice.call(panel.querySelectorAll('a[href^="#"]'));
+        if (!links.length) return;
+
+        var headingIds = links.map(function (a) { return a.getAttribute('href').slice(1); });
+        var headings = headingIds.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+
+        function clearActive() {
+          panel.querySelectorAll('.toc-active').forEach(function (el) { el.classList.remove('toc-active'); });
+          panel.querySelectorAll('.toc-parent-active').forEach(function (el) { el.classList.remove('toc-parent-active'); });
+        }
+
+        function setActive(id) {
+          clearActive();
+          var link = panel.querySelector('a[href="#' + id + '"]');
+          if (!link) return;
+          link.classList.add('toc-active');
+          var li = link.closest('li');
+          if (li) {
+            var parentLi = li.parentElement && li.parentElement.closest('li');
+            if (parentLi) parentLi.classList.add('toc-parent-active');
+          }
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              setActive(entry.target.id);
+            }
+          });
+        }, { rootMargin: '0px 0px -70% 0px', threshold: 0 });
+
+        headings.forEach(function (h) { observer.observe(h); });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+    </script>
+    <script>
+    /* sidebar-toggle.js — persists open/closed state across navigation */
+    (function () {
+
+      var STORAGE_KEY = 'sb_open';
+
+      function getOpenSet() {
+        try {
+          var raw = sessionStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (e) { return null; }
+      }
+
+      function saveOpenSet(set) {
+        try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(set)); } catch (e) {}
+      }
+
+      function findItems(toggle) {
+        var node = toggle.nextSibling;
+        while (node) {
+          if (node.nodeType === 1 && node.classList.contains('nav-section-items'))
+            return node;
+          node = node.nextSibling;
+        }
+        return null;
+      }
+
+      function toggleKey(toggle, index) {
+        var label = (toggle.querySelector('.nav-toggle-text') || toggle).textContent.trim().replace(/\s+/g, ' ');
+        return index + ':' + label;
+      }
+
+      function openSection(toggle, items, key, set) {
+        toggle.classList.add('open');
+        items.classList.add('open');
+        if (set) set[key] = true;
+      }
+
+      function closeSection(toggle, items, key, set) {
+        toggle.classList.remove('open');
+        items.classList.remove('open');
+        if (set) set[key] = false;
+      }
+
+      function init() {
+        var sidebar = document.getElementById('wiki-sidebar');
+        var toggles = Array.prototype.slice.call(
+          document.querySelectorAll('.nav-section-toggle')
+        );
+
+        var activeIdx = -1;
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+          if (items.querySelector('.nav-link.active')) {
+            activeIdx = idx;
+          }
+        });
+
+        var savedSet = getOpenSet();
+        var openSet = savedSet || {};
+
+        if (activeIdx !== -1) {
+          openSet[toggleKey(toggles[activeIdx], activeIdx)] = true;
+        }
+
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+
+          var key = toggleKey(toggle, idx);
+          var shouldOpen = openSet[key] === true;
+
+          if (shouldOpen) {
+            toggle.classList.add('open');
+            items.classList.add('open');
+          }
+
+          toggle.addEventListener('click', function () {
+            var nowOpen = toggle.classList.contains('open');
+            if (nowOpen) {
+              closeSection(toggle, items, key, openSet);
+            } else {
+              openSection(toggle, items, key, openSet);
+            }
+            saveOpenSet(openSet);
+          });
+        });
+
+        saveOpenSet(openSet);
+
+        /* Restore sidebar scroll position after sections are expanded so the
+           scroll height is correct when we apply scrollTop. */
+        if (sidebar) {
+          try {
+            var savedScroll = sessionStorage.getItem('sb_scroll');
+            if (savedScroll !== null) { sidebar.scrollTop = parseInt(savedScroll, 10) || 0; }
+          } catch (_e) {}
+        }
+
+        window.addEventListener('pagehide', function () {
+          saveOpenSet(openSet);
+          if (sidebar) {
+            try { sessionStorage.setItem('sb_scroll', String(sidebar.scrollTop)); } catch (_e) {}
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+
+    })();
+    </script>
+    <script>
+    /* nav-tracking.js — only stamps sessionStorage when clicking a source-file link
+       that lives inside the "Source Files" disclosure section, not from sidebar or cards. */
+    (function () {
+      document.addEventListener('click', function (e) {
+        var link = e.target.closest('a[href]');
+        if (!link) return;
+        var href = link.getAttribute('href');
+        if (!href || href.indexOf('sources/') === -1) return;
+        /* Only set referrer when the click originates from inside the Source Files
+           disclosure (.source-files-disclosure). Any other path — sidebar, cards,
+           direct navigation — must not set a referrer. */
+        if (!link.closest('.source-files-disclosure')) return;
+        try {
+          sessionStorage.setItem('wiki_referrer', JSON.stringify({
+            href: location.href,
+            title: document.title,
+            file: location.pathname.split('/').pop()
+          }));
+        } catch (_e) {}
+      });
+    })();
+    </script>
+    <footer class="wiki-footer">Made by IBM Bob Premium Package for Z</footer>
+</body>
+</html>

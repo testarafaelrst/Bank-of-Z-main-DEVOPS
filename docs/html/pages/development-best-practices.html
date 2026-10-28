@@ -1,0 +1,789 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Development Best Practices - Bank of Z – IBM Z Modern Development Reference</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/mermaid.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: { useMaxWidth: true }
+        });
+    </script>
+
+    <!-- Prism.js for syntax highlighting (bundled — no CDN required) -->
+    <link rel="stylesheet" href="../assets/prism-tomorrow.css">
+    <script src="../assets/prism-core.js"></script>
+    <script src="../assets/prism-languages.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <span class="header-app-name"><a href="../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – IBM Z Modern Development Reference</a></span>
+        </div>
+        <div class="header-right">
+        </div>
+    </header>
+    <div class="shell">
+        <aside class="sidebar" id="wiki-sidebar">
+            <nav>
+                
+        <div class="nav-home-wrap">
+            <a href="../../index.html" class="nav-home">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                Home
+            </a>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Application Documentation</div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">About Bank of Z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="about-overview.html" class="nav-link" data-page-id="about-overview">Project Overview</a>
+                <a href="architecture-overview.html" class="nav-link" data-page-id="architecture-overview">Architecture Overview</a>
+                <a href="key-capabilities.html" class="nav-link" data-page-id="key-capabilities">Key Capabilities</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Architecture</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="application-components.html" class="nav-link" data-page-id="application-components">Application Components</a>
+                <a href="application-flow.html" class="nav-link" data-page-id="application-flow">Application Flow</a>
+                <a href="build-and-deployment-arch.html" class="nav-link" data-page-id="build-and-deployment-arch">Build &amp; Deployment Architecture</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Installation &amp; Setup</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="prerequisites-env.html" class="nav-link" data-page-id="prerequisites-env">Prerequisites &amp; Environment Configuration</a>
+                <a href="deploying-options.html" class="nav-link" data-page-id="deploying-options">Deployment Options</a>
+                <a href="local-tools-setup.html" class="nav-link" data-page-id="local-tools-setup">Local Tools Setup</a>
+                <a href="zowe-cli-setup.html" class="nav-link" data-page-id="zowe-cli-setup">Zowe CLI &amp; Profile Setup</a>
+                <a href="verification.html" class="nav-link" data-page-id="verification">Installation Verification</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle open" type="button">
+                <span class="nav-toggle-text">Development Workflows</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items open">
+                <a href="workflow-overview.html" class="nav-link" data-page-id="workflow-overview">Development Workflow Overview</a>
+                <a href="zowe-cli-workflow.html" class="nav-link" data-page-id="zowe-cli-workflow">Zowe CLI Workflow</a>
+                <a href="grub-workflow.html" class="nav-link" data-page-id="grub-workflow">Grub Workflow</a>
+                <a href="development-best-practices.html" class="nav-link active" data-page-id="development-best-practices">Development Best Practices</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Tutorials</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="deploy-bank-of-z.html" class="nav-link" data-page-id="deploy-bank-of-z">Tutorial: Deploy Bank of Z</a>
+                <a href="cics-enhancement.html" class="nav-link" data-page-id="cics-enhancement">Tutorial: CICS Enhancement Scenario</a>
+                <a href="incremental-build.html" class="nav-link" data-page-id="incremental-build">Tutorial: Incremental Build</a>
+                <a href="debug-cics-transaction.html" class="nav-link" data-page-id="debug-cics-transaction">Tutorial: Debug a CICS Transaction</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Reference</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="commands-reference.html" class="nav-link" data-page-id="commands-reference">Commands Reference</a>
+                <a href="configuration-reference.html" class="nav-link" data-page-id="configuration-reference">Configuration Reference</a>
+                <a href="glossary.html" class="nav-link" data-page-id="glossary">Glossary</a>
+                <a href="repository-structure.html" class="nav-link" data-page-id="repository-structure">Repository Structure</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Troubleshooting</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="troubleshooting-overview.html" class="nav-link" data-page-id="troubleshooting-overview">Troubleshooting Overview</a>
+                <a href="fix-abend-cino.html" class="nav-link" data-page-id="fix-abend-cino">Fix: OMEN ABEND CINO</a>
+                <a href="program-internals.html" class="nav-link" data-page-id="program-internals">Program Internals: CRDTAGY2 Credit Agency Simulator</a>
+            </div>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Program Documentation</div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">docs</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">about-bank-of-z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">program</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">src</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+            <div class="nav-section">
+                <button class="nav-section-toggle" type="button">
+                    <span class="nav-toggle-text">base</span>
+                    <span class="nav-section-chevron">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="nav-section-items">
+                <div class="nav-section">
+                    <button class="nav-section-toggle" type="button">
+                        <span class="nav-toggle-text">cics</span>
+                        <span class="nav-section-chevron">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="nav-section-items">
+                    <div class="nav-section">
+                        <button class="nav-section-toggle" type="button">
+                            <span class="nav-toggle-text">cobol</span>
+                            <span class="nav-section-chevron">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="nav-section-items">
+                            <a href="../sources/program/src/base/cics/cobol/CRDTAGY2.html" class="nav-link">CRDTAGY2</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+            </nav>
+        </aside>
+        <main class="main">
+            <div class="page-container">
+                <div class="content-layout">
+                    <div class="prose">
+                        
+                        <h1 id="development-best-practices" tabindex="-1">Development Best Practices</h1>
+<p>Recommended best practices for developing, testing, and maintaining Bank of Z code on IBM Z, covering branching strategies, code quality, and collaboration guidelines.</p>
+<hr>
+<h2 id="1-overview" tabindex="-1">1. Overview</h2>
+<p>The Bank of Z project runs on IBM Z infrastructure and involves a mix of technologies including COBOL programs, copybooks, BMS maps, web applications, and z/OS Connect artifacts. To ensure code quality, maintainability, and team collaboration, every contributor should follow a consistent set of development practices.</p>
+<p>These guidelines cover the full development lifecycle — from setting up your local workspace, through making and validating changes, to merging and documenting your work. Whether you are working on a new feature, an enhancement, or a defect fix, these practices help reduce risk, improve turnaround time, and keep the codebase in a healthy state.</p>
+<hr>
+<h2 id="2-system-architecture" tabindex="-1">2. System Architecture</h2>
+<p>The Bank of Z development environment is organized around a version-controlled source repository, a z/OS target environment, and two primary deployment workflows. The diagram below illustrates how these components relate to each other.</p>
+<div class="mermaid">
+graph TD
+    A[Developer Workstation] --> B[Local Workspace / Branch]
+    B --> C{Workflow Selection}
+    C -->|Version-Controlled Changes| D[Zowe CLI Workflow]
+    C -->|Rapid Local Testing| E[GRUB Workflow]
+    D --> F[Source Repository - Main Branch]
+    E --> F
+    F --> G[z/OS Target Environment]
+    G --> H[COBOL Programs]
+    G --> I[BMS Maps]
+    G --> J[Copybooks]
+    G --> K[Web Applications]
+    G --> L[z/OS Connect Artifacts]
+</div>
+<p>This architecture ensures that all changes flow through a controlled path — from the developer’s local environment, through a workflow, into the shared repository, and finally onto the IBM Z runtime. Selecting the right workflow at the branching stage is a key decision that affects testing speed and code quality.</p>
+<hr>
+<h2 id="3-branching-strategy" tabindex="-1">3. Branching Strategy</h2>
+<h3 id="31-work-in-isolated-branches" tabindex="-1">3.1 Work in Isolated Branches</h3>
+<p>Create a dedicated branch for each feature, enhancement, or defect fix. Isolating changes makes it easier to review, test, and manage updates before they are merged into the main code line.</p>
+<div class="mermaid">
+gitGraph
+   commit id: "Initial Commit"
+   branch feature/new-account-screen
+   checkout feature/new-account-screen
+   commit id: "Add BMS map"
+   commit id: "Update COBOL logic"
+   checkout main
+   branch fix/transaction-defect
+   checkout fix/transaction-defect
+   commit id: "Fix balance calculation"
+   checkout main
+   merge feature/new-account-screen id: "Merge feature"
+   merge fix/transaction-defect id: "Merge fix"
+</div>
+<p>Each branch should represent a single unit of work. This keeps the main code line stable and makes code reviews focused and actionable.</p>
+<h3 id="32-synchronize-regularly" tabindex="-1">3.2 Synchronize Regularly</h3>
+<p>Keep your local workspace synchronized with the latest project changes to reduce merge conflicts and ensure that development is based on the most current source.</p>
+<blockquote>
+<p><strong>Tip:</strong> Pull from the main branch frequently — especially before starting a new branch or submitting changes for review.</p>
+</blockquote>
+<hr>
+<h2 id="4-workspace-configuration" tabindex="-1">4. Workspace Configuration</h2>
+<h3 id="41-keep-your-workspace-configuration-up-to-date" tabindex="-1">4.1 Keep Your Workspace Configuration Up to Date</h3>
+<p>Review your setup configuration before starting development activities. Ensure that paths, environment settings, and required dependencies match your target environment.</p>
+<p>If configuration values change, update your local environment before running setup or deployment tasks.</p>
+<p>Key configuration items to verify before each development session:</p>
+<table>
+<thead>
+<tr>
+<th>Configuration Item</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Target environment paths</td>
+<td>Ensure dataset and directory paths point to the correct z/OS environment</td>
+</tr>
+<tr>
+<td>Environment variables</td>
+<td>Verify that all required variables are set for your current workspace</td>
+</tr>
+<tr>
+<td>Dependency versions</td>
+<td>Confirm that required tools (e.g., Zowe CLI, compilers) match the expected versions</td>
+</tr>
+<tr>
+<td>z/OS Connect settings</td>
+<td>Validate connection endpoints and credentials for API artifacts</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="5-code-quality-practices" tabindex="-1">5. Code Quality Practices</h2>
+<h3 id="51-make-small-incremental-changes" tabindex="-1">5.1 Make Small, Incremental Changes</h3>
+<p>Implement and validate changes in small increments rather than making large updates at once. Smaller changes are easier to test, troubleshoot, and review.</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">CODE</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code>* Example: Isolate a COBOL module change to a single paragraph
+* rather than modifying multiple sections in one commit.
+
+ CALCULATE-INTEREST.
+     COMPUTE WS-INTEREST = WS-BALANCE * WS-RATE / 100
+     END-COMPUTE.</code></pre>
+</div>
+<p>Large, sweeping changes increase the risk of introducing defects and make root-cause analysis significantly harder.</p>
+<h3 id="52-validate-changes-frequently" tabindex="-1">5.2 Validate Changes Frequently</h3>
+<p>Run the appropriate setup and deployment workflow after making changes to verify that updates build and deploy successfully. Early validation helps identify issues before they affect additional development work.</p>
+<p>The sequence below illustrates a recommended validation cycle:</p>
+<div class="mermaid">
+sequenceDiagram
+    participant Dev as Developer
+    participant WS as Local Workspace
+    participant WF as Workflow Engine
+    participant ZOS as z/OS Target
+
+    Dev->>WS: Make incremental code change
+    Dev->>WF: Trigger setup/deployment workflow
+    WF->>ZOS: Compile and deploy artifacts
+    ZOS-->>WF: Build result (success/error)
+    WF-->>Dev: Report output and logs
+    Dev->>Dev: Review warnings and errors
+    Dev->>WS: Apply fixes if needed
+    Dev->>WF: Re-trigger workflow
+    WF->>ZOS: Re-deploy
+    ZOS-->>WF: Success
+    WF-->>Dev: Confirmation
+</div>
+<h3 id="53-keep-source-changes-organized" tabindex="-1">5.3 Keep Source Changes Organized</h3>
+<p>Store application updates in the appropriate source directories and follow established project conventions for all artifact types:</p>
+<table>
+<thead>
+<tr>
+<th>Artifact Type</th>
+<th>Source Directory Convention</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>COBOL Programs</td>
+<td>Main application source folder, following program naming standards</td>
+</tr>
+<tr>
+<td>Copybooks</td>
+<td>Shared copybook directory, referenced by multiple programs</td>
+</tr>
+<tr>
+<td>BMS Maps</td>
+<td>BMS source directory, one map per screen/panel</td>
+</tr>
+<tr>
+<td>Web Applications</td>
+<td>Web source tree, following frontend project structure</td>
+</tr>
+<tr>
+<td>z/OS Connect Artifacts</td>
+<td>API definition directory, organized by service</td>
+</tr>
+</tbody>
+</table>
+<p>Following these conventions ensures that automated build and deployment workflows can locate and process all artifacts correctly.</p>
+<hr>
+<h2 id="6-workflow-selection" tabindex="-1">6. Workflow Selection</h2>
+<h3 id="61-use-the-workflow-that-matches-your-development-needs" tabindex="-1">6.1 Use the Workflow That Matches Your Development Needs</h3>
+<p>Select the workflow that best supports your current task. Using the wrong workflow can slow down development or introduce unnecessary overhead.</p>
+<div class="mermaid">
+flowchart TD
+    A[Start Development Task] --> B{Is this a committed,\nversion-controlled change?}
+    B -->|Yes| C[Use Zowe CLI Workflow]
+    B -->|No - Rapid local test| D[Use GRUB Workflow]
+    C --> E[Push to Branch]
+    D --> F[Test Locally]
+    E --> G[Submit for Review]
+    F --> H{Changes validated?}
+    H -->|Yes| E
+    H -->|No| I[Revise Code]
+    I --> F
+    G --> J[Merge to Main]
+    J --> K[Deploy to z/OS Environment]
+</div>
+<h4 id="zowe-cli-workflow" tabindex="-1">Zowe CLI Workflow</h4>
+<p>Use the <strong>Zowe CLI workflow</strong> when:</p>
+<ul>
+<li>Working with branch-based development and version-controlled changes.</li>
+<li>Changes need to be tracked, reviewed, and merged into the shared repository.</li>
+<li>Collaborating with other contributors on the same project.</li>
+</ul>
+<h4 id="grub-workflow" tabindex="-1">GRUB Workflow</h4>
+<p>Use the <strong>GRUB workflow</strong> when:</p>
+<ul>
+<li>You want to rapidly test local changes without committing them first.</li>
+<li>Performing exploratory development or quick diagnostics.</li>
+<li>Validating a fix before formalizing it into a branch commit.</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> Selecting the appropriate workflow can improve development efficiency and reduce turnaround time during testing.</p>
+</blockquote>
+<hr>
+<h2 id="7-monitoring-and-review" tabindex="-1">7. Monitoring and Review</h2>
+<h3 id="71-review-setup-output" tabindex="-1">7.1 Review Setup Output</h3>
+<p>Monitor workflow output and setup logs during development activities. Review any warnings or errors before proceeding to the next task.</p>
+<p>Recommended log review checklist:</p>
+<ul>
+<li>[ ] No compilation errors in COBOL programs or copybooks</li>
+<li>[ ] No binding errors for DB2 plans or packages</li>
+<li>[ ] BMS map assemblies completed without warnings</li>
+<li>[ ] z/OS Connect API deployments returned successful status</li>
+<li>[ ] No JCL errors or abends in deployment jobs</li>
+</ul>
+<p>Ignoring warnings early in development can lead to harder-to-diagnose failures later in the lifecycle.</p>
+<hr>
+<h2 id="8-documentation-and-collaboration" tabindex="-1">8. Documentation and Collaboration</h2>
+<h3 id="81-document-significant-changes" tabindex="-1">8.1 Document Significant Changes</h3>
+<p>Update relevant documentation when introducing new functionality, modifying configuration requirements, or changing development processes. Keeping documentation current helps other contributors understand and use your changes.</p>
+<p>Changes that should always be accompanied by documentation updates:</p>
+<ul>
+<li><strong>New features or screens</strong> — Update user-facing and technical documentation to describe the new functionality.</li>
+<li><strong>Configuration changes</strong> — Record any new environment variables, dataset paths, or dependency updates.</li>
+<li><strong>Process changes</strong> — If a development or deployment process is modified, update the relevant workflow documentation.</li>
+<li><strong>API changes</strong> — Update z/OS Connect API definitions and any integration documentation affected by the change.</li>
+</ul>
+<h3 id="82-collaboration-guidelines" tabindex="-1">8.2 Collaboration Guidelines</h3>
+<p>The following practices support effective team collaboration on Bank of Z:</p>
+<ol>
+<li><strong>Communicate early</strong> — Raise questions or flag blockers as soon as they are identified, rather than waiting until a change is complete.</li>
+<li><strong>Write descriptive commit messages</strong> — Clearly describe what changed and why, so that the history of the codebase is understandable.</li>
+<li><strong>Request reviews before merging</strong> — Have at least one other contributor review your changes before merging to the main branch.</li>
+<li><strong>Respect branch ownership</strong> — Avoid modifying another contributor’s active branch without coordination.</li>
+<li><strong>Keep branches short-lived</strong> — Merge or close branches promptly once their purpose is fulfilled to keep the repository clean.</li>
+</ol>
+<hr>
+<h2 id="9-summary-of-best-practices" tabindex="-1">9. Summary of Best Practices</h2>
+<p>The table below provides a quick reference for all recommended practices covered in this document.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Practice</th>
+<th>Key Benefit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Work in isolated branches</td>
+<td>Easier review, testing, and merge management</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Keep workspace configuration up to date</td>
+<td>Prevents environment mismatch errors</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Make small, incremental changes</td>
+<td>Simpler testing and troubleshooting</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Validate changes frequently</td>
+<td>Early detection of build and deployment issues</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Keep source changes organized</td>
+<td>Enables automated build workflows</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Review setup output</td>
+<td>Prevents undetected warnings from escalating</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Synchronize regularly</td>
+<td>Reduces merge conflicts</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Document significant changes</td>
+<td>Supports team knowledge sharing</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Use the appropriate workflow</td>
+<td>Improves development efficiency</td>
+</tr>
+</tbody>
+</table>
+
+                        <div class="related-pages">
+                            <p class="related-pages-title">Related Pages</p>
+                            <div class="card-grid">
+                                
+            <a href="workflow-overview.html" class="card">
+                <span class="card-title">Development Workflow Overview</span>
+                <span class="card-description">Comparison and selection guide for the available Bank of Z development workflows, helping developers choose the right approach based on tooling, environment, and team preferences.</span>
+            </a>
+            <a href="incremental-build.html" class="card">
+                <span class="card-title">Tutorial: Incremental Build</span>
+                <span class="card-description">Tutorial explaining how to perform incremental builds of Bank of Z, reducing build time by only recompiling and redeploying changed components.</span>
+            </a>
+                            </div>
+                        </div>
+                    </div>
+                    <nav class="toc-panel" aria-label="On this page">
+  <span class="toc-panel-label">On this page</span>
+  <ul class="toc-list">
+<li class="toc-level-2"><a href="#1-overview">1. Overview</a></li>
+<li class="toc-level-2"><a href="#2-system-architecture">2. System Architecture</a></li>
+<li class="toc-level-2"><a href="#3-branching-strategy">3. Branching Strategy</a>
+<ul>
+<li class="toc-level-3"><a href="#31-work-in-isolated-branches">3.1 Work in Isolated Branches</a></li>
+<li class="toc-level-3"><a href="#32-synchronize-regularly">3.2 Synchronize Regularly</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#4-workspace-configuration">4. Workspace Configuration</a>
+<ul>
+<li class="toc-level-3"><a href="#41-keep-your-workspace-configuration-up-to-date">4.1 Keep Your Workspace Configuration Up to Date</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#5-code-quality-practices">5. Code Quality Practices</a>
+<ul>
+<li class="toc-level-3"><a href="#51-make-small-incremental-changes">5.1 Make Small, Incremental Changes</a></li>
+<li class="toc-level-3"><a href="#52-validate-changes-frequently">5.2 Validate Changes Frequently</a></li>
+<li class="toc-level-3"><a href="#53-keep-source-changes-organized">5.3 Keep Source Changes Organized</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#6-workflow-selection">6. Workflow Selection</a>
+<ul>
+<li class="toc-level-3"><a href="#61-use-the-workflow-that-matches-your-development-needs">6.1 Use the Workflow That Matches Your Development Needs</a>
+<ul>
+<li class="toc-level-4"><a href="#zowe-cli-workflow">Zowe CLI Workflow</a></li>
+<li class="toc-level-4"><a href="#grub-workflow">GRUB Workflow</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#7-monitoring-and-review">7. Monitoring and Review</a>
+<ul>
+<li class="toc-level-3"><a href="#71-review-setup-output">7.1 Review Setup Output</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#8-documentation-and-collaboration">8. Documentation and Collaboration</a>
+<ul>
+<li class="toc-level-3"><a href="#81-document-significant-changes">8.1 Document Significant Changes</a></li>
+<li class="toc-level-3"><a href="#82-collaboration-guidelines">8.2 Collaboration Guidelines</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#9-summary-of-best-practices">9. Summary of Best Practices</a></li>
+</ul>
+
+</nav>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+    /* toc-spy.js — highlights the active heading in the TOC panel on scroll */
+    (function () {
+      function init() {
+        var panel = document.querySelector('.toc-panel');
+        if (!panel) return;
+        var links = Array.prototype.slice.call(panel.querySelectorAll('a[href^="#"]'));
+        if (!links.length) return;
+
+        var headingIds = links.map(function (a) { return a.getAttribute('href').slice(1); });
+        var headings = headingIds.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+
+        function clearActive() {
+          panel.querySelectorAll('.toc-active').forEach(function (el) { el.classList.remove('toc-active'); });
+          panel.querySelectorAll('.toc-parent-active').forEach(function (el) { el.classList.remove('toc-parent-active'); });
+        }
+
+        function setActive(id) {
+          clearActive();
+          var link = panel.querySelector('a[href="#' + id + '"]');
+          if (!link) return;
+          link.classList.add('toc-active');
+          var li = link.closest('li');
+          if (li) {
+            var parentLi = li.parentElement && li.parentElement.closest('li');
+            if (parentLi) parentLi.classList.add('toc-parent-active');
+          }
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              setActive(entry.target.id);
+            }
+          });
+        }, { rootMargin: '0px 0px -70% 0px', threshold: 0 });
+
+        headings.forEach(function (h) { observer.observe(h); });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+    </script>
+    <script>
+    /* sidebar-toggle.js — persists open/closed state across navigation */
+    (function () {
+
+      var STORAGE_KEY = 'sb_open';
+
+      function getOpenSet() {
+        try {
+          var raw = sessionStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (e) { return null; }
+      }
+
+      function saveOpenSet(set) {
+        try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(set)); } catch (e) {}
+      }
+
+      function findItems(toggle) {
+        var node = toggle.nextSibling;
+        while (node) {
+          if (node.nodeType === 1 && node.classList.contains('nav-section-items'))
+            return node;
+          node = node.nextSibling;
+        }
+        return null;
+      }
+
+      function toggleKey(toggle, index) {
+        var label = (toggle.querySelector('.nav-toggle-text') || toggle).textContent.trim().replace(/\s+/g, ' ');
+        return index + ':' + label;
+      }
+
+      function openSection(toggle, items, key, set) {
+        toggle.classList.add('open');
+        items.classList.add('open');
+        if (set) set[key] = true;
+      }
+
+      function closeSection(toggle, items, key, set) {
+        toggle.classList.remove('open');
+        items.classList.remove('open');
+        if (set) set[key] = false;
+      }
+
+      function init() {
+        var sidebar = document.getElementById('wiki-sidebar');
+        var toggles = Array.prototype.slice.call(
+          document.querySelectorAll('.nav-section-toggle')
+        );
+
+        var activeIdx = -1;
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+          if (items.querySelector('.nav-link.active')) {
+            activeIdx = idx;
+          }
+        });
+
+        var savedSet = getOpenSet();
+        var openSet = savedSet || {};
+
+        if (activeIdx !== -1) {
+          openSet[toggleKey(toggles[activeIdx], activeIdx)] = true;
+        }
+
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+
+          var key = toggleKey(toggle, idx);
+          var shouldOpen = openSet[key] === true;
+
+          if (shouldOpen) {
+            toggle.classList.add('open');
+            items.classList.add('open');
+          }
+
+          toggle.addEventListener('click', function () {
+            var nowOpen = toggle.classList.contains('open');
+            if (nowOpen) {
+              closeSection(toggle, items, key, openSet);
+            } else {
+              openSection(toggle, items, key, openSet);
+            }
+            saveOpenSet(openSet);
+          });
+        });
+
+        saveOpenSet(openSet);
+
+        /* Restore sidebar scroll position after sections are expanded so the
+           scroll height is correct when we apply scrollTop. */
+        if (sidebar) {
+          try {
+            var savedScroll = sessionStorage.getItem('sb_scroll');
+            if (savedScroll !== null) { sidebar.scrollTop = parseInt(savedScroll, 10) || 0; }
+          } catch (_e) {}
+        }
+
+        window.addEventListener('pagehide', function () {
+          saveOpenSet(openSet);
+          if (sidebar) {
+            try { sessionStorage.setItem('sb_scroll', String(sidebar.scrollTop)); } catch (_e) {}
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+
+    })();
+    </script>
+    <script>
+    /* nav-tracking.js — only stamps sessionStorage when clicking a source-file link
+       that lives inside the "Source Files" disclosure section, not from sidebar or cards. */
+    (function () {
+      document.addEventListener('click', function (e) {
+        var link = e.target.closest('a[href]');
+        if (!link) return;
+        var href = link.getAttribute('href');
+        if (!href || href.indexOf('sources/') === -1) return;
+        /* Only set referrer when the click originates from inside the Source Files
+           disclosure (.source-files-disclosure). Any other path — sidebar, cards,
+           direct navigation — must not set a referrer. */
+        if (!link.closest('.source-files-disclosure')) return;
+        try {
+          sessionStorage.setItem('wiki_referrer', JSON.stringify({
+            href: location.href,
+            title: document.title,
+            file: location.pathname.split('/').pop()
+          }));
+        } catch (_e) {}
+      });
+    })();
+    </script>
+    <footer class="wiki-footer">Made by IBM Bob Premium Package for Z</footer>
+</body>
+</html>

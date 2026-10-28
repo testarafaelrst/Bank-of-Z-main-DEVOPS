@@ -1,0 +1,957 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troubleshooting Overview - Bank of Z – IBM Z Modern Development Reference</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/mermaid.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: { useMaxWidth: true }
+        });
+    </script>
+
+    <!-- Prism.js for syntax highlighting (bundled — no CDN required) -->
+    <link rel="stylesheet" href="../assets/prism-tomorrow.css">
+    <script src="../assets/prism-core.js"></script>
+    <script src="../assets/prism-languages.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <span class="header-app-name"><a href="../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – IBM Z Modern Development Reference</a></span>
+        </div>
+        <div class="header-right">
+        </div>
+    </header>
+    <div class="shell">
+        <aside class="sidebar" id="wiki-sidebar">
+            <nav>
+                
+        <div class="nav-home-wrap">
+            <a href="../../index.html" class="nav-home">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                Home
+            </a>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Application Documentation</div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">About Bank of Z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="about-overview.html" class="nav-link" data-page-id="about-overview">Project Overview</a>
+                <a href="architecture-overview.html" class="nav-link" data-page-id="architecture-overview">Architecture Overview</a>
+                <a href="key-capabilities.html" class="nav-link" data-page-id="key-capabilities">Key Capabilities</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Architecture</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="application-components.html" class="nav-link" data-page-id="application-components">Application Components</a>
+                <a href="application-flow.html" class="nav-link" data-page-id="application-flow">Application Flow</a>
+                <a href="build-and-deployment-arch.html" class="nav-link" data-page-id="build-and-deployment-arch">Build &amp; Deployment Architecture</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Installation &amp; Setup</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="prerequisites-env.html" class="nav-link" data-page-id="prerequisites-env">Prerequisites &amp; Environment Configuration</a>
+                <a href="deploying-options.html" class="nav-link" data-page-id="deploying-options">Deployment Options</a>
+                <a href="local-tools-setup.html" class="nav-link" data-page-id="local-tools-setup">Local Tools Setup</a>
+                <a href="zowe-cli-setup.html" class="nav-link" data-page-id="zowe-cli-setup">Zowe CLI &amp; Profile Setup</a>
+                <a href="verification.html" class="nav-link" data-page-id="verification">Installation Verification</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Development Workflows</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="workflow-overview.html" class="nav-link" data-page-id="workflow-overview">Development Workflow Overview</a>
+                <a href="zowe-cli-workflow.html" class="nav-link" data-page-id="zowe-cli-workflow">Zowe CLI Workflow</a>
+                <a href="grub-workflow.html" class="nav-link" data-page-id="grub-workflow">Grub Workflow</a>
+                <a href="development-best-practices.html" class="nav-link" data-page-id="development-best-practices">Development Best Practices</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Tutorials</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="deploy-bank-of-z.html" class="nav-link" data-page-id="deploy-bank-of-z">Tutorial: Deploy Bank of Z</a>
+                <a href="cics-enhancement.html" class="nav-link" data-page-id="cics-enhancement">Tutorial: CICS Enhancement Scenario</a>
+                <a href="incremental-build.html" class="nav-link" data-page-id="incremental-build">Tutorial: Incremental Build</a>
+                <a href="debug-cics-transaction.html" class="nav-link" data-page-id="debug-cics-transaction">Tutorial: Debug a CICS Transaction</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Reference</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="commands-reference.html" class="nav-link" data-page-id="commands-reference">Commands Reference</a>
+                <a href="configuration-reference.html" class="nav-link" data-page-id="configuration-reference">Configuration Reference</a>
+                <a href="glossary.html" class="nav-link" data-page-id="glossary">Glossary</a>
+                <a href="repository-structure.html" class="nav-link" data-page-id="repository-structure">Repository Structure</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle open" type="button">
+                <span class="nav-toggle-text">Troubleshooting</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items open">
+                <a href="troubleshooting-overview.html" class="nav-link active" data-page-id="troubleshooting-overview">Troubleshooting Overview</a>
+                <a href="fix-abend-cino.html" class="nav-link" data-page-id="fix-abend-cino">Fix: OMEN ABEND CINO</a>
+                <a href="program-internals.html" class="nav-link" data-page-id="program-internals">Program Internals: CRDTAGY2 Credit Agency Simulator</a>
+            </div>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Program Documentation</div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">docs</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">about-bank-of-z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">program</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">src</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+            <div class="nav-section">
+                <button class="nav-section-toggle" type="button">
+                    <span class="nav-toggle-text">base</span>
+                    <span class="nav-section-chevron">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="nav-section-items">
+                <div class="nav-section">
+                    <button class="nav-section-toggle" type="button">
+                        <span class="nav-toggle-text">cics</span>
+                        <span class="nav-section-chevron">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="nav-section-items">
+                    <div class="nav-section">
+                        <button class="nav-section-toggle" type="button">
+                            <span class="nav-toggle-text">cobol</span>
+                            <span class="nav-section-chevron">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="nav-section-items">
+                            <a href="../sources/program/src/base/cics/cobol/CRDTAGY2.html" class="nav-link">CRDTAGY2</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+            </nav>
+        </aside>
+        <main class="main">
+            <div class="page-container">
+                <div class="content-layout">
+                    <div class="prose">
+                        <details class="source-files-disclosure">
+            <summary>
+                <svg class="sf-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Source Files
+                <span style="margin-left:4px;font-size:11px;color:var(--fg-subtle)">(1)</span>
+            </summary>
+            <div class="source-files-body">
+                <ul class="source-files-list">
+            <li><a href="../sources/docs/about-bank-of-z/index.html">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+                    <path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M10 2v4h4" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                index
+            </a></li>
+                </ul>
+            </div>
+        </details>
+                        <h1 id="troubleshooting-overview" tabindex="-1">Troubleshooting Overview</h1>
+<p>This page provides general troubleshooting guidance for the <strong>Bank of Z</strong> application, covering common issues encountered during installation, configuration, deployment, and runtime operations. Each section identifies symptoms, likely causes, and step-by-step resolution strategies to help developers and administrators quickly diagnose and resolve problems.</p>
+<hr>
+<h2 id="1-overview" tabindex="-1">1. Overview</h2>
+<p>The Bank of Z application runs on a z/OS environment and relies on several interconnected components — including Zowe CLI, DBB (Dependency Based Build), Java, Git on USS, and configuration files — all of which must be correctly installed and configured for the application to function properly.</p>
+<p>Troubleshooting in this environment spans multiple layers:</p>
+<ul>
+<li><strong>Workstation tooling</strong> (Zowe CLI, npm)</li>
+<li><strong>z/OS connectivity</strong> (z/OSMF profiles, network, firewall)</li>
+<li><strong>USS filesystem</strong> (permissions, paths, Git availability)</li>
+<li><strong>Build toolchain</strong> (DBB, Java, zBuilder)</li>
+<li><strong>Repository access</strong> (Git cloning, authentication)</li>
+<li><strong>Configuration management</strong> (<code>config.yaml</code> variables and paths)</li>
+</ul>
+<p>When an issue occurs, it is important to identify which layer is failing before attempting a fix. The sections below are organized by issue category to guide that process.</p>
+<hr>
+<h2 id="2-system-architecture" tabindex="-1">2. System Architecture</h2>
+<p>The following diagram illustrates the high-level architecture of the Bank of Z environment and the relationships between its major components.</p>
+<div class="mermaid">
+graph TD
+    WS[👨‍💻 Developer Workstation]
+    ZOWE[Zowe CLI]
+    ZOSMF[z/OSMF on z/OS]
+    USS[USS Filesystem]
+    GIT[Git Repository]
+    DBB[DBB - Dependency Based Build]
+    JAVA[Java Runtime]
+    CFG[config.yaml]
+    ZBUILDER[zBuilder]
+    APP[Bank of Z Application]
+
+    WS --> ZOWE
+    ZOWE -->|Profile / Connectivity| ZOSMF
+    ZOSMF --> USS
+    USS --> CFG
+    CFG --> DBB
+    CFG --> JAVA
+    CFG --> ZBUILDER
+    GIT -->|Clone / Sync| USS
+    DBB --> APP
+    JAVA --> APP
+    ZBUILDER --> APP
+</div>
+<p>The developer workstation communicates with z/OS through <strong>Zowe CLI</strong>, which uses a configured <strong>z/OSMF profile</strong> to authenticate and interact with the <strong>USS filesystem</strong>. Source code is cloned from <strong>Git</strong> into USS, where the <strong><code>config.yaml</code></strong> file drives the build toolchain — coordinating <strong>DBB</strong>, <strong>Java</strong>, and <strong>zBuilder</strong> to produce the final Bank of Z application artifacts.</p>
+<hr>
+<h2 id="3-zowe-cli-issues" tabindex="-1">3. Zowe CLI Issues</h2>
+<p>Zowe CLI is the primary interface between the developer workstation and the z/OS environment. The following sequence illustrates a typical Zowe CLI interaction:</p>
+<div class="mermaid">
+sequenceDiagram
+    participant Dev as Developer Workstation
+    participant CLI as Zowe CLI
+    participant Profile as z/OSMF Profile
+    participant zOS as z/OS System
+
+    Dev->>CLI: zowe zosmf check status
+    CLI->>Profile: Load profile credentials
+    Profile-->>CLI: Host / Port / Credentials
+    CLI->>zOS: HTTP request to z/OSMF endpoint
+    zOS-->>CLI: Status response
+    CLI-->>Dev: Connection result (success / error)
+</div>
+<h3 id="31-zowe-cli-not-found" tabindex="-1">3.1 Zowe CLI Not Found</h3>
+<h4 id="symptom" tabindex="-1">Symptom</h4>
+<p>Commands such as the following return a <code>command not found</code> error:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe --version</code></pre>
+</div>
+<h4 id="possible-cause" tabindex="-1">Possible Cause</h4>
+<p>Zowe CLI is not installed or is not available in your system path.</p>
+<h4 id="resolution" tabindex="-1">Resolution</h4>
+<p>Verify the installation:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe --version</code></pre>
+</div>
+<p>If Zowe CLI is not installed, install it using npm:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">npm install -g @zowe/cli</code></pre>
+</div>
+<p>Ensure that the npm global installation directory is included in your system path.</p>
+<hr>
+<h3 id="32-zowe-profile-not-found" tabindex="-1">3.2 Zowe Profile Not Found</h3>
+<h4 id="symptom-1" tabindex="-1">Symptom</h4>
+<p>Zowe commands fail because a profile cannot be located.</p>
+<h4 id="possible-cause-1" tabindex="-1">Possible Cause</h4>
+<p>A z/OSMF profile has not been created or configured correctly.</p>
+<h4 id="resolution-1" tabindex="-1">Resolution</h4>
+<p>List available profiles:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe profiles list zosmf</code></pre>
+</div>
+<p>Create or update the required profile and verify connectivity:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe zosmf check status</code></pre>
+</div>
+<hr>
+<h3 id="33-unable-to-connect-to-zos" tabindex="-1">3.3 Unable to Connect to z/OS</h3>
+<h4 id="symptom-2" tabindex="-1">Symptom</h4>
+<p>Connection validation commands fail.</p>
+<h4 id="possible-cause-2" tabindex="-1">Possible Cause</h4>
+<p>Incorrect host information, invalid credentials, network connectivity issues, or firewall restrictions.</p>
+<h4 id="resolution-2" tabindex="-1">Resolution</h4>
+<p>Verify the configured profile settings and test connectivity:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe zosmf check status</code></pre>
+</div>
+<p>Confirm that the host, port, and credentials are correct and that the target system is accessible from your workstation.</p>
+<hr>
+<h2 id="4-configuration-issues" tabindex="-1">4. Configuration Issues</h2>
+<p>The <code>config.yaml</code> file is the central configuration artifact for the Bank of Z setup. The diagram below shows how configuration values flow into the build and deployment process.</p>
+<div class="mermaid">
+graph LR
+    CFG[config.yaml]
+    SB[sandbox.path]
+    DBB[dbb_home]
+    JAVA[java_home]
+    BUILD[Build Process]
+    DEPLOY[Deployment]
+
+    CFG --> SB
+    CFG --> DBB
+    CFG --> JAVA
+    SB -->|Workspace directory| BUILD
+    DBB -->|DBB libraries| BUILD
+    JAVA -->|JVM runtime| BUILD
+    BUILD --> DEPLOY
+</div>
+<h3 id="41-configuration-file-not-found" tabindex="-1">4.1 Configuration File Not Found</h3>
+<h4 id="symptom-3" tabindex="-1">Symptom</h4>
+<p>Setup or build processes fail because the configuration file cannot be located.</p>
+<h4 id="possible-cause-3" tabindex="-1">Possible Cause</h4>
+<p>The <code>config.yaml</code> file is missing or stored in an unexpected location.</p>
+<h4 id="resolution-3" tabindex="-1">Resolution</h4>
+<p>Verify that the file exists:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">ls -la .setup/config/config.yaml</code></pre>
+</div>
+<p>Ensure that you are running commands from the correct repository location.</p>
+<hr>
+<h3 id="42-variable-reference-cannot-be-resolved" tabindex="-1">4.2 Variable Reference Cannot Be Resolved</h3>
+<h4 id="symptom-4" tabindex="-1">Symptom</h4>
+<p>Setup validation reports unresolved variables.</p>
+<h4 id="possible-cause-4" tabindex="-1">Possible Cause</h4>
+<p>A referenced configuration value or environment variable does not exist.</p>
+<h4 id="resolution-4" tabindex="-1">Resolution</h4>
+<p>Verify all variable references. Example of a correctly structured reference:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">YAML</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-yaml">dbb:
+  build_dir: ${sandbox.path}/build</code></pre>
+</div>
+<p>Ensure that referenced sections and keys are defined in the configuration file before they are used.</p>
+<hr>
+<h3 id="43-invalid-path-format" tabindex="-1">4.3 Invalid Path Format</h3>
+<h4 id="symptom-5" tabindex="-1">Symptom</h4>
+<p>Setup validation fails when processing directory paths.</p>
+<h4 id="possible-cause-5" tabindex="-1">Possible Cause</h4>
+<p>A required path is specified as a relative path.</p>
+<h4 id="resolution-5" tabindex="-1">Resolution</h4>
+<p>Use absolute paths for all configuration values that reference USS directories.</p>
+<p><strong>Example:</strong></p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">YAML</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-yaml">sandbox:
+  path: /usr/local/sandboxes/bank-of-z</code></pre>
+</div>
+<hr>
+<h2 id="5-git-and-repository-issues" tabindex="-1">5. Git and Repository Issues</h2>
+<p>Git availability on USS is required for cloning and synchronizing source code. The diagram below shows the repository synchronization flow.</p>
+<div class="mermaid">
+sequenceDiagram
+    participant Dev as Developer Workstation
+    participant Repo as Git Repository (Remote)
+    participant USS as USS Filesystem
+
+    Dev->>USS: Trigger setup / clone step
+    USS->>Repo: git clone <repository-url>
+    Repo-->>USS: Repository contents
+    USS-->>Dev: Clone success / failure
+</div>
+<h3 id="51-git-not-available-on-uss" tabindex="-1">5.1 Git Not Available on USS</h3>
+<h4 id="symptom-6" tabindex="-1">Symptom</h4>
+<p>Repository cloning or synchronization fails on USS.</p>
+<h4 id="possible-cause-6" tabindex="-1">Possible Cause</h4>
+<p>Git is not installed or is not available in the USS environment path.</p>
+<h4 id="resolution-6" tabindex="-1">Resolution</h4>
+<p>Verify the installation:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">which git
+git --version</code></pre>
+</div>
+<p>If Git is not available, contact your z/OS administrator to have it installed and added to the USS path.</p>
+<hr>
+<h3 id="52-unable-to-clone-repositories" tabindex="-1">5.2 Unable to Clone Repositories</h3>
+<h4 id="symptom-7" tabindex="-1">Symptom</h4>
+<p>Repository clone operations fail during setup.</p>
+<h4 id="possible-cause-7" tabindex="-1">Possible Cause</h4>
+<p>Network restrictions, repository access issues, or authentication problems.</p>
+<h4 id="resolution-7" tabindex="-1">Resolution</h4>
+<p>Verify repository access, network connectivity, and authentication settings. Confirm that the target z/OS environment can reach the repository hosting service.</p>
+<hr>
+<h2 id="6-uss-permission-issues" tabindex="-1">6. USS Permission Issues</h2>
+<h3 id="61-permission-denied-when-creating-workspace" tabindex="-1">6.1 Permission Denied When Creating Workspace</h3>
+<h4 id="symptom-8" tabindex="-1">Symptom</h4>
+<p>Setup scripts fail when creating directories or deploying artifacts.</p>
+<h4 id="possible-cause-8" tabindex="-1">Possible Cause</h4>
+<p>Insufficient USS permissions for the configured user.</p>
+<h4 id="resolution-8" tabindex="-1">Resolution</h4>
+<p>Verify that you have write access to the configured sandbox directory. Review the <code>sandbox.path</code> value in <code>config.yaml</code>:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">YAML</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-yaml">sandbox:
+  path: /usr/local/sandboxes/bank-of-z</code></pre>
+</div>
+<p>Contact your z/OS administrator if additional permissions are required for the target directory.</p>
+<hr>
+<h2 id="7-build-and-setup-issues" tabindex="-1">7. Build and Setup Issues</h2>
+<p>The following diagram illustrates the build and setup validation flow, including the key components that must be verified before a successful build can complete.</p>
+<div class="mermaid">
+graph TD
+    START([Start Setup]) --> CHK_DBB{DBB Available?}
+    CHK_DBB -->|No| FIX_DBB[Fix: Update dbb_home in config.yaml]
+    CHK_DBB -->|Yes| CHK_JAVA{Java Available?}
+    CHK_JAVA -->|No| FIX_JAVA[Fix: Update java_home in config.yaml]
+    CHK_JAVA -->|Yes| CHK_GIT{Git Available?}
+    CHK_GIT -->|No| FIX_GIT[Fix: Contact z/OS Admin]
+    CHK_GIT -->|Yes| CHK_ZBUILDER{zBuilder Deployed?}
+    CHK_ZBUILDER -->|No| FIX_ZBUILDER[Fix: Re-deploy zBuilder]
+    CHK_ZBUILDER -->|Yes| CHK_REPO{Repository Access OK?}
+    CHK_REPO -->|No| FIX_REPO[Fix: Verify network and credentials]
+    CHK_REPO -->|Yes| BUILD_OK([Build Successful ✅])
+
+    FIX_DBB --> CHK_DBB
+    FIX_JAVA --> CHK_JAVA
+    FIX_GIT --> CHK_GIT
+    FIX_ZBUILDER --> CHK_ZBUILDER
+    FIX_REPO --> CHK_REPO
+</div>
+<h3 id="71-setup-completes-with-errors" tabindex="-1">7.1 Setup Completes With Errors</h3>
+<h4 id="symptom-9" tabindex="-1">Symptom</h4>
+<p>The setup process completes, but some stages report failures or warnings.</p>
+<h4 id="possible-cause-9" tabindex="-1">Possible Cause</h4>
+<p>A prerequisite component is unavailable or incorrectly configured.</p>
+<h4 id="resolution-9" tabindex="-1">Resolution</h4>
+<p>Review the setup output and identify the stage that failed. Verify the following components:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>What to Check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DBB</td>
+<td>Installation path and availability</td>
+</tr>
+<tr>
+<td>Java</td>
+<td>Runtime path and version</td>
+</tr>
+<tr>
+<td>Git</td>
+<td>Availability on USS</td>
+</tr>
+<tr>
+<td>zBuilder</td>
+<td>Deployment status</td>
+</tr>
+<tr>
+<td>Repository</td>
+<td>Network access and credentials</td>
+</tr>
+<tr>
+<td>Configuration</td>
+<td>Settings in <code>config.yaml</code></td>
+</tr>
+</tbody>
+</table>
+<p>Correct the reported issue and rerun the setup process.</p>
+<hr>
+<h3 id="72-dbb-validation-fails" tabindex="-1">7.2 DBB Validation Fails</h3>
+<h4 id="symptom-10" tabindex="-1">Symptom</h4>
+<p>Build processes cannot locate DBB components.</p>
+<h4 id="possible-cause-10" tabindex="-1">Possible Cause</h4>
+<p>The configured DBB installation path is incorrect.</p>
+<h4 id="resolution-10" tabindex="-1">Resolution</h4>
+<p>Verify the configured location:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">ls $DBB_HOME/lib</code></pre>
+</div>
+<p>Update the <code>dbb_home</code> setting in <code>config.yaml</code> if the path is incorrect.</p>
+<hr>
+<h3 id="73-java-validation-fails" tabindex="-1">7.3 Java Validation Fails</h3>
+<h4 id="symptom-11" tabindex="-1">Symptom</h4>
+<p>Build or setup scripts fail when invoking Java.</p>
+<h4 id="possible-cause-11" tabindex="-1">Possible Cause</h4>
+<p>The configured Java runtime is unavailable or incorrectly configured.</p>
+<h4 id="resolution-11" tabindex="-1">Resolution</h4>
+<p>Verify the Java installation:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">$JAVA_HOME/bin/java -version</code></pre>
+</div>
+<p>Confirm that the configured <code>java_home</code> value points to a supported Java installation.</p>
+<hr>
+<h2 id="8-getting-additional-help" tabindex="-1">8. Getting Additional Help</h2>
+<p>If the issue cannot be resolved using the guidance in this page, follow these escalation steps:</p>
+<ol>
+<li><strong>Review setup output and error messages</strong> — Identify the exact stage and error reported.</li>
+<li><strong>Verify <code>config.yaml</code></strong> — Confirm all paths, variables, and settings are correct and use absolute paths.</li>
+<li><strong>Confirm prerequisites</strong> — Ensure that DBB, Java, Git, and Zowe CLI are all installed and accessible.</li>
+<li><strong>Consult your z/OS administrator</strong> — For environment-specific issues such as USS permissions, network access, or software availability.</li>
+<li><strong>Review workflow documentation</strong> — Additional setup and configuration details are available in the Bank of Z workflow documentation.</li>
+</ol>
+
+                        <div class="related-pages">
+                            <p class="related-pages-title">Related Pages</p>
+                            <div class="card-grid">
+                                
+            <a href="fix-abend-cino.html" class="card">
+                <span class="card-title">Fix: OMEN ABEND CINO</span>
+                <span class="card-description">Targeted fix guide for resolving the OMEN ABEND CINO error in Bank of Z CICS transactions, including root cause analysis, corrective steps, and verification.</span>
+            </a>
+            <a href="verification.html" class="card">
+                <span class="card-title">Installation Verification</span>
+                <span class="card-description">Post-installation verification steps to confirm that Bank of Z has been correctly deployed and all components are operational on IBM Z.</span>
+            </a>
+            <a href="debug-cics-transaction.html" class="card">
+                <span class="card-title">Tutorial: Debug a CICS Transaction</span>
+                <span class="card-description">Step-by-step tutorial on debugging a CICS transaction in Bank of Z, covering tooling setup, breakpoint configuration, and interpreting diagnostic output.</span>
+            </a>
+                            </div>
+                        </div>
+                    </div>
+                    <nav class="toc-panel" aria-label="On this page">
+  <span class="toc-panel-label">On this page</span>
+  <ul class="toc-list">
+<li class="toc-level-2"><a href="#1-overview">1. Overview</a></li>
+<li class="toc-level-2"><a href="#2-system-architecture">2. System Architecture</a></li>
+<li class="toc-level-2"><a href="#3-zowe-cli-issues">3. Zowe CLI Issues</a>
+<ul>
+<li class="toc-level-3"><a href="#31-zowe-cli-not-found">3.1 Zowe CLI Not Found</a>
+<ul>
+<li class="toc-level-4"><a href="#symptom">Symptom</a></li>
+<li class="toc-level-4"><a href="#possible-cause">Possible Cause</a></li>
+<li class="toc-level-4"><a href="#resolution">Resolution</a></li>
+</ul>
+</li>
+<li class="toc-level-3"><a href="#32-zowe-profile-not-found">3.2 Zowe Profile Not Found</a>
+<ul>
+<li class="toc-level-4"><a href="#symptom-1">Symptom</a></li>
+<li class="toc-level-4"><a href="#possible-cause-1">Possible Cause</a></li>
+<li class="toc-level-4"><a href="#resolution-1">Resolution</a></li>
+</ul>
+</li>
+<li class="toc-level-3"><a href="#33-unable-to-connect-to-zos">3.3 Unable to Connect to z/OS</a>
+<ul>
+<li class="toc-level-4"><a href="#symptom-2">Symptom</a></li>
+<li class="toc-level-4"><a href="#possible-cause-2">Possible Cause</a></li>
+<li class="toc-level-4"><a href="#resolution-2">Resolution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#4-configuration-issues">4. Configuration Issues</a>
+<ul>
+<li class="toc-level-3"><a href="#41-configuration-file-not-found">4.1 Configuration File Not Found</a>
+<ul>
+<li class="toc-level-4"><a href="#symptom-3">Symptom</a></li>
+<li class="toc-level-4"><a href="#possible-cause-3">Possible Cause</a></li>
+<li class="toc-level-4"><a href="#resolution-3">Resolution</a></li>
+</ul>
+</li>
+<li class="toc-level-3"><a href="#42-variable-reference-cannot-be-resolved">4.2 Variable Reference Cannot Be Resolved</a>
+<ul>
+<li class="toc-level-4"><a href="#symptom-4">Symptom</a></li>
+<li class="toc-level-4"><a href="#possible-cause-4">Possible Cause</a></li>
+<li class="toc-level-4"><a href="#resolution-4">Resolution</a></li>
+</ul>
+</li>
+<li class="toc-level-3"><a href="#43-invalid-path-format">4.3 Invalid Path Format</a>
+<ul>
+<li class="toc-level-4"><a href="#symptom-5">Symptom</a></li>
+<li class="toc-level-4"><a href="#possible-cause-5">Possible Cause</a></li>
+<li class="toc-level-4"><a href="#resolution-5">Resolution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#5-git-and-repository-issues">5. Git and Repository Issues</a>
+<ul>
+<li class="toc-level-3"><a href="#51-git-not-available-on-uss">5.1 Git Not Available on USS</a>
+<ul>
+<li class="toc-level-4"><a href="#symptom-6">Symptom</a></li>
+<li class="toc-level-4"><a href="#possible-cause-6">Possible Cause</a></li>
+<li class="toc-level-4"><a href="#resolution-6">Resolution</a></li>
+</ul>
+</li>
+<li class="toc-level-3"><a href="#52-unable-to-clone-repositories">5.2 Unable to Clone Repositories</a>
+<ul>
+<li class="toc-level-4"><a href="#symptom-7">Symptom</a></li>
+<li class="toc-level-4"><a href="#possible-cause-7">Possible Cause</a></li>
+<li class="toc-level-4"><a href="#resolution-7">Resolution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#6-uss-permission-issues">6. USS Permission Issues</a>
+<ul>
+<li class="toc-level-3"><a href="#61-permission-denied-when-creating-workspace">6.1 Permission Denied When Creating Workspace</a>
+<ul>
+<li class="toc-level-4"><a href="#symptom-8">Symptom</a></li>
+<li class="toc-level-4"><a href="#possible-cause-8">Possible Cause</a></li>
+<li class="toc-level-4"><a href="#resolution-8">Resolution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#7-build-and-setup-issues">7. Build and Setup Issues</a>
+<ul>
+<li class="toc-level-3"><a href="#71-setup-completes-with-errors">7.1 Setup Completes With Errors</a>
+<ul>
+<li class="toc-level-4"><a href="#symptom-9">Symptom</a></li>
+<li class="toc-level-4"><a href="#possible-cause-9">Possible Cause</a></li>
+<li class="toc-level-4"><a href="#resolution-9">Resolution</a></li>
+</ul>
+</li>
+<li class="toc-level-3"><a href="#72-dbb-validation-fails">7.2 DBB Validation Fails</a>
+<ul>
+<li class="toc-level-4"><a href="#symptom-10">Symptom</a></li>
+<li class="toc-level-4"><a href="#possible-cause-10">Possible Cause</a></li>
+<li class="toc-level-4"><a href="#resolution-10">Resolution</a></li>
+</ul>
+</li>
+<li class="toc-level-3"><a href="#73-java-validation-fails">7.3 Java Validation Fails</a>
+<ul>
+<li class="toc-level-4"><a href="#symptom-11">Symptom</a></li>
+<li class="toc-level-4"><a href="#possible-cause-11">Possible Cause</a></li>
+<li class="toc-level-4"><a href="#resolution-11">Resolution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#8-getting-additional-help">8. Getting Additional Help</a></li>
+</ul>
+
+</nav>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+    /* toc-spy.js — highlights the active heading in the TOC panel on scroll */
+    (function () {
+      function init() {
+        var panel = document.querySelector('.toc-panel');
+        if (!panel) return;
+        var links = Array.prototype.slice.call(panel.querySelectorAll('a[href^="#"]'));
+        if (!links.length) return;
+
+        var headingIds = links.map(function (a) { return a.getAttribute('href').slice(1); });
+        var headings = headingIds.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+
+        function clearActive() {
+          panel.querySelectorAll('.toc-active').forEach(function (el) { el.classList.remove('toc-active'); });
+          panel.querySelectorAll('.toc-parent-active').forEach(function (el) { el.classList.remove('toc-parent-active'); });
+        }
+
+        function setActive(id) {
+          clearActive();
+          var link = panel.querySelector('a[href="#' + id + '"]');
+          if (!link) return;
+          link.classList.add('toc-active');
+          var li = link.closest('li');
+          if (li) {
+            var parentLi = li.parentElement && li.parentElement.closest('li');
+            if (parentLi) parentLi.classList.add('toc-parent-active');
+          }
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              setActive(entry.target.id);
+            }
+          });
+        }, { rootMargin: '0px 0px -70% 0px', threshold: 0 });
+
+        headings.forEach(function (h) { observer.observe(h); });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+    </script>
+    <script>
+    /* sidebar-toggle.js — persists open/closed state across navigation */
+    (function () {
+
+      var STORAGE_KEY = 'sb_open';
+
+      function getOpenSet() {
+        try {
+          var raw = sessionStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (e) { return null; }
+      }
+
+      function saveOpenSet(set) {
+        try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(set)); } catch (e) {}
+      }
+
+      function findItems(toggle) {
+        var node = toggle.nextSibling;
+        while (node) {
+          if (node.nodeType === 1 && node.classList.contains('nav-section-items'))
+            return node;
+          node = node.nextSibling;
+        }
+        return null;
+      }
+
+      function toggleKey(toggle, index) {
+        var label = (toggle.querySelector('.nav-toggle-text') || toggle).textContent.trim().replace(/\s+/g, ' ');
+        return index + ':' + label;
+      }
+
+      function openSection(toggle, items, key, set) {
+        toggle.classList.add('open');
+        items.classList.add('open');
+        if (set) set[key] = true;
+      }
+
+      function closeSection(toggle, items, key, set) {
+        toggle.classList.remove('open');
+        items.classList.remove('open');
+        if (set) set[key] = false;
+      }
+
+      function init() {
+        var sidebar = document.getElementById('wiki-sidebar');
+        var toggles = Array.prototype.slice.call(
+          document.querySelectorAll('.nav-section-toggle')
+        );
+
+        var activeIdx = -1;
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+          if (items.querySelector('.nav-link.active')) {
+            activeIdx = idx;
+          }
+        });
+
+        var savedSet = getOpenSet();
+        var openSet = savedSet || {};
+
+        if (activeIdx !== -1) {
+          openSet[toggleKey(toggles[activeIdx], activeIdx)] = true;
+        }
+
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+
+          var key = toggleKey(toggle, idx);
+          var shouldOpen = openSet[key] === true;
+
+          if (shouldOpen) {
+            toggle.classList.add('open');
+            items.classList.add('open');
+          }
+
+          toggle.addEventListener('click', function () {
+            var nowOpen = toggle.classList.contains('open');
+            if (nowOpen) {
+              closeSection(toggle, items, key, openSet);
+            } else {
+              openSection(toggle, items, key, openSet);
+            }
+            saveOpenSet(openSet);
+          });
+        });
+
+        saveOpenSet(openSet);
+
+        /* Restore sidebar scroll position after sections are expanded so the
+           scroll height is correct when we apply scrollTop. */
+        if (sidebar) {
+          try {
+            var savedScroll = sessionStorage.getItem('sb_scroll');
+            if (savedScroll !== null) { sidebar.scrollTop = parseInt(savedScroll, 10) || 0; }
+          } catch (_e) {}
+        }
+
+        window.addEventListener('pagehide', function () {
+          saveOpenSet(openSet);
+          if (sidebar) {
+            try { sessionStorage.setItem('sb_scroll', String(sidebar.scrollTop)); } catch (_e) {}
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+
+    })();
+    </script>
+    <script>
+    /* nav-tracking.js — only stamps sessionStorage when clicking a source-file link
+       that lives inside the "Source Files" disclosure section, not from sidebar or cards. */
+    (function () {
+      document.addEventListener('click', function (e) {
+        var link = e.target.closest('a[href]');
+        if (!link) return;
+        var href = link.getAttribute('href');
+        if (!href || href.indexOf('sources/') === -1) return;
+        /* Only set referrer when the click originates from inside the Source Files
+           disclosure (.source-files-disclosure). Any other path — sidebar, cards,
+           direct navigation — must not set a referrer. */
+        if (!link.closest('.source-files-disclosure')) return;
+        try {
+          sessionStorage.setItem('wiki_referrer', JSON.stringify({
+            href: location.href,
+            title: document.title,
+            file: location.pathname.split('/').pop()
+          }));
+        } catch (_e) {}
+      });
+    })();
+    </script>
+    <footer class="wiki-footer">Made by IBM Bob Premium Package for Z</footer>
+</body>
+</html>

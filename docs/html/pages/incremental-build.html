@@ -1,0 +1,830 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial: Incremental Build - Bank of Z – IBM Z Modern Development Reference</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/mermaid.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: { useMaxWidth: true }
+        });
+    </script>
+
+    <!-- Prism.js for syntax highlighting (bundled — no CDN required) -->
+    <link rel="stylesheet" href="../assets/prism-tomorrow.css">
+    <script src="../assets/prism-core.js"></script>
+    <script src="../assets/prism-languages.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <span class="header-app-name"><a href="../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – IBM Z Modern Development Reference</a></span>
+        </div>
+        <div class="header-right">
+        </div>
+    </header>
+    <div class="shell">
+        <aside class="sidebar" id="wiki-sidebar">
+            <nav>
+                
+        <div class="nav-home-wrap">
+            <a href="../../index.html" class="nav-home">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                Home
+            </a>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Application Documentation</div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">About Bank of Z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="about-overview.html" class="nav-link" data-page-id="about-overview">Project Overview</a>
+                <a href="architecture-overview.html" class="nav-link" data-page-id="architecture-overview">Architecture Overview</a>
+                <a href="key-capabilities.html" class="nav-link" data-page-id="key-capabilities">Key Capabilities</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Architecture</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="application-components.html" class="nav-link" data-page-id="application-components">Application Components</a>
+                <a href="application-flow.html" class="nav-link" data-page-id="application-flow">Application Flow</a>
+                <a href="build-and-deployment-arch.html" class="nav-link" data-page-id="build-and-deployment-arch">Build &amp; Deployment Architecture</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Installation &amp; Setup</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="prerequisites-env.html" class="nav-link" data-page-id="prerequisites-env">Prerequisites &amp; Environment Configuration</a>
+                <a href="deploying-options.html" class="nav-link" data-page-id="deploying-options">Deployment Options</a>
+                <a href="local-tools-setup.html" class="nav-link" data-page-id="local-tools-setup">Local Tools Setup</a>
+                <a href="zowe-cli-setup.html" class="nav-link" data-page-id="zowe-cli-setup">Zowe CLI &amp; Profile Setup</a>
+                <a href="verification.html" class="nav-link" data-page-id="verification">Installation Verification</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Development Workflows</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="workflow-overview.html" class="nav-link" data-page-id="workflow-overview">Development Workflow Overview</a>
+                <a href="zowe-cli-workflow.html" class="nav-link" data-page-id="zowe-cli-workflow">Zowe CLI Workflow</a>
+                <a href="grub-workflow.html" class="nav-link" data-page-id="grub-workflow">Grub Workflow</a>
+                <a href="development-best-practices.html" class="nav-link" data-page-id="development-best-practices">Development Best Practices</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle open" type="button">
+                <span class="nav-toggle-text">Tutorials</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items open">
+                <a href="deploy-bank-of-z.html" class="nav-link" data-page-id="deploy-bank-of-z">Tutorial: Deploy Bank of Z</a>
+                <a href="cics-enhancement.html" class="nav-link" data-page-id="cics-enhancement">Tutorial: CICS Enhancement Scenario</a>
+                <a href="incremental-build.html" class="nav-link active" data-page-id="incremental-build">Tutorial: Incremental Build</a>
+                <a href="debug-cics-transaction.html" class="nav-link" data-page-id="debug-cics-transaction">Tutorial: Debug a CICS Transaction</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Reference</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="commands-reference.html" class="nav-link" data-page-id="commands-reference">Commands Reference</a>
+                <a href="configuration-reference.html" class="nav-link" data-page-id="configuration-reference">Configuration Reference</a>
+                <a href="glossary.html" class="nav-link" data-page-id="glossary">Glossary</a>
+                <a href="repository-structure.html" class="nav-link" data-page-id="repository-structure">Repository Structure</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Troubleshooting</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="troubleshooting-overview.html" class="nav-link" data-page-id="troubleshooting-overview">Troubleshooting Overview</a>
+                <a href="fix-abend-cino.html" class="nav-link" data-page-id="fix-abend-cino">Fix: OMEN ABEND CINO</a>
+                <a href="program-internals.html" class="nav-link" data-page-id="program-internals">Program Internals: CRDTAGY2 Credit Agency Simulator</a>
+            </div>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Program Documentation</div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">docs</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">about-bank-of-z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">program</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">src</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+            <div class="nav-section">
+                <button class="nav-section-toggle" type="button">
+                    <span class="nav-toggle-text">base</span>
+                    <span class="nav-section-chevron">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="nav-section-items">
+                <div class="nav-section">
+                    <button class="nav-section-toggle" type="button">
+                        <span class="nav-toggle-text">cics</span>
+                        <span class="nav-section-chevron">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="nav-section-items">
+                    <div class="nav-section">
+                        <button class="nav-section-toggle" type="button">
+                            <span class="nav-toggle-text">cobol</span>
+                            <span class="nav-section-chevron">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="nav-section-items">
+                            <a href="../sources/program/src/base/cics/cobol/CRDTAGY2.html" class="nav-link">CRDTAGY2</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+            </nav>
+        </aside>
+        <main class="main">
+            <div class="page-container">
+                <div class="content-layout">
+                    <div class="prose">
+                        
+                        <h1 id="tutorial-incremental-build" tabindex="-1">Tutorial: Incremental Build</h1>
+<p>This tutorial explains how to perform an incremental build for Bank of Z by changing a COBOL source file, moving that change through Git into the z/OS USS workspace, and running the remote pipeline so that only the affected component is detected, rebuilt, and verified.</p>
+<h2 id="1-overview" tabindex="-1">1. Overview</h2>
+<p>An incremental build in Bank of Z shortens build time by avoiding a full application rebuild. Instead of recompiling and redeploying everything, the workflow identifies what changed and rebuilds only the impacted application component.</p>
+<p>In this tutorial, you update a COBOL program, push the change to your Git branch, pull the update into the z/OS USS environment, and run the incremental build workflow with <code>pipeline-remote.sh</code>. You then verify that the changed program is detected and included in the build output.</p>
+<h3 id="11-goals" tabindex="-1">1.1 Goals</h3>
+<p>By completing this tutorial, you will learn how to:</p>
+<ul>
+<li>Modify a COBOL program in Bank of Z</li>
+<li>Commit and push the change to a Git branch</li>
+<li>Pull the latest changes into z/OS USS</li>
+<li>Run an incremental build using <code>pipeline-remote.sh</code></li>
+<li>Verify that the changed COBOL source is detected</li>
+<li>Confirm that the affected program is compiled</li>
+<li>Optionally validate the updated behavior in CICS</li>
+</ul>
+<h3 id="12-prerequisites" tabindex="-1">1.2 Prerequisites</h3>
+<p>Before starting, ensure that you have:</p>
+<ul>
+<li>Completed the Bank of Z deployment tutorial</li>
+<li>Successfully built and deployed Bank of Z</li>
+<li>A working Bank of Z development environment</li>
+<li>Access to the Bank of Z Git repository</li>
+<li>Access to the z/OS USS environment</li>
+</ul>
+<h3 id="13-expected-outcome" tabindex="-1">1.3 Expected Outcome</h3>
+<p>After completing this tutorial, you will have made a COBOL change and verified that the Bank of Z incremental build workflow rebuilds the affected application component rather than requiring a complete full build.</p>
+<h2 id="2-system-architecture" tabindex="-1">2. System Architecture</h2>
+<p>The incremental build flow spans a local development environment, source control, the z/OS USS working copy, and the Bank of Z build pipeline. The key idea is that a source change originates in Git, is synchronized into USS, and is then analyzed by the build tooling so only changed components are rebuilt.</p>
+<div class="mermaid">
+graph TD
+    A[Developer Workstation] --> B[Git Branch]
+    B --> C[z/OS USS Working Copy]
+    C --> D[pipeline-remote.sh]
+    D --> E[Incremental Build Process]
+    E --> F[DBB Change Detection]
+    F --> G[Compile Changed COBOL Program]
+    G --> H[Updated Bank of Z Component]
+    H --> I[Optional CICS Validation]
+</div>
+<p>In this architecture:</p>
+<ul>
+<li>The <strong>developer workstation</strong> is where the COBOL source update is made.</li>
+<li>The <strong>Git branch</strong> stores the committed change.</li>
+<li>The <strong>z/OS USS working copy</strong> receives the latest source through Git pull.</li>
+<li><strong><code>pipeline-remote.sh</code></strong> starts the remote build workflow.</li>
+<li><strong>DBB change detection</strong> identifies the modified source member.</li>
+<li>Only the <strong>changed COBOL program</strong> is rebuilt.</li>
+<li>The updated component can then be <strong>optionally validated in CICS</strong>.</li>
+</ul>
+<h3 id="21-main-components" tabindex="-1">2.1 Main Components</h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>COBOL source file</td>
+<td>Contains the application logic being changed</td>
+</tr>
+<tr>
+<td>Git branch</td>
+<td>Tracks and transports the source change</td>
+</tr>
+<tr>
+<td>z/OS USS workspace</td>
+<td>Hosts the source used by the remote build</td>
+</tr>
+<tr>
+<td><code>pipeline-remote.sh</code></td>
+<td>Starts the build execution on the remote environment</td>
+</tr>
+<tr>
+<td>DBB</td>
+<td>Detects changed files and drives incremental compilation</td>
+</tr>
+<tr>
+<td>CICS</td>
+<td>Optional runtime environment for validating behavior</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22-incremental-build-relationships" tabindex="-1">2.2 Incremental Build Relationships</h3>
+<div class="mermaid">
+graph TD
+    A[Changed COBOL Source: BNKMENU.cbl] --> B[Git Commit]
+    B --> C[Git Push]
+    C --> D[USS Git Pull]
+    D --> E[Remote Pipeline Execution]
+    E --> F[DBB Detects Changed File]
+    F --> G[BNKMENU Included in Build]
+    G --> H[Updated Runtime Behavior]
+</div>
+<p>This relationship diagram shows that the incremental build is fundamentally driven by source change propagation. The changed file is the trigger for the downstream compile and verification steps.</p>
+<h2 id="3-tutorial-flow" tabindex="-1">3. Tutorial Flow</h2>
+<p>This tutorial is divided into two main parts:</p>
+<ol>
+<li>Make and push a COBOL change</li>
+<li>Run and verify the incremental build</li>
+</ol>
+<p>The example change updates the <code>BNKMENU.cbl</code> COBOL program by modifying the invalid-key message. That change is then committed, pushed, pulled into USS, and processed by the incremental build workflow.</p>
+<h2 id="4-part-1-make-and-push-the-cobol-change" tabindex="-1">4. Part 1: Make and Push the COBOL Change</h2>
+<p>The first phase focuses on creating a source-level change that the incremental build process can detect.</p>
+<h3 id="41-update-the-cobol-program" tabindex="-1">4.1 Update the COBOL Program</h3>
+<p>In the demonstration, the file being changed is:</p>
+<ul>
+<li><code>BNKMENU.cbl</code></li>
+</ul>
+<p>The tutorial specifically updates the invalid-key message in this program. The exact business change can vary, but the key requirement is that a real source modification is made so the incremental build process has a changed component to detect.</p>
+<p>Example file reference:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">TEXT</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-text">BNKMENU.cbl</code></pre>
+</div>
+<h3 id="42-confirm-the-correct-git-branch" tabindex="-1">4.2 Confirm the Correct Git Branch</h3>
+<p>Before committing, verify that you are working on the intended branch. This is important because the same branch will later be pulled in the z/OS USS environment.</p>
+<p>Example:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">git branch</code></pre>
+</div>
+<h3 id="43-commit-the-source-change" tabindex="-1">4.3 Commit the Source Change</h3>
+<p>Once the COBOL change is saved, commit it to your current branch.</p>
+<p>Example:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">git add .
+git commit -m &quot;Update BNKMENU invalid-key message&quot;</code></pre>
+</div>
+<h3 id="44-push-the-change-to-the-remote-repository" tabindex="-1">4.4 Push the Change to the Remote Repository</h3>
+<p>Push the committed change so that the z/OS USS environment can retrieve it.</p>
+<p>Example:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">git push</code></pre>
+</div>
+<h3 id="45-change-flow-from-development-to-repository" tabindex="-1">4.5 Change Flow from Development to Repository</h3>
+<div class="mermaid">
+sequenceDiagram
+    participant Dev as Developer
+    participant Local as Local Workspace
+    participant Git as Remote Git Repository
+
+    Dev->>Local: Update BNKMENU.cbl
+    Dev->>Local: Review branch
+    Local->>Git: Commit and push changes
+    Git-->>Local: Change stored on branch
+</div>
+<p>This sequence highlights that the incremental build starts with disciplined source control usage. If the change is not committed and pushed, the remote USS environment will not be able to consume it.</p>
+<h2 id="5-part-2-run-and-verify-the-incremental-build" tabindex="-1">5. Part 2: Run and Verify the Incremental Build</h2>
+<p>After the source change is available in the repository, move to the z/OS environment and run the remote incremental build.</p>
+<h3 id="51-connect-to-the-zos-environment" tabindex="-1">5.1 Connect to the z/OS Environment</h3>
+<p>Log in to the z/OS USS environment where the Bank of Z source tree and build scripts are available.</p>
+<h3 id="52-confirm-the-correct-git-branch-in-uss" tabindex="-1">5.2 Confirm the Correct Git Branch in USS</h3>
+<p>Ensure the USS working copy is on the same branch where the COBOL change was pushed.</p>
+<p>Example:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">git branch</code></pre>
+</div>
+<h3 id="53-pull-the-latest-source-changes" tabindex="-1">5.3 Pull the Latest Source Changes</h3>
+<p>Pull the latest changes into the USS workspace.</p>
+<p>Example:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">git pull</code></pre>
+</div>
+<p>This step synchronizes the USS build environment with the latest application source from Git.</p>
+<h3 id="54-run-the-remote-incremental-build" tabindex="-1">5.4 Run the Remote Incremental Build</h3>
+<p>Execute the Bank of Z remote pipeline script:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">./pipeline-remote.sh</code></pre>
+</div>
+<p>This script launches the build workflow in the remote environment. In the tutorial, the build is expected to run incrementally so that only the changed component is selected for rebuild.</p>
+<h3 id="55-verify-dbb-change-detection" tabindex="-1">5.5 Verify DBB Change Detection</h3>
+<p>After the pipeline runs, review the output to confirm that DBB reports the changed COBOL source file.</p>
+<p>The expected verification point is that the modified file, <code>BNKMENU.cbl</code>, is recognized as changed.</p>
+<p>Example verification target:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">TEXT</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-text">BNKMENU.cbl</code></pre>
+</div>
+<h3 id="56-confirm-the-program-is-included-in-the-build" tabindex="-1">5.6 Confirm the Program Is Included in the Build</h3>
+<p>Next, verify that <code>BNKMENU</code> appears in the compiled or built program list. This confirms that the incremental build did not just detect the file, but also processed it as part of the build.</p>
+<p>Example verification target:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">TEXT</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-text">BNKMENU</code></pre>
+</div>
+<h3 id="57-optionally-validate-the-updated-behavior-in-cics" tabindex="-1">5.7 Optionally Validate the Updated Behavior in CICS</h3>
+<p>If your environment supports runtime testing, validate that the updated invalid-key message appears in CICS. This step is optional, but it provides end-to-end confirmation that the source change was built and made available to the runtime environment.</p>
+<h2 id="6-end-to-end-build-process" tabindex="-1">6. End-to-End Build Process</h2>
+<p>The full process combines source update, source control synchronization, remote build execution, and runtime verification.</p>
+<div class="mermaid">
+sequenceDiagram
+    participant Dev as Developer
+    participant Git as Git Repository
+    participant USS as z/OS USS
+    participant Pipe as pipeline-remote.sh
+    participant DBB as DBB
+    participant CICS as CICS
+
+    Dev->>Git: Push BNKMENU.cbl change
+    USS->>Git: Pull latest branch changes
+    USS->>Pipe: Run pipeline-remote.sh
+    Pipe->>DBB: Start incremental build analysis
+    DBB-->>Pipe: Detect changed COBOL source
+    Pipe-->>USS: Build BNKMENU
+    USS->>CICS: Optional behavior validation
+    CICS-->>Dev: Updated message observed
+</div>
+<p>This sequence shows the operational path of a single change through the Bank of Z delivery workflow. The most important optimization is the DBB-driven identification of changed source, which prevents unnecessary rebuild of unchanged components.</p>
+<h2 id="7-verification-checklist" tabindex="-1">7. Verification Checklist</h2>
+<p>Use the following checklist to confirm the tutorial completed successfully:</p>
+<ul>
+<li><code>BNKMENU.cbl</code> was updated</li>
+<li>The change was committed to the correct branch</li>
+<li>The branch was pushed to the remote repository</li>
+<li>The same branch was checked in z/OS USS</li>
+<li>The latest changes were pulled in USS</li>
+<li><code>pipeline-remote.sh</code> was executed</li>
+<li>DBB reported the changed COBOL file</li>
+<li><code>BNKMENU</code> was included in the build</li>
+<li>The updated behavior was optionally verified in CICS</li>
+</ul>
+<h2 id="8-code-examples" tabindex="-1">8. Code Examples</h2>
+<p>The tutorial references a small set of core commands that support the incremental workflow.</p>
+<h3 id="81-git-branch-verification" tabindex="-1">8.1 Git Branch Verification</h3>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">git branch</code></pre>
+</div>
+<h3 id="82-commit-the-cobol-change" tabindex="-1">8.2 Commit the COBOL Change</h3>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">git add .
+git commit -m &quot;Update BNKMENU invalid-key message&quot;</code></pre>
+</div>
+<h3 id="83-push-the-change" tabindex="-1">8.3 Push the Change</h3>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">git push</code></pre>
+</div>
+<h3 id="84-pull-changes-in-zos-uss" tabindex="-1">8.4 Pull Changes in z/OS USS</h3>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">git pull</code></pre>
+</div>
+<h3 id="85-run-the-incremental-build-pipeline" tabindex="-1">8.5 Run the Incremental Build Pipeline</h3>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">./pipeline-remote.sh</code></pre>
+</div>
+<h2 id="9-what-this-tutorial-demonstrates" tabindex="-1">9. What This Tutorial Demonstrates</h2>
+<p>This tutorial demonstrates the Bank of Z incremental build workflow at the application level:</p>
+<ul>
+<li>A COBOL source file is changed</li>
+<li>The change is transferred through Git</li>
+<li>The USS source tree is updated</li>
+<li>The build pipeline is run remotely</li>
+<li>DBB identifies the changed file</li>
+<li>The affected program is rebuilt</li>
+<li>The resulting behavior can be validated in CICS</li>
+</ul>
+<p>This workflow reduces build time by focusing effort on changed components instead of rebuilding the entire application.</p>
+<h2 id="10-conclusion" tabindex="-1">10. Conclusion</h2>
+<p>The Bank of Z incremental build process provides a practical way to shorten build cycles and validate source changes efficiently. By updating a COBOL program such as <code>BNKMENU.cbl</code>, pushing that change through Git, synchronizing it in z/OS USS, and executing <code>pipeline-remote.sh</code>, you can confirm that the build system detects and rebuilds only the affected component.</p>
+<p>That makes incremental build an effective development workflow for faster feedback, targeted compilation, and simpler verification of application changes.</p>
+
+                        <div class="related-pages">
+                            <p class="related-pages-title">Related Pages</p>
+                            <div class="card-grid">
+                                
+            <a href="deploy-bank-of-z.html" class="card">
+                <span class="card-title">Tutorial: Deploy Bank of Z</span>
+                <span class="card-description">Hands-on tutorial guiding users through a complete end-to-end deployment of Bank of Z, from environment preparation to running the first banking transaction.</span>
+            </a>
+            <a href="development-best-practices.html" class="card">
+                <span class="card-title">Development Best Practices</span>
+                <span class="card-description">Recommended best practices for developing, testing, and maintaining Bank of Z code on IBM Z, covering branching strategies, code quality, and collaboration guidelines.</span>
+            </a>
+            <a href="build-and-deployment-arch.html" class="card">
+                <span class="card-title">Build &amp; Deployment Architecture</span>
+                <span class="card-description">Architectural view of the build pipeline and deployment topology for Bank of Z, including CI/CD integration points, artifact management, and deployment targets on IBM Z.</span>
+            </a>
+                            </div>
+                        </div>
+                    </div>
+                    <nav class="toc-panel" aria-label="On this page">
+  <span class="toc-panel-label">On this page</span>
+  <ul class="toc-list">
+<li class="toc-level-2"><a href="#1-overview">1. Overview</a>
+<ul>
+<li class="toc-level-3"><a href="#11-goals">1.1 Goals</a></li>
+<li class="toc-level-3"><a href="#12-prerequisites">1.2 Prerequisites</a></li>
+<li class="toc-level-3"><a href="#13-expected-outcome">1.3 Expected Outcome</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#2-system-architecture">2. System Architecture</a>
+<ul>
+<li class="toc-level-3"><a href="#21-main-components">2.1 Main Components</a></li>
+<li class="toc-level-3"><a href="#22-incremental-build-relationships">2.2 Incremental Build Relationships</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#3-tutorial-flow">3. Tutorial Flow</a></li>
+<li class="toc-level-2"><a href="#4-part-1-make-and-push-the-cobol-change">4. Part 1: Make and Push the COBOL Change</a>
+<ul>
+<li class="toc-level-3"><a href="#41-update-the-cobol-program">4.1 Update the COBOL Program</a></li>
+<li class="toc-level-3"><a href="#42-confirm-the-correct-git-branch">4.2 Confirm the Correct Git Branch</a></li>
+<li class="toc-level-3"><a href="#43-commit-the-source-change">4.3 Commit the Source Change</a></li>
+<li class="toc-level-3"><a href="#44-push-the-change-to-the-remote-repository">4.4 Push the Change to the Remote Repository</a></li>
+<li class="toc-level-3"><a href="#45-change-flow-from-development-to-repository">4.5 Change Flow from Development to Repository</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#5-part-2-run-and-verify-the-incremental-build">5. Part 2: Run and Verify the Incremental Build</a>
+<ul>
+<li class="toc-level-3"><a href="#51-connect-to-the-zos-environment">5.1 Connect to the z/OS Environment</a></li>
+<li class="toc-level-3"><a href="#52-confirm-the-correct-git-branch-in-uss">5.2 Confirm the Correct Git Branch in USS</a></li>
+<li class="toc-level-3"><a href="#53-pull-the-latest-source-changes">5.3 Pull the Latest Source Changes</a></li>
+<li class="toc-level-3"><a href="#54-run-the-remote-incremental-build">5.4 Run the Remote Incremental Build</a></li>
+<li class="toc-level-3"><a href="#55-verify-dbb-change-detection">5.5 Verify DBB Change Detection</a></li>
+<li class="toc-level-3"><a href="#56-confirm-the-program-is-included-in-the-build">5.6 Confirm the Program Is Included in the Build</a></li>
+<li class="toc-level-3"><a href="#57-optionally-validate-the-updated-behavior-in-cics">5.7 Optionally Validate the Updated Behavior in CICS</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#6-end-to-end-build-process">6. End-to-End Build Process</a></li>
+<li class="toc-level-2"><a href="#7-verification-checklist">7. Verification Checklist</a></li>
+<li class="toc-level-2"><a href="#8-code-examples">8. Code Examples</a>
+<ul>
+<li class="toc-level-3"><a href="#81-git-branch-verification">8.1 Git Branch Verification</a></li>
+<li class="toc-level-3"><a href="#82-commit-the-cobol-change">8.2 Commit the COBOL Change</a></li>
+<li class="toc-level-3"><a href="#83-push-the-change">8.3 Push the Change</a></li>
+<li class="toc-level-3"><a href="#84-pull-changes-in-zos-uss">8.4 Pull Changes in z/OS USS</a></li>
+<li class="toc-level-3"><a href="#85-run-the-incremental-build-pipeline">8.5 Run the Incremental Build Pipeline</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#9-what-this-tutorial-demonstrates">9. What This Tutorial Demonstrates</a></li>
+<li class="toc-level-2"><a href="#10-conclusion">10. Conclusion</a></li>
+</ul>
+
+</nav>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+    /* toc-spy.js — highlights the active heading in the TOC panel on scroll */
+    (function () {
+      function init() {
+        var panel = document.querySelector('.toc-panel');
+        if (!panel) return;
+        var links = Array.prototype.slice.call(panel.querySelectorAll('a[href^="#"]'));
+        if (!links.length) return;
+
+        var headingIds = links.map(function (a) { return a.getAttribute('href').slice(1); });
+        var headings = headingIds.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+
+        function clearActive() {
+          panel.querySelectorAll('.toc-active').forEach(function (el) { el.classList.remove('toc-active'); });
+          panel.querySelectorAll('.toc-parent-active').forEach(function (el) { el.classList.remove('toc-parent-active'); });
+        }
+
+        function setActive(id) {
+          clearActive();
+          var link = panel.querySelector('a[href="#' + id + '"]');
+          if (!link) return;
+          link.classList.add('toc-active');
+          var li = link.closest('li');
+          if (li) {
+            var parentLi = li.parentElement && li.parentElement.closest('li');
+            if (parentLi) parentLi.classList.add('toc-parent-active');
+          }
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              setActive(entry.target.id);
+            }
+          });
+        }, { rootMargin: '0px 0px -70% 0px', threshold: 0 });
+
+        headings.forEach(function (h) { observer.observe(h); });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+    </script>
+    <script>
+    /* sidebar-toggle.js — persists open/closed state across navigation */
+    (function () {
+
+      var STORAGE_KEY = 'sb_open';
+
+      function getOpenSet() {
+        try {
+          var raw = sessionStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (e) { return null; }
+      }
+
+      function saveOpenSet(set) {
+        try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(set)); } catch (e) {}
+      }
+
+      function findItems(toggle) {
+        var node = toggle.nextSibling;
+        while (node) {
+          if (node.nodeType === 1 && node.classList.contains('nav-section-items'))
+            return node;
+          node = node.nextSibling;
+        }
+        return null;
+      }
+
+      function toggleKey(toggle, index) {
+        var label = (toggle.querySelector('.nav-toggle-text') || toggle).textContent.trim().replace(/\s+/g, ' ');
+        return index + ':' + label;
+      }
+
+      function openSection(toggle, items, key, set) {
+        toggle.classList.add('open');
+        items.classList.add('open');
+        if (set) set[key] = true;
+      }
+
+      function closeSection(toggle, items, key, set) {
+        toggle.classList.remove('open');
+        items.classList.remove('open');
+        if (set) set[key] = false;
+      }
+
+      function init() {
+        var sidebar = document.getElementById('wiki-sidebar');
+        var toggles = Array.prototype.slice.call(
+          document.querySelectorAll('.nav-section-toggle')
+        );
+
+        var activeIdx = -1;
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+          if (items.querySelector('.nav-link.active')) {
+            activeIdx = idx;
+          }
+        });
+
+        var savedSet = getOpenSet();
+        var openSet = savedSet || {};
+
+        if (activeIdx !== -1) {
+          openSet[toggleKey(toggles[activeIdx], activeIdx)] = true;
+        }
+
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+
+          var key = toggleKey(toggle, idx);
+          var shouldOpen = openSet[key] === true;
+
+          if (shouldOpen) {
+            toggle.classList.add('open');
+            items.classList.add('open');
+          }
+
+          toggle.addEventListener('click', function () {
+            var nowOpen = toggle.classList.contains('open');
+            if (nowOpen) {
+              closeSection(toggle, items, key, openSet);
+            } else {
+              openSection(toggle, items, key, openSet);
+            }
+            saveOpenSet(openSet);
+          });
+        });
+
+        saveOpenSet(openSet);
+
+        /* Restore sidebar scroll position after sections are expanded so the
+           scroll height is correct when we apply scrollTop. */
+        if (sidebar) {
+          try {
+            var savedScroll = sessionStorage.getItem('sb_scroll');
+            if (savedScroll !== null) { sidebar.scrollTop = parseInt(savedScroll, 10) || 0; }
+          } catch (_e) {}
+        }
+
+        window.addEventListener('pagehide', function () {
+          saveOpenSet(openSet);
+          if (sidebar) {
+            try { sessionStorage.setItem('sb_scroll', String(sidebar.scrollTop)); } catch (_e) {}
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+
+    })();
+    </script>
+    <script>
+    /* nav-tracking.js — only stamps sessionStorage when clicking a source-file link
+       that lives inside the "Source Files" disclosure section, not from sidebar or cards. */
+    (function () {
+      document.addEventListener('click', function (e) {
+        var link = e.target.closest('a[href]');
+        if (!link) return;
+        var href = link.getAttribute('href');
+        if (!href || href.indexOf('sources/') === -1) return;
+        /* Only set referrer when the click originates from inside the Source Files
+           disclosure (.source-files-disclosure). Any other path — sidebar, cards,
+           direct navigation — must not set a referrer. */
+        if (!link.closest('.source-files-disclosure')) return;
+        try {
+          sessionStorage.setItem('wiki_referrer', JSON.stringify({
+            href: location.href,
+            title: document.title,
+            file: location.pathname.split('/').pop()
+          }));
+        } catch (_e) {}
+      });
+    })();
+    </script>
+    <footer class="wiki-footer">Made by IBM Bob Premium Package for Z</footer>
+</body>
+</html>

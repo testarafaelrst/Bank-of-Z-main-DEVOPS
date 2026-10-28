@@ -1,0 +1,1088 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commands Reference - Bank of Z – IBM Z Modern Development Reference</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/mermaid.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: { useMaxWidth: true }
+        });
+    </script>
+
+    <!-- Prism.js for syntax highlighting (bundled — no CDN required) -->
+    <link rel="stylesheet" href="../assets/prism-tomorrow.css">
+    <script src="../assets/prism-core.js"></script>
+    <script src="../assets/prism-languages.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <span class="header-app-name"><a href="../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – IBM Z Modern Development Reference</a></span>
+        </div>
+        <div class="header-right">
+        </div>
+    </header>
+    <div class="shell">
+        <aside class="sidebar" id="wiki-sidebar">
+            <nav>
+                
+        <div class="nav-home-wrap">
+            <a href="../../index.html" class="nav-home">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                Home
+            </a>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Application Documentation</div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">About Bank of Z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="about-overview.html" class="nav-link" data-page-id="about-overview">Project Overview</a>
+                <a href="architecture-overview.html" class="nav-link" data-page-id="architecture-overview">Architecture Overview</a>
+                <a href="key-capabilities.html" class="nav-link" data-page-id="key-capabilities">Key Capabilities</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Architecture</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="application-components.html" class="nav-link" data-page-id="application-components">Application Components</a>
+                <a href="application-flow.html" class="nav-link" data-page-id="application-flow">Application Flow</a>
+                <a href="build-and-deployment-arch.html" class="nav-link" data-page-id="build-and-deployment-arch">Build &amp; Deployment Architecture</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Installation &amp; Setup</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="prerequisites-env.html" class="nav-link" data-page-id="prerequisites-env">Prerequisites &amp; Environment Configuration</a>
+                <a href="deploying-options.html" class="nav-link" data-page-id="deploying-options">Deployment Options</a>
+                <a href="local-tools-setup.html" class="nav-link" data-page-id="local-tools-setup">Local Tools Setup</a>
+                <a href="zowe-cli-setup.html" class="nav-link" data-page-id="zowe-cli-setup">Zowe CLI &amp; Profile Setup</a>
+                <a href="verification.html" class="nav-link" data-page-id="verification">Installation Verification</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Development Workflows</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="workflow-overview.html" class="nav-link" data-page-id="workflow-overview">Development Workflow Overview</a>
+                <a href="zowe-cli-workflow.html" class="nav-link" data-page-id="zowe-cli-workflow">Zowe CLI Workflow</a>
+                <a href="grub-workflow.html" class="nav-link" data-page-id="grub-workflow">Grub Workflow</a>
+                <a href="development-best-practices.html" class="nav-link" data-page-id="development-best-practices">Development Best Practices</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Tutorials</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="deploy-bank-of-z.html" class="nav-link" data-page-id="deploy-bank-of-z">Tutorial: Deploy Bank of Z</a>
+                <a href="cics-enhancement.html" class="nav-link" data-page-id="cics-enhancement">Tutorial: CICS Enhancement Scenario</a>
+                <a href="incremental-build.html" class="nav-link" data-page-id="incremental-build">Tutorial: Incremental Build</a>
+                <a href="debug-cics-transaction.html" class="nav-link" data-page-id="debug-cics-transaction">Tutorial: Debug a CICS Transaction</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle open" type="button">
+                <span class="nav-toggle-text">Reference</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items open">
+                <a href="commands-reference.html" class="nav-link active" data-page-id="commands-reference">Commands Reference</a>
+                <a href="configuration-reference.html" class="nav-link" data-page-id="configuration-reference">Configuration Reference</a>
+                <a href="glossary.html" class="nav-link" data-page-id="glossary">Glossary</a>
+                <a href="repository-structure.html" class="nav-link" data-page-id="repository-structure">Repository Structure</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Troubleshooting</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="troubleshooting-overview.html" class="nav-link" data-page-id="troubleshooting-overview">Troubleshooting Overview</a>
+                <a href="fix-abend-cino.html" class="nav-link" data-page-id="fix-abend-cino">Fix: OMEN ABEND CINO</a>
+                <a href="program-internals.html" class="nav-link" data-page-id="program-internals">Program Internals: CRDTAGY2 Credit Agency Simulator</a>
+            </div>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Program Documentation</div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">docs</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">about-bank-of-z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">program</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">src</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+            <div class="nav-section">
+                <button class="nav-section-toggle" type="button">
+                    <span class="nav-toggle-text">base</span>
+                    <span class="nav-section-chevron">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="nav-section-items">
+                <div class="nav-section">
+                    <button class="nav-section-toggle" type="button">
+                        <span class="nav-toggle-text">cics</span>
+                        <span class="nav-section-chevron">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="nav-section-items">
+                    <div class="nav-section">
+                        <button class="nav-section-toggle" type="button">
+                            <span class="nav-toggle-text">cobol</span>
+                            <span class="nav-section-chevron">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="nav-section-items">
+                            <a href="../sources/program/src/base/cics/cobol/CRDTAGY2.html" class="nav-link">CRDTAGY2</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+            </nav>
+        </aside>
+        <main class="main">
+            <div class="page-container">
+                <div class="content-layout">
+                    <div class="prose">
+                        
+                        <h1 id="commands-reference" tabindex="-1">Commands Reference</h1>
+<p>A comprehensive reference of all CLI commands, scripts, and automation utilities available in Bank of Z. This document covers the syntax, options, and usage examples for every command used when setting up, configuring, developing, and automating the Bank of Z application on z/OS.</p>
+<p>Whether you are a new developer onboarding to the project or an experienced mainframe engineer, this reference provides a single point of truth for all command-line interactions across the Bank of Z ecosystem — from local workstation tooling to z/OS USS environment verification and CI/CD automation scripts.</p>
+<hr>
+<h2 id="1-system-architecture" tabindex="-1">1. System Architecture</h2>
+<p>The Bank of Z command and automation landscape spans multiple layers: the developer’s local workstation, the Zowe CLI middleware layer, and the z/OS USS remote environment. Understanding how these layers interact is essential for effective use of the commands documented below.</p>
+<div class="mermaid">
+graph TD
+    subgraph Local Workstation
+        A[Developer Machine]
+        B[VS Code / IDE]
+        C[Git CLI]
+        D[Node.js / npm]
+        E[Java Runtime]
+        F[Zowe CLI]
+    end
+
+    subgraph Middleware
+        G[z/OSMF]
+        H[RSE API Plugin]
+    end
+
+    subgraph "z/OS USS Environment"
+        I[USS Shell]
+        J[DBB - Dependency Based Build]
+        K[Java on z/OS]
+        L[Git on USS]
+    end
+
+    B --> F
+    F --> H
+    H --> G
+    G --> I
+    A --> C
+    C -->|push/pull| L
+    I --> J
+    I --> K
+    I --> L
+</div>
+<p><strong>How the layers connect:</strong></p>
+<ul>
+<li>The <strong>local workstation</strong> hosts the developer’s IDE (VS Code), Git client, Node.js/npm, Java, and Zowe CLI.</li>
+<li><strong>Zowe CLI</strong> communicates with z/OS through <strong>z/OSMF</strong> and the <strong>RSE API Plugin</strong>, bridging the gap between local development and the mainframe.</li>
+<li>On the <strong>z/OS USS environment</strong>, build and deployment activities are executed using DBB, Java, and Git, orchestrated by automation workflow scripts.</li>
+</ul>
+<hr>
+<h2 id="2-overview-of-command-categories" tabindex="-1">2. Overview of Command Categories</h2>
+<p>All commands in Bank of Z fall into one of the following categories:</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Purpose</th>
+<th>Environment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zowe CLI Commands</td>
+<td>Connect to and interact with z/OS systems</td>
+<td>Local Workstation</td>
+</tr>
+<tr>
+<td>Git Commands</td>
+<td>Manage source code and collaboration</td>
+<td>Local / USS</td>
+</tr>
+<tr>
+<td>Setup Verification Commands</td>
+<td>Confirm required toolchain is installed</td>
+<td>Local Workstation</td>
+</tr>
+<tr>
+<td>USS Verification Commands</td>
+<td>Validate z/OS Unix System Services environment</td>
+<td>z/OS USS</td>
+</tr>
+<tr>
+<td>Workflow Scripts</td>
+<td>Automate setup, build, and deployment</td>
+<td>Local / USS</td>
+</tr>
+<tr>
+<td>Documentation Scripts</td>
+<td>Manage and convert project documentation</td>
+<td>Local Workstation</td>
+</tr>
+</tbody>
+</table>
+<div class="mermaid">
+graph LR
+    subgraph "Command Categories"
+        Z[Zowe CLI]
+        G[Git]
+        SV[Setup Verification]
+        UV[USS Verification]
+        WS[Workflow Scripts]
+        DS[Documentation Scripts]
+    end
+
+    DEV[Developer] --> Z
+    DEV --> G
+    DEV --> SV
+    DEV --> UV
+    DEV --> WS
+    DEV --> DS
+
+    Z --> ZOS[z/OS Mainframe]
+    G --> REPO[Source Repository]
+    WS --> ZOS
+    UV --> ZOS
+</div>
+<hr>
+<h2 id="3-zowe-cli-commands" tabindex="-1">3. Zowe CLI Commands</h2>
+<p>Use Zowe CLI to connect to z/OS systems and support the Zowe CLI workflow. Zowe CLI is the primary interface between the developer workstation and the mainframe.</p>
+<h3 id="31-verify-installation" tabindex="-1">3.1 Verify Installation</h3>
+<p>Displays the installed Zowe CLI version. Run this first to confirm Zowe CLI is properly installed.</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe --version</code></pre>
+</div>
+<h3 id="32-install-the-rse-api-plug-in" tabindex="-1">3.2 Install the RSE API Plug-in</h3>
+<p>Installs the RSE API plugin required by the Bank of Z setup workflow. This plugin provides additional capabilities for interacting with z/OS resources.</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe plugins install @zowe/rse-api-for-zowe-cli</code></pre>
+</div>
+<h3 id="33-create-a-zosmf-profile" tabindex="-1">3.3 Create a z/OSMF Profile</h3>
+<p>Creates a z/OSMF connection profile that stores your host, port, and user credentials for repeated use.</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe profiles create zosmf-profile myprofile \
+  --host your-zos-host \
+  --port 443 \
+  --user your-userid</code></pre>
+</div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--host</code></td>
+<td>The hostname or IP address of your z/OS system</td>
+</tr>
+<tr>
+<td><code>--port</code></td>
+<td>The z/OSMF port (typically <code>443</code>)</td>
+</tr>
+<tr>
+<td><code>--user</code></td>
+<td>Your z/OS user ID</td>
+</tr>
+</tbody>
+</table>
+<h3 id="34-verify-connectivity" tabindex="-1">3.4 Verify Connectivity</h3>
+<p>Verifies connectivity to the configured z/OSMF instance. Use this after creating a profile to confirm the connection is working.</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe zosmf check status</code></pre>
+</div>
+<h3 id="35-list-available-profiles" tabindex="-1">3.5 List Available Profiles</h3>
+<p>Displays all configured z/OSMF profiles.</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe profiles list zosmf</code></pre>
+</div>
+<h3 id="36-set-a-default-profile" tabindex="-1">3.6 Set a Default Profile</h3>
+<p>Sets the default z/OSMF profile so that subsequent commands use it automatically.</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe profiles set-default zosmf myprofile</code></pre>
+</div>
+<div class="mermaid">
+sequenceDiagram
+    participant Dev as Developer
+    participant Zowe as Zowe CLI
+    participant ZOSMF as z/OSMF
+    participant ZOS as z/OS
+
+    Dev->>Zowe: zowe plugins install @zowe/rse-api-for-zowe-cli
+    Zowe-->>Dev: Plugin installed
+
+    Dev->>Zowe: zowe profiles create zosmf-profile ...
+    Zowe-->>Dev: Profile created
+
+    Dev->>Zowe: zowe zosmf check status
+    Zowe->>ZOSMF: HTTP request to z/OSMF
+    ZOSMF->>ZOS: Validate session
+    ZOS-->>ZOSMF: OK
+    ZOSMF-->>Zowe: Status response
+    Zowe-->>Dev: Connection verified
+</div>
+<hr>
+<h2 id="4-git-commands" tabindex="-1">4. Git Commands</h2>
+<p>Use Git to manage source code changes and collaborate with other contributors on the Bank of Z project.</p>
+<h3 id="41-clone-a-repository" tabindex="-1">4.1 Clone a Repository</h3>
+<p>Creates a local copy of a remote repository.</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">git clone &lt;repository-url&gt;</code></pre>
+</div>
+<h3 id="42-create-a-branch" tabindex="-1">4.2 Create a Branch</h3>
+<p>Creates and switches to a new feature branch. Follow the naming convention <code>feature/&lt;description&gt;</code>.</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">git checkout -b feature/my-change</code></pre>
+</div>
+<h3 id="43-view-status" tabindex="-1">4.3 View Status</h3>
+<p>Displays modified, staged, and untracked files in the working directory.</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">git status</code></pre>
+</div>
+<h3 id="44-commit-changes" tabindex="-1">4.4 Commit Changes</h3>
+<p>Stages all changes and commits them with a descriptive message.</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">git add .
+git commit -m &quot;Describe your change&quot;</code></pre>
+</div>
+<h3 id="45-push-changes" tabindex="-1">4.5 Push Changes</h3>
+<p>Pushes committed changes from your local branch to the remote repository.</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">git push origin &lt;branch-name&gt;</code></pre>
+</div>
+<hr>
+<h2 id="5-setup-verification-commands" tabindex="-1">5. Setup Verification Commands</h2>
+<p>Use these commands on the <strong>local developer workstation</strong> to verify that all required tools are installed and available before beginning Bank of Z development.</p>
+<h3 id="51-nodejs" tabindex="-1">5.1 Node.js</h3>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">node -v</code></pre>
+</div>
+<p>Displays the installed Node.js version.</p>
+<h3 id="52-npm" tabindex="-1">5.2 npm</h3>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">npm -v</code></pre>
+</div>
+<p>Displays the installed npm version.</p>
+<h3 id="53-git" tabindex="-1">5.3 Git</h3>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">git --version</code></pre>
+</div>
+<p>Displays the installed Git version.</p>
+<h3 id="54-java" tabindex="-1">5.4 Java</h3>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">java -version</code></pre>
+</div>
+<p>Displays the installed Java version.</p>
+<blockquote>
+<p><strong>Tip:</strong> Ensure all tool versions meet the minimum requirements documented in the Bank of Z setup guide before proceeding with environment configuration.</p>
+</blockquote>
+<hr>
+<h2 id="6-uss-verification-commands" tabindex="-1">6. USS Verification Commands</h2>
+<p>Use these commands when validating the <strong>z/OS Unix System Services (USS)</strong> environment. These checks confirm that the remote z/OS system has the necessary tooling for builds and deployments.</p>
+<h3 id="61-verify-git-availability" tabindex="-1">6.1 Verify Git Availability</h3>
+<p>Verifies that Git is installed and accessible in the USS environment.</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">which git
+git --version</code></pre>
+</div>
+<h3 id="62-verify-dbb-installation" tabindex="-1">6.2 Verify DBB Installation</h3>
+<p>Verifies that the Dependency Based Build (DBB) installation path is accessible.</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">ls $DBB_HOME/lib</code></pre>
+</div>
+<h3 id="63-verify-java-configuration" tabindex="-1">6.3 Verify Java Configuration</h3>
+<p>Verifies that the configured Java runtime is available on USS.</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">$JAVA_HOME/bin/java -version</code></pre>
+</div>
+<hr>
+<h2 id="7-workflow-scripts" tabindex="-1">7. Workflow Scripts</h2>
+<p>The following scripts are used by the Bank of Z automation workflows to orchestrate setup, build, and deployment activities across local and remote environments.</p>
+<h3 id="71-script-reference" tabindex="-1">7.1 Script Reference</h3>
+<table>
+<thead>
+<tr>
+<th>Script</th>
+<th>Purpose</th>
+<th>Runs On</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>setup-local.sh</code></td>
+<td>Initiates setup activities from the developer workstation</td>
+<td>Local</td>
+</tr>
+<tr>
+<td><code>setup-common.sh</code></td>
+<td>Performs environment setup on z/OS USS</td>
+<td>z/OS USS</td>
+</tr>
+<tr>
+<td><code>pipeline-local.sh</code></td>
+<td>Initiates build and deployment processing</td>
+<td>Local</td>
+</tr>
+<tr>
+<td><code>pipeline-remote.sh</code></td>
+<td>Runs build and deployment activities on z/OS USS</td>
+<td>z/OS USS</td>
+</tr>
+</tbody>
+</table>
+<div class="mermaid">
+sequenceDiagram
+    participant Dev as Developer
+    participant Local as Local Workstation
+    participant USS as z/OS USS
+
+    Dev->>Local: Run setup-local.sh
+    Local->>USS: Invoke setup-common.sh
+    USS-->>Local: Environment configured
+
+    Dev->>Local: Run pipeline-local.sh
+    Local->>USS: Invoke pipeline-remote.sh
+    USS->>USS: Build & Deploy
+    USS-->>Local: Results returned
+    Local-->>Dev: Build/Deploy complete
+</div>
+<h3 id="72-zowe-cli-workflow" tabindex="-1">7.2 Zowe CLI Workflow</h3>
+<p>The Zowe CLI workflow can be completed through a VS Code task or by running <code>setup-local.sh</code> directly.</p>
+<p><strong>Running via VS Code:</strong></p>
+<ol>
+<li>Open the <strong>Command Palette</strong> (<code>Ctrl+Shift+P</code> / <code>Cmd+Shift+P</code>).</li>
+<li>Run <strong>Tasks: Run Task</strong>.</li>
+<li>Select <strong>Setup Bank of Z Environment</strong>.</li>
+</ol>
+<p><strong>Running directly:</strong></p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">./setup-local.sh</code></pre>
+</div>
+<h3 id="73-grub-workflow" tabindex="-1">7.3 GRUB Workflow</h3>
+<p>The GRUB workflow synchronizes local changes to USS and runs the Bank of Z setup process. Refer to the GRUB Workflow documentation for environment-specific configuration and run procedures.</p>
+<hr>
+<h2 id="8-documentation-scripts" tabindex="-1">8. Documentation Scripts</h2>
+<p>Scripts for managing and converting Bank of Z project documentation.</p>
+<h3 id="81-convert_dita_to_mdpy" tabindex="-1">8.1 convert_dita_to_md.py</h3>
+<p>Converts DITA XML files to Markdown format and generates a dynamic Table of Contents.</p>
+<p><strong>Prerequisites:</strong></p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">pip3 install pyyaml</code></pre>
+</div>
+<p><strong>Usage:</strong></p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">python3 scripts/convert_dita_to_md.py</code></pre>
+</div>
+<p><strong>What it does:</strong></p>
+<ol>
+<li><strong>Scans</strong> the <code>Docs/</code> folder for DITA files.</li>
+<li><strong>Converts</strong> DITA XML to Markdown format.</li>
+<li><strong>Creates</strong> an organized folder structure in <code>docs/</code>.</li>
+<li><strong>Generates</strong> <code>_data/toc.yml</code> automatically.</li>
+<li><strong>Creates</strong> index pages for each section.</li>
+</ol>
+<p><strong>Example — before and after:</strong></p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash"># Before running
+Docs/com.ibm.tutorials.doc/getting-started.dita
+
+# After running
+docs/tutorials/getting-started.md
+docs/tutorials/index.md
+_data/toc.yml (updated)</code></pre>
+</div>
+<div class="mermaid">
+graph TD
+    A[DITA XML Files in Docs/] -->|convert_dita_to_md.py| B[Markdown Files in docs/]
+    A -->|convert_dita_to_md.py| C[_data/toc.yml]
+    A -->|convert_dita_to_md.py| D[Section Index Pages]
+    B --> E[Jekyll Documentation Site]
+    C --> E
+    D --> E
+</div>
+<h3 id="82-adding-new-documentation-scripts" tabindex="-1">8.2 Adding New Documentation Scripts</h3>
+<p>When adding new scripts to the documentation toolchain, follow these conventions:</p>
+<table>
+<thead>
+<tr>
+<th>Convention</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Use descriptive names</td>
+<td><code>convert_dita_to_md.py</code></td>
+</tr>
+<tr>
+<td>Use underscores for spaces</td>
+<td><code>generate_pdf_docs.py</code></td>
+</tr>
+<tr>
+<td>Include <code>.py</code> extension</td>
+<td><code>validate_links.py</code></td>
+</tr>
+</tbody>
+</table>
+<p>Each script should include:</p>
+<ul>
+<li>A docstring explaining its purpose</li>
+<li>Usage instructions</li>
+<li>Requirements and dependencies</li>
+<li>Example output</li>
+</ul>
+<hr>
+<h2 id="9-quick-reference-summary" tabindex="-1">9. Quick Reference Summary</h2>
+<p>The table below provides a consolidated quick-reference of the most frequently used commands across all categories.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>zowe --version</code></td>
+<td>Verify Zowe CLI installation</td>
+</tr>
+<tr>
+<td><code>zowe plugins install @zowe/rse-api-for-zowe-cli</code></td>
+<td>Install RSE API plug-in</td>
+</tr>
+<tr>
+<td><code>zowe profiles create zosmf-profile ...</code></td>
+<td>Create a z/OSMF connection profile</td>
+</tr>
+<tr>
+<td><code>zowe zosmf check status</code></td>
+<td>Verify z/OSMF connectivity</td>
+</tr>
+<tr>
+<td><code>zowe profiles list zosmf</code></td>
+<td>List z/OSMF profiles</td>
+</tr>
+<tr>
+<td><code>zowe profiles set-default zosmf &lt;name&gt;</code></td>
+<td>Set default z/OSMF profile</td>
+</tr>
+<tr>
+<td><code>git clone &lt;url&gt;</code></td>
+<td>Clone a repository</td>
+</tr>
+<tr>
+<td><code>git checkout -b feature/&lt;name&gt;</code></td>
+<td>Create a feature branch</td>
+</tr>
+<tr>
+<td><code>git status</code></td>
+<td>View working directory status</td>
+</tr>
+<tr>
+<td><code>git add . &amp;&amp; git commit -m &quot;...&quot;</code></td>
+<td>Stage and commit changes</td>
+</tr>
+<tr>
+<td><code>git push origin &lt;branch&gt;</code></td>
+<td>Push changes to remote</td>
+</tr>
+<tr>
+<td><code>node -v</code> / <code>npm -v</code> / <code>java -version</code></td>
+<td>Verify local tool versions</td>
+</tr>
+<tr>
+<td><code>which git</code> / <code>git --version</code> (USS)</td>
+<td>Verify Git on USS</td>
+</tr>
+<tr>
+<td><code>ls $DBB_HOME/lib</code></td>
+<td>Verify DBB installation on USS</td>
+</tr>
+<tr>
+<td><code>$JAVA_HOME/bin/java -version</code></td>
+<td>Verify Java on USS</td>
+</tr>
+<tr>
+<td><code>./setup-local.sh</code></td>
+<td>Run local setup workflow</td>
+</tr>
+<tr>
+<td><code>python3 scripts/convert_dita_to_md.py</code></td>
+<td>Convert DITA docs to Markdown</td>
+</tr>
+</tbody>
+</table>
+
+                        <div class="related-pages">
+                            <p class="related-pages-title">Related Pages</p>
+                            <div class="card-grid">
+                                
+            <a href="configuration-reference.html" class="card">
+                <span class="card-title">Configuration Reference</span>
+                <span class="card-description">Full reference for all Bank of Z configuration parameters, files, and settings, including environment variables, profile settings, and deployment configuration options.</span>
+            </a>
+            <a href="zowe-cli-workflow.html" class="card">
+                <span class="card-title">Zowe CLI Workflow</span>
+                <span class="card-description">Full walkthrough of the Zowe CLI-based development workflow for Bank of Z, covering editing, building, uploading, and testing COBOL and CICS changes from a local workstation.</span>
+            </a>
+            <a href="grub-workflow.html" class="card">
+                <span class="card-title">Grub Workflow</span>
+                <span class="card-description">Step-by-step guide for using the Grub-based development workflow in Bank of Z, including project setup, build execution, and deployment automation via Grub.</span>
+            </a>
+                            </div>
+                        </div>
+                    </div>
+                    <nav class="toc-panel" aria-label="On this page">
+  <span class="toc-panel-label">On this page</span>
+  <ul class="toc-list">
+<li class="toc-level-2"><a href="#1-system-architecture">1. System Architecture</a></li>
+<li class="toc-level-2"><a href="#2-overview-of-command-categories">2. Overview of Command Categories</a></li>
+<li class="toc-level-2"><a href="#3-zowe-cli-commands">3. Zowe CLI Commands</a>
+<ul>
+<li class="toc-level-3"><a href="#31-verify-installation">3.1 Verify Installation</a></li>
+<li class="toc-level-3"><a href="#32-install-the-rse-api-plug-in">3.2 Install the RSE API Plug-in</a></li>
+<li class="toc-level-3"><a href="#33-create-a-zosmf-profile">3.3 Create a z/OSMF Profile</a></li>
+<li class="toc-level-3"><a href="#34-verify-connectivity">3.4 Verify Connectivity</a></li>
+<li class="toc-level-3"><a href="#35-list-available-profiles">3.5 List Available Profiles</a></li>
+<li class="toc-level-3"><a href="#36-set-a-default-profile">3.6 Set a Default Profile</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#4-git-commands">4. Git Commands</a>
+<ul>
+<li class="toc-level-3"><a href="#41-clone-a-repository">4.1 Clone a Repository</a></li>
+<li class="toc-level-3"><a href="#42-create-a-branch">4.2 Create a Branch</a></li>
+<li class="toc-level-3"><a href="#43-view-status">4.3 View Status</a></li>
+<li class="toc-level-3"><a href="#44-commit-changes">4.4 Commit Changes</a></li>
+<li class="toc-level-3"><a href="#45-push-changes">4.5 Push Changes</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#5-setup-verification-commands">5. Setup Verification Commands</a>
+<ul>
+<li class="toc-level-3"><a href="#51-nodejs">5.1 Node.js</a></li>
+<li class="toc-level-3"><a href="#52-npm">5.2 npm</a></li>
+<li class="toc-level-3"><a href="#53-git">5.3 Git</a></li>
+<li class="toc-level-3"><a href="#54-java">5.4 Java</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#6-uss-verification-commands">6. USS Verification Commands</a>
+<ul>
+<li class="toc-level-3"><a href="#61-verify-git-availability">6.1 Verify Git Availability</a></li>
+<li class="toc-level-3"><a href="#62-verify-dbb-installation">6.2 Verify DBB Installation</a></li>
+<li class="toc-level-3"><a href="#63-verify-java-configuration">6.3 Verify Java Configuration</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#7-workflow-scripts">7. Workflow Scripts</a>
+<ul>
+<li class="toc-level-3"><a href="#71-script-reference">7.1 Script Reference</a></li>
+<li class="toc-level-3"><a href="#72-zowe-cli-workflow">7.2 Zowe CLI Workflow</a></li>
+<li class="toc-level-3"><a href="#73-grub-workflow">7.3 GRUB Workflow</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#8-documentation-scripts">8. Documentation Scripts</a>
+<ul>
+<li class="toc-level-3"><a href="#81-convert_dita_to_mdpy">8.1 convert_dita_to_md.py</a></li>
+<li class="toc-level-3"><a href="#82-adding-new-documentation-scripts">8.2 Adding New Documentation Scripts</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#9-quick-reference-summary">9. Quick Reference Summary</a></li>
+</ul>
+
+</nav>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+    /* toc-spy.js — highlights the active heading in the TOC panel on scroll */
+    (function () {
+      function init() {
+        var panel = document.querySelector('.toc-panel');
+        if (!panel) return;
+        var links = Array.prototype.slice.call(panel.querySelectorAll('a[href^="#"]'));
+        if (!links.length) return;
+
+        var headingIds = links.map(function (a) { return a.getAttribute('href').slice(1); });
+        var headings = headingIds.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+
+        function clearActive() {
+          panel.querySelectorAll('.toc-active').forEach(function (el) { el.classList.remove('toc-active'); });
+          panel.querySelectorAll('.toc-parent-active').forEach(function (el) { el.classList.remove('toc-parent-active'); });
+        }
+
+        function setActive(id) {
+          clearActive();
+          var link = panel.querySelector('a[href="#' + id + '"]');
+          if (!link) return;
+          link.classList.add('toc-active');
+          var li = link.closest('li');
+          if (li) {
+            var parentLi = li.parentElement && li.parentElement.closest('li');
+            if (parentLi) parentLi.classList.add('toc-parent-active');
+          }
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              setActive(entry.target.id);
+            }
+          });
+        }, { rootMargin: '0px 0px -70% 0px', threshold: 0 });
+
+        headings.forEach(function (h) { observer.observe(h); });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+    </script>
+    <script>
+    /* sidebar-toggle.js — persists open/closed state across navigation */
+    (function () {
+
+      var STORAGE_KEY = 'sb_open';
+
+      function getOpenSet() {
+        try {
+          var raw = sessionStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (e) { return null; }
+      }
+
+      function saveOpenSet(set) {
+        try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(set)); } catch (e) {}
+      }
+
+      function findItems(toggle) {
+        var node = toggle.nextSibling;
+        while (node) {
+          if (node.nodeType === 1 && node.classList.contains('nav-section-items'))
+            return node;
+          node = node.nextSibling;
+        }
+        return null;
+      }
+
+      function toggleKey(toggle, index) {
+        var label = (toggle.querySelector('.nav-toggle-text') || toggle).textContent.trim().replace(/\s+/g, ' ');
+        return index + ':' + label;
+      }
+
+      function openSection(toggle, items, key, set) {
+        toggle.classList.add('open');
+        items.classList.add('open');
+        if (set) set[key] = true;
+      }
+
+      function closeSection(toggle, items, key, set) {
+        toggle.classList.remove('open');
+        items.classList.remove('open');
+        if (set) set[key] = false;
+      }
+
+      function init() {
+        var sidebar = document.getElementById('wiki-sidebar');
+        var toggles = Array.prototype.slice.call(
+          document.querySelectorAll('.nav-section-toggle')
+        );
+
+        var activeIdx = -1;
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+          if (items.querySelector('.nav-link.active')) {
+            activeIdx = idx;
+          }
+        });
+
+        var savedSet = getOpenSet();
+        var openSet = savedSet || {};
+
+        if (activeIdx !== -1) {
+          openSet[toggleKey(toggles[activeIdx], activeIdx)] = true;
+        }
+
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+
+          var key = toggleKey(toggle, idx);
+          var shouldOpen = openSet[key] === true;
+
+          if (shouldOpen) {
+            toggle.classList.add('open');
+            items.classList.add('open');
+          }
+
+          toggle.addEventListener('click', function () {
+            var nowOpen = toggle.classList.contains('open');
+            if (nowOpen) {
+              closeSection(toggle, items, key, openSet);
+            } else {
+              openSection(toggle, items, key, openSet);
+            }
+            saveOpenSet(openSet);
+          });
+        });
+
+        saveOpenSet(openSet);
+
+        /* Restore sidebar scroll position after sections are expanded so the
+           scroll height is correct when we apply scrollTop. */
+        if (sidebar) {
+          try {
+            var savedScroll = sessionStorage.getItem('sb_scroll');
+            if (savedScroll !== null) { sidebar.scrollTop = parseInt(savedScroll, 10) || 0; }
+          } catch (_e) {}
+        }
+
+        window.addEventListener('pagehide', function () {
+          saveOpenSet(openSet);
+          if (sidebar) {
+            try { sessionStorage.setItem('sb_scroll', String(sidebar.scrollTop)); } catch (_e) {}
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+
+    })();
+    </script>
+    <script>
+    /* nav-tracking.js — only stamps sessionStorage when clicking a source-file link
+       that lives inside the "Source Files" disclosure section, not from sidebar or cards. */
+    (function () {
+      document.addEventListener('click', function (e) {
+        var link = e.target.closest('a[href]');
+        if (!link) return;
+        var href = link.getAttribute('href');
+        if (!href || href.indexOf('sources/') === -1) return;
+        /* Only set referrer when the click originates from inside the Source Files
+           disclosure (.source-files-disclosure). Any other path — sidebar, cards,
+           direct navigation — must not set a referrer. */
+        if (!link.closest('.source-files-disclosure')) return;
+        try {
+          sessionStorage.setItem('wiki_referrer', JSON.stringify({
+            href: location.href,
+            title: document.title,
+            file: location.pathname.split('/').pop()
+          }));
+        } catch (_e) {}
+      });
+    })();
+    </script>
+    <footer class="wiki-footer">Made by IBM Bob Premium Package for Z</footer>
+</body>
+</html>

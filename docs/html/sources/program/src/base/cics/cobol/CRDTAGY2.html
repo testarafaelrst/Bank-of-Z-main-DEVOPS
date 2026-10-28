@@ -1,0 +1,1055 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRDTAGY2</title>
+    <link rel="stylesheet" href="../../../../../../assets/style.css">
+    <script src="../../../../../../assets/mermaid.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: { useMaxWidth: true }
+        });
+    </script>
+
+    <!-- Prism.js for syntax highlighting (bundled — no CDN required) -->
+    <link rel="stylesheet" href="../../../../../../assets/prism-tomorrow.css">
+    <script src="../../../../../../assets/prism-core.js"></script>
+    <script src="../../../../../../assets/prism-languages.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <span class="header-app-name"><a href="../../../../../../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – IBM Z Modern Development Reference</a></span>
+        </div>
+        <div class="header-right">
+        </div>
+    </header>
+    <div class="shell">
+        <aside class="sidebar" id="wiki-sidebar">
+            <nav>
+                
+        <div class="nav-home-wrap">
+            <a href="../../../../../../../index.html" class="nav-home">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                Home
+            </a>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Application Documentation</div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">About Bank of Z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../../../../../../pages/about-overview.html" class="nav-link" data-page-id="about-overview">Project Overview</a>
+                <a href="../../../../../../pages/architecture-overview.html" class="nav-link" data-page-id="architecture-overview">Architecture Overview</a>
+                <a href="../../../../../../pages/key-capabilities.html" class="nav-link" data-page-id="key-capabilities">Key Capabilities</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Architecture</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../../../../../../pages/application-components.html" class="nav-link" data-page-id="application-components">Application Components</a>
+                <a href="../../../../../../pages/application-flow.html" class="nav-link" data-page-id="application-flow">Application Flow</a>
+                <a href="../../../../../../pages/build-and-deployment-arch.html" class="nav-link" data-page-id="build-and-deployment-arch">Build &amp; Deployment Architecture</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Installation &amp; Setup</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../../../../../../pages/prerequisites-env.html" class="nav-link" data-page-id="prerequisites-env">Prerequisites &amp; Environment Configuration</a>
+                <a href="../../../../../../pages/deploying-options.html" class="nav-link" data-page-id="deploying-options">Deployment Options</a>
+                <a href="../../../../../../pages/local-tools-setup.html" class="nav-link" data-page-id="local-tools-setup">Local Tools Setup</a>
+                <a href="../../../../../../pages/zowe-cli-setup.html" class="nav-link" data-page-id="zowe-cli-setup">Zowe CLI &amp; Profile Setup</a>
+                <a href="../../../../../../pages/verification.html" class="nav-link" data-page-id="verification">Installation Verification</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Development Workflows</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../../../../../../pages/workflow-overview.html" class="nav-link" data-page-id="workflow-overview">Development Workflow Overview</a>
+                <a href="../../../../../../pages/zowe-cli-workflow.html" class="nav-link" data-page-id="zowe-cli-workflow">Zowe CLI Workflow</a>
+                <a href="../../../../../../pages/grub-workflow.html" class="nav-link" data-page-id="grub-workflow">Grub Workflow</a>
+                <a href="../../../../../../pages/development-best-practices.html" class="nav-link" data-page-id="development-best-practices">Development Best Practices</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Tutorials</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../../../../../../pages/deploy-bank-of-z.html" class="nav-link" data-page-id="deploy-bank-of-z">Tutorial: Deploy Bank of Z</a>
+                <a href="../../../../../../pages/cics-enhancement.html" class="nav-link" data-page-id="cics-enhancement">Tutorial: CICS Enhancement Scenario</a>
+                <a href="../../../../../../pages/incremental-build.html" class="nav-link" data-page-id="incremental-build">Tutorial: Incremental Build</a>
+                <a href="../../../../../../pages/debug-cics-transaction.html" class="nav-link" data-page-id="debug-cics-transaction">Tutorial: Debug a CICS Transaction</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Reference</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../../../../../../pages/commands-reference.html" class="nav-link" data-page-id="commands-reference">Commands Reference</a>
+                <a href="../../../../../../pages/configuration-reference.html" class="nav-link" data-page-id="configuration-reference">Configuration Reference</a>
+                <a href="../../../../../../pages/glossary.html" class="nav-link" data-page-id="glossary">Glossary</a>
+                <a href="../../../../../../pages/repository-structure.html" class="nav-link" data-page-id="repository-structure">Repository Structure</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Troubleshooting</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../../../../../../pages/troubleshooting-overview.html" class="nav-link" data-page-id="troubleshooting-overview">Troubleshooting Overview</a>
+                <a href="../../../../../../pages/fix-abend-cino.html" class="nav-link" data-page-id="fix-abend-cino">Fix: OMEN ABEND CINO</a>
+                <a href="../../../../../../pages/program-internals.html" class="nav-link" data-page-id="program-internals">Program Internals: CRDTAGY2 Credit Agency Simulator</a>
+            </div>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Program Documentation</div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">docs</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">about-bank-of-z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../../../../../../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="nav-section">
+        <button class="nav-section-toggle open" type="button">
+            <span class="nav-toggle-text">program</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items open">
+        <div class="nav-section">
+            <button class="nav-section-toggle open" type="button">
+                <span class="nav-toggle-text">src</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items open">
+            <div class="nav-section">
+                <button class="nav-section-toggle open" type="button">
+                    <span class="nav-toggle-text">base</span>
+                    <span class="nav-section-chevron">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="nav-section-items open">
+                <div class="nav-section">
+                    <button class="nav-section-toggle open" type="button">
+                        <span class="nav-toggle-text">cics</span>
+                        <span class="nav-section-chevron">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="nav-section-items open">
+                    <div class="nav-section">
+                        <button class="nav-section-toggle open" type="button">
+                            <span class="nav-toggle-text">cobol</span>
+                            <span class="nav-section-chevron">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="nav-section-items open">
+                            <a href="../../../../../../sources/program/src/base/cics/cobol/CRDTAGY2.html" class="nav-link active">CRDTAGY2</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+            </nav>
+        </aside>
+        <main class="main">
+            <div class="prog-container">
+                <div id="wiki-breadcrumb"></div>
+                <div class="content-layout">
+                    <article class="prose">
+                        <h2 id="1-purpose" tabindex="-1">1. Purpose</h2>
+<p>CRDTAGY2 é um programa simulado de agência de crédito que opera de forma assíncrona em um ambiente CICS para atribuir uma pontuação de crédito gerada aleatoriamente a um registro de cliente. Quando invocado, ele recupera os dados do cliente de um canal e contêiner CICS (<code>CIPCREDCHANN</code>/<code>CIPB</code>), introduz um atraso aleatório de entre 1 e 3 segundos para emular a latência de resposta de uma agência de crédito externa real e, em seguida, calcula uma pontuação de crédito aleatória entre 1 e 999 usando a função COBOL <code>RANDOM</code>, inicializada com o número atual da tarefa CICS. A nova pontuação gerada é gravada de volta no registro do cliente e retornada ao canal, tornando-se disponível para o programa pai que iniciou a chamada assíncrona — com o atraso deliberado criando uma chance realista de 1 em 4 de que a pontuação não seja retornada dentro da janela de tempo limite de 3 segundos do programa pai.</p>
+<h2 id="2-inputs" tabindex="-1">2. Inputs</h2>
+<p><strong>Canal CICS / Contêiner (Entrada Externa Principal)</strong></p>
+<ul>
+<li><strong><code>WS-CHANNEL-NAME</code></strong> (<code>'CIPCREDCHANN'</code>) — Identifica o canal CICS utilizado para transportar os dados do cliente. Passado para <code>EXEC CICS GET CONTAINER</code> e <code>EXEC CICS PUT CONTAINER</code> para localizar o canal de comunicação correto estabelecido pelo programa chamador (pai).</li>
+<li><strong><code>WS-CONTAINER-NAME</code></strong> (<code>'CIPB'</code>) — Identifica o contêiner CICS específico dentro do canal que carrega o registro do cliente. Utilizado nos comandos <code>GET CONTAINER</code> e <code>PUT CONTAINER</code>.</li>
+<li><strong><code>WS-CONT-IN</code></strong> — O registro de dados do cliente lido do contêiner CICS via <code>EXEC CICS GET CONTAINER</code>. Este é o payload de entrada principal entregue pelo programa pai por meio da API Assíncrona. Inclui todos os campos do cliente (chave, nome, data de nascimento, endereço, status, pontuação de crédito, data de revisão) que foram colocados no contêiner antes de <code>CRDTAGY2</code> ser iniciado de forma assíncrona.</li>
+</ul>
+<p><strong>Bloco de Interface Executiva do CICS (EIB) — Contexto de Execução</strong></p>
+<ul>
+<li><strong><code>EIBTASKN</code></strong> — O número da tarefa CICS atual, fornecido automaticamente pelo ambiente de execução do CICS por meio do EIB. Utilizado como valor semente (<code>WS-SEED</code>) para a chamada <code>FUNCTION RANDOM</code>, garantindo resultados variados de atraso e pontuação de crédito a cada execução de tarefa.</li>
+<li><strong><code>EIBRESP</code> / <code>EIBRESP2</code></strong> — Códigos de resposta do CICS definidos pelo ambiente de execução após cada comando CICS (<code>DELAY</code>, <code>GET CONTAINER</code>, <code>PUT CONTAINER</code>). Verificados para detectar erros e preencher o registro de informações de abend.</li>
+<li><strong><code>EIBTRNID</code></strong> — O ID de transação da tarefa CICS atual, lido do EIB e armazenado em <code>ABND-TRANID</code> durante a construção do registro de diagnóstico de abend.</li>
+</ul>
+<h2 id="3-outputs" tabindex="-1">3. Outputs</h2>
+<p><strong>Saída do Container CICS — Registro de Cliente Atualizado</strong></p>
+<ul>
+<li><strong>WS-CONT-IN (CUSTOMER-RECORD)</strong>
+<ul>
+<li>A principal saída do programa. A estrutura completa do registro de cliente, com o novo score de crédito aplicado em <code>CUSTOMER-CREDIT-SCORE</code>, é gravada de volta no container CICS <code>CIPB</code> no canal <code>CIPCREDCHANN</code> via <code>EXEC CICS PUT CONTAINER</code>. Esta é a única saída de dados consumida pelo programa pai (que aciona <code>CRDTAGY2</code> de forma assíncrona via API Assíncrona do CICS).</li>
+<li><strong>CUSTOMER-CREDIT-SCORE</strong> — O campo específico dentro do registro de cliente que é atualizado. Ele recebe o score calculado aleatoriamente (1–999) derivado de <code>WS-NEW-CREDSCORE</code> antes que o container seja gravado de volta.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Invocação do Tratador de Abend CICS (Caminho de Erro)</strong></p>
+<ul>
+<li><strong>ABNDINFO-REC</strong> — Preenchido e passado como <code>COMMAREA</code> para o programa tratador de abend <code>ABNDPROC</code> via <code>EXEC CICS LINK</code> sempre que um comando CICS retorna uma resposta não normal. Contém o contexto de diagnóstico completo encaminhado ao subsistema de tratamento de erros:
+<ul>
+<li><strong>ABND-RESPCODE / ABND-RESP2CODE</strong> — Códigos de resposta CICS capturados de <code>EIBRESP</code> / <code>EIBRESP2</code> no ponto da falha.</li>
+<li><strong>ABND-APPLID</strong> — ID da aplicação da região CICS em execução, obtido via <code>EXEC CICS ASSIGN APPLID</code>.</li>
+<li><strong>ABND-TRANID</strong> — ID da transação extraído de <code>EIBTRNID</code>.</li>
+<li><strong>ABND-TASKNO-KEY</strong> — Número da tarefa extraído de <code>EIBTASKN</code>.</li>
+<li><strong>ABND-DATE</strong> — Data atual formatada (DD/MM/AAAA) preenchida a partir de <code>WS-ORIG-DATE</code> via <code>EXEC CICS FORMATTIME</code>.</li>
+<li><strong>ABND-TIME</strong> — Hora atual formatada (HH:MM:MM) construída por um <code>STRING</code> a partir de <code>WS-TIME-NOW-GRP-HH</code> e <code>WS-TIME-NOW-GRP-MM</code>.</li>
+<li><strong>ABND-UTIME-KEY</strong> — Valor de tempo absoluto obtido via <code>EXEC CICS ASKTIME</code> em <code>WS-U-TIME</code>.</li>
+<li><strong>ABND-CODE</strong> — Código de abend fixo <code>'PLOP'</code>.</li>
+<li><strong>ABND-PROGRAM</strong> — Nome do programa em execução, obtido via <code>EXEC CICS ASSIGN PROGRAM</code>.</li>
+<li><strong>ABND-SQLCODE</strong> — Definido como zeros (sem atividade DB2 neste programa).</li>
+<li><strong>ABND-FREEFORM</strong> — Mensagem de diagnóstico em formato livre descrevendo qual comando CICS falhou, juntamente com os valores de RESP e RESP2.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Mensagens Impressas / Console (Caminho de Erro)</strong></p>
+<ul>
+<li><code>'*** The delay messed up ! ***'</code> — Escrito via <code>DISPLAY</code> quando o comando <code>EXEC CICS DELAY</code> retorna uma resposta não normal.</li>
+<li><code>'CRDTAGY2 - UNABLE TO GET CONTAINER. RESP=... RESP2=...'</code> e detalhes de container/canal/comprimento — Escrito via <code>DISPLAY</code> quando <code>EXEC CICS GET CONTAINER</code> falha.</li>
+<li><code>'CRDTAGY2 - UNABLE TO PUT CONTAINER. RESP=... RESP2=...'</code> e detalhes de container/canal/comprimento — Escrito via <code>DISPLAY</code> quando <code>EXEC CICS PUT CONTAINER</code> falha.</li>
+</ul>
+<p><strong>Abend CICS (Caminho de Erro)</strong></p>
+<ul>
+<li><code>EXEC CICS ABEND ABCODE('PLOP')</code> — Emitido após o link para o tratador de abend quando o comando <code>EXEC CICS DELAY</code> falha, encerrando anormalmente a tarefa CICS com o código de abend <code>PLOP</code>.</li>
+</ul>
+<h2 id="4-processing-logic" tabindex="-1">4. Processing Logic</h2>
+<h3 id="41-diagrama-de-fluxo-mermaid" tabindex="-1">4.1 Diagrama de Fluxo Mermaid</h3>
+<div class="mermaid">
+graph TD
+    classDef startEnd fill:#d5e8d4,stroke:#82b366,color:#000
+    classDef process fill:#dae8fc,stroke:#6c8ebf,color:#000
+    classDef decision fill:#fff2cc,stroke:#d6b656,color:#000
+    classDef error fill:#f8cecc,stroke:#b85450,color:#000
+    classDef io fill:#e1d5e7,stroke:#9673a6,color:#000
+
+    A([Início - CRDTAGY2 Invocado]):::startEnd
+    B[Definir Nome do Container como CIPB<br>Definir Nome do Canal como CIPCREDCHANN<br>Mover EIBTASKN para WS-SEED]:::process
+    C[Calcular Atraso Aleatório<br>de 1 a 3 segundos usando RANDOM com semente]:::process
+    D[EXEC CICS DELAY FOR SECONDS<br>Suspender tarefa pelo atraso calculado]:::io
+    E{{DELAY RESP = NORMAL}}:::decision
+    F[Inicializar ABNDINFO-REC<br>Capturar EIBRESP e EIBRESP2]:::error
+    G[EXEC CICS ASSIGN APPLID<br>Capturar EIBTASKN e EIBTRNID]:::error
+    H[Executar POPULATE-TIME-DATE<br>Obter data e hora atuais via ASKTIME<br>e FORMATTIME]:::error
+    I[Construir ABND-TIME usando STRING<br>Mover ABND-DATE ABND-CODE PLOP<br>Atribuir PROGRAM atual a ABND-PROGRAM<br>Construir mensagem ABND-FREEFORM]:::error
+    J[EXEC CICS LINK para ABNDPROC<br>passando ABNDINFO-REC como COMMAREA]:::error
+    K[EXEC CICS ABEND ABCODE PLOP<br>Encerrar tarefa de forma anormal]:::error
+    L[Calcular WS-CONTAINER-LEN<br>usando LENGTH OF WS-CONT-IN]:::process
+    M[EXEC CICS GET CONTAINER CIPB<br>do canal CIPCREDCHANN<br>em WS-CONT-IN]:::io
+    N{{GET CONTAINER RESP = NORMAL}}:::decision
+    O[Exibir mensagem de erro<br>Executar GET-ME-OUT-OF-HERE]:::error
+    P[Calcular Pontuação de Crédito Aleatória<br>de 1 a 999 usando RANDOM sem semente]:::process
+    Q[Mover WS-NEW-CREDSCORE<br>para CUSTOMER-CREDIT-SCORE em WS-CONT-IN]:::process
+    R[Calcular WS-CONTAINER-LEN<br>usando LENGTH OF WS-CONT-IN]:::process
+    S[EXEC CICS PUT CONTAINER CIPB<br>de WS-CONT-IN para o canal CIPCREDCHANN]:::io
+    T{{PUT CONTAINER RESP = NORMAL}}:::decision
+    U[Exibir mensagem de erro<br>Executar GET-ME-OUT-OF-HERE]:::error
+    V[Executar GET-ME-OUT-OF-HERE<br>EXEC CICS RETURN]:::startEnd
+    W([Fim - Tarefa Retorna ao CICS]):::startEnd
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E -- Sim --> L
+    E -- Não --> F
+    F --> G
+    G --> H
+    H --> I
+    I --> J
+    J --> K
+    K --> W
+    L --> M
+    M --> N
+    N -- Sim --> P
+    N -- Não --> O
+    O --> W
+    P --> Q
+    Q --> R
+    R --> S
+    S --> T
+    T -- Sim --> V
+    T -- Não --> U
+    U --> W
+    V --> W
+</div>
+<hr>
+<h3 id="42-descrio-da-lgica-de-processamento" tabindex="-1">4.2 Descrição da Lógica de Processamento</h3>
+<h4 id="421-resumo-de-alto-nvel" tabindex="-1">4.2.1 Resumo de Alto Nível</h4>
+<p><strong>CRDTAGY2</strong> é um programa simulado de agência de crédito executado como uma tarefa filha do CICS, invocado de forma assíncrona por um programa pai por meio da API Async do CICS. Seu objetivo é:</p>
+<ol>
+<li>Introduzir um <strong>atraso aleatório</strong> de 1 a 3 segundos (simulando a latência de resposta de uma agência externa do mundo real), e</li>
+<li>Produzir uma <strong>pontuação de crédito aleatória</strong> (1–999) para o cliente cujos dados foram transmitidos via canal e container do CICS.</li>
+</ol>
+<p>O tempo limite de 3 segundos do pai combinado com o atraso de 1 a 3 segundos do CRDTAGY2 cria uma <strong>probabilidade deliberada de 1 em 3</strong> de que a pontuação não seja retornada a tempo — simulando o cenário do mundo real em que uma agência nem sempre responde dentro do SLA exigido.</p>
+<hr>
+<h4 id="422-fluxo-de-execuo" tabindex="-1">4.2.2 Fluxo de Execução</h4>
+<p><strong>Etapa 1 — Inicialização (A010)</strong></p>
+<ul>
+<li>O nome do container <code>CIPB</code> e o nome do canal <code>CIPCREDCHANN</code> são movidos para campos de working-storage.</li>
+<li><code>EIBTASKN</code> (o número da tarefa CICS proveniente do Execute Interface Block) é movido para <code>WS-SEED</code> a fim de garantir que o gerador de números aleatórios produza valores únicos por execução de tarefa.</li>
+</ul>
+<p><strong>Etapa 2 — Calcular e Aplicar Atraso Aleatório</strong></p>
+<ul>
+<li><code>FUNCTION RANDOM(WS-SEED)</code> é invocado com o número da tarefa como semente, gerando um número pseudo-aleatório.</li>
+<li>A fórmula <code>((3 - 1) * RANDOM) + 1</code> mapeia a saída para um intervalo de <strong>1 a 3 segundos</strong>, armazenado em <code>WS-DELAY-AMT</code>.</li>
+<li><code>EXEC CICS DELAY FOR SECONDS(WS-DELAY-AMT)</code> suspende a tarefa pela duração calculada. O CICS suspende a tarefa emissora e a retoma após o intervalo expirar.</li>
+</ul>
+<p><strong>Etapa 3 — Tratamento de Erro do DELAY</strong></p>
+<ul>
+<li>Se o código RESP do CICS não for <code>DFHRESP(NORMAL)</code>:
+<ul>
+<li><code>ABNDINFO-REC</code> é inicializado e preenchido com <code>EIBRESP</code>, <code>EIBRESP2</code>, número da tarefa, ID da transação e ID da aplicação (via <code>EXEC CICS ASSIGN APPLID</code>).</li>
+<li><code>EXEC CICS ASKTIME</code> obtém o tempo absoluto atual (milissegundos desde 1º de janeiro de 1900) em <code>WS-U-TIME</code> (PIC S9(15) COMP-3).</li>
+<li><code>EXEC CICS FORMATTIME</code> converte <code>WS-U-TIME</code> em data legível por humanos (<code>DDMMYYYY</code> com separador → <code>WS-ORIG-DATE</code>) e hora (<code>HHMMSS</code> → <code>WS-TIME-NOW</code>).</li>
+<li>Uma instrução <code>STRING</code> formata os componentes HH:MM:SS em <code>ABND-TIME</code> e constrói uma mensagem de diagnóstico em <code>ABND-FREEFORM</code>.</li>
+<li>O código de abend <code>PLOP</code> e o nome do programa atual (via <code>EXEC CICS ASSIGN PROGRAM</code>) são registrados.</li>
+<li><code>EXEC CICS LINK PROGRAM('ABNDPROC') COMMAREA(ABNDINFO-REC)</code> passa o controle para o tratador centralizado de abend com todos os dados de diagnóstico.</li>
+<li><code>EXEC CICS ABEND ABCODE('PLOP')</code> encerra a tarefa de forma anormal (produzindo um dump de transação), encerrando a execução.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Etapa 4 — Recuperar Dados do Cliente do Container</strong></p>
+<ul>
+<li><code>WS-CONTAINER-LEN</code> é definido como o comprimento em bytes de <code>WS-CONT-IN</code> utilizando o registrador especial <code>LENGTH OF</code>.</li>
+<li><code>EXEC CICS GET CONTAINER(CIPB) CHANNEL(CIPCREDCHANN) INTO(WS-CONT-IN) FLENGTH(WS-CONTAINER-LEN)</code> lê o registro do cliente do container do canal para a estrutura de working-storage. O parâmetro <code>FLENGTH</code> especifica o comprimento máximo dos dados a recuperar.</li>
+<li>Se o RESP não for normal, uma mensagem de erro é exibida e <code>GET-ME-OUT-OF-HERE</code> é executado (emitindo <code>EXEC CICS RETURN</code>).</li>
+</ul>
+<p><strong>Etapa 5 — Gerar Pontuação de Crédito Aleatória</strong></p>
+<ul>
+<li>Como a função RANDOM já foi inicializada com semente na Etapa 2, uma segunda chamada <code>FUNCTION RANDOM</code> (sem semente) continua a mesma sequência pseudo-aleatória.</li>
+<li>A fórmula <code>((999 - 1) * RANDOM) + 1</code> mapeia o resultado para uma <strong>pontuação entre 1 e 999</strong>, armazenada em <code>WS-NEW-CREDSCORE</code>.</li>
+<li><code>WS-NEW-CREDSCORE</code> é movido para <code>CUSTOMER-CREDIT-SCORE</code> dentro da estrutura de cliente <code>WS-CONT-IN</code>.</li>
+</ul>
+<p><strong>Etapa 6 — Gravar Dados Atualizados do Cliente de Volta ao Container</strong></p>
+<ul>
+<li><code>WS-CONTAINER-LEN</code> é recalculado.</li>
+<li><code>EXEC CICS PUT CONTAINER(CIPB) FROM(WS-CONT-IN) FLENGTH(WS-CONTAINER-LEN) CHANNEL(CIPCREDCHANN)</code> grava o registro atualizado do cliente (agora contendo a nova pontuação de crédito) de volta ao container. Se o container nomeado já existir, seu conteúdo anterior é sobrescrito.</li>
+<li>Se o RESP não for normal, uma mensagem de erro é exibida e <code>GET-ME-OUT-OF-HERE</code> é chamado.</li>
+</ul>
+<p><strong>Etapa 7 — Encerramento Normal</strong></p>
+<ul>
+<li><code>GET-ME-OUT-OF-HERE</code> é executado incondicionalmente, executando <code>EXEC CICS RETURN</code>, que devolve o controle ao CICS. O programa pai pode subsequentemente utilizar <code>FETCH</code> para recuperar o canal de resposta desta tarefa filha e obter o container atualizado.</li>
+</ul>
+<hr>
+<h4 id="423-interaes-externas" tabindex="-1">4.2.3 Interações Externas</h4>
+<table>
+<thead>
+<tr>
+<th>Interação</th>
+<th>Comando</th>
+<th>Finalidade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CICS DELAY</strong></td>
+<td><code>EXEC CICS DELAY FOR SECONDS</code></td>
+<td>Suspende a tarefa por 1 a 3 segundos para simular a latência de uma agência externa</td>
+</tr>
+<tr>
+<td><strong>CICS Channel/Container (Leitura)</strong></td>
+<td><code>EXEC CICS GET CONTAINER</code></td>
+<td>Lê o registro do cliente do container <code>CIPB</code> no canal <code>CIPCREDCHANN</code></td>
+</tr>
+<tr>
+<td><strong>CICS Channel/Container (Escrita)</strong></td>
+<td><code>EXEC CICS PUT CONTAINER</code></td>
+<td>Grava o registro atualizado do cliente (com a nova pontuação de crédito) de volta ao mesmo container</td>
+</tr>
+<tr>
+<td><strong>CICS ASKTIME / FORMATTIME</strong></td>
+<td><code>EXEC CICS ASKTIME</code> / <code>EXEC CICS FORMATTIME</code></td>
+<td>Obtém e formata a data/hora atual para diagnóstico de abend</td>
+</tr>
+<tr>
+<td><strong>CICS ASSIGN</strong></td>
+<td><code>EXEC CICS ASSIGN APPLID / PROGRAM</code></td>
+<td>Recupera o ID da aplicação CICS e o nome do programa atual para registros de abend</td>
+</tr>
+<tr>
+<td><strong>CICS LINK</strong></td>
+<td><code>EXEC CICS LINK PROGRAM('ABNDPROC')</code></td>
+<td>Invoca o tratador centralizado de abend com informações de diagnóstico em caso de erro</td>
+</tr>
+<tr>
+<td><strong>CICS ABEND</strong></td>
+<td><code>EXEC CICS ABEND ABCODE('PLOP')</code></td>
+<td>Encerra a tarefa de forma anormal com um código de dump em caso de erro irrecuperável</td>
+</tr>
+<tr>
+<td><strong>CICS RETURN</strong></td>
+<td><code>EXEC CICS RETURN</code></td>
+<td>Devolve o controle ao CICS ao fim da tarefa (sinal de conclusão da tarefa filha para o <code>FETCH</code> do pai)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="424-resumo-em-linguagem-simples" tabindex="-1">4.2.4 Resumo em Linguagem Simples</h4>
+<p>CRDTAGY2 atua como um <strong>birô de crédito externo fictício</strong>. Quando a aplicação bancária precisa de uma pontuação de crédito para um cliente, ela inicia o CRDTAGY2 como uma tarefa filha em segundo plano, entregando os detalhes do cliente por meio de um container de dados nomeado.</p>
+<p>CRDTAGY2 primeiro <strong>aguarda um período aleatório de 1 a 3 segundos</strong> para simular uma agência externa real que leva tempo para responder. Em seguida, <strong>escolhe um número aleatório entre 1 e 999</strong> como pontuação de crédito, registra-o no cadastro do cliente e <strong>coloca o registro atualizado de volta no container</strong> para que o programa pai o colete.</p>
+<p>Como o programa pai aguarda no máximo 3 segundos pela resposta, e o CRDTAGY2 pode levar até 3 segundos, há aproximadamente <strong>1 chance em 3 de o pai não receber a pontuação a tempo</strong> — simulando intencionalmente a confiabilidade imperfeita de agências de crédito terceirizadas do mundo real. Se algo der errado com o atraso do CICS ou com as operações de container de dados, o programa registra um diagnóstico detalhado e executa um abend em vez de falhar silenciosamente.</p>
+<hr>
+<h3 id="43-tabelas-de-banco-de-dados" tabindex="-1">4.3 Tabelas de Banco de Dados</h3>
+<p>Nenhuma tabela de banco de dados (DB2/VSAM) é acessada diretamente pelo CRDTAGY2. Todo o intercâmbio de dados é realizado exclusivamente por meio do mecanismo de canal e container do CICS. A estrutura de dados do cliente transportada no container é descrita abaixo para referência:</p>
+<div class="mermaid">
+erDiagram
+    CUSTOMER_RECORD {
+        string CUSTOMER_EYECATCHER "comprimento 4 - valor CUST"
+        int CUSTOMER_SORTCODE "comprimento 6 display"
+        int CUSTOMER_NUMBER "comprimento 10 display"
+        string CUSTOMER_TITLE "comprimento 10"
+        string CUSTOMER_FIRST_NAME "comprimento 50"
+        string CUSTOMER_LAST_NAME "comprimento 50"
+        int CUSTOMER_DOB_DAY "comprimento 2 display"
+        int CUSTOMER_DOB_MONTH "comprimento 2 display"
+        int CUSTOMER_DOB_YEAR "comprimento 4 display"
+        string CUSTOMER_PHONE "comprimento 20"
+        string CUSTOMER_ADDR_LINE1 "comprimento 50"
+        string CUSTOMER_ADDR_LINE2 "comprimento 50"
+        string CUSTOMER_CITY "comprimento 50"
+        string CUSTOMER_POSTCODE "comprimento 10"
+        string CUSTOMER_COUNTRY "comprimento 50"
+        string CUSTOMER_STATUS "comprimento 10 - ACTIVE ou INACTIVE ou SUSPENDED"
+        int CUSTOMER_CREATED_DAY "comprimento 2 display"
+        int CUSTOMER_CREATED_MONTH "comprimento 2 display"
+        int CUSTOMER_CREATED_YEAR "comprimento 4 display"
+        int CUSTOMER_CREDIT_SCORE "comprimento 3 - intervalo 1 a 999"
+        int CUSTOMER_CS_REVIEW_DAY "comprimento 2 display"
+        int CUSTOMER_CS_REVIEW_MONTH "comprimento 2 display"
+        int CUSTOMER_CS_REVIEW_YEAR "comprimento 4 display"
+    }
+    CICS_CONTAINER {
+        string CONTAINER_NAME "CIPB - comprimento 16"
+        string CHANNEL_NAME "CIPCREDCHANN - comprimento 16"
+        int FLENGTH "comprimento em bytes de CUSTOMER_RECORD"
+    }
+    CICS_CONTAINER ||--|| CUSTOMER_RECORD : "transporta"
+</div>
+<h2 id="5-paragraphs" tabindex="-1">5. Paragraphs</h2>
+<ul>
+<li>
+<p><strong>A010</strong> — Parágrafo de processamento principal dentro da <code>PREMIERE SECTION</code>. Este é o ponto de entrada principal do programa e orquestra todas as operações principais.</p>
+<ul>
+<li>Inicializa o canal CICS e os nomes dos contêineres movendo os valores literais <code>'CIPB            '</code> para <code>WS-CONTAINER-NAME</code> e <code>'CIPCREDCHANN    '</code> para <code>WS-CHANNEL-NAME</code>.</li>
+<li>Alimenta a função COBOL <code>RANDOM</code> movendo <code>EIBTASKN</code> (o número da tarefa CICS atual) para <code>WS-SEED</code>, garantindo resultados variados entre execuções.</li>
+<li>Calcula um valor de atraso aleatório entre 1 e 3 segundos usando <code>FUNCTION RANDOM(WS-SEED)</code> e armazena em <code>WS-DELAY-AMT</code>.</li>
+<li>Invoca <code>EXEC CICS DELAY FOR SECONDS(WS-DELAY-AMT)</code> para suspender a tarefa pelo intervalo calculado, simulando a latência de resposta assíncrona de uma agência de crédito.</li>
+<li>Verifica <code>WS-CICS-RESP</code> contra <code>DFHRESP(NORMAL)</code> após o atraso:
+<ul>
+<li>Se anormal, inicializa <code>ABNDINFO-REC</code>, captura <code>EIBRESP</code> e <code>EIBRESP2</code>, obtém o ID da aplicação via <code>EXEC CICS ASSIGN APPLID</code>, captura o número da tarefa (<code>EIBTASKN</code>) e o ID da transação (<code>EIBTRNID</code>), executa <code>POPULATE-TIME-DATE</code> para obter data e hora, formata uma string de hora de abend usando uma instrução <code>STRING</code> a partir de <code>WS-TIME-NOW-GRP-HH</code> e <code>WS-TIME-NOW-GRP-MM</code>, obtém o nome do programa via <code>EXEC CICS ASSIGN PROGRAM</code>, define o código de abend <code>'PLOP'</code>, grava uma mensagem de diagnóstico em <code>ABND-FREEFORM</code>, linka ao programa handler de abend via <code>EXEC CICS LINK PROGRAM(WS-ABEND-PGM) COMMAREA(ABNDINFO-REC)</code>, e emite <code>EXEC CICS ABEND ABCODE('PLOP')</code> para encerrar a tarefa de forma anormal.</li>
+</ul>
+</li>
+<li>Calcula o comprimento de <code>WS-CONT-IN</code> usando o registrador especial <code>LENGTH OF</code> em <code>WS-CONTAINER-LEN</code>.</li>
+<li>Emite <code>EXEC CICS GET CONTAINER(WS-CONTAINER-NAME) CHANNEL(WS-CHANNEL-NAME) INTO(WS-CONT-IN) FLENGTH(WS-CONTAINER-LEN)</code> para recuperar dados do cliente a partir do contêiner do canal CICS <code>'CIPB'</code> no canal <code>'CIPCREDCHANN'</code>.</li>
+<li>Se o <code>GET CONTAINER</code> falhar (resposta não normal em <code>RESP</code>), exibe mensagens de diagnóstico mostrando o nome do contêiner, nome do canal, códigos de resposta, e executa <code>GET-ME-OUT-OF-HERE</code> para sair.</li>
+<li>Calcula um novo score de crédito aleatório entre 1 e 999 usando <code>FUNCTION RANDOM</code> (sem semente, continuando a sequência previamente semeada) e armazena em <code>WS-NEW-CREDSCORE</code>.</li>
+<li>Move <code>WS-NEW-CREDSCORE</code> para <code>CUSTOMER-CREDIT-SCORE OF WS-CONT-IN</code>, atualizando o registro do cliente com o score de crédito gerado.</li>
+<li>Recalcula <code>WS-CONTAINER-LEN</code> e emite <code>EXEC CICS PUT CONTAINER(WS-CONTAINER-NAME) FROM(WS-CONT-IN) FLENGTH(WS-CONTAINER-LEN) CHANNEL(WS-CHANNEL-NAME)</code> para gravar os dados atualizados do cliente de volta no contêiner, substituindo o conteúdo anterior.</li>
+<li>Se o <code>PUT CONTAINER</code> falhar, exibe mensagens de diagnóstico e executa <code>GET-ME-OUT-OF-HERE</code>.</li>
+<li>Ao concluir com sucesso, executa <code>GET-ME-OUT-OF-HERE</code> para devolver o controle ao CICS.</li>
+</ul>
+</li>
+<li>
+<p><strong>A999</strong> — Parágrafo terminal da <code>PREMIERE SECTION</code>. Contém apenas uma instrução <code>EXIT</code>; serve como marcador estruturado de fim de seção sem nenhuma lógica executável.</p>
+</li>
+<li>
+<p><strong>GET-ME-OUT-OF-HERE SECTION / GMOFH010</strong> — Parágrafo de encerramento do programa. Emite <code>EXEC CICS RETURN</code> para devolver o controle ao CICS, encerrando a tarefa normalmente. Este é o único ponto de saída para todos os caminhos de execução — tanto o caminho de conclusão normal quanto os caminhos de erro que não podem continuar.</p>
+</li>
+<li>
+<p><strong>GMOFH999</strong> — Parágrafo terminal da <code>GET-ME-OUT-OF-HERE SECTION</code>. Contém apenas uma instrução <code>EXIT</code>; serve como delimitador estruturado de fim de seção sem nenhuma lógica executável.</p>
+</li>
+<li>
+<p><strong>POPULATE-TIME-DATE SECTION / PTD010</strong> — Parágrafo de recuperação de data e hora, chamado apenas durante o tratamento de erros dentro de <code>A010</code>.</p>
+<ul>
+<li>Emite <code>EXEC CICS ASKTIME ABSTIME(WS-U-TIME)</code> para obter o tempo absoluto atual (milissegundos desde as 00:00 de 1º de janeiro de 1900) como um valor decimal compactado em <code>WS-U-TIME</code>.</li>
+<li>Emite <code>EXEC CICS FORMATTIME ABSTIME(WS-U-TIME) DDMMYYYY(WS-ORIG-DATE) TIME(WS-TIME-NOW) DATESEP</code> para converter o tempo absoluto em uma data formatada (DD/MM/AAAA com separador) armazenada em <code>WS-ORIG-DATE</code> e um horário de seis dígitos (HHMMSS) armazenado em <code>WS-TIME-NOW</code>.</li>
+<li>Os campos preenchidos são posteriormente usados pelo chamador (<code>A010</code>) para preencher <code>ABND-DATE</code> e <code>ABND-TIME</code> dentro do registro de abend <code>ABNDINFO-REC</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>PTD999</strong> — Parágrafo terminal da <code>POPULATE-TIME-DATE SECTION</code>. Contém apenas uma instrução <code>EXIT</code>; serve como delimitador estruturado de fim de seção sem nenhuma lógica executável.</p>
+</li>
+</ul>
+<h2 id="6-dependencies" tabindex="-1">6. Dependencies</h2>
+<p><strong>Canal e Contêiner CICS (API Assíncrona)</strong></p>
+<ul>
+<li><code>CIPCREDCHANN</code> — nome do canal CICS utilizado como veículo de comunicação entre este programa e seu chamador pai; passado em cada comando <code>EXEC CICS GET CONTAINER</code> e <code>EXEC CICS PUT CONTAINER</code></li>
+<li><code>CIPB</code> — nome do contêiner CICS dentro de <code>CIPCREDCHANN</code>; transporta o registro de cliente serializado (<code>WS-CONT-IN</code>) tanto na entrada (dados do cliente a serem pontuados) quanto na saída (dados do cliente com a nova pontuação de crédito gerada e gravada)</li>
+</ul>
+<p><strong>Copybooks</strong></p>
+<ul>
+<li><code>SORTCODE.cpy</code> (<code>src/base/cics/copy/SORTCODE.cpy</code>) — define a constante <code>SORTCODE</code> (<code>PIC 9(6) VALUE 987654</code>); incluída na Working-Storage</li>
+<li><code>CUSTOMER.cpy</code> (<code>src/base/cics/copy/CUSTOMER.cpy</code>) — define o layout completo de <code>CUSTOMER-RECORD</code> (campos de eyecatcher, chave, nome, data de nascimento, telefone, endereço, status, pontuação de crédito e data de revisão) que forma o corpo de <code>WS-CONT-IN</code>; o campo de pontuação de crédito (<code>CUSTOMER-CREDIT-SCORE</code>) dentro deste copybook é a saída principal do programa</li>
+<li><code>ABNDINFO.cpy</code> (<code>src/base/cics/copy/ABNDINFO.cpy</code>) — define a estrutura <code>ABNDINFO-REC</code> (chave VSAM, ID da aplicação, ID da transação, data, hora, código de abend, nome do programa, códigos de resposta, código SQL, mensagem de texto livre) utilizada para passar dados de diagnóstico ao tratador de abend</li>
+</ul>
+<p><strong>Programas Externos Invocados</strong></p>
+<ul>
+<li><code>ABNDPROC</code> — programa tratador de abend; invocado via <code>EXEC CICS LINK PROGRAM(WS-ABEND-PGM) COMMAREA(ABNDINFO-REC)</code> sempre que um comando CICS retorna uma resposta não normal; recebe o <code>ABNDINFO-REC</code> completamente preenchido como seu COMMAREA</li>
+</ul>
+<p><strong>Serviços CICS Utilizados</strong></p>
+<ul>
+<li><code>EXEC CICS DELAY FOR SECONDS(WS-DELAY-AMT)</code> — introduz uma pausa calculada aleatoriamente (1–3 segundos) para simular a latência assíncrona de uma agência de crédito externa</li>
+<li><code>EXEC CICS GET CONTAINER</code> — recupera o registro de cliente do contêiner <code>CIPB</code> no canal <code>CIPCREDCHANN</code> para dentro de <code>WS-CONT-IN</code></li>
+<li><code>EXEC CICS PUT CONTAINER</code> — grava o registro de cliente atualizado (com a nova pontuação de crédito) de volta no mesmo contêiner e canal</li>
+<li><code>EXEC CICS ASSIGN APPLID</code> / <code>EXEC CICS ASSIGN PROGRAM</code> — recupera o ID da aplicação CICS atual e o nome do programa para diagnósticos de abend</li>
+<li><code>EXEC CICS ASKTIME</code> / <code>EXEC CICS FORMATTIME</code> — obtém e formata a data atual (<code>DD/MM/YYYY</code>) e a hora (<code>HHMMSS</code>) para registros de abend</li>
+<li><code>EXEC CICS LINK PROGRAM(ABNDPROC)</code> — faz link para o programa tratador de abend em condições de erro</li>
+<li><code>EXEC CICS ABEND ABCODE('PLOP')</code> — força um abend CICS com o código <code>PLOP</code> após uma falha no delay, para tratamento de encerramento anormal</li>
+<li><code>EXEC CICS RETURN</code> — devolve o controle ao CICS nos pontos de saída normais e de erro</li>
+</ul>
+<p><strong>Campos EIB do CICS (Entrada em Tempo de Execução)</strong></p>
+<ul>
+<li><code>EIBTASKN</code> — número da tarefa CICS atual; utilizado como semente para a chamada de <code>FUNCTION RANDOM</code> e copiado para <code>ABND-TASKNO-KEY</code></li>
+<li><code>EIBRESP</code> / <code>EIBRESP2</code> — códigos de resposta primário e secundário capturados após cada comando CICS e armazenados em <code>ABND-RESPCODE</code> / <code>ABND-RESP2CODE</code></li>
+<li><code>EIBTRNID</code> — ID da transação atual; armazenado em <code>ABND-TRANID</code> dentro do registro de abend</li>
+</ul>
+<p><strong>Funções Internas de Tempo de Execução / Linguagem</strong></p>
+<ul>
+<li><code>FUNCTION RANDOM(WS-SEED)</code> — função intrínseca COBOL semeada com <code>EIBTASKN</code> para gerar a quantidade de delay aleatória (1–3 s); uma segunda chamada sem semente produz a pontuação de crédito (1–999)</li>
+<li><code>LENGTH OF WS-CONT-IN</code> — registrador especial utilizado para calcular o comprimento em bytes do payload do contêiner tanto no <code>GET CONTAINER</code> quanto no <code>PUT CONTAINER</code></li>
+<li><code>DFHRESP(NORMAL)</code> — constante figurativa fornecida pelo CICS utilizada para testar uma resposta bem-sucedida após cada chamada à API CICS</li>
+</ul>
+<h2 id="7-constraints" tabindex="-1">7. Constraints</h2>
+<h3 id="71-restries-de-validao-de-dados" tabindex="-1">7.1 Restrições de Validação de Dados</h3>
+<ul>
+<li><strong>Campo eyecatcher do cliente (<code>CUSTOMER-EYECATCHER</code>)</strong> — Declarado como <code>PIC X(4)</code> com um nome de condição de nível 88 <code>CUSTOMER-EYECATCHER-VALUE</code> exigindo o valor <code>'CUST'</code>. O programa não verifica explicitamente essa condição antes do processamento, mas a estrutura determina que qualquer registro de cliente válido deve conter esse valor sentinela.</li>
+<li><strong>Campo de status do cliente (<code>CUSTOMER-STATUS</code>)</strong> — Declarado como <code>PIC X(10)</code> com três condições de nível 88 mutuamente exclusivas: <code>CUSTOMER-STATUS-ACTIVE</code> (<code>'ACTIVE'</code>), <code>CUSTOMER-STATUS-INACTIVE</code> (<code>'INACTIVE'</code>) e <code>CUSTOMER-STATUS-SUSPENDED</code> (<code>'SUSPENDED'</code>). Apenas esses três valores literais são considerados representações de status válidas; qualquer outro valor deixa nenhum dos níveis 88 verdadeiro.</li>
+<li><strong>Campo de pontuação de crédito (<code>CUSTOMER-CREDIT-SCORE</code>)</strong> — Declarado como <code>PIC 999</code> (numérico sem sinal de três dígitos), impondo uma restrição no nível de armazenamento que limita o campo a valores de 0 a 999.
+<ul>
+<li>A pontuação de crédito calculada (<code>WS-NEW-CREDSCORE</code>) é computada como <code>((999 - 1) * FUNCTION RANDOM) + 1</code>, produzindo valores no intervalo de <strong>1 a 999</strong> inclusivo, sendo ainda mais restrito para caber dentro da imagem <code>PIC 999</code> de três dígitos.</li>
+</ul>
+</li>
+<li><strong>Sub-campos de data do cliente</strong> — Dia (<code>PIC 99</code>), mês (<code>PIC 99</code>) e ano (<code>PIC 9999</code>) são todos declarados como numéricos <code>DISPLAY</code>, impondo que apenas caracteres de dígitos válidos possam ocupar essas posições. Nenhuma validação de intervalo (por exemplo, dia ≤ 31, mês ≤ 12) é realizada programaticamente além da cláusula picture.</li>
+<li><strong>Campos de nome e endereço do cliente</strong> — Campos de caractere de comprimento fixo (<code>CUSTOMER-TITLE PIC X(10)</code>, <code>CUSTOMER-FIRST-NAME PIC X(50)</code>, <code>CUSTOMER-LAST-NAME PIC X(50)</code>, linhas de endereço <code>PIC X(50)</code>, <code>CUSTOMER-POSTCODE PIC X(10)</code>, <code>CUSTOMER-COUNTRY PIC X(50)</code>) impõem um limite superior rígido nos dados que podem ser armazenados; conteúdo que exceda esses comprimentos será truncado silenciosamente pelo COBOL.</li>
+<li><strong>Telefone do cliente</strong> — <code>PIC X(20)</code> impõe um máximo de 20 caracteres sem validação de formato além do tamanho de armazenamento.</li>
+<li><strong>Códigos de resposta de ABND</strong> — <code>ABND-RESPCODE</code> e <code>ABND-RESP2CODE</code> são declarados como <code>PIC S9(8) DISPLAY SIGN LEADING SEPARATE</code>, restringindo os valores do código de resposta de abend a números decimais com sinal de 8 dígitos; <code>ABND-SQLCODE</code> segue a mesma imagem e está codificado como <code>ZEROS</code> (linha 238) pois nenhum SQL é executado neste programa.</li>
+<li><strong>Mensagem de formato livre de abend</strong> — <code>ABND-FREEFORM PIC X(600)</code> impõe um limite de 600 caracteres no texto de diagnóstico composto na instrução STRING; qualquer estouro é descartado silenciosamente.</li>
+</ul>
+<hr>
+<h3 id="72-restries-de-canal-e-continer" tabindex="-1">7.2 Restrições de Canal e Contêiner</h3>
+<ul>
+<li><strong>Nome de canal fixo</strong> — <code>WS-CHANNEL-NAME</code> está codificado como <code>'CIPCREDCHANN    '</code> (16 caracteres, preenchido com espaços). Tanto o <code>EXEC CICS GET CONTAINER</code> quanto o <code>EXEC CICS PUT CONTAINER</code> devem referenciar exatamente esse nome de canal; qualquer divergência causaria uma resposta CICS não-NORMAL.</li>
+<li><strong>Nome de contêiner fixo</strong> — <code>WS-CONTAINER-NAME</code> está codificado como <code>'CIPB            '</code> (16 caracteres, preenchido). O mesmo nome de contêiner deve ser usado tanto para a operação GET quanto para a PUT.
+<ul>
+<li>Os nomes de canal e contêiner são ambos <code>PIC X(16)</code> — o CICS restringe os nomes de canal a 1–16 caracteres, e qualquer nome fora desse intervalo é inválido.</li>
+</ul>
+</li>
+<li><strong>Comprimento do contêiner (<code>WS-CONTAINER-LEN</code>)</strong> — Declarado <code>PIC S9(8) COMP</code> e calculado via <code>LENGTH OF WS-CONT-IN</code> antes de cada operação de contêiner. Um valor negativo em <code>FLENGTH</code> em um comando <code>PUT CONTAINER</code> seria rejeitado pelo CICS com uma resposta de erro; o uso de <code>LENGTH OF</code> garante que o valor seja sempre o comprimento estrutural exato da área de dados, prevenindo underflow ou overflow.</li>
+<li><strong>GET CONTAINER deve ter sucesso antes do PUT CONTAINER</strong> — O programa aborta incondicionalmente (via <code>PERFORM GET-ME-OUT-OF-HERE</code>) se a resposta do <code>GET CONTAINER</code> não for <code>DFHRESP(NORMAL)</code>. A gravação de retorno da pontuação de crédito e o <code>PUT CONTAINER</code> são, portanto, alcançados apenas se o GET foi bem-sucedido, impondo uma ordenação estrita de leitura antes de gravação no contêiner.</li>
+</ul>
+<hr>
+<h3 id="73-restries-de-sequenciamento-e-temporizao" tabindex="-1">7.3 Restrições de Sequenciamento e Temporização</h3>
+<ul>
+<li><strong>O atraso deve ser concluído antes do acesso ao contêiner</strong> — O programa emite <code>EXEC CICS DELAY FOR SECONDS(WS-DELAY-AMT)</code> antes de qualquer I/O de contêiner. Se o atraso falhar (resposta não-NORMAL), o programa executa o processamento completo de abend e emite <code>EXEC CICS ABEND ABCODE('PLOP')</code>, impedindo que qualquer leitura de contêiner ou computação de pontuação de crédito ocorra.</li>
+<li><strong>O semente RANDOM deve ser inicializado antes das chamadas subsequentes sem semente</strong> — <code>FUNCTION RANDOM(WS-SEED)</code> é chamado primeiro para inicializar o gerador de números pseudoaleatórios do COBOL usando <code>EIBTASKN</code>. Somente então <code>FUNCTION RANDOM</code> (sem argumento) é chamado para gerar a pontuação de crédito. De acordo com o comportamento do Enterprise COBOL, a primeira chamada sem semente após uma chamada com semente continua a mesma sequência, portanto a etapa de semente deve preceder a etapa de geração da pontuação.</li>
+<li><strong>O link do manipulador de abend deve preceder o EXEC CICS ABEND</strong> — Em cada caminho de erro, o programa primeiro preenche <code>ABNDINFO-REC</code>, depois executa <code>EXEC CICS LINK PROGRAM(WS-ABEND-PGM) COMMAREA(ABNDINFO-REC)</code>, e somente depois emite <code>EXEC CICS ABEND</code>. Esse sequenciamento garante que o registro de diagnóstico seja gravado antes do término da tarefa.</li>
+<li><strong>EXEC CICS RETURN encerra a tarefa</strong> — <code>GET-ME-OUT-OF-HERE</code> consiste exclusivamente em <code>EXEC CICS RETURN</code>, que incondicionalmente retorna o controle ao CICS e encerra a tarefa. Nenhuma lógica de programa adicional pode ser executada após essa chamada, tornando-a o único ponto de saída obrigatório.</li>
+</ul>
+<hr>
+<h3 id="74-restries-de-recursos-e-intervalo-de-valores" tabindex="-1">7.4 Restrições de Recursos e Intervalo de Valores</h3>
+<ul>
+<li><strong>Intervalo de atraso: 1–3 segundos</strong> — Calculado como <code>((3 - 1) * FUNCTION RANDOM(WS-SEED)) + 1</code>. Como <code>FUNCTION RANDOM</code> retorna um valor no intervalo [0, 1), o atraso é limitado a [1, 3) segundos (ou seja, pelo menos 1 segundo, estritamente menor que 3 segundos). <code>WS-DELAY-AMT</code> é <code>PIC S9(8) COMP</code>, que é um tipo binário de palavra completa válido para o parâmetro <code>SECONDS</code> no <code>EXEC CICS DELAY</code>.</li>
+<li><strong>Intervalo de pontuação de crédito: 1–999</strong> — <code>WS-NEW-CREDSCORE</code> é <code>PIC 999</code>, restringindo o armazenamento a valores de 0 a 999. A fórmula <code>((999 - 1) * FUNCTION RANDOM) + 1</code> restringe ainda mais o valor gerado a [1, 999). O valor é movido diretamente para <code>CUSTOMER-CREDIT-SCORE PIC 999</code>.</li>
+<li><strong>Tamanho do valor de semente</strong> — <code>WS-SEED</code> é <code>PIC S9(15) COMP</code>. <code>EIBTASKN</code> (o número de tarefa do CICS) é um campo numérico; seu valor quando movido para um campo binário com sinal de 15 dígitos estará dentro do intervalo aceito por <code>FUNCTION RANDOM</code> (0–2.147.483.645 para uma sequência pseudoaleatória distinta). Números de tarefa que excedam esse intervalo não produzirão uma sequência distinta, embora nenhuma proteção esteja codificada para isso.</li>
+<li><strong>Imutabilidade do código de classificação</strong> — <code>SORTCODE PIC 9(6) VALUE 987654</code> é uma constante codificada. O programa nunca a modifica; o valor está implicitamente fixado em 987654 durante toda a execução.</li>
+</ul>
+<hr>
+<h3 id="75-restries-de-tratamento-de-erros" tabindex="-1">7.5 Restrições de Tratamento de Erros</h3>
+<ul>
+<li><strong>Toda resposta de comando CICS é verificada</strong> — <code>WS-CICS-RESP</code> e <code>WS-CICS-RESP2</code> são capturados em cada comando <code>EXEC CICS</code> (<code>DELAY</code>, <code>GET CONTAINER</code>, <code>PUT CONTAINER</code>). Qualquer resposta não-<code>DFHRESP(NORMAL)</code> aciona o processamento completo de abend ou causa um <code>EXEC CICS RETURN</code> imediato via <code>GET-ME-OUT-OF-HERE</code>, prevenindo a propagação silenciosa de erros.</li>
+<li><strong>O código de abend não deve começar com ‘A’</strong> — O programa usa o código de abend <code>'PLOP'</code>. O CICS reserva códigos de abend que começam com <code>'A'</code> para uso próprio; códigos definidos pelo usuário começando com <code>'A'</code> violariam essa restrição. <code>'PLOP'</code> está em conformidade com essa restrição.</li>
+<li><strong>O nome do programa de abend é fixo</strong> — <code>WS-ABEND-PGM PIC X(8) VALUE 'ABNDPROC'</code> é uma constante literal. O nome do programa manipulador de abend não pode ser alterado em tempo de execução; se <code>ABNDPROC</code> não estiver instalado na região CICS, o próprio <code>EXEC CICS LINK</code> falhará.</li>
+<li><strong>Hora e data preenchidas apenas no caminho de erro</strong> — <code>POPULATE-TIME-DATE</code> (que chama <code>EXEC CICS ASKTIME</code> e <code>EXEC CICS FORMATTIME</code>) é executado via <code>PERFORM</code> apenas dentro do ramo de erro de falha de DELAY. Os campos <code>WS-ORIG-DATE</code> e <code>WS-TIME-NOW</code> permanecem em seus valores iniciais em todos os caminhos de execução sem erro.</li>
+</ul>
+<h2 id="8-error-handling" tabindex="-1">8. Error Handling</h2>
+<h3 id="81-verificao-de-cdigo-de-resposta-cics-padro-respresp2" tabindex="-1">8.1 Verificação de Código de Resposta CICS (Padrão RESP/RESP2)</h3>
+<p>Cada comando CICS em CRDTAGY2 utiliza as opções <code>RESP</code> e <code>RESP2</code> para capturar os códigos de resposta primário e secundário em <code>WS-CICS-RESP</code> e <code>WS-CICS-RESP2</code>. Após cada comando, a resposta primária é comparada com <code>DFHRESP(NORMAL)</code> — a constante simbólica fornecida pelo CICS para uma resposta bem-sucedida — usando a condição <code>IF WS-CICS-RESP NOT = DFHRESP(NORMAL)</code>. Esse padrão é aplicado de forma consistente a três operações CICS:</p>
+<ul>
+<li><strong>EXEC CICS DELAY</strong> — verificado após a emissão do atraso aleatório</li>
+<li><strong>EXEC CICS GET CONTAINER</strong> — verificado após a recuperação do contêiner de dados do cliente</li>
+<li><strong>EXEC CICS PUT CONTAINER</strong> — verificado após a gravação do contêiner atualizado</li>
+</ul>
+<hr>
+<h3 id="82-tratamento-completo-de-abend-caminho-de-falha-no-delay" tabindex="-1">8.2 Tratamento Completo de Abend (Caminho de Falha no DELAY)</h3>
+<p>Quando o comando <code>EXEC CICS DELAY</code> falha, o programa implementa o caminho de tratamento de erros mais completo:</p>
+<ul>
+<li>A estrutura <code>ABNDINFO-REC</code> é inicializada e populada com informações de diagnóstico abrangentes:
+<ul>
+<li><code>EIBRESP</code> e <code>EIBRESP2</code> (os códigos de resposta CICS brutos do EIB) são movidos para <code>ABND-RESPCODE</code> e <code>ABND-RESP2CODE</code></li>
+<li><code>EXEC CICS ASSIGN APPLID</code> recupera o identificador de aplicação da região CICS, armazenado em <code>ABND-APPLID</code></li>
+<li><code>EIBTASKN</code> e <code>EIBTRNID</code> (número da tarefa e ID de transação do EIB) são movidos para <code>ABND-TASKNO-KEY</code> e <code>ABND-TRANID</code></li>
+<li>O parágrafo <code>POPULATE-TIME-DATE</code> é chamado para obter o tempo absoluto atual via <code>EXEC CICS ASKTIME</code> e formatá-lo via <code>EXEC CICS FORMATTIME</code>, produzindo uma data no formato <code>DD/MM/YYYY</code> (<code>WS-ORIG-DATE</code>) e um horário no formato <code>HHMMSS</code> (<code>WS-TIME-NOW</code>)</li>
+<li>A data formatada e uma string de horário no formato <code>HH:MM:MM</code> (construída usando uma instrução <code>STRING</code> a partir de <code>WS-TIME-NOW-GRP-HH</code> e <code>WS-TIME-NOW-GRP-MM</code>) são armazenadas em <code>ABND-DATE</code> e <code>ABND-TIME</code></li>
+<li><code>WS-U-TIME</code> (o valor de tempo absoluto) é movido para <code>ABND-UTIME-KEY</code></li>
+<li>O código de abend literal <code>'PLOP'</code> é colocado em <code>ABND-CODE</code></li>
+<li><code>EXEC CICS ASSIGN PROGRAM</code> recupera o nome do programa em execução em <code>ABND-PROGRAM</code></li>
+<li><code>ABND-SQLCODE</code> é definido como zeros (sem SQL neste programa)</li>
+<li>Uma mensagem de diagnóstico em formato livre, incluindo os valores de RESP e RESP2, é montada em <code>ABND-FREEFORM</code> usando uma instrução <code>STRING</code></li>
+</ul>
+</li>
+<li><code>EXEC CICS LINK PROGRAM(WS-ABEND-PGM) COMMAREA(ABNDINFO-REC)</code> é emitido para invocar o programa externo de tratamento de abend <code>ABNDPROC</code>, passando o <code>ABNDINFO-REC</code> totalmente populado como sua área de comunicação — isso delega o registro e processamento centralizado de abend a um handler dedicado</li>
+<li>Uma instrução <code>DISPLAY</code> grava a mensagem <code>'*** The delay messed up ! ***'</code> no console/log do sistema CICS como notificação adicional</li>
+<li><code>EXEC CICS ABEND ABCODE('PLOP')</code> é então emitido para encerrar a tarefa CICS de forma anormal com o código de abend de quatro caracteres <code>PLOP</code>, fazendo com que o CICS libere o armazenamento da tarefa e produza um dump de transação</li>
+</ul>
+<hr>
+<h3 id="83-tratamento-de-erros-simplificado-caminhos-de-falha-em-getput-container" tabindex="-1">8.3 Tratamento de Erros Simplificado (Caminhos de Falha em GET/PUT CONTAINER)</h3>
+<p>Quando <code>EXEC CICS GET CONTAINER</code> ou <code>EXEC CICS PUT CONTAINER</code> falha, um caminho de erro mais simples, porém ainda explícito, é acionado:</p>
+<ul>
+<li>
+<p>Para uma falha em <strong>GET CONTAINER</strong>:</p>
+<ul>
+<li>Duas instruções <code>DISPLAY</code> registram informações de diagnóstico no console CICS: a primeira emite os códigos RESP e RESP2; a segunda emite o nome do contêiner, o nome do canal e o comprimento dos dados</li>
+<li><code>PERFORM GET-ME-OUT-OF-HERE</code> é chamado para encerrar a tarefa de forma controlada via <code>EXEC CICS RETURN</code></li>
+</ul>
+</li>
+<li>
+<p>Para uma falha em <strong>PUT CONTAINER</strong>:</p>
+<ul>
+<li>O mesmo padrão é aplicado: duas instruções <code>DISPLAY</code> emitem os códigos RESP e RESP2, juntamente com detalhes do contêiner, canal e comprimento</li>
+<li><code>PERFORM GET-ME-OUT-OF-HERE</code> é chamado para encerramento controlado da tarefa</li>
+</ul>
+</li>
+</ul>
+<p>Observe que esses caminhos <strong>não</strong> invocam o handler de abend nem emitem <code>EXEC CICS ABEND</code> — eles realizam um retorno controlado em vez de uma terminação anormal.</p>
+<hr>
+<h3 id="84-encerramento-controlado-da-tarefa-sada-normal-e-de-erro" tabindex="-1">8.4 Encerramento Controlado da Tarefa (Saída Normal e de Erro)</h3>
+<ul>
+<li>A seção <code>GET-ME-OUT-OF-HERE</code> é tanto o caminho de saída normal quanto o caminho de saída de erro alternativo para falhas em contêineres
+<ul>
+<li>Ela emite <code>EXEC CICS RETURN</code>, que devolve o controle ao CICS e encerra a tarefa de forma ordenada</li>
+<li>É chamada incondicionalmente ao final do processamento bem-sucedido, e também chamada a partir de ambos os handlers de erro de contêiner, garantindo um único ponto de saída consistente, independentemente do caminho de execução percorrido</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="85-captura-de-datahora-para-diagnstico-mecanismo-de-suporte" tabindex="-1">8.5 Captura de Data/Hora para Diagnóstico (Mecanismo de Suporte)</h3>
+<ul>
+<li>O parágrafo <code>POPULATE-TIME-DATE</code> fornece infraestrutura de suporte para o registro de informações de abend
+<ul>
+<li><code>EXEC CICS ASKTIME ABSTIME(WS-U-TIME)</code> recupera o tempo absoluto atual como um valor decimal compactado</li>
+<li><code>EXEC CICS FORMATTIME</code> o formata em uma data <code>DD/MM/YYYY</code> e um horário <code>HHMMSS</code>, que são usados para registrar o timestamp do abend para rastreabilidade de diagnóstico</li>
+</ul>
+</li>
+</ul>
+<h2 id="9-examples" tabindex="-1">9. Examples</h2>
+<h3 id="91-exemplo-1--gerao-de-pontuao-de-crdito-bem-sucedida-fluxo-normal" tabindex="-1">9.1 Exemplo 1 — Geração de Pontuação de Crédito Bem-Sucedida (Fluxo Normal)</h3>
+<p><strong>Cenário:</strong> O programa pai (por exemplo, um orquestrador de pontuação de crédito) invoca <code>CRDTAGY2</code> de forma assíncrona via CICS Async API. Ele coloca um registro de cliente no canal <code>CIPCREDCHANN</code>, contêiner <code>CIPB</code>, antes de iniciar a tarefa.</p>
+<p><strong>Entrada (registro de cliente colocado no contêiner):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CUSTOMER-EYECATCHER</code></td>
+<td><code>CUST</code></td>
+</tr>
+<tr>
+<td><code>CUSTOMER-SORTCODE</code></td>
+<td><code>987654</code></td>
+</tr>
+<tr>
+<td><code>CUSTOMER-NUMBER</code></td>
+<td><code>0000000042</code></td>
+</tr>
+<tr>
+<td><code>CUSTOMER-NAME</code></td>
+<td><code>Mr John Smith</code></td>
+</tr>
+<tr>
+<td><code>CUSTOMER-STATUS</code></td>
+<td><code>ACTIVE</code></td>
+</tr>
+<tr>
+<td><code>CUSTOMER-CREDIT-SCORE</code></td>
+<td><code>000</code> <em>(espaço reservado — a ser sobrescrito)</em></td>
+</tr>
+<tr>
+<td><code>EIBTASKN</code> (número da tarefa CICS)</td>
+<td><code>1234</code> <em>(utilizado como semente do RANDOM)</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Etapas de execução do programa:</strong></p>
+<ol>
+<li><code>WS-SEED</code> ← <code>EIBTASKN</code> (1234). <code>RANDOM(1234)</code> produz uma fração pseudoaleatória, por exemplo <code>0.47</code>.<br>
+<code>WS-DELAY-AMT</code> = ((3 − 1) × 0,47) + 1 = <strong>~1 segundo</strong> → <code>EXEC CICS DELAY FOR SECONDS(1)</code>.</li>
+<li>O registro do cliente é recuperado do contêiner <code>CIPB</code> no canal <code>CIPCREDCHANN</code> para <code>WS-CONT-IN</code>.</li>
+<li>Uma segunda chamada a <code>RANDOM</code> (sem nova semente, continuando a mesma sequência) retorna, por exemplo, <code>0.71</code>.<br>
+<code>WS-NEW-CREDSCORE</code> = ((999 − 1) × 0,71) + 1 = <strong>~709</strong>.</li>
+<li><code>CUSTOMER-CREDIT-SCORE</code> em <code>WS-CONT-IN</code> é definido como <code>709</code>.</li>
+<li>O registro atualizado é gravado de volta no mesmo contêiner <code>CIPB</code> / canal <code>CIPCREDCHANN</code>.</li>
+<li><code>EXEC CICS RETURN</code> encerra a tarefa.</li>
+</ol>
+<p><strong>Saída (contêiner <code>CIPB</code> atualizado):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CUSTOMER-CREDIT-SCORE</code></td>
+<td><code>709</code> <em>(pontuação recém-atribuída)</em></td>
+</tr>
+<tr>
+<td>Todos os outros campos do cliente</td>
+<td>inalterados</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="92-exemplo-2--o-atraso-causa-timeout-no-programa-pai-pontuao-chega-tarde-demais" tabindex="-1">9.2 Exemplo 2 — O Atraso Causa Timeout no Programa Pai (Pontuação Chega Tarde Demais)</h3>
+<p><strong>Cenário:</strong> Mesma configuração do Exemplo 1, mas o número da tarefa CICS produz um valor de <code>RANDOM</code> próximo a <code>1.0</code>, empurrando o atraso para quase 3 segundos.</p>
+<p><strong>Entrada:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EIBTASKN</code></td>
+<td><code>9999</code> <em>(semente que gera uma fração aleatória alta, por exemplo 0,97)</em></td>
+</tr>
+<tr>
+<td>Registro do cliente</td>
+<td>igual ao Exemplo 1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Etapas de execução do programa:</strong></p>
+<ol>
+<li><code>WS-DELAY-AMT</code> = ((3 − 1) × 0,97) + 1 = <strong>~2,94 segundos</strong> → <code>EXEC CICS DELAY FOR SECONDS(2)</code> <em>(truncado para inteiro pelo campo COMP)</em>.</li>
+<li>O atraso é concluído normalmente (RESP = NORMAL), portanto nenhum abend é gerado.</li>
+<li>O contêiner é recuperado, uma nova pontuação de crédito (por exemplo, <code>850</code>) é calculada e gravada de volta — exatamente como no Exemplo 1.</li>
+</ol>
+<p><strong>Resultado da perspectiva do programa pai:</strong><br>
+O programa pai aguarda até 3 segundos por todos os filhos da agência de crédito. Como <code>CRDTAGY2</code> consumiu ~2–3 segundos, o pai <strong>pode</strong> atingir o timeout antes de coletar esse resultado, o que significa que a pontuação de crédito atualizada nunca é lida pelo pai nessa execução da transação. O próprio programa é concluído com sucesso e retorna normalmente — é a janela de <code>FETCH</code> de 3 segundos do pai que determina se a pontuação será consumida.</p>
+<p><strong>Observação comportamental importante:</strong> Existe aproximadamente <strong>1 chance em 4</strong> de o atraso exceder a janela de 3 segundos do pai, simulando intencionalmente uma agência de crédito externa lenta ou sem resposta.</p>
+
+                    </article>
+                    <nav class="toc-panel" aria-label="On this page">
+  <span class="toc-panel-label">On this page</span>
+  <ul class="toc-list">
+<li class="toc-level-2"><a href="#1-purpose">1. Purpose</a></li>
+<li class="toc-level-2"><a href="#2-inputs">2. Inputs</a></li>
+<li class="toc-level-2"><a href="#3-outputs">3. Outputs</a></li>
+<li class="toc-level-2"><a href="#4-processing-logic">4. Processing Logic</a>
+<ul>
+<li class="toc-level-3"><a href="#41-diagrama-de-fluxo-mermaid">4.1 Diagrama de Fluxo Mermaid</a></li>
+<li class="toc-level-3"><a href="#42-descrio-da-lgica-de-processamento">4.2 Descrição da Lógica de Processamento</a>
+<ul>
+<li class="toc-level-4"><a href="#421-resumo-de-alto-nvel">4.2.1 Resumo de Alto Nível</a></li>
+<li class="toc-level-4"><a href="#422-fluxo-de-execuo">4.2.2 Fluxo de Execução</a></li>
+<li class="toc-level-4"><a href="#423-interaes-externas">4.2.3 Interações Externas</a></li>
+<li class="toc-level-4"><a href="#424-resumo-em-linguagem-simples">4.2.4 Resumo em Linguagem Simples</a></li>
+</ul>
+</li>
+<li class="toc-level-3"><a href="#43-tabelas-de-banco-de-dados">4.3 Tabelas de Banco de Dados</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#5-paragraphs">5. Paragraphs</a></li>
+<li class="toc-level-2"><a href="#6-dependencies">6. Dependencies</a></li>
+<li class="toc-level-2"><a href="#7-constraints">7. Constraints</a>
+<ul>
+<li class="toc-level-3"><a href="#71-restries-de-validao-de-dados">7.1 Restrições de Validação de Dados</a></li>
+<li class="toc-level-3"><a href="#72-restries-de-canal-e-continer">7.2 Restrições de Canal e Contêiner</a></li>
+<li class="toc-level-3"><a href="#73-restries-de-sequenciamento-e-temporizao">7.3 Restrições de Sequenciamento e Temporização</a></li>
+<li class="toc-level-3"><a href="#74-restries-de-recursos-e-intervalo-de-valores">7.4 Restrições de Recursos e Intervalo de Valores</a></li>
+<li class="toc-level-3"><a href="#75-restries-de-tratamento-de-erros">7.5 Restrições de Tratamento de Erros</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#8-error-handling">8. Error Handling</a>
+<ul>
+<li class="toc-level-3"><a href="#81-verificao-de-cdigo-de-resposta-cics-padro-respresp2">8.1 Verificação de Código de Resposta CICS (Padrão RESP/RESP2)</a></li>
+<li class="toc-level-3"><a href="#82-tratamento-completo-de-abend-caminho-de-falha-no-delay">8.2 Tratamento Completo de Abend (Caminho de Falha no DELAY)</a></li>
+<li class="toc-level-3"><a href="#83-tratamento-de-erros-simplificado-caminhos-de-falha-em-getput-container">8.3 Tratamento de Erros Simplificado (Caminhos de Falha em GET/PUT CONTAINER)</a></li>
+<li class="toc-level-3"><a href="#84-encerramento-controlado-da-tarefa-sada-normal-e-de-erro">8.4 Encerramento Controlado da Tarefa (Saída Normal e de Erro)</a></li>
+<li class="toc-level-3"><a href="#85-captura-de-datahora-para-diagnstico-mecanismo-de-suporte">8.5 Captura de Data/Hora para Diagnóstico (Mecanismo de Suporte)</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#9-examples">9. Examples</a>
+<ul>
+<li class="toc-level-3"><a href="#91-exemplo-1--gerao-de-pontuao-de-crdito-bem-sucedida-fluxo-normal">9.1 Exemplo 1 — Geração de Pontuação de Crédito Bem-Sucedida (Fluxo Normal)</a></li>
+<li class="toc-level-3"><a href="#92-exemplo-2--o-atraso-causa-timeout-no-programa-pai-pontuao-chega-tarde-demais">9.2 Exemplo 2 — O Atraso Causa Timeout no Programa Pai (Pontuação Chega Tarde Demais)</a></li>
+</ul>
+</li>
+</ul>
+
+</nav>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="wiki-footer">Made by IBM Bob Premium Package for Z</footer>
+    <script>
+    /* toc-spy.js — highlights the active heading in the TOC panel on scroll */
+    (function () {
+      function init() {
+        var panel = document.querySelector('.toc-panel');
+        if (!panel) return;
+        var links = Array.prototype.slice.call(panel.querySelectorAll('a[href^="#"]'));
+        if (!links.length) return;
+
+        var headingIds = links.map(function (a) { return a.getAttribute('href').slice(1); });
+        var headings = headingIds.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+
+        function clearActive() {
+          panel.querySelectorAll('.toc-active').forEach(function (el) { el.classList.remove('toc-active'); });
+          panel.querySelectorAll('.toc-parent-active').forEach(function (el) { el.classList.remove('toc-parent-active'); });
+        }
+
+        function setActive(id) {
+          clearActive();
+          var link = panel.querySelector('a[href="#' + id + '"]');
+          if (!link) return;
+          link.classList.add('toc-active');
+          var li = link.closest('li');
+          if (li) {
+            var parentLi = li.parentElement && li.parentElement.closest('li');
+            if (parentLi) parentLi.classList.add('toc-parent-active');
+          }
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              setActive(entry.target.id);
+            }
+          });
+        }, { rootMargin: '0px 0px -70% 0px', threshold: 0 });
+
+        headings.forEach(function (h) { observer.observe(h); });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+    </script>
+    <script>
+    /* breadcrumb.js — reads sessionStorage['wiki_referrer'] and renders breadcrumb.
+       Only fires when the referrer was set by clicking a link inside the Source Files
+       disclosure on a wiki page; clears after rendering so stale state never lingers. */
+    (function () {
+      var raw;
+      try { raw = sessionStorage.getItem('wiki_referrer'); } catch (_e) {}
+      if (!raw) return;
+      /* Consume immediately — prevents the breadcrumb re-appearing on the next visit. */
+      try { sessionStorage.removeItem('wiki_referrer'); } catch (_e) {}
+      var ref;
+      try { ref = JSON.parse(raw); } catch (_e) { return; }
+      if (!ref || !ref.href) return;
+      var bc = document.getElementById('wiki-breadcrumb');
+      if (!bc) return;
+      bc.className = 'wiki-breadcrumb';
+      bc.innerHTML =
+        '<a href="' + ref.href + '">' + (ref.title || 'Back') + '</a>' +
+        '<span class="wiki-breadcrumb-sep"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>' +
+        '<span class="wiki-breadcrumb-current">CRDTAGY2</span>';
+    })();
+    </script>
+    <script>
+    /* sidebar toggle — same as main wiki pages */
+    (function () {
+
+      var STORAGE_KEY = 'sb_open';
+
+      function getOpenSet() {
+        try {
+          var raw = sessionStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (e) { return null; }
+      }
+
+      function saveOpenSet(set) {
+        try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(set)); } catch (e) {}
+      }
+
+      function findItems(toggle) {
+        var node = toggle.nextSibling;
+        while (node) {
+          if (node.nodeType === 1 && node.classList.contains('nav-section-items'))
+            return node;
+          node = node.nextSibling;
+        }
+        return null;
+      }
+
+      function toggleKey(toggle, index) {
+        var label = (toggle.querySelector('.nav-toggle-text') || toggle).textContent.trim().replace(/\s+/g, ' ');
+        return index + ':' + label;
+      }
+
+      function openSection(toggle, items, key, set) {
+        toggle.classList.add('open');
+        items.classList.add('open');
+        if (set) set[key] = true;
+      }
+
+      function closeSection(toggle, items, key, set) {
+        toggle.classList.remove('open');
+        items.classList.remove('open');
+        if (set) set[key] = false;
+      }
+
+      function init() {
+        var sidebar = document.getElementById('wiki-sidebar');
+        var toggles = Array.prototype.slice.call(
+          document.querySelectorAll('.nav-section-toggle')
+        );
+
+        var savedSet = getOpenSet();
+        var openSet = savedSet || {};
+
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+
+          var key = toggleKey(toggle, idx);
+          var shouldOpen = openSet[key] === true;
+
+          if (shouldOpen) {
+            toggle.classList.add('open');
+            items.classList.add('open');
+          }
+
+          toggle.addEventListener('click', function () {
+            var nowOpen = toggle.classList.contains('open');
+            if (nowOpen) {
+              closeSection(toggle, items, key, openSet);
+            } else {
+              openSection(toggle, items, key, openSet);
+            }
+            saveOpenSet(openSet);
+          });
+        });
+
+        saveOpenSet(openSet);
+
+        /* Restore sidebar scroll position after sections are expanded so the
+           scroll height is correct when we apply scrollTop. */
+        if (sidebar) {
+          try {
+            var savedScroll = sessionStorage.getItem('sb_scroll');
+            if (savedScroll !== null) { sidebar.scrollTop = parseInt(savedScroll, 10) || 0; }
+          } catch (_e) {}
+        }
+
+        window.addEventListener('pagehide', function () {
+          saveOpenSet(openSet);
+          if (sidebar) {
+            try { sessionStorage.setItem('sb_scroll', String(sidebar.scrollTop)); } catch (_e) {}
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+
+    })();
+    </script>
+</body>
+</html>

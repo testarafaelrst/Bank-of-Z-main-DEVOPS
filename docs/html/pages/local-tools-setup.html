@@ -1,0 +1,881 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Tools Setup - Bank of Z – IBM Z Modern Development Reference</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/mermaid.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: { useMaxWidth: true }
+        });
+    </script>
+
+    <!-- Prism.js for syntax highlighting (bundled — no CDN required) -->
+    <link rel="stylesheet" href="../assets/prism-tomorrow.css">
+    <script src="../assets/prism-core.js"></script>
+    <script src="../assets/prism-languages.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <span class="header-app-name"><a href="../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – IBM Z Modern Development Reference</a></span>
+        </div>
+        <div class="header-right">
+        </div>
+    </header>
+    <div class="shell">
+        <aside class="sidebar" id="wiki-sidebar">
+            <nav>
+                
+        <div class="nav-home-wrap">
+            <a href="../../index.html" class="nav-home">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                Home
+            </a>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Application Documentation</div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">About Bank of Z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="about-overview.html" class="nav-link" data-page-id="about-overview">Project Overview</a>
+                <a href="architecture-overview.html" class="nav-link" data-page-id="architecture-overview">Architecture Overview</a>
+                <a href="key-capabilities.html" class="nav-link" data-page-id="key-capabilities">Key Capabilities</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Architecture</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="application-components.html" class="nav-link" data-page-id="application-components">Application Components</a>
+                <a href="application-flow.html" class="nav-link" data-page-id="application-flow">Application Flow</a>
+                <a href="build-and-deployment-arch.html" class="nav-link" data-page-id="build-and-deployment-arch">Build &amp; Deployment Architecture</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle open" type="button">
+                <span class="nav-toggle-text">Installation &amp; Setup</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items open">
+                <a href="prerequisites-env.html" class="nav-link" data-page-id="prerequisites-env">Prerequisites &amp; Environment Configuration</a>
+                <a href="deploying-options.html" class="nav-link" data-page-id="deploying-options">Deployment Options</a>
+                <a href="local-tools-setup.html" class="nav-link active" data-page-id="local-tools-setup">Local Tools Setup</a>
+                <a href="zowe-cli-setup.html" class="nav-link" data-page-id="zowe-cli-setup">Zowe CLI &amp; Profile Setup</a>
+                <a href="verification.html" class="nav-link" data-page-id="verification">Installation Verification</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Development Workflows</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="workflow-overview.html" class="nav-link" data-page-id="workflow-overview">Development Workflow Overview</a>
+                <a href="zowe-cli-workflow.html" class="nav-link" data-page-id="zowe-cli-workflow">Zowe CLI Workflow</a>
+                <a href="grub-workflow.html" class="nav-link" data-page-id="grub-workflow">Grub Workflow</a>
+                <a href="development-best-practices.html" class="nav-link" data-page-id="development-best-practices">Development Best Practices</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Tutorials</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="deploy-bank-of-z.html" class="nav-link" data-page-id="deploy-bank-of-z">Tutorial: Deploy Bank of Z</a>
+                <a href="cics-enhancement.html" class="nav-link" data-page-id="cics-enhancement">Tutorial: CICS Enhancement Scenario</a>
+                <a href="incremental-build.html" class="nav-link" data-page-id="incremental-build">Tutorial: Incremental Build</a>
+                <a href="debug-cics-transaction.html" class="nav-link" data-page-id="debug-cics-transaction">Tutorial: Debug a CICS Transaction</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Reference</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="commands-reference.html" class="nav-link" data-page-id="commands-reference">Commands Reference</a>
+                <a href="configuration-reference.html" class="nav-link" data-page-id="configuration-reference">Configuration Reference</a>
+                <a href="glossary.html" class="nav-link" data-page-id="glossary">Glossary</a>
+                <a href="repository-structure.html" class="nav-link" data-page-id="repository-structure">Repository Structure</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Troubleshooting</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="troubleshooting-overview.html" class="nav-link" data-page-id="troubleshooting-overview">Troubleshooting Overview</a>
+                <a href="fix-abend-cino.html" class="nav-link" data-page-id="fix-abend-cino">Fix: OMEN ABEND CINO</a>
+                <a href="program-internals.html" class="nav-link" data-page-id="program-internals">Program Internals: CRDTAGY2 Credit Agency Simulator</a>
+            </div>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Program Documentation</div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">docs</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">about-bank-of-z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">program</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">src</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+            <div class="nav-section">
+                <button class="nav-section-toggle" type="button">
+                    <span class="nav-toggle-text">base</span>
+                    <span class="nav-section-chevron">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="nav-section-items">
+                <div class="nav-section">
+                    <button class="nav-section-toggle" type="button">
+                        <span class="nav-toggle-text">cics</span>
+                        <span class="nav-section-chevron">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="nav-section-items">
+                    <div class="nav-section">
+                        <button class="nav-section-toggle" type="button">
+                            <span class="nav-toggle-text">cobol</span>
+                            <span class="nav-section-chevron">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="nav-section-items">
+                            <a href="../sources/program/src/base/cics/cobol/CRDTAGY2.html" class="nav-link">CRDTAGY2</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+            </nav>
+        </aside>
+        <main class="main">
+            <div class="page-container">
+                <div class="content-layout">
+                    <div class="prose">
+                        <details class="source-files-disclosure">
+            <summary>
+                <svg class="sf-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Source Files
+                <span style="margin-left:4px;font-size:11px;color:var(--fg-subtle)">(1)</span>
+            </summary>
+            <div class="source-files-body">
+                <ul class="source-files-list">
+            <li><a href="../sources/docs/about-bank-of-z/index.html">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+                    <path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M10 2v4h4" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                index
+            </a></li>
+                </ul>
+            </div>
+        </details>
+                        <h1 id="local-tools-setup" tabindex="-1">Local Tools Setup</h1>
+<p>This page describes how to install and configure all local development tools required for Bank of Z development. It covers IDE setup, Zowe profile configuration, Zowe CLI installation, and GRUB deployment tooling. Before proceeding, ensure you have cloned the Bank of Z repository to your local machine — Git is required for all workflows.</p>
+<hr>
+<h2 id="1-overview" tabindex="-1">1. Overview</h2>
+<p>The Bank of Z local tooling stack enables developers to write, edit, deploy, and debug mainframe applications from their own workstations. The setup is organized into three logical layers:</p>
+<ol>
+<li><strong>IDE</strong> — Browse, edit, and manage source code using IBM Bob Premium Package for Z or Visual Studio Code with IBM Z extensions.</li>
+<li><strong>Zowe Profile</strong> — Establish secure connectivity between your local tools and your z/OS system.</li>
+<li><strong>Deployment Tooling</strong> — Push local changes to z/OS using one of three supported workflows: Zowe CLI, GRUB, or Direct USS (SSH).</li>
+</ol>
+<p>Each layer is independent; however, the recommended order is: IDE → Zowe Profile → Deployment Tooling.</p>
+<hr>
+<h2 id="2-system-architecture" tabindex="-1">2. System Architecture</h2>
+<p>The diagram below illustrates how the local development environment connects to the z/OS system and which tooling components participate in each path.</p>
+<div class="mermaid">
+graph TD
+    subgraph Developer_Workstation["Developer Workstation"]
+        IDE["IDE\n(IBM Bob Premium / VS Code)"]
+        ZoweExt["Zowe Explorer Extension"]
+        ZoweCLI["Zowe CLI + RSE API Plug-in"]
+        GRUB["GRUB\n(Git Remote User Build)"]
+        SSH["SSH / Direct USS"]
+        ZoweProfile["~/.zowe/zowe.config.json\n(Zowe Profile)"]
+    end
+
+    subgraph zOS["z/OS System"]
+        USS["z/OS USS\n(Unix System Services)"]
+        CICS["CICS"]
+        IMS["IMS"]
+        DB2["Db2"]
+        MQ["IBM MQ"]
+        SetupScript["setup-remote.sh"]
+    end
+
+    IDE --> ZoweExt
+    ZoweExt --> ZoweProfile
+    ZoweCLI --> ZoweProfile
+    ZoweProfile --> USS
+
+    ZoweCLI -->|"Deploy via RSE API"| USS
+    GRUB -->|"Sync patch + post-sync hook"| USS
+    SSH -->|"Direct connection"| USS
+
+    USS --> SetupScript
+    USS --> CICS
+    USS --> IMS
+    USS --> DB2
+    USS --> MQ
+</div>
+<p>The Zowe profile is the central configuration artifact. Both the IDE extensions (Zowe Explorer, debugger) and the Zowe CLI deployment tooling read from <code>~/.zowe/zowe.config.json</code> to resolve host, port, and credential information. GRUB operates independently, maintaining its own remote host configuration but deploying to the same USS path.</p>
+<hr>
+<h2 id="3-ide-setup" tabindex="-1">3. IDE Setup</h2>
+<p>An IDE is required to browse, edit, and manage Bank of Z source code. For the best experience and to follow the tutorials in the documentation, use <strong>IBM Bob Premium Package for Z</strong>. Alternatively, <strong>Visual Studio Code</strong> is fully supported.</p>
+<blockquote>
+<p>IDE setup is independent of your chosen deployment workflow. Complete this step before configuring deployment tooling.</p>
+</blockquote>
+<h3 id="31-prerequisites" tabindex="-1">3.1 Prerequisites</h3>
+<p>Java 21 is required to run the IDE and its embedded tooling. Install <strong>IBM Semeru Runtime for Java 21</strong> or later, then verify the installation:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">java -version</code></pre>
+</div>
+<p>Expected output should indicate version <code>21.x.x</code> or later.</p>
+<h3 id="32-required-extensions" tabindex="-1">3.2 Required Extensions</h3>
+<p>Install the following extensions in your IDE. If you are using IBM Bob Premium Package for Z and an extension is unavailable in the Open VSX Marketplace, download the VSIX package and install it manually.</p>
+<table>
+<thead>
+<tr>
+<th>Extension</th>
+<th>Description</th>
+<th>VS Code Marketplace</th>
+<th>Open VSX</th>
+<th>VSIX</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IBM® Developer for z/OS® Enterprise Edition (IDzEE) Extension Pack</td>
+<td>Core IBM Z development extensions including IBM Z Open Editor, IBM Z Open Debug, IBM Compiled Code Coverage, Zowe Explorer, and Zowe Explorer for IBM CICS.</td>
+<td><a href="https://marketplace.visualstudio.com/items?itemName=IBM.developer-for-zos-on-vscode-extension-pack">Link</a></td>
+<td><a href="https://open-vsx.org/extension/IBM/developer-for-zos-on-vscode-extension-pack">Link</a></td>
+<td><a href="https://marketplace.visualstudio.com/_apis/public/gallery/publishers/IBM/vsextensions/developer-for-zos-on-vscode-extension-pack/latest/vspackage">Link</a></td>
+</tr>
+<tr>
+<td>IBM CICS Interdependency Analyzer Extension for Zowe Explorer</td>
+<td>CICS application and resource analysis.</td>
+<td><a href="https://marketplace.visualstudio.com/items?itemName=IBM.cics-ia-extension-for-zowe">Link</a></td>
+<td>N/A</td>
+<td><a href="https://marketplace.visualstudio.com/_apis/public/gallery/publishers/IBM/vsextensions/cics-ia-extension-for-zowe/latest/vspackage">Link</a></td>
+</tr>
+<tr>
+<td>IBM IMS Explorer for VS Code</td>
+<td>IMS application development support.</td>
+<td><a href="https://marketplace.visualstudio.com/items?itemName=IBM.ims-explorer-for-vscode">Link</a></td>
+<td>N/A</td>
+<td><a href="https://marketplace.visualstudio.com/_apis/public/gallery/publishers/IBM/vsextensions/ims-explorer-for-vscode/latest/vspackage">Link</a></td>
+</tr>
+<tr>
+<td>IBM Db2 for z/OS Developer Extension</td>
+<td>Db2 development and SQL tooling.</td>
+<td><a href="https://marketplace.visualstudio.com/items?itemName=IBM.db2forzosdeveloperextension">Link</a></td>
+<td><a href="https://open-vsx.org/extension/IBM/db2forzosdeveloperextension">Link</a></td>
+<td><a href="https://marketplace.visualstudio.com/_apis/public/gallery/publishers/IBM/vsextensions/db2forzosdeveloperextension/latest/vspackage">Link</a></td>
+</tr>
+<tr>
+<td>IBM z/OS Connect Development Tools</td>
+<td>API development and management for z/OS Connect.</td>
+<td><a href="https://marketplace.visualstudio.com/items?itemName=IBM.ibm-zosconnect">Link</a></td>
+<td>N/A</td>
+<td><a href="https://marketplace.visualstudio.com/_apis/public/gallery/publishers/IBM/vsextensions/ibm-zosconnect/latest/vspackage">Link</a></td>
+</tr>
+<tr>
+<td>IBM TAZ Early Development Testing</td>
+<td>Test automation and early development testing.</td>
+<td><a href="https://marketplace.visualstudio.com/items?itemName=IBM.taz-edt-extension">Link</a></td>
+<td><a href="https://open-vsx.org/extension/IBM/taz-edt-extension">Link</a></td>
+<td><a href="https://marketplace.visualstudio.com/_apis/public/gallery/publishers/IBM/vsextensions/taz-edt-extension/latest/vspackage">Link</a></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note:</strong> For IBM MQ there is no IBM extension in the VS Code Marketplace. See the <a href="https://community.ibm.com/community/user/blogs/dorothy-quincy/2026/05/08/ibm-mq-console-extension">IBM MQ Console extension</a> available from the <code>ibm-messaging</code> GitHub group.</p>
+</blockquote>
+<h3 id="33-install-extensions-from-a-marketplace" tabindex="-1">3.3 Install Extensions from a Marketplace</h3>
+<ol>
+<li>Open the <strong>Extensions</strong> view in your IDE.</li>
+<li>Search for the extension by name.</li>
+<li>Select <strong>Install</strong>.</li>
+</ol>
+<h3 id="34-install-vsix-packages-manually" tabindex="-1">3.4 Install VSIX Packages Manually</h3>
+<ol>
+<li>Download the VSIX file using the link in the table above.</li>
+<li>Open the <strong>Extensions</strong> view.</li>
+<li>Select <strong>More Actions (…)</strong> → <strong>Install from VSIX…</strong></li>
+<li>Browse to the downloaded file and complete the installation.</li>
+</ol>
+<h3 id="35-automated-vsix-download-and-install" tabindex="-1">3.5 Automated VSIX Download and Install</h3>
+<p>Bank of Z includes scripts to download and install all required VSIX packages in a single step.</p>
+<p><strong>Download all packages:</strong></p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">node scripts/download-vsix.js [output-directory]</code></pre>
+</div>
+<p>The default output directory is <code>./vsix-extensions</code>.</p>
+<p><strong>Install into IBM Bob Premium Package for Z:</strong></p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash"># First add bobide to PATH:
+# View &gt; Command Palette &gt; Shell Command: Install &#039;bobide&#039; command in PATH
+
+node scripts/install-bobide-vsix.js [output-directory]</code></pre>
+</div>
+<p><strong>Install into VS Code:</strong></p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash"># First add code to PATH:
+# View &gt; Command Palette &gt; Shell Command: Install &#039;code&#039; command in PATH
+
+node scripts/install-vscode-vsix.js [output-directory]</code></pre>
+</div>
+<p>For more information, see <a href="../../../../scripts/README.md"><code>scripts/README.md</code></a>.</p>
+<h3 id="36-verify-the-ide-configuration" tabindex="-1">3.6 Verify the IDE Configuration</h3>
+<p>After completing the installation:</p>
+<ol>
+<li>Launch the IDE.</li>
+<li>Confirm all required extensions are installed and enabled.</li>
+<li>Open the Bank of Z repository and confirm that the workspace tasks are available from <strong>Terminal</strong> → <strong>Run Task</strong>.</li>
+</ol>
+<hr>
+<h2 id="4-zowe-profile-setup" tabindex="-1">4. Zowe Profile Setup</h2>
+<p>A Zowe profile is required to connect your IDE extensions (Zowe Explorer, debugger) and the Zowe CLI deployment tooling to your z/OS system. This configuration must be completed before using either the IDE connectivity features or the Zowe CLI deployment workflow.</p>
+<p>The Zowe profile is stored at <code>~/.zowe/zowe.config.json</code> and acts as the single source of truth for host, port, and credential configuration across all Zowe-aware tools.</p>
+<div class="mermaid">
+sequenceDiagram
+    participant Dev as Developer
+    participant CLI as Zowe CLI
+    participant CFG as ~/.zowe/zowe.config.json
+    participant zOS as z/OS System
+
+    Dev->>CLI: zowe config init
+    CLI->>CFG: Create/update profile
+    Dev->>CFG: Set host, port, credentials
+    Dev->>CLI: zowe zosmf check status
+    CLI->>CFG: Read connection settings
+    CLI->>zOS: Test z/OSMF connection
+    zOS-->>CLI: Connection response
+    CLI-->>Dev: Profile verified ✓
+</div>
+<p>This diagram shows the flow for initializing and verifying the Zowe profile. Once the profile is verified, all Zowe-aware tools — including Zowe Explorer in the IDE and the Zowe CLI — will use these settings automatically.</p>
+<hr>
+<h2 id="5-zowe-cli-setup" tabindex="-1">5. Zowe CLI Setup</h2>
+<p>The Zowe CLI, combined with the IBM RSE API plug-in, provides a scriptable command-line interface for deploying Bank of Z changes to z/OS. This is required if you are using the <strong>Zowe CLI deployment workflow</strong>.</p>
+<h3 id="51-install-zowe-cli" tabindex="-1">5.1 Install Zowe CLI</h3>
+<p>Install Zowe CLI globally using npm:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">npm install -g @zowe/cli</code></pre>
+</div>
+<p>Verify the installation:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe --version</code></pre>
+</div>
+<h3 id="52-install-the-ibm-rse-api-plug-in" tabindex="-1">5.2 Install the IBM RSE API Plug-in</h3>
+<p>The IBM RSE API plug-in extends Zowe CLI with capabilities needed to interact with z/OS USS and datasets through the RSE API:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe plugins install @ibm/rse-api-for-zowe-cli</code></pre>
+</div>
+<p>Verify the plug-in installation:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe plugins list</code></pre>
+</div>
+<h3 id="53-verify-zowe-cli-connectivity" tabindex="-1">5.3 Verify Zowe CLI Connectivity</h3>
+<p>Once both the CLI and the plug-in are installed, and your Zowe profile is configured (see Section 4), verify end-to-end connectivity:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe zosmf check status</code></pre>
+</div>
+<p>A successful response confirms that your workstation can reach the z/OS system using the configured profile.</p>
+<hr>
+<h2 id="6-grub-setup" tabindex="-1">6. GRUB Setup</h2>
+<p>GRUB (Git Remote User Build) syncs local file changes directly to z/OS USS <strong>without requiring a Git commit</strong>, then automatically runs a configured post-sync script on USS. Bank of Z uses this capability to run setup and deployment scripts automatically after each sync.</p>
+<p>This is required for the <strong>GRUB deployment workflow</strong>.</p>
+<h3 id="61-install-grub" tabindex="-1">6.1 Install GRUB</h3>
+<p>Follow the GRUB installation instructions for your environment. GRUB is available from the IBM Z development tooling portfolio.</p>
+<h3 id="62-configure-grub-for-bank-of-z" tabindex="-1">6.2 Configure GRUB for Bank of Z</h3>
+<p>After installing GRUB, configure it with the following settings:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Description</th>
+<th>Example Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Remote host</strong></td>
+<td>Host name or IP address of your z/OS USS system</td>
+<td><code>myzos.example.com</code></td>
+</tr>
+<tr>
+<td><strong>Remote user</strong></td>
+<td>Your USS user ID</td>
+<td><code>IBMUSER</code></td>
+</tr>
+<tr>
+<td><strong>Remote path</strong></td>
+<td>USS path where the Bank of Z repository is synchronized. Must match <code>sandbox.path</code> in <code>.setup/config/config.yaml</code> with <code>/Bank-of-Z</code> appended.</td>
+<td><code>/usr/local/sandboxes/bank-of-z/Bank-of-Z</code></td>
+</tr>
+<tr>
+<td><strong>Post-sync command</strong></td>
+<td>Command GRUB runs on z/OS USS after each synchronization</td>
+<td><code>bash &lt;remote-path&gt;/.setup/setup-remote.sh</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example post-sync command:</strong></p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">bash /usr/local/sandboxes/bank-of-z/Bank-of-Z/.setup/setup-remote.sh</code></pre>
+</div>
+<p>Refer to the GRUB documentation for the configuration procedure specific to your version.</p>
+<h3 id="63-how-grub-works-with-bank-of-z" tabindex="-1">6.3 How GRUB Works with Bank of Z</h3>
+<p>The following diagram illustrates the GRUB sync and deployment process:</p>
+<div class="mermaid">
+sequenceDiagram
+    participant Dev as Developer
+    participant GRUB as GRUB (Local)
+    participant USS as z/OS USS
+    participant Script as setup-remote.sh
+
+    Dev->>GRUB: Trigger sync
+    GRUB->>GRUB: Compute patch\n(changed files only)
+    GRUB->>USS: Apply patch to Bank-of-Z directory
+    USS-->>GRUB: Patch applied
+    GRUB->>USS: Execute post-sync hook
+    USS->>Script: bash setup-remote.sh
+    Script->>Script: Detect Bank-of-Z repo context
+    Script->>USS: Run all three setup stages
+    USS-->>Script: Setup complete
+    Script-->>GRUB: Exit 0
+    GRUB-->>Dev: Sync complete ✓
+</div>
+<p>The GRUB workflow operates as follows:</p>
+<ol>
+<li><strong>Patch computation</strong> — GRUB computes a patch containing only the local changes since the previous sync. No Git commit is required.</li>
+<li><strong>Remote patch application</strong> — The patch is applied to the Bank of Z directory on z/OS USS.</li>
+<li><strong>Post-sync hook execution</strong> — GRUB runs <code>setup-remote.sh</code> on z/OS USS automatically.</li>
+<li><strong>Automated setup</strong> — <code>setup-remote.sh</code> detects that it is running inside the Bank-of-Z repository and automatically runs all three setup stages.</li>
+</ol>
+<blockquote>
+<p>After the initial deployment, subsequent syncs are typically fast because only changed files are transferred.</p>
+</blockquote>
+<hr>
+<h2 id="7-deployment-workflow-comparison" tabindex="-1">7. Deployment Workflow Comparison</h2>
+<p>The table below summarizes the three supported deployment workflows and their tooling requirements:</p>
+<table>
+<thead>
+<tr>
+<th>Workflow</th>
+<th>Local Tools Required</th>
+<th>Requires Git Commit</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Zowe CLI</strong></td>
+<td>Zowe CLI + IBM RSE API plug-in + Zowe Profile</td>
+<td>Yes</td>
+<td>Scriptable, CI/CD friendly</td>
+</tr>
+<tr>
+<td><strong>GRUB</strong></td>
+<td>GRUB + Zowe Profile (for IDE)</td>
+<td>No</td>
+<td>Fast incremental syncs</td>
+</tr>
+<tr>
+<td><strong>Direct USS</strong></td>
+<td>SSH client + Zowe Profile (for IDE)</td>
+<td>No</td>
+<td>Manual; no additional tooling needed</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="8-next-steps" tabindex="-1">8. Next Steps</h2>
+<p>Once all required tools are installed and configured, proceed with your chosen deployment workflow:</p>
+<ul>
+<li><strong>Zowe CLI workflow</strong> — Use <code>zowe</code> commands to deploy changes from your workstation.</li>
+<li><strong>GRUB workflow</strong> — Trigger a sync from your IDE or terminal; GRUB handles the rest automatically.</li>
+<li><strong>Direct USS workflow</strong> — SSH into z/OS USS and run the setup scripts manually.</li>
+</ul>
+
+                        <div class="related-pages">
+                            <p class="related-pages-title">Related Pages</p>
+                            <div class="card-grid">
+                                
+            <a href="zowe-cli-setup.html" class="card">
+                <span class="card-title">Zowe CLI &amp; Profile Setup</span>
+                <span class="card-description">Detailed instructions for installing and configuring the Zowe CLI and creating Zowe profiles to connect to an IBM Z environment for Bank of Z development.</span>
+            </a>
+            <a href="prerequisites-env.html" class="card">
+                <span class="card-title">Prerequisites &amp; Environment Configuration</span>
+                <span class="card-description">System requirements, software prerequisites, and environment configuration steps needed before installing and running Bank of Z on IBM Z.</span>
+            </a>
+                            </div>
+                        </div>
+                    </div>
+                    <nav class="toc-panel" aria-label="On this page">
+  <span class="toc-panel-label">On this page</span>
+  <ul class="toc-list">
+<li class="toc-level-2"><a href="#1-overview">1. Overview</a></li>
+<li class="toc-level-2"><a href="#2-system-architecture">2. System Architecture</a></li>
+<li class="toc-level-2"><a href="#3-ide-setup">3. IDE Setup</a>
+<ul>
+<li class="toc-level-3"><a href="#31-prerequisites">3.1 Prerequisites</a></li>
+<li class="toc-level-3"><a href="#32-required-extensions">3.2 Required Extensions</a></li>
+<li class="toc-level-3"><a href="#33-install-extensions-from-a-marketplace">3.3 Install Extensions from a Marketplace</a></li>
+<li class="toc-level-3"><a href="#34-install-vsix-packages-manually">3.4 Install VSIX Packages Manually</a></li>
+<li class="toc-level-3"><a href="#35-automated-vsix-download-and-install">3.5 Automated VSIX Download and Install</a></li>
+<li class="toc-level-3"><a href="#36-verify-the-ide-configuration">3.6 Verify the IDE Configuration</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#4-zowe-profile-setup">4. Zowe Profile Setup</a></li>
+<li class="toc-level-2"><a href="#5-zowe-cli-setup">5. Zowe CLI Setup</a>
+<ul>
+<li class="toc-level-3"><a href="#51-install-zowe-cli">5.1 Install Zowe CLI</a></li>
+<li class="toc-level-3"><a href="#52-install-the-ibm-rse-api-plug-in">5.2 Install the IBM RSE API Plug-in</a></li>
+<li class="toc-level-3"><a href="#53-verify-zowe-cli-connectivity">5.3 Verify Zowe CLI Connectivity</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#6-grub-setup">6. GRUB Setup</a>
+<ul>
+<li class="toc-level-3"><a href="#61-install-grub">6.1 Install GRUB</a></li>
+<li class="toc-level-3"><a href="#62-configure-grub-for-bank-of-z">6.2 Configure GRUB for Bank of Z</a></li>
+<li class="toc-level-3"><a href="#63-how-grub-works-with-bank-of-z">6.3 How GRUB Works with Bank of Z</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#7-deployment-workflow-comparison">7. Deployment Workflow Comparison</a></li>
+<li class="toc-level-2"><a href="#8-next-steps">8. Next Steps</a></li>
+</ul>
+
+</nav>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+    /* toc-spy.js — highlights the active heading in the TOC panel on scroll */
+    (function () {
+      function init() {
+        var panel = document.querySelector('.toc-panel');
+        if (!panel) return;
+        var links = Array.prototype.slice.call(panel.querySelectorAll('a[href^="#"]'));
+        if (!links.length) return;
+
+        var headingIds = links.map(function (a) { return a.getAttribute('href').slice(1); });
+        var headings = headingIds.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+
+        function clearActive() {
+          panel.querySelectorAll('.toc-active').forEach(function (el) { el.classList.remove('toc-active'); });
+          panel.querySelectorAll('.toc-parent-active').forEach(function (el) { el.classList.remove('toc-parent-active'); });
+        }
+
+        function setActive(id) {
+          clearActive();
+          var link = panel.querySelector('a[href="#' + id + '"]');
+          if (!link) return;
+          link.classList.add('toc-active');
+          var li = link.closest('li');
+          if (li) {
+            var parentLi = li.parentElement && li.parentElement.closest('li');
+            if (parentLi) parentLi.classList.add('toc-parent-active');
+          }
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              setActive(entry.target.id);
+            }
+          });
+        }, { rootMargin: '0px 0px -70% 0px', threshold: 0 });
+
+        headings.forEach(function (h) { observer.observe(h); });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+    </script>
+    <script>
+    /* sidebar-toggle.js — persists open/closed state across navigation */
+    (function () {
+
+      var STORAGE_KEY = 'sb_open';
+
+      function getOpenSet() {
+        try {
+          var raw = sessionStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (e) { return null; }
+      }
+
+      function saveOpenSet(set) {
+        try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(set)); } catch (e) {}
+      }
+
+      function findItems(toggle) {
+        var node = toggle.nextSibling;
+        while (node) {
+          if (node.nodeType === 1 && node.classList.contains('nav-section-items'))
+            return node;
+          node = node.nextSibling;
+        }
+        return null;
+      }
+
+      function toggleKey(toggle, index) {
+        var label = (toggle.querySelector('.nav-toggle-text') || toggle).textContent.trim().replace(/\s+/g, ' ');
+        return index + ':' + label;
+      }
+
+      function openSection(toggle, items, key, set) {
+        toggle.classList.add('open');
+        items.classList.add('open');
+        if (set) set[key] = true;
+      }
+
+      function closeSection(toggle, items, key, set) {
+        toggle.classList.remove('open');
+        items.classList.remove('open');
+        if (set) set[key] = false;
+      }
+
+      function init() {
+        var sidebar = document.getElementById('wiki-sidebar');
+        var toggles = Array.prototype.slice.call(
+          document.querySelectorAll('.nav-section-toggle')
+        );
+
+        var activeIdx = -1;
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+          if (items.querySelector('.nav-link.active')) {
+            activeIdx = idx;
+          }
+        });
+
+        var savedSet = getOpenSet();
+        var openSet = savedSet || {};
+
+        if (activeIdx !== -1) {
+          openSet[toggleKey(toggles[activeIdx], activeIdx)] = true;
+        }
+
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+
+          var key = toggleKey(toggle, idx);
+          var shouldOpen = openSet[key] === true;
+
+          if (shouldOpen) {
+            toggle.classList.add('open');
+            items.classList.add('open');
+          }
+
+          toggle.addEventListener('click', function () {
+            var nowOpen = toggle.classList.contains('open');
+            if (nowOpen) {
+              closeSection(toggle, items, key, openSet);
+            } else {
+              openSection(toggle, items, key, openSet);
+            }
+            saveOpenSet(openSet);
+          });
+        });
+
+        saveOpenSet(openSet);
+
+        /* Restore sidebar scroll position after sections are expanded so the
+           scroll height is correct when we apply scrollTop. */
+        if (sidebar) {
+          try {
+            var savedScroll = sessionStorage.getItem('sb_scroll');
+            if (savedScroll !== null) { sidebar.scrollTop = parseInt(savedScroll, 10) || 0; }
+          } catch (_e) {}
+        }
+
+        window.addEventListener('pagehide', function () {
+          saveOpenSet(openSet);
+          if (sidebar) {
+            try { sessionStorage.setItem('sb_scroll', String(sidebar.scrollTop)); } catch (_e) {}
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+
+    })();
+    </script>
+    <script>
+    /* nav-tracking.js — only stamps sessionStorage when clicking a source-file link
+       that lives inside the "Source Files" disclosure section, not from sidebar or cards. */
+    (function () {
+      document.addEventListener('click', function (e) {
+        var link = e.target.closest('a[href]');
+        if (!link) return;
+        var href = link.getAttribute('href');
+        if (!href || href.indexOf('sources/') === -1) return;
+        /* Only set referrer when the click originates from inside the Source Files
+           disclosure (.source-files-disclosure). Any other path — sidebar, cards,
+           direct navigation — must not set a referrer. */
+        if (!link.closest('.source-files-disclosure')) return;
+        try {
+          sessionStorage.setItem('wiki_referrer', JSON.stringify({
+            href: location.href,
+            title: document.title,
+            file: location.pathname.split('/').pop()
+          }));
+        } catch (_e) {}
+      });
+    })();
+    </script>
+    <footer class="wiki-footer">Made by IBM Bob Premium Package for Z</footer>
+</body>
+</html>
