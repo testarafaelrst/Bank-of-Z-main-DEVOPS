@@ -26,18 +26,17 @@
       "type": "zOpenDebug",
       "request": "launch",
       "name": "Z Open Debug: DEVOPSPL (Batch)",
-      "debugProfile": "zopendebug-batch",
       "connection": {
         "type": "zowe",
         "name": "bank-of-z.zOpenDebug"
       },
+      "jclFile": "src/base/batch/jcl/RUNDEVOPS.jcl",
       "programName": "DEVOPSPL"
     },
     {
       "type": "zOpenDebug",
       "request": "launch",
       "name": "Z Open Debug: LSTCUST (Batch)",
-      "debugProfile": "zopendebug-batch",
       "connection": {
         "type": "zowe",
         "name": "bank-of-z.zOpenDebug"

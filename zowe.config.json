@@ -16,7 +16,7 @@
                     "type": "zOpenDebug",
                     "properties": {
                         "host": "ESYSMVS.wsclab.washington.ibm.com",
-                        "dpsPort": 8192,
+                        "dpsPort": 8143,
                         "dpsContextRoot": "api/v1",
                         "dpsSecured": true,
                         "rejectUnauthorized": false,
@@ -90,7 +90,8 @@
                 "basePath": "rseapi",
                 "protocol": "https",
                 "rejectUnauthorized": false,
-                "authOrder": "token, bearer"
+                "authOrder": "token, bearer",
+                "tokenType": "LtpaToken2"
             },
             "secure": [
                 "tokenValue"
