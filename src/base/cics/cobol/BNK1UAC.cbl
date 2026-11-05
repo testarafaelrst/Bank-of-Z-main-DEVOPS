@@ -132,6 +132,7 @@
           03 WS-COMM-AVAIL-BAL         PIC S9(10)V99.
           03 WS-COMM-ACTUAL-BAL        PIC S9(10)V99.
           03 WS-COMM-SUCCESS           PIC X.
+          03 WS-COMM-FAIL-CD           PIC X.
 
        01 COMPANY-NAME-FULL            PIC X(32).
 
@@ -190,6 +191,7 @@
           03 COMM-AVAIL-BAL            PIC S9(10)V99.
           03 COMM-ACTUAL-BAL           PIC S9(10)V99.
           03 COMM-SUCCESS              PIC X.
+          03 COMM-FAIL-CD              PIC X.
           03 COMM-PCB1-POINTER         POINTER.
 
 
@@ -295,7 +297,7 @@
            EXEC CICS
               RETURN TRANSID('OUAC')
               COMMAREA(WS-COMM-AREA)
-              LENGTH(99)
+              LENGTH(100)
               RESP(WS-CICS-RESP)
               RESP2(WS-CICS-RESP2)
            END-EXEC.
@@ -950,6 +952,7 @@
 
            MOVE WS-CONVERTED-VAL4 TO COMM-ACTUAL-BAL.
            MOVE ' '           TO COMM-SUCCESS.
+           MOVE ' '           TO COMM-FAIL-CD.
 
            EXEC CICS LINK
               PROGRAM('UPDACC')
@@ -1025,8 +1028,21 @@
 
               MOVE 'N' TO VALID-DATA-SW
               MOVE SPACES TO MESSAGEO
-              MOVE 'Update unsuccessful, try again later.    ' TO
-                 MESSAGEO
+              EVALUATE COMM-FAIL-CD
+                 WHEN 'S'
+                    STRING 'Sorry, you are not authorised to '
+                           'perform this operation.'
+                           DELIMITED BY SIZE INTO MESSAGEO
+                    END-STRING
+                 WHEN 'X'
+                    STRING 'Security check unavailable. '
+                           'Please contact support.'
+                           DELIMITED BY SIZE INTO MESSAGEO
+                    END-STRING
+                 WHEN OTHER
+                    MOVE 'Update unsuccessful, try again later.    '
+                       TO MESSAGEO
+              END-EVALUATE
            ELSE
               MOVE SPACES TO MESSAGEO
               MOVE 'Account update successfully applied.     '

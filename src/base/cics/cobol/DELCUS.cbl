@@ -49,6 +49,17 @@
        01 FILE-RETRY                    PIC 999.
        01 WS-EXIT-RETRY-LOOP            PIC X         VALUE ' '.
 
+       01 BNKSEC-COMMAREA.
+           COPY BNKSEC.
+
+       01 WS-SEC-SW                     PIC X         VALUE 'N'.
+           88 SEC-OK                    VALUE 'Y'.
+           88 SEC-NOT-OK                VALUE 'N'.
+
+       01 WS-CASCADE-SW                 PIC X         VALUE 'N'.
+           88 CASCADE-FAILED            VALUE 'Y'.
+           88 CASCADE-OK                VALUE 'N'.
+
       * CUSTOMER DB2 copybook
            EXEC SQL
               INCLUDE CUSTDB2
@@ -278,6 +289,14 @@
        PREMIERE SECTION.
        A010.
 
+      *
+      *    RACF security check before any data is touched
+      *
+           PERFORM SECURITY-CHECK.
+           IF SEC-NOT-OK
+              PERFORM GET-ME-OUT-OF-HERE
+           END-IF.
+
            DISPLAY 'DELCUS: Starting customer deletion'
            DISPLAY 'DELCUS: Customer number='
                    COMM-CUSTNO
@@ -330,6 +349,11 @@
                       NUMBER-OF-ACCOUNTS
                       ' account(s)'
               PERFORM DELETE-ACCOUNTS
+              IF CASCADE-FAILED
+                 DISPLAY 'DELCUS: Account deletion failed, '
+                         'customer NOT deleted'
+                 PERFORM GET-ME-OUT-OF-HERE
+              END-IF
            ELSE
               DISPLAY 'DELCUS: No accounts to delete'
            END-IF
@@ -353,6 +377,46 @@
            EXIT.
 
 
+      *
+      * Ask BNKSECCK if the user may delete customers. Fail-closed:
+      * only an allowed result with a NORMAL response gives SEC-OK.
+      * S = not authorised, X = security check unavailable.
+      *
+       SECURITY-CHECK SECTION.
+       SC010.
+
+           SET SEC-NOT-OK TO TRUE.
+           INITIALIZE BNKSEC-COMMAREA.
+           MOVE 'DELCUS  ' TO BNKSEC-OPERATION.
+
+           EXEC CICS LINK PROGRAM('BNKSECCK')
+                COMMAREA(BNKSEC-COMMAREA)
+                LENGTH(LENGTH OF BNKSEC-COMMAREA)
+                RESP(WS-CICS-RESP)
+                RESP2(WS-CICS-RESP2)
+           END-EXEC.
+
+           IF WS-CICS-RESP NOT = DFHRESP(NORMAL)
+              MOVE 'N' TO COMM-DEL-SUCCESS
+              MOVE 'X' TO COMM-DEL-FAIL-CD
+              GO TO SC999
+           END-IF.
+
+           EVALUATE TRUE
+              WHEN BNKSEC-ALLOWED
+                 SET SEC-OK TO TRUE
+              WHEN BNKSEC-DENIED
+                 MOVE 'N' TO COMM-DEL-SUCCESS
+                 MOVE 'S' TO COMM-DEL-FAIL-CD
+              WHEN OTHER
+                 MOVE 'N' TO COMM-DEL-SUCCESS
+                 MOVE 'X' TO COMM-DEL-FAIL-CD
+           END-EVALUATE.
+
+       SC999.
+           EXIT.
+
+
        DELETE-ACCOUNTS SECTION.
        DA010.
 
@@ -362,8 +426,10 @@
       *    account.
       *
            DISPLAY 'DELCUS: DELETE-ACCOUNTS section entered'
+           SET CASCADE-OK TO TRUE
            PERFORM VARYING WS-INDEX FROM 1 BY 1
               UNTIL WS-INDEX > NUMBER-OF-ACCOUNTS
+                 OR CASCADE-FAILED
                    DISPLAY 'DELCUS: Deleting account '
                            WS-INDEX
                            ' of '
@@ -381,6 +447,19 @@
 
                    DISPLAY 'DELCUS: DELACC returned, success='
                            DELACC-COMM-DEL-SUCCESS
+
+      *
+      *    Stop the cascade if DELACC failed (S = not authorised,
+      *    X = security unavailable, ...). Account not found (1)
+      *    means it was already deleted, so just carry on.
+      *
+                   IF DELACC-COMM-DEL-SUCCESS = 'N'
+                      AND DELACC-COMM-DEL-FAIL-CD NOT = '1'
+                      SET CASCADE-FAILED TO TRUE
+                      MOVE 'N' TO COMM-DEL-SUCCESS
+                      MOVE DELACC-COMM-DEL-FAIL-CD
+                         TO COMM-DEL-FAIL-CD
+                   END-IF
 
            END-PERFORM.
 

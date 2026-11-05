@@ -51,6 +51,13 @@
 
        77 SYSIDERR-RETRY                PIC 999.
 
+       01 BNKSEC-COMMAREA.
+           COPY BNKSEC.
+
+       01 WS-SEC-SW                     PIC X VALUE 'N'.
+           88 SEC-OK                    VALUE 'Y'.
+           88 SEC-NOT-OK                VALUE 'N'.
+
       * Get the ACCOUNT DB2 copybook
            EXEC SQL
               INCLUDE ACCDB2
@@ -202,6 +209,14 @@
            MOVE '0' TO COMM-FAIL-CODE
 
       *
+      *    RACF security check before any data is touched
+      *
+           PERFORM SECURITY-CHECK.
+           IF SEC-NOT-OK
+              PERFORM GET-ME-OUT-OF-HERE
+           END-IF.
+
+      *
       *    Set up some Abend handling
       *
            EXEC CICS HANDLE ABEND
@@ -229,6 +244,46 @@
            PERFORM GET-ME-OUT-OF-HERE.
 
        A999.
+           EXIT.
+
+
+      *
+      * Ask BNKSECCK if the user may debit/credit accounts.
+      * Fail-closed: only an allowed result with a NORMAL response
+      * gives SEC-OK. S = not authorised, X = security unavailable.
+      *
+       SECURITY-CHECK SECTION.
+       SC010.
+
+           SET SEC-NOT-OK TO TRUE.
+           INITIALIZE BNKSEC-COMMAREA.
+           MOVE 'DBCRFUN ' TO BNKSEC-OPERATION.
+
+           EXEC CICS LINK PROGRAM('BNKSECCK')
+                COMMAREA(BNKSEC-COMMAREA)
+                LENGTH(LENGTH OF BNKSEC-COMMAREA)
+                RESP(WS-CICS-RESP)
+                RESP2(WS-CICS-RESP2)
+           END-EXEC.
+
+           IF WS-CICS-RESP NOT = DFHRESP(NORMAL)
+              MOVE 'N' TO COMM-SUCCESS
+              MOVE 'X' TO COMM-FAIL-CODE
+              GO TO SC999
+           END-IF.
+
+           EVALUATE TRUE
+              WHEN BNKSEC-ALLOWED
+                 SET SEC-OK TO TRUE
+              WHEN BNKSEC-DENIED
+                 MOVE 'N' TO COMM-SUCCESS
+                 MOVE 'S' TO COMM-FAIL-CODE
+              WHEN OTHER
+                 MOVE 'N' TO COMM-SUCCESS
+                 MOVE 'X' TO COMM-FAIL-CODE
+           END-EVALUATE.
+
+       SC999.
            EXIT.
 
 

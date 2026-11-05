@@ -682,6 +682,15 @@ resourceDefinitions:
       concurrency: THREADSAFE
       api: CICSAPI
       datalocation: ANY
+  - program:
+      name: BNKSECCK
+      group: BANKZGRP
+      description: BANK Security check (RACF FACILITY)
+      language: COBOL
+      concurrency: THREADSAFE
+      api: CICSAPI
+      datalocation: ANY
+
   # TRANSACTION Definitions
   - transaction:
       name: OCR1

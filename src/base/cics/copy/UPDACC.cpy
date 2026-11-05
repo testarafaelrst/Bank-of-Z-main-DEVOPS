@@ -29,3 +29,4 @@
           03 COMM-AVAIL-BAL            PIC S9(10)V99.
           03 COMM-ACTUAL-BAL           PIC S9(10)V99.
           03 COMM-SUCCESS              PIC X.
+          03 COMM-FAIL-CD              PIC X.

@@ -46,6 +46,13 @@
        01 FILE-RETRY                   PIC 999.
        01 WS-EXIT-RETRY-LOOP           PIC X VALUE ' '.
 
+       01 BNKSEC-COMMAREA.
+           COPY BNKSEC.
+
+       01 WS-SEC-SW                       PIC X VALUE 'N'.
+           88 SEC-OK                      VALUE 'Y'.
+           88 SEC-NOT-OK                  VALUE 'N'.
+
       * Get the ACCOUNT DB2 copybook
            EXEC SQL
               INCLUDE ACCDB2
@@ -204,29 +211,78 @@
        PREMIERE SECTION.
        A010.
 
-           MOVE SORTCODE TO REQUIRED-SORT-CODE OF ACCOUNT-KEY-RID.
+      *
+      *          RACF security check before any data is touched
+      *
+           PERFORM SECURITY-CHECK.
+
+           IF SEC-OK
+
+             MOVE SORTCODE TO REQUIRED-SORT-CODE OF ACCOUNT-KEY-RID
 
       *
       *          Get the account record
       *
-           PERFORM READ-ACCOUNT-DB2.
+             PERFORM READ-ACCOUNT-DB2
 
       *
       *          If a matching account record was successfully
       *          retrieved then delete it
       *
-           IF DELACC-DEL-SUCCESS = 'Y'
-
-             PERFORM DEL-ACCOUNT-DB2
              IF DELACC-DEL-SUCCESS = 'Y'
-               PERFORM WRITE-PROCTRAN
+
+               PERFORM DEL-ACCOUNT-DB2
+               IF DELACC-DEL-SUCCESS = 'Y'
+                 PERFORM WRITE-PROCTRAN
+               END-IF
              END-IF
+
            END-IF
 
 
            PERFORM GET-ME-OUT-OF-HERE.
 
        A999.
+           EXIT.
+
+
+      *
+      * Ask BNKSECCK if the user may delete accounts. Fail-closed:
+      * only an allowed result with a NORMAL response gives SEC-OK.
+      * S = not authorised, X = security check unavailable.
+      *
+       SECURITY-CHECK SECTION.
+       SC010.
+
+           SET SEC-NOT-OK TO TRUE.
+           INITIALIZE BNKSEC-COMMAREA.
+           MOVE 'DELACC  ' TO BNKSEC-OPERATION.
+
+           EXEC CICS LINK PROGRAM('BNKSECCK')
+                COMMAREA(BNKSEC-COMMAREA)
+                LENGTH(LENGTH OF BNKSEC-COMMAREA)
+                RESP(WS-CICS-RESP)
+                RESP2(WS-CICS-RESP2)
+           END-EXEC.
+
+           IF WS-CICS-RESP NOT = DFHRESP(NORMAL)
+              MOVE 'N' TO DELACC-DEL-SUCCESS
+              MOVE 'X' TO DELACC-DEL-FAIL-CD
+              GO TO SC999
+           END-IF.
+
+           EVALUATE TRUE
+              WHEN BNKSEC-ALLOWED
+                 SET SEC-OK TO TRUE
+              WHEN BNKSEC-DENIED
+                 MOVE 'N' TO DELACC-DEL-SUCCESS
+                 MOVE 'S' TO DELACC-DEL-FAIL-CD
+              WHEN OTHER
+                 MOVE 'N' TO DELACC-DEL-SUCCESS
+                 MOVE 'X' TO DELACC-DEL-FAIL-CD
+           END-EVALUATE.
+
+       SC999.
            EXIT.
 
 

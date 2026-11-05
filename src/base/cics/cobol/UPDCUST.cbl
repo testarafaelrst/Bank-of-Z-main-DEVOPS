@@ -47,6 +47,13 @@
 
        77 SYSIDERR-RETRY               PIC 999.
 
+       01 BNKSEC-COMMAREA.
+           COPY BNKSEC.
+
+       01 WS-SEC-SW                    PIC X         VALUE 'N'.
+           88 SEC-OK                   VALUE 'Y'.
+           88 SEC-NOT-OK               VALUE 'N'.
+
       * CUSTOMER DB2 copybook
           EXEC SQL
              INCLUDE CUSTDB2
@@ -170,6 +177,14 @@
        PREMIERE SECTION.
        A010.
 
+      *
+      *    RACF security check before any data is touched
+      *
+           PERFORM SECURITY-CHECK.
+           IF SEC-NOT-OK
+              GOBACK
+           END-IF.
+
            MOVE COMM-SCODE TO DESIRED-SORT-CODE.
 
       *
@@ -215,6 +230,46 @@
            PERFORM GET-ME-OUT-OF-HERE.
 
        A999.
+           EXIT.
+
+
+      *
+      * Ask BNKSECCK if the user may update customers. Fail-closed:
+      * only an allowed result with a NORMAL response gives SEC-OK.
+      * S = not authorised, X = security check unavailable.
+      *
+       SECURITY-CHECK SECTION.
+       SC010.
+
+           SET SEC-NOT-OK TO TRUE.
+           INITIALIZE BNKSEC-COMMAREA.
+           MOVE 'UPDCUST ' TO BNKSEC-OPERATION.
+
+           EXEC CICS LINK PROGRAM('BNKSECCK')
+                COMMAREA(BNKSEC-COMMAREA)
+                LENGTH(LENGTH OF BNKSEC-COMMAREA)
+                RESP(WS-CICS-RESP)
+                RESP2(WS-CICS-RESP2)
+           END-EXEC.
+
+           IF WS-CICS-RESP NOT = DFHRESP(NORMAL)
+              MOVE 'N' TO COMM-UPD-SUCCESS
+              MOVE 'X' TO COMM-UPD-FAIL-CD
+              GO TO SC999
+           END-IF.
+
+           EVALUATE TRUE
+              WHEN BNKSEC-ALLOWED
+                 SET SEC-OK TO TRUE
+              WHEN BNKSEC-DENIED
+                 MOVE 'N' TO COMM-UPD-SUCCESS
+                 MOVE 'S' TO COMM-UPD-FAIL-CD
+              WHEN OTHER
+                 MOVE 'N' TO COMM-UPD-SUCCESS
+                 MOVE 'X' TO COMM-UPD-FAIL-CD
+           END-EVALUATE.
+
+       SC999.
            EXIT.
 
 

@@ -52,6 +52,13 @@
 
        77 SYSIDERR-RETRY                PIC 999.
 
+       01 BNKSEC-COMMAREA.
+           COPY BNKSEC.
+
+       01 WS-SEC-SW                     PIC X         VALUE 'N'.
+           88 SEC-OK                    VALUE 'Y'.
+           88 SEC-NOT-OK                VALUE 'N'.
+
       * Get the ACCOUNT DB2 copybook
            EXEC SQL
               INCLUDE ACCDB2
@@ -158,6 +165,16 @@
        PREMIERE SECTION.
        A010.
 
+           MOVE SPACE TO COMM-FAIL-CD.
+
+      *
+      *    RACF security check before any data is touched
+      *
+           PERFORM SECURITY-CHECK.
+           IF SEC-NOT-OK
+              PERFORM GET-ME-OUT-OF-HERE
+           END-IF.
+
            MOVE SORTCODE TO COMM-SCODE.
            MOVE SORTCODE TO DESIRED-SORT-CODE.
 
@@ -174,6 +191,46 @@
            PERFORM GET-ME-OUT-OF-HERE.
 
        A999.
+           EXIT.
+
+
+      *
+      * Ask BNKSECCK if the user may update accounts. Fail-closed:
+      * only an allowed result with a NORMAL response gives SEC-OK.
+      * S = not authorised, X = security check unavailable.
+      *
+       SECURITY-CHECK SECTION.
+       SC010.
+
+           SET SEC-NOT-OK TO TRUE.
+           INITIALIZE BNKSEC-COMMAREA.
+           MOVE 'UPDACC  ' TO BNKSEC-OPERATION.
+
+           EXEC CICS LINK PROGRAM('BNKSECCK')
+                COMMAREA(BNKSEC-COMMAREA)
+                LENGTH(LENGTH OF BNKSEC-COMMAREA)
+                RESP(WS-CICS-RESP)
+                RESP2(WS-CICS-RESP2)
+           END-EXEC.
+
+           IF WS-CICS-RESP NOT = DFHRESP(NORMAL)
+              MOVE 'N' TO COMM-SUCCESS
+              MOVE 'X' TO COMM-FAIL-CD
+              GO TO SC999
+           END-IF.
+
+           EVALUATE TRUE
+              WHEN BNKSEC-ALLOWED
+                 SET SEC-OK TO TRUE
+              WHEN BNKSEC-DENIED
+                 MOVE 'N' TO COMM-SUCCESS
+                 MOVE 'S' TO COMM-FAIL-CD
+              WHEN OTHER
+                 MOVE 'N' TO COMM-SUCCESS
+                 MOVE 'X' TO COMM-FAIL-CD
+           END-EVALUATE.
+
+       SC999.
            EXIT.
 
 

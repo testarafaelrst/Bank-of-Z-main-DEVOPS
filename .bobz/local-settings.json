@@ -1,0 +1,21 @@
+{
+  "data_dictionary_skip_files": [
+    "/Users/rafaeltesta.rt/Library/CloudStorage/OneDrive-IBM/Bank-of-Z-main/src/base/cics/cobol/UPDCUST.cbl",
+    "/Users/rafaeltesta.rt/Library/CloudStorage/OneDrive-IBM/Bank-of-Z-main/src/base/cics/cobol/UPDACC.cbl",
+    "/Users/rafaeltesta.rt/Library/CloudStorage/OneDrive-IBM/Bank-of-Z-main/src/base/cics/cobol/DELCUS.cbl",
+    "/Users/rafaeltesta.rt/Library/CloudStorage/OneDrive-IBM/Bank-of-Z-main/src/base/cics/cobol/DELACC.cbl",
+    "/Users/rafaeltesta.rt/Library/CloudStorage/OneDrive-IBM/Bank-of-Z-main/src/base/cics/cobol/CRECUST.cbl",
+    "/Users/rafaeltesta.rt/Library/CloudStorage/OneDrive-IBM/Bank-of-Z-main/src/base/cics/cobol/CREACC.cbl",
+    "/Users/rafaeltesta.rt/Library/CloudStorage/OneDrive-IBM/Bank-of-Z-main/src/base/cics/cobol/DBCRFUN.cbl",
+    "/Users/rafaeltesta.rt/Library/CloudStorage/OneDrive-IBM/Bank-of-Z-main/src/base/cics/cobol/XFRFUN.cbl",
+    "/Users/rafaeltesta.rt/Library/CloudStorage/OneDrive-IBM/Bank-of-Z-main/src/base/cics/cobol/BNKMENU.cbl",
+    "/Users/rafaeltesta.rt/Library/CloudStorage/OneDrive-IBM/Bank-of-Z-main/src/base/cics/cobol/BNK1CAC.cbl",
+    "/Users/rafaeltesta.rt/Library/CloudStorage/OneDrive-IBM/Bank-of-Z-main/src/base/cics/cobol/BNK1CCA.cbl",
+    "/Users/rafaeltesta.rt/Library/CloudStorage/OneDrive-IBM/Bank-of-Z-main/src/base/cics/cobol/BNK1CCS.cbl",
+    "/Users/rafaeltesta.rt/Library/CloudStorage/OneDrive-IBM/Bank-of-Z-main/src/base/cics/cobol/BNK1CRA.cbl",
+    "/Users/rafaeltesta.rt/Library/CloudStorage/OneDrive-IBM/Bank-of-Z-main/src/base/cics/cobol/BNK1DAC.cbl",
+    "/Users/rafaeltesta.rt/Library/CloudStorage/OneDrive-IBM/Bank-of-Z-main/src/base/cics/cobol/BNK1DCS.cbl",
+    "/Users/rafaeltesta.rt/Library/CloudStorage/OneDrive-IBM/Bank-of-Z-main/src/base/cics/cobol/BNK1TFN.cbl",
+    "/Users/rafaeltesta.rt/Library/CloudStorage/OneDrive-IBM/Bank-of-Z-main/src/base/cics/cobol/BNK1UAC.cbl"
+  ]
+}

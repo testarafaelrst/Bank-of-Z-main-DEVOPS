@@ -58,6 +58,13 @@
 
        01 SYSIDERR-RETRY                PIC 999.
 
+       01 BNKSEC-COMMAREA.
+           COPY BNKSEC.
+
+       01 WS-SEC-SW                     PIC X         VALUE 'N'.
+           88 SEC-OK                    VALUE 'Y'.
+           88 SEC-NOT-OK                VALUE 'N'.
+
       * CUSTOMER DB2 copybook
            EXEC SQL
              INCLUDE CUSTDB2
@@ -407,6 +414,14 @@
        P010.
 
       *
+      *    RACF security check before any data is touched
+      *
+           PERFORM SECURITY-CHECK.
+           IF SEC-NOT-OK
+              PERFORM GET-ME-OUT-OF-HERE
+           END-IF.
+
+      *
       *    You can change the customer's name, but the title must
       *    be a valid one. Check that here
       *
@@ -518,6 +533,46 @@
            PERFORM WRITE-CUSTOMER-DB2.
 
            PERFORM GET-ME-OUT-OF-HERE.
+
+      *
+      * Ask BNKSECCK if the user may create customers. Fail-closed:
+      * only an allowed result with a NORMAL response gives SEC-OK.
+      * S = not authorised, X = security check unavailable.
+      *
+       SECURITY-CHECK SECTION.
+       SC010.
+
+           SET SEC-NOT-OK TO TRUE.
+           INITIALIZE BNKSEC-COMMAREA.
+           MOVE 'CRECUST ' TO BNKSEC-OPERATION.
+
+           EXEC CICS LINK PROGRAM('BNKSECCK')
+                COMMAREA(BNKSEC-COMMAREA)
+                LENGTH(LENGTH OF BNKSEC-COMMAREA)
+                RESP(WS-CICS-RESP)
+                RESP2(WS-CICS-RESP2)
+           END-EXEC.
+
+           IF WS-CICS-RESP NOT = DFHRESP(NORMAL)
+              MOVE 'N' TO COMM-SUCCESS
+              MOVE 'X' TO COMM-FAIL-CODE
+              GO TO SC999
+           END-IF.
+
+           EVALUATE TRUE
+              WHEN BNKSEC-ALLOWED
+                 SET SEC-OK TO TRUE
+              WHEN BNKSEC-DENIED
+                 MOVE 'N' TO COMM-SUCCESS
+                 MOVE 'S' TO COMM-FAIL-CODE
+              WHEN OTHER
+                 MOVE 'N' TO COMM-SUCCESS
+                 MOVE 'X' TO COMM-FAIL-CODE
+           END-EVALUATE.
+
+       SC999.
+           EXIT.
+
 
        POPULATE-TIME-DATE SECTION.
        PTD010.

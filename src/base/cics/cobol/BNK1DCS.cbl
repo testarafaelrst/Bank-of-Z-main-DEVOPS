@@ -1118,6 +1118,30 @@
               GO TO DCD999
            END-IF.
 
+           IF COMM-DEL-SUCCESS OF DELCUS-COMMAREA = 'N' AND
+              COMM-DEL-FAIL-CD OF DELCUS-COMMAREA = 'S'
+              MOVE SPACES TO MESSAGEO
+              STRING 'Sorry, you are not authorised to '
+                 DELIMITED BY SIZE,
+                     'perform this operation.' DELIMITED BY SIZE
+                 INTO MESSAGEO
+              MOVE 'N' TO VALID-DATA-SW
+              MOVE COMM-SCODE OF DELCUS-COMMAREA TO SORTCO
+              GO TO DCD999
+           END-IF.
+
+           IF COMM-DEL-SUCCESS OF DELCUS-COMMAREA = 'N' AND
+              COMM-DEL-FAIL-CD OF DELCUS-COMMAREA = 'X'
+              MOVE SPACES TO MESSAGEO
+              STRING 'Security check unavailable. '
+                 DELIMITED BY SIZE,
+                     'Please contact support.' DELIMITED BY SIZE
+                 INTO MESSAGEO
+              MOVE 'N' TO VALID-DATA-SW
+              MOVE COMM-SCODE OF DELCUS-COMMAREA TO SORTCO
+              GO TO DCD999
+           END-IF.
+
            IF COMM-DEL-SUCCESS OF DELCUS-COMMAREA = 'N'
               MOVE SPACES TO MESSAGEO
               STRING 'Sorry but an error occurred.'
@@ -1329,6 +1353,28 @@
                    STRING 'Sorry but the title is invalid.'
                       DELIMITED BY SIZE,
                           ' Customer NOT updated.' DELIMITED BY SIZE
+                      INTO MESSAGEO
+                   MOVE 'N' TO VALID-DATA-SW
+                   MOVE COMM-SCODE OF UPDCUST-COMMAREA TO SORTCO
+                   MOVE -1 TO CUSTNO2L
+                   GO TO UPDCD999
+
+              WHEN 'S'
+                   MOVE SPACES TO MESSAGEO
+                   STRING 'Sorry, you are not authorised to '
+                      DELIMITED BY SIZE,
+                          'perform this operation.' DELIMITED BY SIZE
+                      INTO MESSAGEO
+                   MOVE 'N' TO VALID-DATA-SW
+                   MOVE COMM-SCODE OF UPDCUST-COMMAREA TO SORTCO
+                   MOVE -1 TO CUSTNO2L
+                   GO TO UPDCD999
+
+              WHEN 'X'
+                   MOVE SPACES TO MESSAGEO
+                   STRING 'Security check unavailable. '
+                      DELIMITED BY SIZE,
+                          'Please contact support.' DELIMITED BY SIZE
                       INTO MESSAGEO
                    MOVE 'N' TO VALID-DATA-SW
                    MOVE COMM-SCODE OF UPDCUST-COMMAREA TO SORTCO

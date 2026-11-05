@@ -1082,6 +1082,20 @@
                 MOVE 'Sorry, customer D.O.B. is invalid.'
                   to messageo
               END-IF
+              IF SUBPGM-FAIL-CODE = 'S'
+                MOVE SPACES TO MESSAGEO
+                STRING 'Sorry, you are not authorised to '
+                       'perform this operation.'
+                       DELIMITED BY SIZE INTO MESSAGEO
+                END-STRING
+              END-IF
+              IF SUBPGM-FAIL-CODE = 'X'
+                MOVE SPACES TO MESSAGEO
+                STRING 'Security check unavailable. '
+                       'Please contact support.'
+                       DELIMITED BY SIZE INTO MESSAGEO
+                END-STRING
+              END-IF
               MOVE 'N' TO VALID-DATA-SW
            END-IF.
 

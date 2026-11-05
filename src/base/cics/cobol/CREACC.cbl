@@ -45,6 +45,13 @@
 
        77 SYSIDERR-RETRY                PIC 999.
 
+       01 BNKSEC-COMMAREA.
+           COPY BNKSEC.
+
+       01 WS-SEC-SW                     PIC X         VALUE 'N'.
+           88 SEC-OK                    VALUE 'Y'.
+           88 SEC-NOT-OK                VALUE 'N'.
+
       * Get the ACCOUNT DB2 copybook
            EXEC SQL
               INCLUDE ACCDB2
@@ -301,6 +308,14 @@
        PROCEDURE DIVISION USING DFHCOMMAREA.
        PREMIERE SECTION.
        P010.
+
+      *
+      *    RACF security check before any data is touched
+      *
+           PERFORM SECURITY-CHECK.
+           IF SEC-NOT-OK
+              PERFORM GET-ME-OUT-OF-HERE
+           END-IF.
 
            DISPLAY 'CREACC: Starting account creation'
            DISPLAY 'CREACC: Customer number='
@@ -1156,6 +1171,46 @@
            END-IF.
 
        WPD999.
+           EXIT.
+
+
+      *
+      * Ask BNKSECCK if the user may create accounts. Fail-closed:
+      * only an allowed result with a NORMAL response gives SEC-OK.
+      * S = not authorised, X = security check unavailable.
+      *
+       SECURITY-CHECK SECTION.
+       SC010.
+
+           SET SEC-NOT-OK TO TRUE.
+           INITIALIZE BNKSEC-COMMAREA.
+           MOVE 'CREACC  ' TO BNKSEC-OPERATION.
+
+           EXEC CICS LINK PROGRAM('BNKSECCK')
+                COMMAREA(BNKSEC-COMMAREA)
+                LENGTH(LENGTH OF BNKSEC-COMMAREA)
+                RESP(WS-CICS-RESP)
+                RESP2(WS-CICS-RESP2)
+           END-EXEC.
+
+           IF WS-CICS-RESP NOT = DFHRESP(NORMAL)
+              MOVE 'N' TO COMM-SUCCESS IN DFHCOMMAREA
+              MOVE 'X' TO COMM-FAIL-CODE IN DFHCOMMAREA
+              GO TO SC999
+           END-IF.
+
+           EVALUATE TRUE
+              WHEN BNKSEC-ALLOWED
+                 SET SEC-OK TO TRUE
+              WHEN BNKSEC-DENIED
+                 MOVE 'N' TO COMM-SUCCESS IN DFHCOMMAREA
+                 MOVE 'S' TO COMM-FAIL-CODE IN DFHCOMMAREA
+              WHEN OTHER
+                 MOVE 'N' TO COMM-SUCCESS IN DFHCOMMAREA
+                 MOVE 'X' TO COMM-FAIL-CODE IN DFHCOMMAREA
+           END-EVALUATE.
+
+       SC999.
            EXIT.
 
 

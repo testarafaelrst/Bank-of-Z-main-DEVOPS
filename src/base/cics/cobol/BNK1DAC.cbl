@@ -767,6 +767,30 @@
               GO TO DAD999
            END-IF.
 
+           IF PARMS-SUBPGM-DEL-SUCCESS = 'N' AND
+           PARMS-SUBPGM-DEL-FAIL-CD = 'S'
+              MOVE SPACES TO MESSAGEO
+              STRING 'Sorry, you are not authorised to '
+                 DELIMITED BY SIZE,
+                 'perform this operation.' DELIMITED BY SIZE
+                 INTO MESSAGEO
+              MOVE 'N' TO VALID-DATA-SW
+              MOVE PARMS-SUBPGM-SCODE   TO SORTCO
+              GO TO DAD999
+           END-IF.
+
+           IF PARMS-SUBPGM-DEL-SUCCESS = 'N' AND
+           PARMS-SUBPGM-DEL-FAIL-CD = 'X'
+              MOVE SPACES TO MESSAGEO
+              STRING 'Security check unavailable. '
+                 DELIMITED BY SIZE,
+                 'Please contact support.' DELIMITED BY SIZE
+                 INTO MESSAGEO
+              MOVE 'N' TO VALID-DATA-SW
+              MOVE PARMS-SUBPGM-SCODE   TO SORTCO
+              GO TO DAD999
+           END-IF.
+
            IF PARMS-SUBPGM-DEL-SUCCESS = 'N'
               MOVE SPACES TO MESSAGEO
               STRING 'Sorry, but a delete error occurred.'

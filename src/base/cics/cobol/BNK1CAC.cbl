@@ -915,6 +915,20 @@
                        DELIMITED BY SIZE
                     INTO MESSAGEO
 
+                 WHEN 'S'
+                    STRING 'Sorry, you are not authorised to '
+                       DELIMITED BY SIZE,
+                       'perform this operation.'
+                       DELIMITED BY SIZE
+                    INTO MESSAGEO
+
+                 WHEN 'X'
+                    STRING 'Security check unavailable. '
+                       DELIMITED BY SIZE,
+                       'Please contact support.'
+                       DELIMITED BY SIZE
+                    INTO MESSAGEO
+
                  WHEN OTHER
                     MOVE 'The account was not created.'
                        TO  MESSAGEO

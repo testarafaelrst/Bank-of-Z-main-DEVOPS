@@ -614,6 +614,22 @@
                            INTO MESSAGEO
                     GO TO GCD999
 
+                 WHEN 'S'
+                    MOVE SPACES TO MESSAGEO
+                    STRING 'Sorry, you are not authorised to '
+                           'perform this operation.'
+                           DELIMITED BY SIZE
+                           INTO MESSAGEO
+                    GO TO GCD999
+
+                 WHEN 'X'
+                    MOVE SPACES TO MESSAGEO
+                    STRING 'Security check unavailable. '
+                           'Please contact support.'
+                           DELIMITED BY SIZE
+                           INTO MESSAGEO
+                    GO TO GCD999
+
                  WHEN OTHER
                     MOVE SPACES TO MESSAGEO
                     STRING 'Sorry but the transfer could not be applied'
