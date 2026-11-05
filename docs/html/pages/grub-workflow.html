@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grub Workflow - Bank of Z – IBM Z Modern Development Reference</title>
+    <title>GRUB Workflow - Bank of Z – Project Wiki</title>
     <link rel="stylesheet" href="../assets/style.css">
     <script src="../assets/mermaid.js"></script>
     <script>
@@ -23,7 +23,7 @@
 <body>
     <header class="header">
         <div class="header-left">
-            <span class="header-app-name"><a href="../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – IBM Z Modern Development Reference</a></span>
+            <span class="header-app-name"><a href="../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – Project Wiki</a></span>
         </div>
         <div class="header-right">
         </div>
@@ -45,7 +45,7 @@
         <div class="nav-group-label">Application Documentation</div>
         <div class="nav-section">
             <button class="nav-section-toggle" type="button">
-                <span class="nav-toggle-text">About Bank of Z</span>
+                <span class="nav-toggle-text">Overview</span>
                 <span class="nav-section-chevron">
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -53,24 +53,8 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="about-overview.html" class="nav-link" data-page-id="about-overview">Project Overview</a>
-                <a href="architecture-overview.html" class="nav-link" data-page-id="architecture-overview">Architecture Overview</a>
-                <a href="key-capabilities.html" class="nav-link" data-page-id="key-capabilities">Key Capabilities</a>
-            </div>
-        </div>
-        <div class="nav-section">
-            <button class="nav-section-toggle" type="button">
-                <span class="nav-toggle-text">Architecture</span>
-                <span class="nav-section-chevron">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </span>
-            </button>
-            <div class="nav-section-items">
-                <a href="application-components.html" class="nav-link" data-page-id="application-components">Application Components</a>
-                <a href="application-flow.html" class="nav-link" data-page-id="application-flow">Application Flow</a>
-                <a href="build-and-deployment-arch.html" class="nav-link" data-page-id="build-and-deployment-arch">Build &amp; Deployment Architecture</a>
+                <a href="project-introduction.html" class="nav-link" data-page-id="project-introduction">Project Introduction</a>
+                <a href="capabilities-and-architecture-summary.html" class="nav-link" data-page-id="capabilities-and-architecture-summary">Key Capabilities &amp; Architecture Summary</a>
             </div>
         </div>
         <div class="nav-section">
@@ -83,11 +67,27 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="prerequisites-env.html" class="nav-link" data-page-id="prerequisites-env">Prerequisites &amp; Environment Configuration</a>
-                <a href="deploying-options.html" class="nav-link" data-page-id="deploying-options">Deployment Options</a>
+                <a href="prerequisites-and-environment.html" class="nav-link" data-page-id="prerequisites-and-environment">Prerequisites &amp; Environment Configuration</a>
                 <a href="local-tools-setup.html" class="nav-link" data-page-id="local-tools-setup">Local Tools Setup</a>
-                <a href="zowe-cli-setup.html" class="nav-link" data-page-id="zowe-cli-setup">Zowe CLI &amp; Profile Setup</a>
-                <a href="verification.html" class="nav-link" data-page-id="verification">Installation Verification</a>
+                <a href="deployment-methods.html" class="nav-link" data-page-id="deployment-methods">Deployment Methods</a>
+                <a href="installation-verification.html" class="nav-link" data-page-id="installation-verification">Installation Verification</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Architecture</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="architecture-introduction.html" class="nav-link" data-page-id="architecture-introduction">Architecture Introduction</a>
+                <a href="application-components.html" class="nav-link" data-page-id="application-components">Application Components</a>
+                <a href="application-flow.html" class="nav-link" data-page-id="application-flow">Application Flow</a>
+                <a href="build-and-deployment-architecture.html" class="nav-link" data-page-id="build-and-deployment-architecture">Build &amp; Deployment Architecture</a>
+                <a href="cics-program-examples.html" class="nav-link" data-page-id="cics-program-examples">CICS COBOL Program Examples</a>
             </div>
         </div>
         <div class="nav-section">
@@ -100,10 +100,9 @@
                 </span>
             </button>
             <div class="nav-section-items open">
-                <a href="workflow-overview.html" class="nav-link" data-page-id="workflow-overview">Development Workflow Overview</a>
+                <a href="workflows-overview.html" class="nav-link" data-page-id="workflows-overview">Development Workflows Overview</a>
+                <a href="grub-workflow.html" class="nav-link active" data-page-id="grub-workflow">GRUB Workflow</a>
                 <a href="zowe-cli-workflow.html" class="nav-link" data-page-id="zowe-cli-workflow">Zowe CLI Workflow</a>
-                <a href="grub-workflow.html" class="nav-link active" data-page-id="grub-workflow">Grub Workflow</a>
-                <a href="development-best-practices.html" class="nav-link" data-page-id="development-best-practices">Development Best Practices</a>
             </div>
         </div>
         <div class="nav-section">
@@ -116,10 +115,10 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="deploy-bank-of-z.html" class="nav-link" data-page-id="deploy-bank-of-z">Tutorial: Deploy Bank of Z</a>
-                <a href="cics-enhancement.html" class="nav-link" data-page-id="cics-enhancement">Tutorial: CICS Enhancement Scenario</a>
-                <a href="incremental-build.html" class="nav-link" data-page-id="incremental-build">Tutorial: Incremental Build</a>
-                <a href="debug-cics-transaction.html" class="nav-link" data-page-id="debug-cics-transaction">Tutorial: Debug a CICS Transaction</a>
+                <a href="tutorials-overview.html" class="nav-link" data-page-id="tutorials-overview">Tutorials Overview &amp; Deployment Walkthrough</a>
+                <a href="debug-cics-transaction-tutorial.html" class="nav-link" data-page-id="debug-cics-transaction-tutorial">Tutorial: Debug a CICS Transaction</a>
+                <a href="cics-enhancement-tutorial.html" class="nav-link" data-page-id="cics-enhancement-tutorial">Tutorial: CICS Enhancement Scenario</a>
+                <a href="incremental-build-tutorial.html" class="nav-link" data-page-id="incremental-build-tutorial">Tutorial: Incremental Build</a>
             </div>
         </div>
         <div class="nav-section">
@@ -132,10 +131,10 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="commands-reference.html" class="nav-link" data-page-id="commands-reference">Commands Reference</a>
                 <a href="configuration-reference.html" class="nav-link" data-page-id="configuration-reference">Configuration Reference</a>
-                <a href="glossary.html" class="nav-link" data-page-id="glossary">Glossary</a>
+                <a href="commands-and-scripts-reference.html" class="nav-link" data-page-id="commands-and-scripts-reference">Commands &amp; Scripts Reference</a>
                 <a href="repository-structure.html" class="nav-link" data-page-id="repository-structure">Repository Structure</a>
+                <a href="glossary.html" class="nav-link" data-page-id="glossary">Glossary</a>
             </div>
         </div>
         <div class="nav-section">
@@ -148,38 +147,12 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="troubleshooting-overview.html" class="nav-link" data-page-id="troubleshooting-overview">Troubleshooting Overview</a>
-                <a href="fix-abend-cino.html" class="nav-link" data-page-id="fix-abend-cino">Fix: OMEN ABEND CINO</a>
-                <a href="program-internals.html" class="nav-link" data-page-id="program-internals">Program Internals: CRDTAGY2 Credit Agency Simulator</a>
+                <a href="troubleshooting-guide.html" class="nav-link" data-page-id="troubleshooting-guide">Troubleshooting Guide</a>
+                <a href="abend-cino-fix.html" class="nav-link" data-page-id="abend-cino-fix">Fixing the CINO Abend</a>
             </div>
         </div>
         <div class="nav-divider"></div>
         <div class="nav-group-label">Program Documentation</div>
-    <div class="nav-section">
-        <button class="nav-section-toggle" type="button">
-            <span class="nav-toggle-text">docs</span>
-            <span class="nav-section-chevron">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </span>
-        </button>
-        <div class="nav-section-items">
-        <div class="nav-section">
-            <button class="nav-section-toggle" type="button">
-                <span class="nav-toggle-text">about-bank-of-z</span>
-                <span class="nav-section-chevron">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </span>
-            </button>
-            <div class="nav-section-items">
-                <a href="../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
-            </div>
-        </div>
-        </div>
-    </div>
     <div class="nav-section">
         <button class="nav-section-toggle" type="button">
             <span class="nav-toggle-text">program</span>
@@ -230,6 +203,7 @@
                             </span>
                         </button>
                         <div class="nav-section-items">
+                            <a href="../sources/program/src/base/cics/cobol/BNKMENU.html" class="nav-link">BNKMENU</a>
                             <a href="../sources/program/src/base/cics/cobol/CRDTAGY2.html" class="nav-link">CRDTAGY2</a>
                         </div>
                     </div>
@@ -241,6 +215,31 @@
         </div>
         </div>
     </div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">docs</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">about-bank-of-z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
+            </div>
+        </div>
+        </div>
+    </div>
             </nav>
         </aside>
         <main class="main">
@@ -248,118 +247,113 @@
                 <div class="content-layout">
                     <div class="prose">
                         
-                        <h1 id="grub-workflow" tabindex="-1">Grub Workflow</h1>
-<p>The GRUB workflow is a fast, patch-based development cycle that synchronizes local file changes directly to z/OS UNIX System Services (USS) without requiring a Git commit or push. Designed for iterative development in the Bank of Z application, GRUB transfers only the files that have changed, making it significantly faster than full setup workflows. Once files are synced, the environment setup runs automatically on USS, giving developers near-instant feedback on their changes.</p>
-<hr>
+                        <h1 id="grub-workflow" tabindex="-1">GRUB Workflow</h1>
 <h2 id="1-overview" tabindex="-1">1. Overview</h2>
-<p>The GRUB workflow enables developers to test application changes on z/OS in real time. Instead of committing code to a remote repository and triggering a full pipeline, GRUB creates patch files from local modifications and transfers only those deltas to USS. The remote setup script then runs natively on z/OS, validating prerequisites and installing the Bank of Z application — all without GitHub connectivity or Zowe CLI overhead.</p>
-<p>Key highlights of the GRUB workflow:</p>
+<p>The GRUB workflow synchronizes local file changes directly to z/OS USS and automatically runs the setup or pipeline scripts. You don’t need to commit or push to a remote repository. GRUB transfers only the changed files, so it is the fastest option for iterative development of the Bank of Z application.</p>
+<p>This page covers the day-to-day development cycle with GRUB:</p>
 <ul>
-<li><strong>No commits required</strong> — changes are picked up directly from the local workspace.</li>
-<li><strong>Incremental transfers</strong> — only modified files are sent to USS, keeping sync times minimal.</li>
-<li><strong>Automatic environment setup</strong> — <code>setup-remote.sh</code> runs immediately after files land on USS.</li>
-<li><strong>Native USS execution</strong> — scripts execute directly on z/OS without additional tooling layers.</li>
-<li><strong>Offline capable</strong> — no GitHub connectivity is needed after the initial clone.</li>
+<li>Making local changes</li>
+<li>Triggering a sync</li>
+<li>What runs automatically on z/OS USS</li>
+<li>How the setup script detects that it is running inside the Bank-of-Z repository</li>
+<li>Why you might choose GRUB over other workflows</li>
 </ul>
-<blockquote>
-<p><strong>Prerequisite:</strong> Before using this workflow, complete the <a href="../installation-and-setup/deploy-grub.md">Deploy Using GRUB</a> setup guide to configure your local environment.</p>
-</blockquote>
-<hr>
+<p>Before using this workflow, complete the <strong>Deploy Using GRUB</strong> installation guide to set up your environment.</p>
 <h2 id="2-system-architecture" tabindex="-1">2. System Architecture</h2>
-<p>The GRUB workflow spans two environments: the developer’s <strong>local machine</strong> and <strong>z/OS USS</strong>. GRUB acts as the bridge between them, analyzing local changes, packaging them as patches, and transferring only the delta to the remote system.</p>
-<div class="mermaid">
-graph TD
-    A[Developer Local Workspace] -->|Modify source files| B[GRUB Client]
-    B -->|Analyze changes| C[Patch File Generator]
-    C -->|Transfer changed files only| D[z/OS USS - Bank-of-Z Repo]
-    D -->|Trigger automatically| E[setup-remote.sh]
-    E --> F[validate-prereqs]
-    E --> G[environment setup]
-    E --> H[install-bank-of-z]
-    H -->|Application live| I[Bank of Z Frontend :9080]
-</div>
-<p>The diagram above illustrates the end-to-end flow from a developer’s local workspace to the running Bank of Z application on z/OS. GRUB sits at the center of this architecture, decoupling the developer’s Git history from the deployment process. The <code>setup-remote.sh</code> script orchestrates all post-sync tasks natively on USS, ensuring the environment is fully configured and the application is ready as soon as the sync completes.</p>
-<h3 id="21-component-responsibilities" tabindex="-1">2.1 Component Responsibilities</h3>
+<p>The GRUB workflow has two sides: your local machine, and z/OS USS (Unix System Services). GRUB runs on the local side. It detects changes and builds patches. On the USS side, the patches are applied to the Bank-of-Z repository, and <code>setup-remote.sh</code> runs natively.</p>
+<h3 id="21-components" tabindex="-1">2.1 Components</h3>
 <table>
 <thead>
 <tr>
 <th>Component</th>
 <th>Location</th>
-<th>Responsibility</th>
+<th>Role</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Developer Workspace</td>
-<td>Local Machine</td>
-<td>Source code editing (COBOL, BMS, configs, APIs)</td>
+<td>Local workspace</td>
+<td>Local machine</td>
+<td>Holds the application source you edit (COBOL, BMS, z/OS Connect assets, configuration)</td>
 </tr>
 <tr>
-<td>GRUB Client</td>
-<td>Local Machine</td>
-<td>Change detection, patch creation, file transfer</td>
+<td>GRUB</td>
+<td>Local machine</td>
+<td>Analyzes changes, creates patch files, and transfers only modified files</td>
 </tr>
 <tr>
-<td>z/OS USS Repository</td>
-<td>z/OS</td>
-<td>Receives patches, hosts Bank-of-Z source</td>
+<td>Bank-of-Z repository</td>
+<td>z/OS USS</td>
+<td>Target repository where patches are applied</td>
 </tr>
 <tr>
 <td><code>setup-remote.sh</code></td>
 <td>z/OS USS</td>
-<td>Orchestrates validation, environment, and install</td>
+<td>Orchestrates setup and runs natively on USS</td>
 </tr>
 <tr>
-<td>Bank of Z Frontend</td>
+<td><code>validate-prereqs</code></td>
+<td>z/OS USS</td>
+<td>Setup stage that validates prerequisites</td>
+</tr>
+<tr>
+<td><code>environment</code></td>
+<td>z/OS USS</td>
+<td>Setup stage that prepares the environment</td>
+</tr>
+<tr>
+<td><code>install-bank-of-z</code></td>
+<td>z/OS USS</td>
+<td>Setup stage that installs the application</td>
+</tr>
+<tr>
+<td>Bank of Z frontend</td>
 <td>z/OS (port 9080)</td>
-<td>End-user application validation point</td>
+<td>Where you validate your changes</td>
 </tr>
 </tbody>
 </table>
-<hr>
-<h2 id="3-daily-development-cycle" tabindex="-1">3. Daily Development Cycle</h2>
-<p>The typical GRUB-based day follows four repeating steps: edit, sync, wait for automatic setup, and verify. The cycle is intentionally lightweight — there is no branching, committing, or pushing involved.</p>
+<h3 id="22-architecture-diagram" tabindex="-1">2.2 Architecture Diagram</h3>
 <div class="mermaid">
-sequenceDiagram
-    participant Dev as Developer (Local)
-    participant GRUB as GRUB Client
-    participant USS as z/OS USS
-    participant Script as setup-remote.sh
-    participant App as Bank of Z Frontend
+graph TD
+    subgraph Local["Local Machine"]
+        A[Local Workspace<br/>COBOL, BMS, z/OS Connect, Config]
+        B[GRUB<br/>Analyze changes and create patches]
+    end
 
-    Dev->>GRUB: Modify source files & trigger sync
-    GRUB->>GRUB: Analyze local changes
-    GRUB->>GRUB: Generate patch files
-    GRUB->>USS: Transfer only changed files
-    USS->>Script: Patches applied — script auto-runs
-    Script->>Script: validate-prereqs
-    Script->>Script: environment setup
-    Script->>Script: install-bank-of-z
-    Script-->>USS: Setup complete
-    USS-->>App: Application deployed
-    App-->>Dev: Verify at http://<host>:9080/bank-frontend-vanilla
+    subgraph ZOS["z/OS USS"]
+        C[Bank-of-Z Repository<br/>Patches applied]
+        D[setup-remote.sh]
+        E[validate-prereqs]
+        F[environment]
+        G[install-bank-of-z]
+        H[Bank of Z Frontend<br/>:9080/bank-frontend-vanilla]
+    end
+
+    A --> B
+    B -->|Transfers changed files only| C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    G --> H
 </div>
-<p>This sequence shows that the developer’s only active steps are modifying files and triggering the GRUB sync. Everything from patch application through application deployment is fully automated on the z/OS side.</p>
-<h3 id="31-step-1--make-changes" tabindex="-1">3.1 Step 1 — Make Changes</h3>
-<p>Modify application source code in your local workspace. <strong>No Git commit is required.</strong> Common file types included in a typical change set:</p>
+<p>The architecture has no remote Git hop. GRUB moves changes straight from the workstation to USS, which keeps the loop short.</p>
+<h2 id="3-daily-development-cycle" tabindex="-1">3. Daily Development Cycle</h2>
+<p>The daily cycle has four steps: make changes, trigger a sync, let the automation run, and validate.</p>
+<h3 id="31-make-changes" tabindex="-1">3.1 Make Changes</h3>
+<p>Modify application source code in your local workspace. No commit is required. Common changes include:</p>
 <ul>
-<li><strong>COBOL programs and copybooks</strong> — core business logic</li>
-<li><strong>BMS maps</strong> — CICS screen definitions</li>
-<li><strong>z/OS Connect API assets</strong> — REST API descriptors and configuration</li>
-<li><strong>Configuration files</strong> — environment and deployment settings</li>
+<li>COBOL programs and copybooks</li>
+<li>BMS maps</li>
+<li>z/OS Connect API assets</li>
+<li>Configuration files</li>
 </ul>
-<h3 id="32-step-2--trigger-a-grub-sync" tabindex="-1">3.2 Step 2 — Trigger a GRUB Sync</h3>
-<p>Trigger a GRUB sync from your local machine. GRUB will:</p>
-<ol>
-<li>Analyze the local workspace for modified files.</li>
-<li>Create patch files representing only the changes.</li>
-<li>Transfer the patch files to the Bank-of-Z directory on z/OS USS.</li>
-</ol>
-<blockquote>
-<p>Refer to your GRUB installation documentation for the specific command or UI action used to initiate the sync.</p>
-</blockquote>
-<h3 id="33-step-3--automatic-execution-on-uss" tabindex="-1">3.3 Step 3 — Automatic Execution on USS</h3>
-<p>Once files are transferred, the following process runs entirely on z/OS USS without any further developer action:</p>
+<h3 id="32-trigger-a-grub-sync" tabindex="-1">3.2 Trigger a GRUB Sync</h3>
+<p>Trigger a GRUB sync from your local machine. GRUB analyzes your local changes, creates patch files, and transfers only the modified files to USS.</p>
+<p>Refer to your GRUB documentation for the specific command or UI action for your installation.</p>
+<h3 id="33-what-runs-automatically" tabindex="-1">3.3 What Runs Automatically</h3>
+<p>After the transfer, the patches are applied on USS and <code>setup-remote.sh</code> runs natively. It runs three stages: <code>validate-prereqs</code>, <code>environment</code>, and <code>install-bank-of-z</code>.</p>
 <div class="code-block">
   <div class="code-block-header">
     <span class="code-block-lang">CODE</span>
@@ -375,9 +369,9 @@ Transfers changed files ────────→ Patches applied to USS
                                   ├─ environment
                                   └─ install-bank-of-z</code></pre>
 </div>
-<p>GRUB detects that it is running from within the Bank-of-Z repository and uses the synced files directly — <strong>no re-cloning occurs</strong>. This is what makes subsequent syncs significantly faster than a full initial setup.</p>
-<h3 id="34-step-4--validate-changes" tabindex="-1">3.4 Step 4 — Validate Changes</h3>
-<p>Open the Bank of Z frontend in a browser to confirm your changes are live:</p>
+<p>GRUB detects that it is running from within the Bank-of-Z repository and uses the synced files directly. No re-cloning occurs. This is why later syncs are much faster than a full setup.</p>
+<h3 id="34-validate-changes" tabindex="-1">3.4 Validate Changes</h3>
+<p>Open the Bank of Z frontend to verify that your changes are live:</p>
 <div class="code-block">
   <div class="code-block-header">
     <span class="code-block-lang">CODE</span>
@@ -385,11 +379,41 @@ Transfers changed files ────────→ Patches applied to USS
   </div>
   <pre><code>http://&lt;your-zos-host&gt;:9080/bank-frontend-vanilla</code></pre>
 </div>
-<p>Replace <code>&lt;your-zos-host&gt;</code> with the hostname or IP address of your z/OS system.</p>
-<hr>
-<h2 id="4-stage-detection-mechanism" tabindex="-1">4. Stage Detection Mechanism</h2>
-<p>A critical feature of the GRUB workflow is how <code>setup-remote.sh</code> determines whether it is running inside a GRUB-synced repository or a freshly cloned environment. This distinction controls whether the script re-clones from GitHub or uses the files already present on USS.</p>
-<p>When <code>setup-remote.sh</code> runs on USS after a GRUB sync, it checks Git metadata to identify its execution context:</p>
+<h3 id="35-cycle-sequence" tabindex="-1">3.5 Cycle Sequence</h3>
+<div class="mermaid">
+sequenceDiagram
+    participant Dev as Developer
+    participant WS as Local Workspace
+    participant GRUB as GRUB
+    participant USS as z/OS USS
+    participant Setup as setup-remote.sh
+    participant FE as Bank of Z Frontend
+
+    Dev->>WS: Modify COBOL, BMS, API assets, config
+    Dev->>GRUB: Trigger sync
+    GRUB->>WS: Analyze local changes
+    GRUB->>GRUB: Create patch files
+    GRUB->>USS: Transfer changed files
+    USS->>USS: Apply patches
+    USS->>Setup: Run natively
+    Setup->>Setup: validate-prereqs
+    Setup->>Setup: environment
+    Setup->>Setup: install-bank-of-z
+    Setup-->>Dev: Setup complete
+    Dev->>FE: Open /bank-frontend-vanilla on port 9080
+    FE-->>Dev: Updated application
+</div>
+<h3 id="36-cycle-flowchart" tabindex="-1">3.6 Cycle Flowchart</h3>
+<div class="mermaid">
+graph LR
+    A[Edit locally] --> B[Trigger GRUB sync]
+    B --> C[Patches applied on USS]
+    C --> D[setup-remote.sh runs]
+    D --> E[Validate in browser]
+    E -->|More changes| A
+</div>
+<h2 id="4-how-stage-detection-works" tabindex="-1">4. How Stage Detection Works</h2>
+<p>When <code>setup-remote.sh</code> runs on USS after a GRUB sync, it checks whether it is executing from within the Bank-of-Z repository. If it is, it uses that location directly:</p>
 <div class="code-block">
   <div class="code-block-header">
     <span class="code-block-lang">BASH</span>
@@ -403,29 +427,19 @@ Transfers changed files ────────→ Patches applied to USS
     fi
 fi</code></pre>
 </div>
-<p><strong>How this works:</strong></p>
-<ul>
-<li><code>git rev-parse --git-dir</code> checks whether the current directory is inside a Git repository.</li>
-<li><code>git rev-parse --show-toplevel</code> retrieves the absolute path to the repository root.</li>
-<li><code>basename</code> extracts the repository folder name and compares it to <code>&quot;Bank-of-Z&quot;</code>.</li>
-<li>If the name matches, <code>BANK_DIR</code> is set to the current repository location and <strong>no clone is performed</strong>.</li>
-</ul>
-<p>This means your <strong>uncommitted local changes are used as-is</strong> — the exact state of your local workspace is what gets deployed and tested on z/OS.</p>
+<p>Your uncommitted local changes are used as-is, and no clone from GitHub is attempted.</p>
+<h3 id="41-detection-logic" tabindex="-1">4.1 Detection Logic</h3>
 <div class="mermaid">
 graph TD
-    A[setup-remote.sh starts] --> B{Inside a Git repo?}
-    B -- No --> C[Clone from GitHub]
-    B -- Yes --> D{Repo name == Bank-of-Z?}
-    D -- No --> C
-    D -- Yes --> E[Set BANK_DIR to current repo root]
-    E --> F[Use synced files — skip clone]
-    C --> F
-    F --> G[Continue: validate, setup, install]
+    A[setup-remote.sh starts] --> B{Inside a Git repository?<br/>git rev-parse --git-dir}
+    B -->|No| F[Not a GRUB workflow<br/>Use standard setup path]
+    B -->|Yes| C[Get top-level directory name<br/>git rev-parse --show-toplevel]
+    C --> D{Name equals Bank-of-Z?}
+    D -->|No| F
+    D -->|Yes| E[BANK_DIR = repository top level<br/>Use synced files, no clone]
 </div>
-<p>This detection logic ensures the GRUB workflow is non-destructive and always works with the most recent synced state, regardless of Git commit history.</p>
-<hr>
+<p>The diagram’s “No” branches show the fallback path. The source code doesn’t spell out that path, so the diagram only labels it as the standard setup path.</p>
 <h2 id="5-why-use-grub" tabindex="-1">5. Why Use GRUB</h2>
-<p>The GRUB workflow is purpose-built for speed and simplicity during active development. The table below summarizes the key benefits:</p>
 <table>
 <thead>
 <tr>
@@ -440,89 +454,45 @@ graph TD
 </tr>
 <tr>
 <td>Patch-based sync</td>
-<td>Only changed files are transferred — fast incremental updates</td>
+<td>Only changed files are transferred, which gives fast incremental updates</td>
 </tr>
 <tr>
 <td>Automatic setup</td>
-<td>Environment is ready as soon as the sync completes</td>
+<td>The environment is ready as soon as the sync completes</td>
 </tr>
 <tr>
 <td>Native execution</td>
-<td>Runs directly on USS — no Zowe CLI overhead</td>
+<td>Runs directly on USS, with no Zowe CLI overhead</td>
 </tr>
 <tr>
 <td>Works offline</td>
-<td>No GitHub connectivity needed after initial clone</td>
+<td>No GitHub connectivity is needed after the initial clone</td>
 </tr>
 </tbody>
 </table>
-<h3 id="51-grub-vs-zowe-cli-workflow" tabindex="-1">5.1 GRUB vs. Zowe CLI Workflow</h3>
-<p>While both workflows deploy the Bank of Z application to z/OS, they serve different purposes:</p>
-<table>
-<thead>
-<tr>
-<th>Criterion</th>
-<th>GRUB Workflow</th>
-<th>Zowe CLI Workflow</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Git commit required</td>
-<td>❌ No</td>
-<td>✅ Yes</td>
-</tr>
-<tr>
-<td>Transfer method</td>
-<td>Patch-based (delta only)</td>
-<td>Branch-based (full clone)</td>
-</tr>
-<tr>
-<td>Speed (iterative)</td>
-<td>⚡ Faster</td>
-<td>🐢 Slower</td>
-</tr>
-<tr>
-<td>Git traceability</td>
-<td>Limited</td>
-<td>Full history</td>
-</tr>
-<tr>
-<td>GitHub connectivity</td>
-<td>Not required after setup</td>
-<td>Required</td>
-</tr>
-<tr>
-<td>Best for</td>
-<td>Rapid local iteration</td>
-<td>CI/CD and team collaboration</td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h2 id="6-related-resources" tabindex="-1">6. Related Resources</h2>
+<h2 id="6-related-documentation" tabindex="-1">6. Related Documentation</h2>
 <ul>
-<li><strong>Zowe CLI Workflow</strong> — Branch-based workflow with full Git traceability, suited for team collaboration and CI/CD pipelines.</li>
-<li><strong>Workflow Comparison</strong> — Side-by-side feature comparison of all available Bank of Z development workflows.</li>
-<li><strong>GRUB Setup Guide</strong> — Step-by-step instructions for installing and configuring GRUB on your local machine.</li>
-<li><strong>Troubleshooting</strong> — Common issues and resolutions for GRUB sync failures and USS connectivity problems.</li>
+<li><strong>Zowe CLI Workflow</strong>: a branch-based workflow with full Git traceability</li>
+<li><strong>Workflow Comparison</strong></li>
+<li><strong>GRUB Setup</strong></li>
+<li><strong>Troubleshooting</strong></li>
 </ul>
 
                         <div class="related-pages">
                             <p class="related-pages-title">Related Pages</p>
                             <div class="card-grid">
                                 
-            <a href="workflow-overview.html" class="card">
-                <span class="card-title">Development Workflow Overview</span>
-                <span class="card-description">Comparison and selection guide for the available Bank of Z development workflows, helping developers choose the right approach based on tooling, environment, and team preferences.</span>
-            </a>
-            <a href="zowe-cli-workflow.html" class="card">
-                <span class="card-title">Zowe CLI Workflow</span>
-                <span class="card-description">Full walkthrough of the Zowe CLI-based development workflow for Bank of Z, covering editing, building, uploading, and testing COBOL and CICS changes from a local workstation.</span>
+            <a href="workflows-overview.html" class="card">
+                <span class="card-title">Development Workflows Overview</span>
+                <span class="card-description">Introduction to the supported development workflows, a comparison of them, and best practices.</span>
             </a>
             <a href="local-tools-setup.html" class="card">
                 <span class="card-title">Local Tools Setup</span>
-                <span class="card-description">Step-by-step instructions for setting up local development tools, including IDE configuration, Zowe CLI installation, Zowe profile setup, and Grub installation on the developer workstation.</span>
+                <span class="card-description">Setting up the local development toolchain: IDE, Zowe CLI, Zowe profiles and GRUB.</span>
+            </a>
+            <a href="zowe-cli-workflow.html" class="card">
+                <span class="card-title">Zowe CLI Workflow</span>
+                <span class="card-description">Day-to-day development using Zowe CLI.</span>
             </a>
                             </div>
                         </div>
@@ -533,24 +503,27 @@ graph TD
 <li class="toc-level-2"><a href="#1-overview">1. Overview</a></li>
 <li class="toc-level-2"><a href="#2-system-architecture">2. System Architecture</a>
 <ul>
-<li class="toc-level-3"><a href="#21-component-responsibilities">2.1 Component Responsibilities</a></li>
+<li class="toc-level-3"><a href="#21-components">2.1 Components</a></li>
+<li class="toc-level-3"><a href="#22-architecture-diagram">2.2 Architecture Diagram</a></li>
 </ul>
 </li>
 <li class="toc-level-2"><a href="#3-daily-development-cycle">3. Daily Development Cycle</a>
 <ul>
-<li class="toc-level-3"><a href="#31-step-1--make-changes">3.1 Step 1 — Make Changes</a></li>
-<li class="toc-level-3"><a href="#32-step-2--trigger-a-grub-sync">3.2 Step 2 — Trigger a GRUB Sync</a></li>
-<li class="toc-level-3"><a href="#33-step-3--automatic-execution-on-uss">3.3 Step 3 — Automatic Execution on USS</a></li>
-<li class="toc-level-3"><a href="#34-step-4--validate-changes">3.4 Step 4 — Validate Changes</a></li>
+<li class="toc-level-3"><a href="#31-make-changes">3.1 Make Changes</a></li>
+<li class="toc-level-3"><a href="#32-trigger-a-grub-sync">3.2 Trigger a GRUB Sync</a></li>
+<li class="toc-level-3"><a href="#33-what-runs-automatically">3.3 What Runs Automatically</a></li>
+<li class="toc-level-3"><a href="#34-validate-changes">3.4 Validate Changes</a></li>
+<li class="toc-level-3"><a href="#35-cycle-sequence">3.5 Cycle Sequence</a></li>
+<li class="toc-level-3"><a href="#36-cycle-flowchart">3.6 Cycle Flowchart</a></li>
 </ul>
 </li>
-<li class="toc-level-2"><a href="#4-stage-detection-mechanism">4. Stage Detection Mechanism</a></li>
-<li class="toc-level-2"><a href="#5-why-use-grub">5. Why Use GRUB</a>
+<li class="toc-level-2"><a href="#4-how-stage-detection-works">4. How Stage Detection Works</a>
 <ul>
-<li class="toc-level-3"><a href="#51-grub-vs-zowe-cli-workflow">5.1 GRUB vs. Zowe CLI Workflow</a></li>
+<li class="toc-level-3"><a href="#41-detection-logic">4.1 Detection Logic</a></li>
 </ul>
 </li>
-<li class="toc-level-2"><a href="#6-related-resources">6. Related Resources</a></li>
+<li class="toc-level-2"><a href="#5-why-use-grub">5. Why Use GRUB</a></li>
+<li class="toc-level-2"><a href="#6-related-documentation">6. Related Documentation</a></li>
 </ul>
 
 </nav>

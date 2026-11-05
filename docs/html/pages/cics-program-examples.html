@@ -1,0 +1,899 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CICS COBOL Program Examples - Bank of Z – Project Wiki</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/mermaid.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: { useMaxWidth: true }
+        });
+    </script>
+
+    <!-- Prism.js for syntax highlighting (bundled — no CDN required) -->
+    <link rel="stylesheet" href="../assets/prism-tomorrow.css">
+    <script src="../assets/prism-core.js"></script>
+    <script src="../assets/prism-languages.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <span class="header-app-name"><a href="../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – Project Wiki</a></span>
+        </div>
+        <div class="header-right">
+        </div>
+    </header>
+    <div class="shell">
+        <aside class="sidebar" id="wiki-sidebar">
+            <nav>
+                
+        <div class="nav-home-wrap">
+            <a href="../../index.html" class="nav-home">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                Home
+            </a>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Application Documentation</div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Overview</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="project-introduction.html" class="nav-link" data-page-id="project-introduction">Project Introduction</a>
+                <a href="capabilities-and-architecture-summary.html" class="nav-link" data-page-id="capabilities-and-architecture-summary">Key Capabilities &amp; Architecture Summary</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Installation &amp; Setup</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="prerequisites-and-environment.html" class="nav-link" data-page-id="prerequisites-and-environment">Prerequisites &amp; Environment Configuration</a>
+                <a href="local-tools-setup.html" class="nav-link" data-page-id="local-tools-setup">Local Tools Setup</a>
+                <a href="deployment-methods.html" class="nav-link" data-page-id="deployment-methods">Deployment Methods</a>
+                <a href="installation-verification.html" class="nav-link" data-page-id="installation-verification">Installation Verification</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle open" type="button">
+                <span class="nav-toggle-text">Architecture</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items open">
+                <a href="architecture-introduction.html" class="nav-link" data-page-id="architecture-introduction">Architecture Introduction</a>
+                <a href="application-components.html" class="nav-link" data-page-id="application-components">Application Components</a>
+                <a href="application-flow.html" class="nav-link" data-page-id="application-flow">Application Flow</a>
+                <a href="build-and-deployment-architecture.html" class="nav-link" data-page-id="build-and-deployment-architecture">Build &amp; Deployment Architecture</a>
+                <a href="cics-program-examples.html" class="nav-link active" data-page-id="cics-program-examples">CICS COBOL Program Examples</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Development Workflows</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="workflows-overview.html" class="nav-link" data-page-id="workflows-overview">Development Workflows Overview</a>
+                <a href="grub-workflow.html" class="nav-link" data-page-id="grub-workflow">GRUB Workflow</a>
+                <a href="zowe-cli-workflow.html" class="nav-link" data-page-id="zowe-cli-workflow">Zowe CLI Workflow</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Tutorials</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="tutorials-overview.html" class="nav-link" data-page-id="tutorials-overview">Tutorials Overview &amp; Deployment Walkthrough</a>
+                <a href="debug-cics-transaction-tutorial.html" class="nav-link" data-page-id="debug-cics-transaction-tutorial">Tutorial: Debug a CICS Transaction</a>
+                <a href="cics-enhancement-tutorial.html" class="nav-link" data-page-id="cics-enhancement-tutorial">Tutorial: CICS Enhancement Scenario</a>
+                <a href="incremental-build-tutorial.html" class="nav-link" data-page-id="incremental-build-tutorial">Tutorial: Incremental Build</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Reference</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="configuration-reference.html" class="nav-link" data-page-id="configuration-reference">Configuration Reference</a>
+                <a href="commands-and-scripts-reference.html" class="nav-link" data-page-id="commands-and-scripts-reference">Commands &amp; Scripts Reference</a>
+                <a href="repository-structure.html" class="nav-link" data-page-id="repository-structure">Repository Structure</a>
+                <a href="glossary.html" class="nav-link" data-page-id="glossary">Glossary</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Troubleshooting</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="troubleshooting-guide.html" class="nav-link" data-page-id="troubleshooting-guide">Troubleshooting Guide</a>
+                <a href="abend-cino-fix.html" class="nav-link" data-page-id="abend-cino-fix">Fixing the CINO Abend</a>
+            </div>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Program Documentation</div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">program</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">src</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+            <div class="nav-section">
+                <button class="nav-section-toggle" type="button">
+                    <span class="nav-toggle-text">base</span>
+                    <span class="nav-section-chevron">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="nav-section-items">
+                <div class="nav-section">
+                    <button class="nav-section-toggle" type="button">
+                        <span class="nav-toggle-text">cics</span>
+                        <span class="nav-section-chevron">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="nav-section-items">
+                    <div class="nav-section">
+                        <button class="nav-section-toggle" type="button">
+                            <span class="nav-toggle-text">cobol</span>
+                            <span class="nav-section-chevron">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="nav-section-items">
+                            <a href="../sources/program/src/base/cics/cobol/BNKMENU.html" class="nav-link">BNKMENU</a>
+                            <a href="../sources/program/src/base/cics/cobol/CRDTAGY2.html" class="nav-link">CRDTAGY2</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">docs</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">about-bank-of-z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
+            </div>
+        </div>
+        </div>
+    </div>
+            </nav>
+        </aside>
+        <main class="main">
+            <div class="page-container">
+                <div class="content-layout">
+                    <div class="prose">
+                        <details class="source-files-disclosure">
+            <summary>
+                <svg class="sf-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Source Files
+                <span style="margin-left:4px;font-size:11px;color:var(--fg-subtle)">(2)</span>
+            </summary>
+            <div class="source-files-body">
+                <ul class="source-files-list">
+            <li><a href="../sources/program/src/base/cics/cobol/BNKMENU.html">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+                    <path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M10 2v4h4" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                BNKMENU
+            </a></li>
+            <li><a href="../sources/program/src/base/cics/cobol/CRDTAGY2.html">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+                    <path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M10 2v4h4" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                CRDTAGY2
+            </a></li>
+                </ul>
+            </div>
+        </details>
+                        <h1 id="cics-cobol-program-examples" tabindex="-1">CICS COBOL Program Examples</h1>
+<p>This technical document provides application-level documentation for two core CICS COBOL program patterns within the Bank of Z core banking application:</p>
+<ol>
+<li><strong><code>BNKMENU</code></strong>: An interactive, pseudo-conversational 3270 terminal hub utilizing Basic Mapping Support (BMS) for operator navigation and transaction dispatching.</li>
+<li><strong><code>CRDTAGY2</code></strong>: A non-terminal, asynchronous background task simulating an external credit bureau service utilizing modern CICS Channels and Containers alongside CICS Async API paradigms.</li>
+</ol>
+<hr>
+<h2 id="1-overview" tabindex="-1">1. Overview</h2>
+<p>Enterprise mainframe banking architectures combine online interactive screen processing with decoupled, background micro-services. Within the Bank of Z application suite:</p>
+<ul>
+<li><strong><code>BNKMENU</code></strong> acts as the primary user-facing front door for terminal operators. Operating under the <code>OMEN</code> transaction identifier, it presents a 3270 terminal menu, parses user Attention Identifier (AID) keys, validates numeric and alphabetic menu choices, and immediately routes execution to targeted business transactions (such as customer inquiry, account creation, or fund transfers) via pseudo-conversational transfers.</li>
+<li><strong><code>CRDTAGY2</code></strong> serves as an asynchronous credit scoring simulator. When banking transactions require a customer credit evaluation, they initiate <code>CRDTAGY2</code> as an asynchronous child task. The program fetches the customer record from a shared CICS channel, simulates external network latency using <code>EXEC CICS DELAY</code>, computes a randomized credit rating, updates the container payload, and returns the result to allow parent transaction retrieval.</li>
+</ul>
+<hr>
+<h2 id="2-system-architecture" tabindex="-1">2. System Architecture</h2>
+<p>The Bank of Z architecture separates synchronous presentation logic from asynchronous background processing. Both program archetypes integrate into the centralized diagnostic subsystem <code>ABNDPROC</code> for structured incident telemetry.</p>
+<div class="mermaid">
+graph TD
+    subgraph Presentation_Tier [Interactive 3270 Presentation Tier]
+        Term[3270 Terminal / Operator] -->|BMS Screen I/O| BNKMENU[BNKMENU - OMEN Hub]
+        BNKMENU -->|PF3 / PF12| TermMsg[Session Ended Screen]
+        BNKMENU -->|EXEC CICS RETURN TRANSID IMMEDIATE| SubTxns[Downstream Transactions<br>ODCS, ODAC, OCCS, OCAC,<br>OUAC, OCRA, OTFN, OCCA]
+    end
+
+    subgraph Async_Tier [Asynchronous Processing Tier]
+        ParentTxn[Parent Banking Transaction] -->|CICS Async API / RUN TRANSID| CRDTAGY2[CRDTAGY2 Credit Simulator]
+        ParentTxn -.->|Passes Channel: CIPCREDCHANN| ChanCont[(CICS Channel: CIPCREDCHANN<br>Container: CIPB)]
+        CRDTAGY2 <-->|GET / PUT CONTAINER| ChanCont
+        CRDTAGY2 -->|EXEC CICS DELAY| DelayWait[Simulated Latency: 1-3s]
+        ParentTxn -->|FETCH CHILD / 3s Timeout| ChanCont
+    end
+
+    subgraph Diagnostic_Subsystem [Centralized Diagnostics]
+        BNKMENU -->|EXEC CICS LINK with ABNDINFO-REC| ABNDPROC[ABNDPROC Error Handler]
+        CRDTAGY2 -->|EXEC CICS LINK with ABNDINFO-REC| ABNDPROC
+        ABNDPROC --> ABNDLog[(Diagnostic Log File)]
+    end
+</div>
+<h3 id="21-architecture-and-component-interaction-text-description" tabindex="-1">2.1 Architecture and Component Interaction Text Description</h3>
+<ol>
+<li><strong>Terminal Navigation (<code>BNKMENU</code>)</strong>: The user interacts with the terminal via BMS mapset <code>BNK1MAI</code> (map <code>BNK1ME</code>). <code>BNKMENU</code> inspects the Execution Interface Block (<code>EIBCALEN</code> and <code>EIBAID</code>). It dynamically selects the map transmission mode (<code>ERASE</code>, <code>DATAONLY</code>, or <code>DATAONLY ALARM</code>) and transfers control immediately to business transactions (<code>ODCS</code> through <code>OCCA</code>) or loops back to itself (<code>OMEN</code>).</li>
+<li><strong>Channel-Driven Asynchronous Simulation (<code>CRDTAGY2</code>)</strong>: Parent transactions instantiate <code>CRDTAGY2</code> passing the <code>CIPCREDCHANN</code> channel containing the <code>CIPB</code> container with <code>CUSTOMER-RECORD</code> data. <code>CRDTAGY2</code> executes without terminal dependency, modifying the shared container.</li>
+<li><strong>Unified Incident Telemetry</strong>: Both programs monitor the <code>EIBRESP</code> and <code>EIBRESP2</code> status codes for all CICS commands. Any unhandled non-normal response populates an <code>ABNDINFO-REC</code> structure containing task numbers, timestamps, transaction codes, and formatted failure descriptions, delegating logging to <code>ABNDPROC</code>.</li>
+</ol>
+<hr>
+<h2 id="3-bnkmenu--online-banking-navigation-hub" tabindex="-1">3. BNKMENU — Online Banking Navigation Hub</h2>
+<h3 id="31-purpose-and-interaction-model" tabindex="-1">3.1 Purpose and Interaction Model</h3>
+<p><code>BNKMENU</code> is an interactive BMS menu router designed using CICS pseudo-conversational standards. To conserve mainframe resources, the program terminates its task after presenting the screen and registers a follow-up transaction (<code>OMEN</code>) with a 1-byte communication area (<code>COMMAREA</code>). When the terminal user responds, CICS initiates a new task instance.</p>
+<div class="mermaid">
+sequenceDiagram
+    autonumber
+    actor User as Terminal Operator
+    participant CICS as CICS Control Layer
+    participant PGM as BNKMENU
+    participant SUB as Business Transaction
+
+    User->>CICS: Enters OMEN (EIBCALEN = 0)
+    CICS->>PGM: Invokes BNKMENU (First Time)
+    PGM->>PGM: Clear map buffer, set SEND-ERASE
+    PGM->>CICS: EXEC CICS SEND MAP('BNK1ME') ERASE
+    PGM->>CICS: EXEC CICS RETURN TRANSID('OMEN') COMMAREA(1 Byte)
+    CICS-->>User: Display Menu Screen
+    
+    User->>CICS: Enters '1' and presses ENTER
+    CICS->>PGM: Invokes BNKMENU (EIBCALEN = 1, EIBAID = ENTER)
+    PGM->>CICS: EXEC CICS RECEIVE MAP('BNK1ME')
+    PGM->>PGM: Validate ACTIONI ('1'-'7' or 'A')
+    PGM->>CICS: EXEC CICS RETURN TRANSID('ODCS') IMMEDIATE
+    CICS->>SUB: Dispatches ODCS immediately
+    SUB-->>User: Displays Customer Details Screen
+</div>
+<h3 id="32-processing-logic-and-flow" tabindex="-1">3.2 Processing Logic and Flow</h3>
+<p>The execution cycle handles attention identifiers, validates user input, handles <code>MAPFAIL</code> conditions, and routes to business functions.</p>
+<div class="mermaid">
+graph TD
+    Start([Start: OMEN Invoked]) --> CalenChk{EIBCALEN = 0?<br>First Invocation}
+    CalenChk -- Yes --> InitMap[Init BNK1MEO<br>Set Cursor on ACTION<br>Set SEND-ERASE]
+    InitMap --> SendErase[EXEC CICS SEND MAP ERASE FREEKB]
+    SendErase --> RetOmen[EXEC CICS RETURN TRANSID OMEN COMMAREA]
+
+    CalenChk -- No --> AidChk{Evaluate EIBAID}
+    AidChk -- PA1 / PA2 / PA3 --> RetOmen
+    AidChk -- CLEAR --> ClearCtrl[EXEC CICS SEND CONTROL ERASE FREEKB] --> EndTask([EXEC CICS RETURN])
+    AidChk -- PF3 / PF12 --> TermMsg[EXEC CICS SEND TEXT 'Session Ended' ERASE] --> EndTask
+    AidChk -- Other Key --> BadKey[Set 'Invalid key pressed.'<br>Set SEND-DATAONLY-ALARM] --> SendAlarm[EXEC CICS SEND MAP DATAONLY ALARM] --> RetOmen
+    AidChk -- ENTER --> RecvMap[EXEC CICS RECEIVE MAP BNK1ME]
+
+    RecvMap --> RespChk{RECEIVE Status}
+    RespChk -- MAPFAIL --> RecovMap[Init Map ERASE] --> SendErase
+    RespChk -- Non-Normal Error --> ErrLink[Populate ABNDINFO-REC<br>LINK to ABNDPROC<br>ABEND HBNK NODUMP]
+    RespChk -- DFHRESP NORMAL --> EditData[Validate ACTIONI: 1-7 or A]
+
+    EditData --> ValidChk{Valid Selection?}
+    ValidChk -- No --> SetErrMsg[Set 'You must enter a valid value...'<br>Set SEND-DATAONLY-ALARM] --> SendAlarm
+    ValidChk -- Yes --> Dispatch{Evaluate ACTIONI}
+
+    Dispatch -- '1' --> R1[EXEC CICS RETURN TRANSID ODCS IMMEDIATE]
+    Dispatch -- '2' --> R2[EXEC CICS RETURN TRANSID ODAC IMMEDIATE]
+    Dispatch -- '3' --> R3[EXEC CICS RETURN TRANSID OCCS IMMEDIATE]
+    Dispatch -- '4' --> R4[EXEC CICS RETURN TRANSID OCAC IMMEDIATE]
+    Dispatch -- '5' --> R5[EXEC CICS RETURN TRANSID OUAC IMMEDIATE]
+    Dispatch -- '6' --> R6[EXEC CICS RETURN TRANSID OCRA IMMEDIATE]
+    Dispatch -- '7' --> R7[EXEC CICS RETURN TRANSID OTFN IMMEDIATE]
+    Dispatch -- 'A' --> R8[EXEC CICS RETURN TRANSID OCCA IMMEDIATE]
+</div>
+<h3 id="33-transaction-dispatching-and-navigation-mapping" tabindex="-1">3.3 Transaction Dispatching and Navigation Mapping</h3>
+<p>When the user enters a valid single-character option in <code>ACTIONI</code>, <code>BNKMENU</code> issues <code>EXEC CICS RETURN TRANSID(...) IMMEDIATE</code>. The <code>IMMEDIATE</code> option bypasses asynchronous transaction queues and directs the terminal directly to the requested application:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Action Code</th>
+<th style="text-align:center">Target Transaction</th>
+<th style="text-align:left">Functional Target</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>'1'</code></td>
+<td style="text-align:center"><code>ODCS</code></td>
+<td style="text-align:left">Display Customer Details</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>'2'</code></td>
+<td style="text-align:center"><code>ODAC</code></td>
+<td style="text-align:left">Display Account Details</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>'3'</code></td>
+<td style="text-align:center"><code>OCCS</code></td>
+<td style="text-align:left">Create New Customer</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>'4'</code></td>
+<td style="text-align:center"><code>OCAC</code></td>
+<td style="text-align:left">Create New Account</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>'5'</code></td>
+<td style="text-align:center"><code>OUAC</code></td>
+<td style="text-align:left">Update Account Details</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>'6'</code></td>
+<td style="text-align:center"><code>OCRA</code></td>
+<td style="text-align:left">Credit / Debit Funds</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>'7'</code></td>
+<td style="text-align:center"><code>OTFN</code></td>
+<td style="text-align:left">Transfer Funds Between Accounts</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>'A'</code></td>
+<td style="text-align:center"><code>OCCA</code></td>
+<td style="text-align:left">Look Up Accounts by Customer</td>
+</tr>
+</tbody>
+</table>
+<h4 id="code-example-dispatching-logic-in-bnkmenu" tabindex="-1">Code Example: Dispatching Logic in <code>BNKMENU</code></h4>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">IOT010.
+           IF ACTIONI = &#039;1&#039;
+               EXEC CICS RETURN
+                   TRANSID (&#039;ODCS&#039;)
+                   IMMEDIATE
+                   RESP    (WS-CICS-RESP)
+                   RESP2   (WS-CICS-RESP2)
+               END-EXEC
+           END-IF.
+           IF ACTIONI = &#039;2&#039;
+               EXEC CICS RETURN
+                   TRANSID (&#039;ODAC&#039;)
+                   IMMEDIATE
+                   RESP    (WS-CICS-RESP)
+                   RESP2   (WS-CICS-RESP2)
+               END-EXEC
+           END-IF.
+           IF ACTIONI = &#039;A&#039;
+               EXEC CICS RETURN
+                   TRANSID (&#039;OCCA&#039;)
+                   IMMEDIATE
+                   RESP    (WS-CICS-RESP)
+                   RESP2   (WS-CICS-RESP2)
+               END-EXEC
+           END-IF.</code></pre>
+</div>
+<h3 id="34-error-handling-and-abend-diagnostics" tabindex="-1">3.4 Error Handling and Abend Diagnostics</h3>
+<p><code>BNKMENU</code> handles errors through two distinct recovery mechanisms:</p>
+<ol>
+<li><strong>User-Correctable Errors</strong>: Input validation failures or unhandled AID keys preserve the session. The program sets <code>SEND-FLAG</code> to <code>SEND-DATAONLY-ALARM</code>, writes the error message to <code>MESSAGEO</code>, positions the cursor via <code>ACTIONL = -1</code>, and updates the screen with a 3270 audible beep.</li>
+<li><strong>System/CICS Failures</strong>: Any non-normal <code>EIBRESP</code> triggers diagnostic capture in <code>ABNDINFO-REC</code> and invokes <code>ABNDPROC</code>:</li>
+</ol>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">IF WS-CICS-RESP NOT = DFHRESP(NORMAL)
+               INITIALIZE ABNDINFO-REC
+               MOVE WS-CICS-RESP        TO ABND-RESPCODE
+               MOVE WS-CICS-RESP2       TO ABND-RESP2CODE
+               EXEC CICS ASSIGN APPLID  (ABND-APPLID) END-EXEC
+               MOVE EIBTASKN            TO ABND-TASKNO-KEY
+               MOVE EIBTRNID            TO ABND-TRANID
+               PERFORM PTD010-POPULATE-TIME-DATE
+               MOVE WS-ORIG-DATE        TO ABND-DATE
+               STRING WS-TIME-NOW-GRP-HH DELIMITED BY SIZE
+                      &#039;:&#039;                DELIMITED BY SIZE
+                      WS-TIME-NOW-GRP-MM DELIMITED BY SIZE
+                      &#039;:&#039;                DELIMITED BY SIZE
+                      WS-TIME-NOW-GRP-MM DELIMITED BY SIZE
+                 INTO ABND-TIME
+               MOVE WS-U-TIME           TO ABND-UTIME-KEY
+               MOVE &#039;HBNK&#039;              TO ABND-CODE
+               EXEC CICS ASSIGN PROGRAM (ABND-PROGRAM) END-EXEC
+               MOVE ZEROS               TO ABND-SQLCODE
+               STRING &#039;A010 - RETURN TRANSID(MENU) FAIL. &#039;
+                      &#039;EIBRESP=&#039;  WS-CICS-RESP
+                      &#039; RESP2=&#039;   WS-CICS-RESP2
+                 INTO ABND-FREEFORM
+               EXEC CICS LINK PROGRAM(WS-ABEND-PGM)
+                              COMMAREA(ABNDINFO-REC)
+               END-EXEC
+               PERFORM ATT010-ABEND-THIS-TASK
+           END-IF.</code></pre>
+</div>
+<hr>
+<h2 id="4-crdtagy2--asynchronous-credit-agency-simulator" tabindex="-1">4. CRDTAGY2 — Asynchronous Credit Agency Simulator</h2>
+<h3 id="41-purpose-and-execution-model" tabindex="-1">4.1 Purpose and Execution Model</h3>
+<p><code>CRDTAGY2</code> is a background CICS program running without terminal attachment. Injected as an asynchronous child task by a parent banking transaction, it emulates third-party credit bureau latencies and scoring.</p>
+<ul>
+<li><strong>Latency Simulation</strong>: Uses <code>FUNCTION RANDOM</code> seeded with <code>EIBTASKN</code> (the unique CICS Task Number) to pause the task for 1 to 3 seconds via <code>EXEC CICS DELAY</code>.</li>
+<li><strong>Score Generation</strong>: Uses subsequent calls to <code>FUNCTION RANDOM</code> to compute an integer score between 1 and 999.</li>
+<li><strong>Parent Timeout Behavior</strong>: The parent transaction executes a non-blocking <code>FETCH CHILD</code> with a 3.0-second timeout. Because <code>CRDTAGY2</code> delays between 1 and 3 seconds, approximately 1 out of 4 executions will exceed the parent timeout window, reproducing realistic external service timeouts.</li>
+</ul>
+<h3 id="42-data-structures-and-channelcontainer-interaction" tabindex="-1">4.2 Data Structures and Channel/Container Interaction</h3>
+<p><code>CRDTAGY2</code> bypasses legacy <code>COMMAREA</code> size limits (32 KB) by utilizing CICS Channels and Containers. It interacts with channel <code>CIPCREDCHANN</code> and container <code>CIPB</code>, which encapsulates the <code>CUSTOMER-RECORD</code> layout.</p>
+<div class="mermaid">
+erDiagram
+    CICS_CHANNEL ||--|| CICS_CONTAINER : contains
+    CICS_CONTAINER ||--|| CUSTOMER_RECORD : encapsulates
+
+    CICS_CHANNEL {
+        string CHANNEL_NAME "CIPCREDCHANN (PIC X(16))"
+    }
+
+    CICS_CONTAINER {
+        string CONTAINER_NAME "CIPB (PIC X(16))"
+        int FLENGTH "Dynamic byte length"
+    }
+
+    CUSTOMER_RECORD {
+        string CUSTOMER_EYECATCHER "PIC X(4) = 'CUST'"
+        int CUSTOMER_SORTCODE "PIC 9(6)"
+        int CUSTOMER_NUMBER "PIC 9(10)"
+        string CUSTOMER_NAME "Title, First, Last Names"
+        string CUSTOMER_STATUS "ACTIVE / INACTIVE / SUSPENDED"
+        int CUSTOMER_CREDIT_SCORE "PIC 999 (Target output: 1-999)"
+        int CUSTOMER_CS_REVIEW_DATE "Day, Month, Year"
+    }
+</div>
+<h3 id="43-processing-logic-and-sequence" tabindex="-1">4.3 Processing Logic and Sequence</h3>
+<h3 id="44-error-handling-and-diagnostic-telemetry" tabindex="-1">4.4 Error Handling and Diagnostic Telemetry</h3>
+<p><code>CRDTAGY2</code> implements differentiated error response paths:</p>
+<ul>
+<li><strong><code>EXEC CICS DELAY</code> Failure</strong>: Triggers comprehensive abend handling, linking to <code>ABNDPROC</code> with error payload <code>ABNDINFO-REC</code> and abending with code <code>PLOP</code>.</li>
+<li><strong><code>GET CONTAINER</code> / <code>PUT CONTAINER</code> Failure</strong>: Writes diagnostic information to the system log using <code>DISPLAY</code> and performs an early exit via <code>EXEC CICS RETURN</code>.</li>
+</ul>
+<h4 id="code-example-container-operations-in-crdtagy2" tabindex="-1">Code Example: Container Operations in <code>CRDTAGY2</code></h4>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">MOVE LENGTH OF WS-CONT-IN TO WS-CONTAINER-LEN.
+           EXEC CICS GET CONTAINER (WS-CONTAINER-NAME)
+                           CHANNEL (WS-CHANNEL-NAME)
+                           INTO    (WS-CONT-IN)
+                           FLENGTH (WS-CONTAINER-LEN)
+                           RESP    (WS-CICS-RESP)
+                           RESP2   (WS-CICS-RESP2)
+           END-EXEC.
+
+           IF WS-CICS-RESP NOT = DFHRESP(NORMAL)
+               DISPLAY &#039;CRDTAGY2 - UNABLE TO GET CONTAINER. RESP=&#039;
+                       WS-CICS-RESP &#039; RESP2=&#039; WS-CICS-RESP2
+               PERFORM GMOFH010-GET-ME-OUT-OF-HERE
+           END-IF.
+
+      * Calculate credit score between 1 and 999
+           COMPUTE WS-NEW-CREDSCORE = ((999 - 1) * FUNCTION RANDOM) + 1.
+           MOVE WS-NEW-CREDSCORE TO CUSTOMER-CREDIT-SCORE OF WS-CONT-IN.
+
+           MOVE LENGTH OF WS-CONT-IN TO WS-CONTAINER-LEN.
+           EXEC CICS PUT CONTAINER (WS-CONTAINER-NAME)
+                           FROM    (WS-CONT-IN)
+                           FLENGTH (WS-CONTAINER-LEN)
+                           CHANNEL (WS-CHANNEL-NAME)
+                           RESP    (WS-CICS-RESP)
+                           RESP2   (WS-CICS-RESP2)
+           END-EXEC.
+
+           IF WS-CICS-RESP NOT = DFHRESP(NORMAL)
+               DISPLAY &#039;CRDTAGY2 - UNABLE TO PUT CONTAINER. RESP=&#039;
+                       WS-CICS-RESP &#039; RESP2=&#039; WS-CICS-RESP2
+               PERFORM GMOFH010-GET-ME-OUT-OF-HERE
+           END-IF.
+
+       GMOFH010-GET-ME-OUT-OF-HERE.
+           EXEC CICS RETURN END-EXEC.</code></pre>
+</div>
+<hr>
+<h2 id="5-comparative-summary-and-integration-patterns" tabindex="-1">5. Comparative Summary and Integration Patterns</h2>
+<h3 id="51-interactive-bms-vs-asynchronous-channelscontainers" tabindex="-1">5.1 Interactive BMS vs Asynchronous Channels/Containers</h3>
+<p>The following matrix compares the architectural patterns implemented across <code>BNKMENU</code> and <code>CRDTAGY2</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Architectural Feature</th>
+<th><code>BNKMENU</code></th>
+<th><code>CRDTAGY2</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Program Role</strong></td>
+<td>Interactive Front-End Navigation Hub</td>
+<td>Asynchronous Background Scoring Engine</td>
+</tr>
+<tr>
+<td><strong>Execution Pattern</strong></td>
+<td>Pseudo-conversational (Session-driven)</td>
+<td>Asynchronous Child Task (API Async)</td>
+</tr>
+<tr>
+<td><strong>User Interface</strong></td>
+<td>BMS Map (<code>BNK1ME</code> in <code>BNK1MAI</code>)</td>
+<td>Headless (No Terminal / No Screen)</td>
+</tr>
+<tr>
+<td><strong>Data Exchange Medium</strong></td>
+<td>1-Byte <code>DFHCOMMAREA</code> + BMS Screen buffer</td>
+<td>CICS Channel (<code>CIPCREDCHANN</code>) &amp; Container (<code>CIPB</code>)</td>
+</tr>
+<tr>
+<td><strong>Primary CICS Commands</strong></td>
+<td><code>SEND MAP</code>, <code>RECEIVE MAP</code>, <code>RETURN TRANSID IMMEDIATE</code></td>
+<td><code>DELAY FOR SECONDS</code>, <code>GET CONTAINER</code>, <code>PUT CONTAINER</code></td>
+</tr>
+<tr>
+<td><strong>Randomization / Timing</strong></td>
+<td>Event-driven by operator keystrokes</td>
+<td><code>FUNCTION RANDOM(EIBTASKN)</code> + <code>EXEC CICS DELAY</code></td>
+</tr>
+<tr>
+<td><strong>Abend Code</strong></td>
+<td><code>HBNK</code> (with <code>NODUMP</code>)</td>
+<td><code>PLOP</code> (with default dump)</td>
+</tr>
+<tr>
+<td><strong>Downstream Linkage</strong></td>
+<td>Immediate transaction routing (<code>RETURN TRANSID</code>)</td>
+<td>Parent transaction collects data via <code>FETCH CHILD</code></td>
+</tr>
+</tbody>
+</table>
+
+                        <div class="related-pages">
+                            <p class="related-pages-title">Related Pages</p>
+                            <div class="card-grid">
+                                
+            <a href="application-components.html" class="card">
+                <span class="card-title">Application Components</span>
+                <span class="card-description">The programs, maps, data stores and supporting resources that make up the application.</span>
+            </a>
+            <a href="application-flow.html" class="card">
+                <span class="card-title">Application Flow</span>
+                <span class="card-description">How a user request moves through the menu, transactions and supporting services at runtime.</span>
+            </a>
+            <a href="cics-enhancement-tutorial.html" class="card">
+                <span class="card-title">Tutorial: CICS Enhancement Scenario</span>
+                <span class="card-description">Scenario-driven tutorial for enhancing the CICS application.</span>
+            </a>
+                            </div>
+                        </div>
+                    </div>
+                    <nav class="toc-panel" aria-label="On this page">
+  <span class="toc-panel-label">On this page</span>
+  <ul class="toc-list">
+<li class="toc-level-2"><a href="#1-overview">1. Overview</a></li>
+<li class="toc-level-2"><a href="#2-system-architecture">2. System Architecture</a>
+<ul>
+<li class="toc-level-3"><a href="#21-architecture-and-component-interaction-text-description">2.1 Architecture and Component Interaction Text Description</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#3-bnkmenu--online-banking-navigation-hub">3. BNKMENU — Online Banking Navigation Hub</a>
+<ul>
+<li class="toc-level-3"><a href="#31-purpose-and-interaction-model">3.1 Purpose and Interaction Model</a></li>
+<li class="toc-level-3"><a href="#32-processing-logic-and-flow">3.2 Processing Logic and Flow</a></li>
+<li class="toc-level-3"><a href="#33-transaction-dispatching-and-navigation-mapping">3.3 Transaction Dispatching and Navigation Mapping</a>
+<ul>
+<li class="toc-level-4"><a href="#code-example-dispatching-logic-in-bnkmenu">Code Example: Dispatching Logic in BNKMENU</a></li>
+</ul>
+</li>
+<li class="toc-level-3"><a href="#34-error-handling-and-abend-diagnostics">3.4 Error Handling and Abend Diagnostics</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#4-crdtagy2--asynchronous-credit-agency-simulator">4. CRDTAGY2 — Asynchronous Credit Agency Simulator</a>
+<ul>
+<li class="toc-level-3"><a href="#41-purpose-and-execution-model">4.1 Purpose and Execution Model</a></li>
+<li class="toc-level-3"><a href="#42-data-structures-and-channelcontainer-interaction">4.2 Data Structures and Channel/Container Interaction</a></li>
+<li class="toc-level-3"><a href="#43-processing-logic-and-sequence">4.3 Processing Logic and Sequence</a></li>
+<li class="toc-level-3"><a href="#44-error-handling-and-diagnostic-telemetry">4.4 Error Handling and Diagnostic Telemetry</a>
+<ul>
+<li class="toc-level-4"><a href="#code-example-container-operations-in-crdtagy2">Code Example: Container Operations in CRDTAGY2</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#5-comparative-summary-and-integration-patterns">5. Comparative Summary and Integration Patterns</a>
+<ul>
+<li class="toc-level-3"><a href="#51-interactive-bms-vs-asynchronous-channelscontainers">5.1 Interactive BMS vs Asynchronous Channels/Containers</a></li>
+</ul>
+</li>
+</ul>
+
+</nav>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+    /* toc-spy.js — highlights the active heading in the TOC panel on scroll */
+    (function () {
+      function init() {
+        var panel = document.querySelector('.toc-panel');
+        if (!panel) return;
+        var links = Array.prototype.slice.call(panel.querySelectorAll('a[href^="#"]'));
+        if (!links.length) return;
+
+        var headingIds = links.map(function (a) { return a.getAttribute('href').slice(1); });
+        var headings = headingIds.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+
+        function clearActive() {
+          panel.querySelectorAll('.toc-active').forEach(function (el) { el.classList.remove('toc-active'); });
+          panel.querySelectorAll('.toc-parent-active').forEach(function (el) { el.classList.remove('toc-parent-active'); });
+        }
+
+        function setActive(id) {
+          clearActive();
+          var link = panel.querySelector('a[href="#' + id + '"]');
+          if (!link) return;
+          link.classList.add('toc-active');
+          var li = link.closest('li');
+          if (li) {
+            var parentLi = li.parentElement && li.parentElement.closest('li');
+            if (parentLi) parentLi.classList.add('toc-parent-active');
+          }
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              setActive(entry.target.id);
+            }
+          });
+        }, { rootMargin: '0px 0px -70% 0px', threshold: 0 });
+
+        headings.forEach(function (h) { observer.observe(h); });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+    </script>
+    <script>
+    /* sidebar-toggle.js — persists open/closed state across navigation */
+    (function () {
+
+      var STORAGE_KEY = 'sb_open';
+
+      function getOpenSet() {
+        try {
+          var raw = sessionStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (e) { return null; }
+      }
+
+      function saveOpenSet(set) {
+        try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(set)); } catch (e) {}
+      }
+
+      function findItems(toggle) {
+        var node = toggle.nextSibling;
+        while (node) {
+          if (node.nodeType === 1 && node.classList.contains('nav-section-items'))
+            return node;
+          node = node.nextSibling;
+        }
+        return null;
+      }
+
+      function toggleKey(toggle, index) {
+        var label = (toggle.querySelector('.nav-toggle-text') || toggle).textContent.trim().replace(/\s+/g, ' ');
+        return index + ':' + label;
+      }
+
+      function openSection(toggle, items, key, set) {
+        toggle.classList.add('open');
+        items.classList.add('open');
+        if (set) set[key] = true;
+      }
+
+      function closeSection(toggle, items, key, set) {
+        toggle.classList.remove('open');
+        items.classList.remove('open');
+        if (set) set[key] = false;
+      }
+
+      function init() {
+        var sidebar = document.getElementById('wiki-sidebar');
+        var toggles = Array.prototype.slice.call(
+          document.querySelectorAll('.nav-section-toggle')
+        );
+
+        var activeIdx = -1;
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+          if (items.querySelector('.nav-link.active')) {
+            activeIdx = idx;
+          }
+        });
+
+        var savedSet = getOpenSet();
+        var openSet = savedSet || {};
+
+        if (activeIdx !== -1) {
+          openSet[toggleKey(toggles[activeIdx], activeIdx)] = true;
+        }
+
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+
+          var key = toggleKey(toggle, idx);
+          var shouldOpen = openSet[key] === true;
+
+          if (shouldOpen) {
+            toggle.classList.add('open');
+            items.classList.add('open');
+          }
+
+          toggle.addEventListener('click', function () {
+            var nowOpen = toggle.classList.contains('open');
+            if (nowOpen) {
+              closeSection(toggle, items, key, openSet);
+            } else {
+              openSection(toggle, items, key, openSet);
+            }
+            saveOpenSet(openSet);
+          });
+        });
+
+        saveOpenSet(openSet);
+
+        /* Restore sidebar scroll position after sections are expanded so the
+           scroll height is correct when we apply scrollTop. */
+        if (sidebar) {
+          try {
+            var savedScroll = sessionStorage.getItem('sb_scroll');
+            if (savedScroll !== null) { sidebar.scrollTop = parseInt(savedScroll, 10) || 0; }
+          } catch (_e) {}
+        }
+
+        window.addEventListener('pagehide', function () {
+          saveOpenSet(openSet);
+          if (sidebar) {
+            try { sessionStorage.setItem('sb_scroll', String(sidebar.scrollTop)); } catch (_e) {}
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+
+    })();
+    </script>
+    <script>
+    /* nav-tracking.js — only stamps sessionStorage when clicking a source-file link
+       that lives inside the "Source Files" disclosure section, not from sidebar or cards. */
+    (function () {
+      document.addEventListener('click', function (e) {
+        var link = e.target.closest('a[href]');
+        if (!link) return;
+        var href = link.getAttribute('href');
+        if (!href || href.indexOf('sources/') === -1) return;
+        /* Only set referrer when the click originates from inside the Source Files
+           disclosure (.source-files-disclosure). Any other path — sidebar, cards,
+           direct navigation — must not set a referrer. */
+        if (!link.closest('.source-files-disclosure')) return;
+        try {
+          sessionStorage.setItem('wiki_referrer', JSON.stringify({
+            href: location.href,
+            title: document.title,
+            file: location.pathname.split('/').pop()
+          }));
+        } catch (_e) {}
+      });
+    })();
+    </script>
+    <footer class="wiki-footer">Made by IBM Bob Premium Package for Z</footer>
+</body>
+</html>

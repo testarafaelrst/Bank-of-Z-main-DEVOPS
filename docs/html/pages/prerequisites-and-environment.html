@@ -1,0 +1,1283 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prerequisites & Environment Configuration - Bank of Z – Project Wiki</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/mermaid.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: { useMaxWidth: true }
+        });
+    </script>
+
+    <!-- Prism.js for syntax highlighting (bundled — no CDN required) -->
+    <link rel="stylesheet" href="../assets/prism-tomorrow.css">
+    <script src="../assets/prism-core.js"></script>
+    <script src="../assets/prism-languages.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <span class="header-app-name"><a href="../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – Project Wiki</a></span>
+        </div>
+        <div class="header-right">
+        </div>
+    </header>
+    <div class="shell">
+        <aside class="sidebar" id="wiki-sidebar">
+            <nav>
+                
+        <div class="nav-home-wrap">
+            <a href="../../index.html" class="nav-home">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                Home
+            </a>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Application Documentation</div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Overview</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="project-introduction.html" class="nav-link" data-page-id="project-introduction">Project Introduction</a>
+                <a href="capabilities-and-architecture-summary.html" class="nav-link" data-page-id="capabilities-and-architecture-summary">Key Capabilities &amp; Architecture Summary</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle open" type="button">
+                <span class="nav-toggle-text">Installation &amp; Setup</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items open">
+                <a href="prerequisites-and-environment.html" class="nav-link active" data-page-id="prerequisites-and-environment">Prerequisites &amp; Environment Configuration</a>
+                <a href="local-tools-setup.html" class="nav-link" data-page-id="local-tools-setup">Local Tools Setup</a>
+                <a href="deployment-methods.html" class="nav-link" data-page-id="deployment-methods">Deployment Methods</a>
+                <a href="installation-verification.html" class="nav-link" data-page-id="installation-verification">Installation Verification</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Architecture</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="architecture-introduction.html" class="nav-link" data-page-id="architecture-introduction">Architecture Introduction</a>
+                <a href="application-components.html" class="nav-link" data-page-id="application-components">Application Components</a>
+                <a href="application-flow.html" class="nav-link" data-page-id="application-flow">Application Flow</a>
+                <a href="build-and-deployment-architecture.html" class="nav-link" data-page-id="build-and-deployment-architecture">Build &amp; Deployment Architecture</a>
+                <a href="cics-program-examples.html" class="nav-link" data-page-id="cics-program-examples">CICS COBOL Program Examples</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Development Workflows</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="workflows-overview.html" class="nav-link" data-page-id="workflows-overview">Development Workflows Overview</a>
+                <a href="grub-workflow.html" class="nav-link" data-page-id="grub-workflow">GRUB Workflow</a>
+                <a href="zowe-cli-workflow.html" class="nav-link" data-page-id="zowe-cli-workflow">Zowe CLI Workflow</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Tutorials</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="tutorials-overview.html" class="nav-link" data-page-id="tutorials-overview">Tutorials Overview &amp; Deployment Walkthrough</a>
+                <a href="debug-cics-transaction-tutorial.html" class="nav-link" data-page-id="debug-cics-transaction-tutorial">Tutorial: Debug a CICS Transaction</a>
+                <a href="cics-enhancement-tutorial.html" class="nav-link" data-page-id="cics-enhancement-tutorial">Tutorial: CICS Enhancement Scenario</a>
+                <a href="incremental-build-tutorial.html" class="nav-link" data-page-id="incremental-build-tutorial">Tutorial: Incremental Build</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Reference</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="configuration-reference.html" class="nav-link" data-page-id="configuration-reference">Configuration Reference</a>
+                <a href="commands-and-scripts-reference.html" class="nav-link" data-page-id="commands-and-scripts-reference">Commands &amp; Scripts Reference</a>
+                <a href="repository-structure.html" class="nav-link" data-page-id="repository-structure">Repository Structure</a>
+                <a href="glossary.html" class="nav-link" data-page-id="glossary">Glossary</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Troubleshooting</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="troubleshooting-guide.html" class="nav-link" data-page-id="troubleshooting-guide">Troubleshooting Guide</a>
+                <a href="abend-cino-fix.html" class="nav-link" data-page-id="abend-cino-fix">Fixing the CINO Abend</a>
+            </div>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Program Documentation</div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">program</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">src</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+            <div class="nav-section">
+                <button class="nav-section-toggle" type="button">
+                    <span class="nav-toggle-text">base</span>
+                    <span class="nav-section-chevron">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="nav-section-items">
+                <div class="nav-section">
+                    <button class="nav-section-toggle" type="button">
+                        <span class="nav-toggle-text">cics</span>
+                        <span class="nav-section-chevron">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="nav-section-items">
+                    <div class="nav-section">
+                        <button class="nav-section-toggle" type="button">
+                            <span class="nav-toggle-text">cobol</span>
+                            <span class="nav-section-chevron">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="nav-section-items">
+                            <a href="../sources/program/src/base/cics/cobol/BNKMENU.html" class="nav-link">BNKMENU</a>
+                            <a href="../sources/program/src/base/cics/cobol/CRDTAGY2.html" class="nav-link">CRDTAGY2</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">docs</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">about-bank-of-z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
+            </div>
+        </div>
+        </div>
+    </div>
+            </nav>
+        </aside>
+        <main class="main">
+            <div class="page-container">
+                <div class="content-layout">
+                    <div class="prose">
+                        <details class="source-files-disclosure">
+            <summary>
+                <svg class="sf-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Source Files
+                <span style="margin-left:4px;font-size:11px;color:var(--fg-subtle)">(1)</span>
+            </summary>
+            <div class="source-files-body">
+                <ul class="source-files-list">
+            <li><a href="../sources/docs/about-bank-of-z/index.html">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+                    <path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M10 2v4h4" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                index
+            </a></li>
+                </ul>
+            </div>
+        </details>
+                        <h1 id="prerequisites--environment-configuration" tabindex="-1">Prerequisites &amp; Environment Configuration</h1>
+<p>This page is the installation landing page for Bank of Z. It lists the software and access you need on z/OS and on your workstation, and the environment settings to configure before you deploy. Complete these steps before you start any of the getting-started tutorials.</p>
+<h2 id="1-overview" tabindex="-1">1. Overview</h2>
+<p>Bank of Z is a self-contained sample hybrid banking application. It demonstrates modern IBM Z development, deployment, and DevSecOps practices. The repository contains everything needed to install and configure the full environment:</p>
+<ul>
+<li>Application source code</li>
+<li>Infrastructure configuration</li>
+<li>Automation scripts</li>
+<li>Build tooling</li>
+<li>Deployment assets</li>
+<li>Supporting documentation</li>
+</ul>
+<p>The application integrates these technologies:</p>
+<ul>
+<li>CICS</li>
+<li>IMS Transaction Manager (IMS TM)</li>
+<li>IMS DB</li>
+<li>Db2 for z/OS</li>
+<li>z/OS Connect</li>
+<li>IBM MQ</li>
+</ul>
+<p>Together they give you a realistic environment for learning, testing, and workflow validation.</p>
+<h3 id="11-installation-workflow" tabindex="-1">1.1 Installation Workflow</h3>
+<p>Installation has six stages. This page covers stages 1 and 2. It also covers part of stage 3, the external tools that must be installed on USS.</p>
+<ol>
+<li>Verify software and system prerequisites.</li>
+<li>Configure the target environment.</li>
+<li>Install and configure the required development tools.</li>
+<li>Build the application.</li>
+<li>Deploy application resources and services.</li>
+<li>Verify the installation.</li>
+</ol>
+<div class="mermaid">
+graph TD
+    A[1. Verify Prerequisites] --> B[2. Configure Environment]
+    B --> C[3. Install Development Tools]
+    C --> D[4. Build Application]
+    D --> E[5. Deploy Resources and Services]
+    E --> F[6. Verify Installation]
+    style A fill:#cfe8ff
+    style B fill:#cfe8ff
+</div>
+<p>The highlighted stages are the scope of this page.</p>
+<h3 id="12-what-you-must-complete-before-deployment" tabindex="-1">1.2 What You Must Complete Before Deployment</h3>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Purpose</th>
+<th>Section</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Desktop platform</td>
+<td>Workstation used for development</td>
+<td><a href="#21-component-relationships">2.1</a> and <a href="#31-supported-desktop-platforms">3.1</a></td>
+</tr>
+<tr>
+<td>z/OS platform components</td>
+<td>Runtime for CICS, IMS, Db2, MQ, z/OS Connect</td>
+<td><a href="#32-zos-platform-requirements">3.2</a></td>
+</tr>
+<tr>
+<td>z/OS build and deploy tooling</td>
+<td>Java, Python, DBB, ZOAU, zconfig, and others</td>
+<td><a href="#33-zos-build-and-deploy-tooling">3.3</a></td>
+</tr>
+<tr>
+<td>Access and security</td>
+<td>TSO, USS, datasets, RACF</td>
+<td><a href="#34-access-and-security-requirements">3.4</a></td>
+</tr>
+<tr>
+<td>External tools</td>
+<td>Python libraries and Gradle</td>
+<td><a href="#35-external-tools-requirements">3.5</a></td>
+</tr>
+<tr>
+<td>Validation</td>
+<td>Check the tooling is installed correctly</td>
+<td><a href="#36-verify-prerequisites">3.6</a></td>
+</tr>
+<tr>
+<td>Environment configuration</td>
+<td><code>config.yaml</code>, permissions, credentials, ZCodeScan</td>
+<td><a href="#4-environment-configuration">4</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-system-architecture" tabindex="-1">2. System Architecture</h2>
+<p>Bank of Z runs on a z/OS target system. A developer works from a desktop or cloud workspace and uses USS-based tooling to build and deploy. Setup scripts read <code>.setup/config/config.yaml</code> and use that configuration to drive the tools and provision the middleware.</p>
+<h3 id="21-component-relationships" tabindex="-1">2.1 Component Relationships</h3>
+<div class="mermaid">
+graph TD
+    DEV[Developer Workstation / Dev Spaces / Codespaces] --> USS[z/OS USS Sandbox]
+    DEV --> CFG[.setup/config/config.yaml]
+    CFG --> USS
+
+    subgraph TOOLS[Build and Deploy Tooling on USS]
+        JAVA[IBM Java 21]
+        PY[IBM Python SDK 3.14]
+        DBB[IBM DBB]
+        ZOAU[ZOAU]
+        ZCONF[zconfig]
+        WD[Wazi Deploy]
+        ZCS[ZCodeScan]
+        ZCB[CICS Resource Builder]
+        GIT[Git]
+        GRADLE[Gradle]
+    end
+
+    USS --> TOOLS
+
+    subgraph ZOS[z/OS Platform]
+        CICS[CICS TS 6.3]
+        IMS[IMS TM and IMS DB V15]
+        DB2[Db2 V13 - DBD1]
+        MQ[IBM MQ]
+        ZOSC[z/OS Connect EE 3.0.101]
+        RACF[RACF / Security Manager]
+    end
+
+    ZCONF --> CICS
+    ZCONF --> IMS
+    ZCONF --> ZOSC
+    USS --> DB2
+    RACF --> ZOS
+</div>
+<p>The diagram shows the following:</p>
+<ul>
+<li>Configuration lives in <code>config.yaml</code>, and USS tools read it.</li>
+<li>zconfig provisions the CICS resources, IMS resources, and the z/OS Connect runtime during the <code>environment</code> phase.</li>
+<li>The Db2 subsystem <code>DBD1</code> must already exist. The setup scripts create only the database objects inside it.</li>
+<li>Security definitions in RACF (or an equivalent security manager) must be in place before deployment.</li>
+</ul>
+<h3 id="22-prerequisite-layers" tabindex="-1">2.2 Prerequisite Layers</h3>
+<div class="mermaid">
+graph LR
+    A[Desktop Platform] --> B[z/OS Platform Components]
+    B --> C[USS Tooling]
+    C --> D[Access and Security]
+    D --> E[External Tools]
+    E --> F[Environment Configuration]
+    F --> G[Ready for Deployment]
+</div>
+<h3 id="23-responsibilities" tabindex="-1">2.3 Responsibilities</h3>
+<table>
+<thead>
+<tr>
+<th>Responsibility</th>
+<th>Typical Owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Install z/OS, CICS, Db2, IMS, MQ, z/OS Connect</td>
+<td>System administrator</td>
+</tr>
+<tr>
+<td>Install and maintain USS tools (Java, Python, DBB, and others)</td>
+<td>System administrator</td>
+</tr>
+<tr>
+<td>Provision access (TSO, USS, datasets, middleware)</td>
+<td>System administrator</td>
+</tr>
+<tr>
+<td>Define RACF security</td>
+<td>System administrator</td>
+</tr>
+<tr>
+<td>Edit <code>config.yaml</code>, set credentials, create the ZCodeScan config</td>
+<td>Developer</td>
+</tr>
+<tr>
+<td>Install Python libraries and Gradle</td>
+<td>Developer or administrator</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-prerequisites" tabindex="-1">3. Prerequisites</h2>
+<p>Before you deploy Bank of Z, make sure your z/OS environment meets the requirements below. These are platform components and tools that a system administrator usually provisions.</p>
+<p>For local workstation requirements (IDE, Zowe CLI, and GRUB), see <em>Local Tools Setup</em>. The tools you need depend on the deployment workflow you choose.</p>
+<h3 id="31-supported-desktop-platforms" tabindex="-1">3.1 Supported Desktop Platforms</h3>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Minimum Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows</td>
+<td>Windows 11</td>
+</tr>
+<tr>
+<td>macOS</td>
+<td>macOS 26</td>
+</tr>
+<tr>
+<td>OpenShift Dev Spaces</td>
+<td>3.20 or later</td>
+</tr>
+<tr>
+<td>GitHub Codespaces</td>
+<td>Supported</td>
+</tr>
+</tbody>
+</table>
+<p>If you use IBM Premium Bob for Z (Bob IDE), make sure your workstation meets the operating system and system requirements in the IBM Premium Bob for Z documentation.</p>
+<h3 id="32-zos-platform-requirements" tabindex="-1">3.2 z/OS Platform Requirements</h3>
+<p>The target z/OS environment must include these components. Contact your system administrator if any are missing.</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Minimum Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>z/OS</td>
+<td>3.1</td>
+</tr>
+<tr>
+<td>CICS TS</td>
+<td>6.3</td>
+</tr>
+<tr>
+<td>Db2 for z/OS</td>
+<td>V13</td>
+</tr>
+<tr>
+<td>IMS Transaction Manager (IMS TM)</td>
+<td>V15</td>
+</tr>
+<tr>
+<td>IMS Database</td>
+<td>V15</td>
+</tr>
+<tr>
+<td>z/OS Connect Enterprise Edition</td>
+<td>3.0.101</td>
+</tr>
+<tr>
+<td>IBM MQ</td>
+<td>Supported release</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note:</strong> A pre-existing Db2 subsystem with subsystem ID <code>DBD1</code> is required. The setup scripts create the Db2 database objects within this subsystem but do not create the subsystem. IMS, CICS, and z/OS Connect runtime instances are provisioned automatically during deployment.</p>
+</blockquote>
+<h3 id="33-zos-build-and-deploy-tooling" tabindex="-1">3.3 z/OS Build and Deploy Tooling</h3>
+<p>Install these tools on z/OS USS. A system administrator typically installs and maintains them. The path to each tool is set in <code>.setup/config/config.yaml</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Minimum Version</th>
+<th>Configured via</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IBM Java</td>
+<td>21 Fix Pack 21.0.10.1</td>
+<td><code>java.java_home</code></td>
+</tr>
+<tr>
+<td>IBM Python SDK</td>
+<td>3.14</td>
+<td><code>python.python_home</code></td>
+</tr>
+<tr>
+<td>IBM Dependency Based Build (DBB)</td>
+<td>3.0.5</td>
+<td><code>dbb.dbb_home</code></td>
+</tr>
+<tr>
+<td>Z Open Automation Utilities (ZOAU)</td>
+<td>1.4.1.0</td>
+<td><code>zoau.zoau_home</code></td>
+</tr>
+<tr>
+<td>z/OS Middleware Configuration Tool (zconfig)</td>
+<td>0.7.0</td>
+<td><code>zconfig.zconfig_home</code></td>
+</tr>
+<tr>
+<td>Wazi Deploy</td>
+<td>3.0.7.3</td>
+<td><code>wazideploy.wazideploy_home</code></td>
+</tr>
+<tr>
+<td>ZCodeScan</td>
+<td>1.0.2</td>
+<td><code>zcodescan.zcodescan_home</code></td>
+</tr>
+<tr>
+<td>CICS TS Resource Builder</td>
+<td>1.0.6</td>
+<td><code>zconfig.zcb_home</code></td>
+</tr>
+<tr>
+<td>Git</td>
+<td>Current supported version</td>
+<td>Must be available in PATH on USS</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note:</strong> Bank of Z uses zconfig to provision and configure CICS resources, IMS resources, and the z/OS Connect runtime during the environment setup phase.</p>
+</blockquote>
+<h4 id="331-uss-access-requirements" tabindex="-1">3.3.1 USS Access Requirements</h4>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>USS write access</td>
+<td>Your user ID must have write permission on the sandbox path configured in <code>config.yaml</code></td>
+</tr>
+<tr>
+<td>Git available in PATH</td>
+<td>Required for the setup scripts to clone the DBB accelerators repository from GitHub</td>
+</tr>
+<tr>
+<td>Network connectivity to <a href="http://github.com">github.com</a></td>
+<td>The <code>environment</code> phase clones <code>https://github.com/IBM/dbb.git</code> from USS</td>
+</tr>
+</tbody>
+</table>
+<h3 id="34-access-and-security-requirements" tabindex="-1">3.4 Access and Security Requirements</h3>
+<p>Make sure you have the following access before you continue.</p>
+<table>
+<thead>
+<tr>
+<th>Access Requirement</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TSO user ID and password</td>
+<td>Required for authentication and system access</td>
+</tr>
+<tr>
+<td>USS access</td>
+<td>Required to access z/OS UNIX System Services resources</td>
+</tr>
+<tr>
+<td>Dataset creation permissions</td>
+<td>Permission to create and modify datasets</td>
+</tr>
+<tr>
+<td>Deployment permissions</td>
+<td>Permission to deploy application resources</td>
+</tr>
+<tr>
+<td>Middleware access</td>
+<td>Access to CICS, IMS, Db2, IBM MQ, and z/OS Connect, as applicable</td>
+</tr>
+</tbody>
+</table>
+<p>Security definitions must also be configured in RACF or an equivalent security manager before deployment. The required definitions depend on your target environment. Contact your system administrator if you are unsure what is required.</p>
+<blockquote>
+<p><strong>Note:</strong> A system administrator typically provisions access to z/OS environments, middleware, USS directories, and dataset resources. If you do not have the required access, contact your administrator before you continue.</p>
+</blockquote>
+<h3 id="35-external-tools-requirements" tabindex="-1">3.5 External Tools Requirements</h3>
+<p>Building and deploying Bank of Z requires the external tools and libraries below.</p>
+<h4 id="351-python-libraries" tabindex="-1">3.5.1 Python Libraries</h4>
+<p>Install the required Python libraries:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">pip install pyyaml
+pip install jinja2</code></pre>
+</div>
+<h4 id="352-gradle" tabindex="-1">3.5.2 Gradle</h4>
+<p>Download the latest supported Gradle binary distribution from the Gradle releases page (<a href="https://gradle.org/releases/">https://gradle.org/releases/</a>). Then install it on z/OS USS:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">jar xf gradle-9.5.1-bin.zip
+chmod +x gradle-9.5.1/bin/gradle
+chtag -tc UTF-8 gradle-9.5.1/bin/gradle</code></pre>
+</div>
+<blockquote>
+<p><strong>Note:</strong> If you download a different Gradle release, update the version number in the commands.</p>
+</blockquote>
+<h3 id="36-verify-prerequisites" tabindex="-1">3.6 Verify Prerequisites</h3>
+<p>After your system administrator confirms the items above are in place, run the prerequisite validation from USS:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">.setup/setup-common.sh validate-prereqs</code></pre>
+</div>
+<p>This check does the following:</p>
+<ul>
+<li>Verifies the versions of DBB, ZOAU, zconfig, and Wazi Deploy.</li>
+<li>Verifies that Git is available.</li>
+<li>Verifies network connectivity to GitHub.</li>
+</ul>
+<p>For a full description of each check, see <em>Deploy Using Direct USS Access</em>.</p>
+<div class="mermaid">
+sequenceDiagram
+    participant Dev as Developer
+    participant USS as z/OS USS
+    participant Script as setup-common.sh
+    participant GH as github.com
+
+    Dev->>USS: Run validate-prereqs
+    USS->>Script: Execute validation
+    Script->>Script: Check DBB, ZOAU, zconfig, Wazi Deploy versions
+    Script->>Script: Check Git in PATH
+    Script->>GH: Test network connectivity
+    GH-->>Script: Response
+    Script-->>Dev: Validation result
+</div>
+<h2 id="4-environment-configuration" tabindex="-1">4. Environment Configuration</h2>
+<p>This section covers the configuration to complete before you deploy Bank of Z. Before you begin, make sure your z/OS environment meets every requirement in section 3. The Db2 subsystem <code>DBD1</code> and the required RACF definitions must exist before you run the setup scripts.</p>
+<h3 id="41-configuration-flow" tabindex="-1">4.1 Configuration Flow</h3>
+<div class="mermaid">
+graph TD
+    A[Edit config.yaml global section] --> B{Using IBMUSER?}
+    B -- Yes --> D[Set IMS and CICS credentials]
+    B -- No --> C[Run grant-perm-user.sh as administrator]
+    C --> D
+    D --> E[Create ZCodeScan config file]
+    E --> F[Choose a deployment tutorial]
+</div>
+<h3 id="42-configure-the-application" tabindex="-1">4.2 Configure the Application</h3>
+<p>Edit <code>.setup/config/config.yaml</code> in your local clone of the repository. This file controls the paths, environment settings, and middleware configuration used during setup, build, and deployment.</p>
+<p>Update the values in the <strong>global</strong> section to match your environment. Unless noted otherwise, the remaining values use template references and need no changes.</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">YAML</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-yaml"># Global properties
+# - Shared by middleware/tools 
+# - Subject to change with middleware/tools updates
+global:
+
+  # Sandbox
+  sandbox_root: &quot;/usr/local/sandboxes&quot;
+
+  # Application
+  app_base_name: &quot;BANKZ&quot;
+  app_hlq: &quot;{{ global.app_base_name }}&quot;
+  app_short_name: &quot;BOZ&quot; # Maximum 3 characters
+  app_version: &quot;0&quot;
+  app_release: &quot;1&quot;
+  app_modification: &quot;0&quot;
+
+  # Tools
+  java_home: &quot;{{ sandbox.root }}/tools/J21.0_64&quot;
+  python_home: &quot;/usr/lpp/IBM/cyp/v3r14/pyz&quot;
+  zoau_home: &quot;/usr/lpp/IBM/zoau&quot;
+  zconfig_home: &quot;{{ global.sandbox_root }}/tools/zconfig&quot;
+  zcb_home: &quot;{{ global.sandbox_root }}/tools/zrb/cics-resource-builder-1.0.6&quot;
+  dbb_home: &quot;{{ global.sandbox_root }}/tools/dbb&quot;
+  gradle_home:  &quot;{{ global.sandbox_root }}/tools/gradle-9.5.1&quot;
+  zcodescan_home: &quot;/global/opt/pyenv/akf&quot;
+  wazideploy_home: &quot;/global/opt/pyenv/gdp&quot;
+  zosconnect_home: &quot;/usr/lpp/IBM/zosconnect&quot;
+  liberty_home: &quot;/usr/lpp/liberty_zos/25.0.0.9&quot;
+
+  # z/OS System
+  zos_admin_user: &quot;IBMUSER&quot;
+  zos_current_user: &quot;${ZOS_CURRENT_USER}&quot;
+  zos_ca_label: &quot;VSICA&quot;
+  zos_keyring: &quot;BOZRING&quot;
+  sys_proclib: &quot;SYS1.PROCLIB&quot;
+  tcpip_hlq: &quot;TCPIP&quot;
+  asm_hlq: &quot;ASM&quot;
+  igzxjni2: &quot;/usr/lpp/IBM/cobol/igyv6r5/lib/igzxjni2.x&quot;
+  igy_hlq: &quot;IGY.V6R5M0&quot;
+  fel_hlq: &quot;FEL&quot;
+  ipv_hlq: &quot;IPV&quot;
+  pli_hlq: &quot;PLI.V6R2M0&quot;
+  debug_hlq: &quot;EQAW&quot;
+  
+  # GUI
+  zosconnect_http_port: 9080
+  zosconnect_https_port: 9444
+  zosconnect_task_user: &quot;{{ global.zos_admin_user }}&quot;
+
+  # Frontend
+  frontend_http_port: 9081
+  frontend_https_port: 9445
+  frontend_task_user: &quot;{{ global.zos_admin_user}}&quot;
+
+  # CICS
+  cics_hlq: &quot;CICSTS63&quot;
+  cics_uss_dir: &quot;/usr/lpp/cicsts/cicsts63&quot;
+  cics_sec: &quot;YES&quot;
+  
+  # IMS
+  ims_disabled: &quot;false&quot;
+  ims_sys_hlq: &quot;IMSV15&quot;
+  ims_java_dir: &quot;/usr/lpp/ims/imsjava&quot;
+  ims_datastore: &quot;IMS2&quot;
+  ims_dfsplex: &quot;PLEX2&quot;
+  
+  # DB2
+  db2_hlq: &quot;DB2V13&quot;
+  db2_dsntep: &quot;DSNTEP13&quot;
+  db2_ssid: &quot;DBD1&quot;
+  db2_runlib: &quot;{{ global.db2_ssid }}.RUNLIB.LOAD&quot;
+  db2_sqlid: &quot;{{ global.zos_current_user }}&quot;
+  db2_java_dir: &quot;/usr/lpp/db2d10&quot;
+  db2_grants:
+  - &quot;CICSUSER&quot;</code></pre>
+</div>
+<p>All other configuration values use template references (<code>{{section.field}}</code>). They need no changes unless your environment uses non-default values. For a description of every configuration property, see the <em>Configuration Reference</em>.</p>
+<h4 id="421-configuration-groups" tabindex="-1">4.2.1 Configuration Groups</h4>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Example Keys</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sandbox</td>
+<td><code>sandbox_root</code></td>
+<td>Root path on USS for the sandbox and tools</td>
+</tr>
+<tr>
+<td>Application</td>
+<td><code>app_base_name</code>, <code>app_hlq</code>, <code>app_short_name</code>, <code>app_version</code></td>
+<td>Application naming and versioning. <code>app_short_name</code> can be at most 3 characters.</td>
+</tr>
+<tr>
+<td>Tools</td>
+<td><code>java_home</code>, <code>python_home</code>, <code>zoau_home</code>, <code>zconfig_home</code>, <code>zcb_home</code>, <code>dbb_home</code>, <code>gradle_home</code>, <code>zcodescan_home</code>, <code>wazideploy_home</code>, <code>zosconnect_home</code>, <code>liberty_home</code></td>
+<td>Install locations of USS tools</td>
+</tr>
+<tr>
+<td>z/OS System</td>
+<td><code>zos_admin_user</code>, <code>zos_current_user</code>, <code>zos_ca_label</code>, <code>zos_keyring</code>, <code>sys_proclib</code>, <code>tcpip_hlq</code></td>
+<td>System users, certificate and keyring settings, and system libraries</td>
+</tr>
+<tr>
+<td>Compiler and debug libraries</td>
+<td><code>asm_hlq</code>, <code>igy_hlq</code>, <code>pli_hlq</code>, <code>debug_hlq</code>, <code>igzxjni2</code></td>
+<td>High-level qualifiers and paths for language and debug tooling</td>
+</tr>
+<tr>
+<td>GUI</td>
+<td><code>zosconnect_http_port</code>, <code>zosconnect_https_port</code></td>
+<td>z/OS Connect ports (9080 and 9444)</td>
+</tr>
+<tr>
+<td>Frontend</td>
+<td><code>frontend_http_port</code>, <code>frontend_https_port</code></td>
+<td>Frontend ports (9081 and 9445)</td>
+</tr>
+<tr>
+<td>CICS</td>
+<td><code>cics_hlq</code>, <code>cics_uss_dir</code>, <code>cics_sec</code></td>
+<td>CICS TS 6.3 libraries and security</td>
+</tr>
+<tr>
+<td>IMS</td>
+<td><code>ims_disabled</code>, <code>ims_sys_hlq</code>, <code>ims_java_dir</code>, <code>ims_datastore</code>, <code>ims_dfsplex</code></td>
+<td>IMS V15 settings</td>
+</tr>
+<tr>
+<td>Db2</td>
+<td><code>db2_hlq</code>, <code>db2_dsntep</code>, <code>db2_ssid</code>, <code>db2_runlib</code>, <code>db2_sqlid</code>, <code>db2_java_dir</code>, <code>db2_grants</code></td>
+<td>Db2 V13 settings. The subsystem ID is <code>DBD1</code>.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="422-configuration-dependencies" tabindex="-1">4.2.2 Configuration Dependencies</h4>
+<p>Many values are derived from other values through template references. The diagram below shows a few of them.</p>
+<div class="mermaid">
+graph LR
+    ABN[app_base_name] --> AHLQ[app_hlq]
+    SR[sandbox_root] --> ZH[zconfig_home]
+    SR --> ZCBH[zcb_home]
+    SR --> DBBH[dbb_home]
+    SR --> GH[gradle_home]
+    SSID[db2_ssid] --> RUNLIB[db2_runlib]
+    CU[zos_current_user] --> SQLID[db2_sqlid]
+    ADM[zos_admin_user] --> ZTU[zosconnect_task_user]
+    ADM --> FTU[frontend_task_user]
+</div>
+<h3 id="43-grant-permissions-non-ibmuser-accounts-only" tabindex="-1">4.3 Grant Permissions (Non-IBMUSER Accounts Only)</h3>
+<p>If you do not use the <code>IBMUSER</code> user ID, grant your user ID permission to create Db2 database objects before you run the <code>environment</code> setup.</p>
+<p>Run this command as an administrator, and replace <code>MYUSER</code> with your user ID:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">.setup/setup/grant-perm-user.sh MYUSER</code></pre>
+</div>
+<h3 id="44-set-the-ims-and-cics-credentials" tabindex="-1">4.4 Set the IMS and CICS Credentials</h3>
+<p>Set these environment variables before you run the setup scripts:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>IMS_USER</code></td>
+<td>IMS user ID</td>
+</tr>
+<tr>
+<td><code>IMS_PASSWORD</code></td>
+<td>IMS password</td>
+</tr>
+<tr>
+<td><code>CICS_USER</code></td>
+<td>CICS user ID</td>
+</tr>
+<tr>
+<td><code>CICS_PASSWORD</code></td>
+<td>CICS password</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">export IMS_USER=&lt;your_ims_user&gt;
+export IMS_PASSWORD=&lt;your_ims_password&gt;
+
+export CICS_USER=&lt;your_cics_user&gt;
+export CICS_PASSWORD=&lt;your_cics_password&gt;</code></pre>
+</div>
+<h3 id="45-create-the-zcodescan-configuration-file" tabindex="-1">4.5 Create the ZCodeScan Configuration File</h3>
+<p>The static scan stage needs a ZCodeScan configuration file. You must create it manually and encode it in <strong>ISO8859-1</strong>, because ZCodeScan cannot read files saved in IBM-1047 or UTF-8.</p>
+<p>Create <code>~/zcs_config_file.yml</code>, or the file named by <code>zcodescan.config_file</code> in <code>config.yaml</code>:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">YAML</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-yaml">license_server:
+  url: https://127.0.0.1:8195
+  user: MYUSER
+  password: MY_PASSWORD
+  verify: false</code></pre>
+</div>
+<blockquote>
+<p><strong>Note:</strong> ZCodeScan encrypts the password automatically after the first scan. You only need to enter it in plain text the first time.</p>
+</blockquote>
+<div class="mermaid">
+sequenceDiagram
+    participant Dev as Developer
+    participant File as zcs_config_file.yml
+    participant ZCS as ZCodeScan
+    participant LS as License Server
+
+    Dev->>File: Create file (ISO8859-1) with plain-text password
+    Dev->>ZCS: Run first static scan
+    ZCS->>File: Read configuration
+    ZCS->>LS: Authenticate
+    LS-->>ZCS: License granted
+    ZCS->>File: Encrypt stored password
+</div>
+<h2 id="5-next-steps" tabindex="-1">5. Next Steps</h2>
+<p>When the prerequisites and environment configuration are complete, continue with one of the getting-started tutorials:</p>
+<ul>
+<li>Deploy Using Direct USS Access</li>
+<li>Deploy Using Zowe CLI</li>
+<li>Deploy Using GRUB</li>
+</ul>
+<p>The tools you need on your workstation depend on the workflow you choose.</p>
+<h3 id="51-pre-deployment-checklist" tabindex="-1">5.1 Pre-Deployment Checklist</h3>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Done</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>z/OS, CICS, Db2, IMS, z/OS Connect, and MQ meet the minimum versions</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>Db2 subsystem <code>DBD1</code> exists</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>USS tools are installed and their paths are set in <code>config.yaml</code></td>
+<td>☐</td>
+</tr>
+<tr>
+<td>Python libraries (<code>pyyaml</code>, <code>jinja2</code>) and Gradle are installed</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>TSO, USS, dataset, deployment, and middleware access are granted</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>RACF security definitions are in place</td>
+<td>☐</td>
+</tr>
+<tr>
+<td><code>validate-prereqs</code> completes successfully</td>
+<td>☐</td>
+</tr>
+<tr>
+<td><code>config.yaml</code> global section is updated</td>
+<td>☐</td>
+</tr>
+<tr>
+<td><code>grant-perm-user.sh</code> is run (non-IBMUSER only)</td>
+<td>☐</td>
+</tr>
+<tr>
+<td><code>IMS_USER</code>, <code>IMS_PASSWORD</code>, <code>CICS_USER</code>, and <code>CICS_PASSWORD</code> are exported</td>
+<td>☐</td>
+</tr>
+<tr>
+<td>ZCodeScan config file is created in ISO8859-1</td>
+<td>☐</td>
+</tr>
+</tbody>
+</table>
+
+                        <div class="related-pages">
+                            <p class="related-pages-title">Related Pages</p>
+                            <div class="card-grid">
+                                
+            <a href="local-tools-setup.html" class="card">
+                <span class="card-title">Local Tools Setup</span>
+                <span class="card-description">Setting up the local development toolchain: IDE, Zowe CLI, Zowe profiles and GRUB.</span>
+            </a>
+            <a href="configuration-reference.html" class="card">
+                <span class="card-title">Configuration Reference</span>
+                <span class="card-description">Reference for configuration settings and parameters, including the legacy configuration backup.</span>
+            </a>
+                            </div>
+                        </div>
+                    </div>
+                    <nav class="toc-panel" aria-label="On this page">
+  <span class="toc-panel-label">On this page</span>
+  <ul class="toc-list">
+<li class="toc-level-2"><a href="#1-overview">1. Overview</a>
+<ul>
+<li class="toc-level-3"><a href="#11-installation-workflow">1.1 Installation Workflow</a></li>
+<li class="toc-level-3"><a href="#12-what-you-must-complete-before-deployment">1.2 What You Must Complete Before Deployment</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#2-system-architecture">2. System Architecture</a>
+<ul>
+<li class="toc-level-3"><a href="#21-component-relationships">2.1 Component Relationships</a></li>
+<li class="toc-level-3"><a href="#22-prerequisite-layers">2.2 Prerequisite Layers</a></li>
+<li class="toc-level-3"><a href="#23-responsibilities">2.3 Responsibilities</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#3-prerequisites">3. Prerequisites</a>
+<ul>
+<li class="toc-level-3"><a href="#31-supported-desktop-platforms">3.1 Supported Desktop Platforms</a></li>
+<li class="toc-level-3"><a href="#32-zos-platform-requirements">3.2 z/OS Platform Requirements</a></li>
+<li class="toc-level-3"><a href="#33-zos-build-and-deploy-tooling">3.3 z/OS Build and Deploy Tooling</a>
+<ul>
+<li class="toc-level-4"><a href="#331-uss-access-requirements">3.3.1 USS Access Requirements</a></li>
+</ul>
+</li>
+<li class="toc-level-3"><a href="#34-access-and-security-requirements">3.4 Access and Security Requirements</a></li>
+<li class="toc-level-3"><a href="#35-external-tools-requirements">3.5 External Tools Requirements</a>
+<ul>
+<li class="toc-level-4"><a href="#351-python-libraries">3.5.1 Python Libraries</a></li>
+<li class="toc-level-4"><a href="#352-gradle">3.5.2 Gradle</a></li>
+</ul>
+</li>
+<li class="toc-level-3"><a href="#36-verify-prerequisites">3.6 Verify Prerequisites</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#4-environment-configuration">4. Environment Configuration</a>
+<ul>
+<li class="toc-level-3"><a href="#41-configuration-flow">4.1 Configuration Flow</a></li>
+<li class="toc-level-3"><a href="#42-configure-the-application">4.2 Configure the Application</a>
+<ul>
+<li class="toc-level-4"><a href="#421-configuration-groups">4.2.1 Configuration Groups</a></li>
+<li class="toc-level-4"><a href="#422-configuration-dependencies">4.2.2 Configuration Dependencies</a></li>
+</ul>
+</li>
+<li class="toc-level-3"><a href="#43-grant-permissions-non-ibmuser-accounts-only">4.3 Grant Permissions (Non-IBMUSER Accounts Only)</a></li>
+<li class="toc-level-3"><a href="#44-set-the-ims-and-cics-credentials">4.4 Set the IMS and CICS Credentials</a></li>
+<li class="toc-level-3"><a href="#45-create-the-zcodescan-configuration-file">4.5 Create the ZCodeScan Configuration File</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#5-next-steps">5. Next Steps</a>
+<ul>
+<li class="toc-level-3"><a href="#51-pre-deployment-checklist">5.1 Pre-Deployment Checklist</a></li>
+</ul>
+</li>
+</ul>
+
+</nav>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+    /* toc-spy.js — highlights the active heading in the TOC panel on scroll */
+    (function () {
+      function init() {
+        var panel = document.querySelector('.toc-panel');
+        if (!panel) return;
+        var links = Array.prototype.slice.call(panel.querySelectorAll('a[href^="#"]'));
+        if (!links.length) return;
+
+        var headingIds = links.map(function (a) { return a.getAttribute('href').slice(1); });
+        var headings = headingIds.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+
+        function clearActive() {
+          panel.querySelectorAll('.toc-active').forEach(function (el) { el.classList.remove('toc-active'); });
+          panel.querySelectorAll('.toc-parent-active').forEach(function (el) { el.classList.remove('toc-parent-active'); });
+        }
+
+        function setActive(id) {
+          clearActive();
+          var link = panel.querySelector('a[href="#' + id + '"]');
+          if (!link) return;
+          link.classList.add('toc-active');
+          var li = link.closest('li');
+          if (li) {
+            var parentLi = li.parentElement && li.parentElement.closest('li');
+            if (parentLi) parentLi.classList.add('toc-parent-active');
+          }
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              setActive(entry.target.id);
+            }
+          });
+        }, { rootMargin: '0px 0px -70% 0px', threshold: 0 });
+
+        headings.forEach(function (h) { observer.observe(h); });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+    </script>
+    <script>
+    /* sidebar-toggle.js — persists open/closed state across navigation */
+    (function () {
+
+      var STORAGE_KEY = 'sb_open';
+
+      function getOpenSet() {
+        try {
+          var raw = sessionStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (e) { return null; }
+      }
+
+      function saveOpenSet(set) {
+        try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(set)); } catch (e) {}
+      }
+
+      function findItems(toggle) {
+        var node = toggle.nextSibling;
+        while (node) {
+          if (node.nodeType === 1 && node.classList.contains('nav-section-items'))
+            return node;
+          node = node.nextSibling;
+        }
+        return null;
+      }
+
+      function toggleKey(toggle, index) {
+        var label = (toggle.querySelector('.nav-toggle-text') || toggle).textContent.trim().replace(/\s+/g, ' ');
+        return index + ':' + label;
+      }
+
+      function openSection(toggle, items, key, set) {
+        toggle.classList.add('open');
+        items.classList.add('open');
+        if (set) set[key] = true;
+      }
+
+      function closeSection(toggle, items, key, set) {
+        toggle.classList.remove('open');
+        items.classList.remove('open');
+        if (set) set[key] = false;
+      }
+
+      function init() {
+        var sidebar = document.getElementById('wiki-sidebar');
+        var toggles = Array.prototype.slice.call(
+          document.querySelectorAll('.nav-section-toggle')
+        );
+
+        var activeIdx = -1;
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+          if (items.querySelector('.nav-link.active')) {
+            activeIdx = idx;
+          }
+        });
+
+        var savedSet = getOpenSet();
+        var openSet = savedSet || {};
+
+        if (activeIdx !== -1) {
+          openSet[toggleKey(toggles[activeIdx], activeIdx)] = true;
+        }
+
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+
+          var key = toggleKey(toggle, idx);
+          var shouldOpen = openSet[key] === true;
+
+          if (shouldOpen) {
+            toggle.classList.add('open');
+            items.classList.add('open');
+          }
+
+          toggle.addEventListener('click', function () {
+            var nowOpen = toggle.classList.contains('open');
+            if (nowOpen) {
+              closeSection(toggle, items, key, openSet);
+            } else {
+              openSection(toggle, items, key, openSet);
+            }
+            saveOpenSet(openSet);
+          });
+        });
+
+        saveOpenSet(openSet);
+
+        /* Restore sidebar scroll position after sections are expanded so the
+           scroll height is correct when we apply scrollTop. */
+        if (sidebar) {
+          try {
+            var savedScroll = sessionStorage.getItem('sb_scroll');
+            if (savedScroll !== null) { sidebar.scrollTop = parseInt(savedScroll, 10) || 0; }
+          } catch (_e) {}
+        }
+
+        window.addEventListener('pagehide', function () {
+          saveOpenSet(openSet);
+          if (sidebar) {
+            try { sessionStorage.setItem('sb_scroll', String(sidebar.scrollTop)); } catch (_e) {}
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+
+    })();
+    </script>
+    <script>
+    /* nav-tracking.js — only stamps sessionStorage when clicking a source-file link
+       that lives inside the "Source Files" disclosure section, not from sidebar or cards. */
+    (function () {
+      document.addEventListener('click', function (e) {
+        var link = e.target.closest('a[href]');
+        if (!link) return;
+        var href = link.getAttribute('href');
+        if (!href || href.indexOf('sources/') === -1) return;
+        /* Only set referrer when the click originates from inside the Source Files
+           disclosure (.source-files-disclosure). Any other path — sidebar, cards,
+           direct navigation — must not set a referrer. */
+        if (!link.closest('.source-files-disclosure')) return;
+        try {
+          sessionStorage.setItem('wiki_referrer', JSON.stringify({
+            href: location.href,
+            title: document.title,
+            file: location.pathname.split('/').pop()
+          }));
+        } catch (_e) {}
+      });
+    })();
+    </script>
+    <footer class="wiki-footer">Made by IBM Bob Premium Package for Z</footer>
+</body>
+</html>

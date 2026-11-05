@@ -1,0 +1,1439 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNKMENU</title>
+    <link rel="stylesheet" href="../../../../../../assets/style.css">
+    <script src="../../../../../../assets/mermaid.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: { useMaxWidth: true }
+        });
+    </script>
+
+    <!-- Prism.js for syntax highlighting (bundled — no CDN required) -->
+    <link rel="stylesheet" href="../../../../../../assets/prism-tomorrow.css">
+    <script src="../../../../../../assets/prism-core.js"></script>
+    <script src="../../../../../../assets/prism-languages.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <span class="header-app-name"><a href="../../../../../../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – Project Wiki</a></span>
+        </div>
+        <div class="header-right">
+        </div>
+    </header>
+    <div class="shell">
+        <aside class="sidebar" id="wiki-sidebar">
+            <nav>
+                
+        <div class="nav-home-wrap">
+            <a href="../../../../../../../index.html" class="nav-home">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                Home
+            </a>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Application Documentation</div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Overview</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../../../../../../pages/project-introduction.html" class="nav-link" data-page-id="project-introduction">Project Introduction</a>
+                <a href="../../../../../../pages/capabilities-and-architecture-summary.html" class="nav-link" data-page-id="capabilities-and-architecture-summary">Key Capabilities &amp; Architecture Summary</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Installation &amp; Setup</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../../../../../../pages/prerequisites-and-environment.html" class="nav-link" data-page-id="prerequisites-and-environment">Prerequisites &amp; Environment Configuration</a>
+                <a href="../../../../../../pages/local-tools-setup.html" class="nav-link" data-page-id="local-tools-setup">Local Tools Setup</a>
+                <a href="../../../../../../pages/deployment-methods.html" class="nav-link" data-page-id="deployment-methods">Deployment Methods</a>
+                <a href="../../../../../../pages/installation-verification.html" class="nav-link" data-page-id="installation-verification">Installation Verification</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Architecture</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../../../../../../pages/architecture-introduction.html" class="nav-link" data-page-id="architecture-introduction">Architecture Introduction</a>
+                <a href="../../../../../../pages/application-components.html" class="nav-link" data-page-id="application-components">Application Components</a>
+                <a href="../../../../../../pages/application-flow.html" class="nav-link" data-page-id="application-flow">Application Flow</a>
+                <a href="../../../../../../pages/build-and-deployment-architecture.html" class="nav-link" data-page-id="build-and-deployment-architecture">Build &amp; Deployment Architecture</a>
+                <a href="../../../../../../pages/cics-program-examples.html" class="nav-link" data-page-id="cics-program-examples">CICS COBOL Program Examples</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Development Workflows</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../../../../../../pages/workflows-overview.html" class="nav-link" data-page-id="workflows-overview">Development Workflows Overview</a>
+                <a href="../../../../../../pages/grub-workflow.html" class="nav-link" data-page-id="grub-workflow">GRUB Workflow</a>
+                <a href="../../../../../../pages/zowe-cli-workflow.html" class="nav-link" data-page-id="zowe-cli-workflow">Zowe CLI Workflow</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Tutorials</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../../../../../../pages/tutorials-overview.html" class="nav-link" data-page-id="tutorials-overview">Tutorials Overview &amp; Deployment Walkthrough</a>
+                <a href="../../../../../../pages/debug-cics-transaction-tutorial.html" class="nav-link" data-page-id="debug-cics-transaction-tutorial">Tutorial: Debug a CICS Transaction</a>
+                <a href="../../../../../../pages/cics-enhancement-tutorial.html" class="nav-link" data-page-id="cics-enhancement-tutorial">Tutorial: CICS Enhancement Scenario</a>
+                <a href="../../../../../../pages/incremental-build-tutorial.html" class="nav-link" data-page-id="incremental-build-tutorial">Tutorial: Incremental Build</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Reference</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../../../../../../pages/configuration-reference.html" class="nav-link" data-page-id="configuration-reference">Configuration Reference</a>
+                <a href="../../../../../../pages/commands-and-scripts-reference.html" class="nav-link" data-page-id="commands-and-scripts-reference">Commands &amp; Scripts Reference</a>
+                <a href="../../../../../../pages/repository-structure.html" class="nav-link" data-page-id="repository-structure">Repository Structure</a>
+                <a href="../../../../../../pages/glossary.html" class="nav-link" data-page-id="glossary">Glossary</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Troubleshooting</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../../../../../../pages/troubleshooting-guide.html" class="nav-link" data-page-id="troubleshooting-guide">Troubleshooting Guide</a>
+                <a href="../../../../../../pages/abend-cino-fix.html" class="nav-link" data-page-id="abend-cino-fix">Fixing the CINO Abend</a>
+            </div>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Program Documentation</div>
+    <div class="nav-section">
+        <button class="nav-section-toggle open" type="button">
+            <span class="nav-toggle-text">program</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items open">
+        <div class="nav-section">
+            <button class="nav-section-toggle open" type="button">
+                <span class="nav-toggle-text">src</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items open">
+            <div class="nav-section">
+                <button class="nav-section-toggle open" type="button">
+                    <span class="nav-toggle-text">base</span>
+                    <span class="nav-section-chevron">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="nav-section-items open">
+                <div class="nav-section">
+                    <button class="nav-section-toggle open" type="button">
+                        <span class="nav-toggle-text">cics</span>
+                        <span class="nav-section-chevron">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="nav-section-items open">
+                    <div class="nav-section">
+                        <button class="nav-section-toggle open" type="button">
+                            <span class="nav-toggle-text">cobol</span>
+                            <span class="nav-section-chevron">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="nav-section-items open">
+                            <a href="../../../../../../sources/program/src/base/cics/cobol/BNKMENU.html" class="nav-link active">BNKMENU</a>
+                            <a href="../../../../../../sources/program/src/base/cics/cobol/CRDTAGY2.html" class="nav-link">CRDTAGY2</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">docs</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">about-bank-of-z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../../../../../../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
+            </div>
+        </div>
+        </div>
+    </div>
+            </nav>
+        </aside>
+        <main class="main">
+            <div class="prog-container">
+                <div id="wiki-breadcrumb"></div>
+                <div class="content-layout">
+                    <article class="prose">
+                        <h2 id="1-purpose" tabindex="-1">1. Purpose</h2>
+<p><code>BNKMENU</code> é um programa COBOL CICS que serve como ponto de entrada principal e hub de navegação para a aplicação de banco online Bank of Z. Seu objetivo é apresentar uma tela de menu orientada por BMS ao usuário do terminal e encaminhar esse usuário para uma das oito funções bancárias disponíveis — exibir detalhes do cliente (<code>ODCS</code>), exibir detalhes da conta (<code>ODAC</code>), criar um cliente (<code>OCCS</code>), criar uma conta (<code>OCAC</code>), atualizar uma conta (<code>OUAC</code>), creditar ou debitar fundos (<code>OCRA</code>), transferir fundos entre contas (<code>OTFN</code>) ou consultar contas de um cliente (<code>OCCA</code>) — com base no caractere de opção (<code>'1'</code>–<code>'7'</code> ou <code>'A'</code>) inserido na tela. O programa opera em estilo pseudo-conversacional, validando a entrada do usuário a cada retorno, reapresentando o menu com um alarme sonoro e mensagem de erro caso a seleção seja inválida, exibindo uma mensagem de encerramento “Session Ended” quando o usuário pressiona <code>PF3</code> ou <code>PF12</code>, e delegando todos os erros CICS irrecuperáveis a um tratador de abend centralizado (<code>ABNDPROC</code>).</p>
+<h2 id="2-inputs" tabindex="-1">2. Inputs</h2>
+<h3 id="21-entradas-do-terminal--mapa-bms" tabindex="-1">2.1 Entradas do Terminal / Mapa BMS</h3>
+<ul>
+<li><strong><code>ACTIONI</code></strong> (<code>BNK1MEI</code> campo do mapa, mapset <code>BNK1MAI</code>)
+<ul>
+<li>O único campo recebido do mapa BMS <code>BNK1ME</code> via <code>EXEC CICS RECEIVE MAP</code>. Armazena o único caractere digitado pelo usuário na tela do menu bancário, representando a ação selecionada:
+<ul>
+<li><code>'1'</code> – Exibir detalhes do Cliente (transação <code>ODCS</code>)</li>
+<li><code>'2'</code> – Exibir detalhes da Conta (transação <code>ODAC</code>)</li>
+<li><code>'3'</code> – Criar um Cliente (transação <code>OCCS</code>)</li>
+<li><code>'4'</code> – Criar uma Conta (transação <code>OCAC</code>)</li>
+<li><code>'5'</code> – Atualizar uma Conta (transação <code>OUAC</code>)</li>
+<li><code>'6'</code> – Creditar/Debitar fundos (transação <code>OCRA</code>)</li>
+<li><code>'7'</code> – Transferir fundos (transação <code>OTFN</code>)</li>
+<li><code>'A'</code> – Consultar contas de um cliente (transação <code>OCCA</code>)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="22-entradas-do-sistema-cics-eib--bloco-de-interface-de-execuo" tabindex="-1">2.2 Entradas do Sistema CICS (EIB — Bloco de Interface de Execução)</h3>
+<p>Esses valores são fornecidos automaticamente pelo CICS em tempo de execução por meio do Bloco de Interface de Execução:</p>
+<ul>
+<li><strong><code>EIBCALEN</code></strong> – Comprimento da área de comunicação passada para esta invocação. Utilizado na entrada para determinar se esta é a primeira vez que o programa está sendo chamado (valor <code>ZERO</code> indica primeira invocação); determina a decisão de exibir um mapa novo e apagado.</li>
+<li><strong><code>EIBAID</code></strong> – Identificador de atenção (tecla pressionada pelo usuário). Controla o fluxo principal do programa:
+<ul>
+<li><code>DFHPA1</code>, <code>DFHPA2</code>, <code>DFHPA3</code> – Teclas PA; nenhuma ação executada</li>
+<li><code>DFHPF3</code>, <code>DFHPF12</code> – Encerrar a sessão</li>
+<li><code>DFHCLEAR</code> – Apagar a tela e retornar</li>
+<li><code>DFHENTER</code> – Processar a entrada do menu</li>
+</ul>
+</li>
+<li><strong><code>EIBRESP</code></strong> / <strong><code>EIBRESP2</code></strong> – Códigos de resposta primário e secundário retornados por cada comando <code>EXEC CICS</code>. Examinados após cada chamada CICS para detectar falhas; alimentados no registro de diagnóstico de abend quando uma resposta não normal é recebida.</li>
+<li><strong><code>EIBTASKN</code></strong> – Número da tarefa CICS atual. Capturado em <code>ABND-TASKNO-KEY</code> para diagnósticos de abend.</li>
+<li><strong><code>EIBTRNID</code></strong> – Identificador da transação atual. Capturado em <code>ABND-TRANID</code> para diagnósticos de abend.</li>
+</ul>
+<h3 id="23-valores-do-cics-assign" tabindex="-1">2.3 Valores do CICS ASSIGN</h3>
+<ul>
+<li><strong><code>ABND-APPLID</code></strong> (preenchido via <code>EXEC CICS ASSIGN APPLID</code>) – O identificador da aplicação CICS da região em execução. Recuperado e armazenado no registro de abend sempre que um comando CICS falha.</li>
+<li><strong><code>ABND-PROGRAM</code></strong> (preenchido via <code>EXEC CICS ASSIGN PROGRAM</code>) – O nome do programa em execução no momento. Recuperado e armazenado no registro de abend sempre que um comando CICS falha.</li>
+</ul>
+<h3 id="24-servios-de-runtime-do-cics" tabindex="-1">2.4 Serviços de Runtime do CICS</h3>
+<ul>
+<li><strong><code>EXEC CICS ASKTIME</code></strong> (resultado → <code>WS-U-TIME</code>) – Obtém o tempo absoluto atual do CICS. Utilizado como chave de tempo única no registro de diagnóstico de abend e como entrada para o <code>FORMATTIME</code>.</li>
+<li><strong><code>EXEC CICS FORMATTIME</code></strong> (resultado → <code>WS-ORIG-DATE</code>, <code>WS-TIME-NOW</code>) – Converte o tempo absoluto em data (<code>DD/MM/YYYY</code>) e hora (<code>HHMMSS</code>) legíveis por humanos. Os valores formatados são armazenados no registro de diagnóstico de abend.</li>
+</ul>
+<h3 id="25-rea-de-comunicao-cics-seo-de-linkage" tabindex="-1">2.5 Área de Comunicação CICS (Seção de Linkage)</h3>
+<ul>
+<li><strong><code>DFHCOMMAREA</code></strong> (<code>PIC X</code>) – Uma área de comunicação de um único byte passada pelo CICS ao reinvocar o programa. Sua presença (indicada por <code>EIBCALEN &gt; ZERO</code>) sinaliza que esta é uma invocação pseudo-conversacional de retorno, e não uma entrada pela primeira vez.</li>
+</ul>
+<h2 id="3-outputs" tabindex="-1">3. Outputs</h2>
+<h3 id="31-sadas-do-terminal-tela" tabindex="-1">3.1 Saídas do Terminal (Tela)</h3>
+<ul>
+<li>
+<p><strong>BMS Map <code>BNK1ME</code> (mapset <code>BNK1MAI</code>) — <code>EXEC CICS SEND MAP</code></strong></p>
+<ul>
+<li>A saída visual principal do programa; a tela do menu bancário enviada ao terminal CICS</li>
+<li>Três modos distintos de envio são utilizados, todos gravando a partir da área do mapa de saída <code>BNK1MEO</code>:
+<ul>
+<li><strong>Modo ERASE</strong> (<code>SEND-ERASE = '1'</code>): Limpa o terminal e apresenta um menu bancário novo e vazio — usado na primeira entrada (quando <code>EIBCALEN = ZERO</code>) ou quando <code>MAPFAIL</code> é recebido durante o recebimento do mapa</li>
+<li><strong>Modo DATAONLY</strong> (<code>SEND-DATAONLY = '2'</code>): Atualiza apenas os campos de dados variáveis sem redesenhar os elementos estáticos da tela</li>
+<li><strong>Modo DATAONLY + ALARM</strong> (<code>SEND-DATAONLY-ALARM = '3'</code>): Atualiza os campos de dados e aciona um alerta sonoro no terminal — usado para sinalizar pressionamentos de teclas inválidos ou falhas de validação de entrada</li>
+</ul>
+</li>
+<li><strong><code>MESSAGEO</code></strong> (campo dentro de <code>BNK1MEO</code>): A mensagem de feedback exibida ao usuário na tela
+<ul>
+<li>Definida como <code>'Invalid key pressed.'</code> quando uma tecla AID não reconhecida é pressionada</li>
+<li>Definida como <code>'You must enter a valid value (1-7 or A).'</code> quando a entrada da ação do menu falha na validação</li>
+</ul>
+</li>
+<li><strong><code>ACTIONL</code></strong> (campo de comprimento do cursor dentro de <code>BNK1MEO</code>): Definido como <code>-1</code> para posicionar o cursor no campo de entrada de ação quando a tela é enviada</li>
+</ul>
+</li>
+<li>
+<p><strong>Mensagem de Encerramento — <code>EXEC CICS SEND TEXT</code></strong></p>
+<ul>
+<li><strong><code>END-OF-SESSION-MESSAGE</code></strong>: O texto literal <code>'Session Ended'</code> enviado como uma mensagem de tela cheia (com <code>ERASE</code>) quando o usuário pressiona PF3 ou PF12 para sair do menu bancário</li>
+<li>Imediatamente seguido por <code>EXEC CICS RETURN</code> (sem <code>TRANSID</code>), encerrando a tarefa conversacional CICS</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="32-sadas-de-controle-de-transao-cics" tabindex="-1">3.2 Saídas de Controle de Transação CICS</h3>
+<ul>
+<li>
+<p><strong><code>EXEC CICS RETURN TRANSID('OMEN') COMMAREA(COMMUNICATION-AREA) LENGTH(1)</code></strong></p>
+<ul>
+<li>O retorno pseudo-conversacional padrão ao final de cada ciclo; re-enfileira a transação <code>OMEN</code> (o menu bancário) com uma <code>COMMUNICATION-AREA</code> mínima de 1 byte para manter o estado da sessão</li>
+</ul>
+</li>
+<li>
+<p><strong>Roteamento de transação via <code>EXEC CICS RETURN TRANSID(...) IMMEDIATE</code></strong> (condicional ao <code>ACTIONI</code> validado):</p>
+<ul>
+<li><code>'ODCS'</code> — Exibir Detalhes do Cliente (opção de menu <code>1</code>)</li>
+<li><code>'ODAC'</code> — Exibir Detalhes da Conta (opção de menu <code>2</code>)</li>
+<li><code>'OCCS'</code> — Criar um Cliente (opção de menu <code>3</code>)</li>
+<li><code>'OCAC'</code> — Criar uma Conta (opção de menu <code>4</code>)</li>
+<li><code>'OUAC'</code> — Atualizar uma Conta (opção de menu <code>5</code>)</li>
+<li><code>'OCRA'</code> — Creditar/Debitar Fundos em uma Conta (opção de menu <code>6</code>)</li>
+<li><code>'OTFN'</code> — Transferir Fundos entre Contas (opção de menu <code>7</code>)</li>
+<li><code>'OCCA'</code> — Consultar Contas de um Cliente (opção de menu <code>A</code>)</li>
+</ul>
+</li>
+<li>
+<p><strong><code>EXEC CICS SEND CONTROL ERASE FREEKB</code></strong></p>
+<ul>
+<li>Limpa a tela do terminal sem dados de mapa quando a tecla CLEAR é pressionada, imediatamente seguido por <code>EXEC CICS RETURN</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="33-sadas-de-erro-e-abend" tabindex="-1">3.3 Saídas de Erro e Abend</h3>
+<ul>
+<li>
+<p><strong><code>EXEC CICS LINK PROGRAM('ABNDPROC') COMMAREA(ABNDINFO-REC)</code></strong></p>
+<ul>
+<li>Invocado sempre que qualquer comando CICS retorna uma resposta não normal; passa o <code>ABNDINFO-REC</code> totalmente preenchido ao programa centralizador de tratamento de abend</li>
+<li><strong><code>ABNDINFO-REC</code></strong> carrega todos os dados de diagnóstico para <code>ABNDPROC</code>:
+<ul>
+<li><code>ABND-RESPCODE</code> / <code>ABND-RESP2CODE</code> — códigos de resposta CICS do comando com falha</li>
+<li><code>ABND-APPLID</code> — ID da aplicação CICS da região onde a falha ocorreu</li>
+<li><code>ABND-TASKNO-KEY</code> — número da tarefa CICS da tarefa com falha</li>
+<li><code>ABND-TRANID</code> — ID da transação ativa no momento da falha</li>
+<li><code>ABND-DATE</code> / <code>ABND-TIME</code> — data (DD/MM/YYYY) e hora (HH:MM:MM) da falha, derivadas de <code>WS-ORIG-DATE</code> e <code>WS-TIME-NOW-GRP-HH</code>/<code>WS-TIME-NOW-GRP-MM</code></li>
+<li><code>ABND-UTIME-KEY</code> — valor de tempo absoluto CICS (<code>WS-U-TIME</code>) utilizado como chave única para o registro de abend</li>
+<li><code>ABND-CODE</code> — código de abend fixo <code>'HBNK'</code></li>
+<li><code>ABND-PROGRAM</code> — nome do programa no momento da falha (preenchido via <code>EXEC CICS ASSIGN PROGRAM</code>)</li>
+<li><code>ABND-SQLCODE</code> — definido como zeros (sem uso de DB2 neste programa)</li>
+<li><code>ABND-FREEFORM</code> — uma mensagem descritiva em formato livre identificando o parágrafo com falha e o comando CICS (ex.: <code>'A010 - RETURN TRANSID(MENU) FAIL. EIBRESP=... RESP2=...'</code>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>DISPLAY WS-FAIL-INFO</code></strong> (em <code>ABEND-THIS-TASK</code>)</p>
+<ul>
+<li>Grava uma mensagem de falha formatada no log de job CICS / console do sistema; inclui o nome do programa (<code>BNKMENU</code>), o identificador do parágrafo com falha e os códigos numéricos RESP/RESP2</li>
+</ul>
+</li>
+<li>
+<p><strong><code>EXEC CICS ABEND ABCODE('HBNK') NODUMP</code></strong></p>
+<ul>
+<li>Força o encerramento anormal da tarefa CICS com o código de abend <code>HBNK</code> após o registro de erro ter sido despachado; <code>NODUMP</code> suprime um dump do sistema</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-processing-logic" tabindex="-1">4. Processing Logic</h2>
+<h3 id="41-diagrama-de-fluxo-mermaid" tabindex="-1">4.1 Diagrama de Fluxo Mermaid</h3>
+<div class="mermaid">
+graph TD
+    classDef startEnd fill:#b5ead7,stroke:#6bbf9d,color:#000
+    classDef process fill:#c7ceea,stroke:#8892d6,color:#000
+    classDef decision fill:#ffdac1,stroke:#f4a87c,color:#000
+    classDef error fill:#ffb7b2,stroke:#e87c7c,color:#000
+    classDef send fill:#e2f0cb,stroke:#a0c878,color:#000
+
+    A([Start - Transaction OMEN invoked]):::startEnd
+    B{{EIBCALEN = ZERO<br>First invocation}}:::decision
+    C[Init map BNK1MEO<br>Set cursor on ACTION field<br>Set SEND-ERASE flag]:::process
+    D[PERFORM SEND-MAP<br>ERASE - full screen refresh]:::send
+    E[EXEC CICS RETURN TRANSID OMEN<br>with COMMAREA length 1]:::process
+    F{{AID key pressed}}:::decision
+    G[PA1 PA2 PA3 pressed<br>CONTINUE - no action]:::process
+    H[PF3 or PF12 pressed<br>Send termination message]:::process
+    H2[EXEC CICS SEND TEXT<br>Session Ended - ERASE]:::send
+    H3[EXEC CICS RETURN<br>End task]:::startEnd
+    I[CLEAR pressed<br>EXEC CICS SEND CONTROL ERASE FREEKB]:::process
+    I2[EXEC CICS RETURN<br>End task]:::startEnd
+    J[ENTER pressed<br>PERFORM PROCESS-MENU-MAP]:::process
+    K[Other key pressed<br>Set Invalid key message<br>Set SEND-DATAONLY-ALARM]:::process
+    L[PERFORM RECEIVE-MENU-MAP<br>EXEC CICS RECEIVE MAP BNK1ME]:::process
+    M{{CICS RESP normal}}:::decision
+    N{{RESP = MAPFAIL}}:::decision
+    O[Re-display map ERASE<br>Recover empty screen]:::send
+    P[Build ABNDINFO-REC<br>LINK to ABNDPROC<br>EXEC CICS ABEND HBNK NODUMP]:::error
+    Q[PERFORM EDIT-MENU-DATA<br>Validate ACTIONI field]:::process
+    R{{ACTIONI = 1-7 or A}}:::decision
+    S[Move ACTIONI to ACTION-ALPHA<br>VALID-DATA-SW = Y]:::process
+    T[Set error message<br>VALID-DATA-SW = N]:::process
+    U{{VALID-DATA is true}}:::decision
+    V[PERFORM INVOKE-OTHER-TXNS]:::process
+    W{{ACTIONI value}}:::decision
+    X1[EXEC CICS RETURN TRANSID ODCS IMMEDIATE<br>Option 1 - Display Customer]:::process
+    X2[EXEC CICS RETURN TRANSID ODAC IMMEDIATE<br>Option 2 - Display Account]:::process
+    X3[EXEC CICS RETURN TRANSID OCCS IMMEDIATE<br>Option 3 - Create Customer]:::process
+    X4[EXEC CICS RETURN TRANSID OCAC IMMEDIATE<br>Option 4 - Create Account]:::process
+    X5[EXEC CICS RETURN TRANSID OUAC IMMEDIATE<br>Option 5 - Update Account]:::process
+    X6[EXEC CICS RETURN TRANSID OCRA IMMEDIATE<br>Option 6 - Credit Debit Funds]:::process
+    X7[EXEC CICS RETURN TRANSID OTFN IMMEDIATE<br>Option 7 - Transfer Funds]:::process
+    X8[EXEC CICS RETURN TRANSID OCCA IMMEDIATE<br>Option A - Look up Accounts]:::process
+    Y[Set SEND-DATAONLY-ALARM flag<br>PERFORM SEND-MAP]:::send
+    Z{{SEND flag value}}:::decision
+    Z1[SEND MAP ERASE FREEKB<br>Full screen repaint]:::send
+    Z2[SEND MAP DATAONLY FREEKB<br>Data fields only]:::send
+    Z3[SEND MAP DATAONLY ALARM FREEKB<br>Data fields plus audible alert]:::send
+
+    A --> B
+    B -- Yes --> C
+    C --> D
+    D --> E
+    B -- No --> F
+    F -- PA1 PA2 PA3 --> G
+    G --> E
+    F -- PF3 or PF12 --> H
+    H --> H2
+    H2 --> H3
+    F -- CLEAR --> I
+    I --> I2
+    F -- ENTER --> J
+    J --> L
+    F -- Other --> K
+    K --> Z
+    L --> M
+    M -- No --> N
+    N -- Yes MAPFAIL --> O
+    O --> E
+    N -- No other error --> P
+    M -- Yes --> Q
+    Q --> R
+    R -- Invalid --> T
+    T --> U
+    R -- Valid --> S
+    S --> U
+    U -- Yes --> V
+    U -- No --> Y
+    V --> W
+    W -- 1 --> X1
+    W -- 2 --> X2
+    W -- 3 --> X3
+    W -- 4 --> X4
+    W -- 5 --> X5
+    W -- 6 --> X6
+    W -- 7 --> X7
+    W -- A --> X8
+    V --> Y
+    Y --> Z
+    Z -- SEND-ERASE --> Z1
+    Z -- SEND-DATAONLY --> Z2
+    Z -- SEND-DATAONLY-ALARM --> Z3
+    Z1 --> E
+    Z2 --> E
+    Z3 --> E
+</div>
+<hr>
+<h3 id="42-descrio-da-lgica-de-processamento" tabindex="-1">4.2 Descrição da Lógica de Processamento</h3>
+<h4 id="421-resumo-de-alto-nvel" tabindex="-1">4.2.1 Resumo de Alto Nível</h4>
+<p><strong>BNKMENU</strong> é o programa de menu principal do Bank of Z em CICS, executado sob o ID de transação <code>OMEN</code>. Ele é o ponto de entrada da aplicação bancária dirigida por BMS. Apresenta uma tela de menu (<code>BNK1ME</code> / <code>BNK1MAI</code>) ao usuário do terminal, valida a seleção digitada (opções <code>1</code>–<code>7</code> ou <code>A</code>) e encaminha imediatamente o usuário para a transação bancária subsequente apropriada usando um comando <code>EXEC CICS RETURN TRANSID IMMEDIATE</code>. Ele opera em estilo <strong>pseudo-conversacional</strong>: cada vez que o usuário pressiona uma tecla, o programa é iniciado do zero, processa a entrada e então devolve o controle ao CICS — que reinvoca a mesma transação (<code>OMEN</code>) na próxima ação do usuário.</p>
+<hr>
+<h4 id="422-fluxo-de-execuo" tabindex="-1">4.2.2 Fluxo de Execução</h4>
+<p><strong>Passo 1 – Ponto de entrada e detecção da primeira vez (PREMIERE / A010)</strong></p>
+<p>O programa começa na seção <code>PREMIERE</code>, no parágrafo <code>A010</code>. Ele usa uma construção <code>EVALUATE TRUE</code> para despachar com base no estado atual:</p>
+<ul>
+<li>
+<p><strong>Primeira invocação (<code>EIBCALEN = ZERO</code>):</strong> <code>EIBCALEN</code> é o campo do Execute Interface Block que contém o comprimento da COMMAREA passada do ciclo pseudo-conversacional anterior. Um valor zero significa que nenhuma COMMAREA existe, portanto esta é definitivamente a primeira vez que o menu foi invocado para esta sessão de terminal. O programa inicializa <code>BNK1MEO</code> com <code>LOW-VALUE</code>, define o comprimento do cursor como <code>-1</code> (posicionamento simbólico do cursor no campo ACTION), define <code>SEND-FLAG</code> como <code>SEND-ERASE</code> (<code>'1'</code>) e chama <code>SEND-MAP</code>. Isso apaga a tela do terminal e desenha o menu completo do zero.</p>
+</li>
+<li>
+<p><strong>Tecla PA (<code>DFHPA1</code>, <code>DFHPA2</code>, <code>DFHPA3</code>):</strong> Teclas de atenção do programa não transportam dados. O verbo <code>CONTINUE</code> faz o programa prosseguir até o <code>EXEC CICS RETURN</code> final, efetivamente rearmando o terminal sem qualquer alteração na tela exibida.</p>
+</li>
+<li>
+<p><strong>PF3 ou PF12:</strong> O usuário deseja sair. <code>SEND-TERMINATION-MSG</code> é chamado, o que emite <code>EXEC CICS SEND TEXT FROM(END-OF-SESSION-MESSAGE) ERASE FREEKB</code> para exibir o literal <code>'Session Ended'</code> na tela limpa. Em seguida, <code>EXEC CICS RETURN</code> (sem <code>TRANSID</code>) é emitido para encerrar a tarefa do CICS sem transação subsequente.</p>
+</li>
+<li>
+<p><strong>Tecla CLEAR (<code>DFHCLEAR</code>):</strong> Emite <code>EXEC CICS SEND CONTROL ERASE FREEKB</code> para limpar a tela e então <code>EXEC CICS RETURN</code> para encerrar a tarefa.</p>
+</li>
+<li>
+<p><strong>Tecla ENTER (<code>DFHENTER</code>):</strong> O usuário submeteu uma entrada. <code>PROCESS-MENU-MAP</code> é invocado (veja o Passo 2).</p>
+</li>
+<li>
+<p><strong>Qualquer outra tecla:</strong> Uma mensagem “Invalid key pressed.” é movida para o campo de mapa <code>MESSAGEO</code>, <code>SEND-FLAG</code> é definido como <code>SEND-DATAONLY-ALARM</code> (<code>'3'</code>) e o mapa é reenviado com alarme sonoro.</p>
+</li>
+</ul>
+<p><strong>Passo 2 – Rearme pseudo-conversacional (<code>EXEC CICS RETURN TRANSID OMEN</code>)</strong></p>
+<p>Após todos os ramos (exceto PF3/PF12 e CLEAR, que emitem seu próprio RETURN), o controle chega ao único <code>EXEC CICS RETURN TRANSID('OMEN') COMMAREA(COMMUNICATION-AREA) LENGTH(1)</code> incondicional. Esta é a pedra angular do modelo pseudo-conversacional: ele instrui o CICS a reinvocar a transação <code>OMEN</code> na próxima entrada do terminal, passando uma COMMAREA de 1 byte para que <code>EIBCALEN</code> seja não zero na próxima invocação. Se esse comando falhar, o programa monta o registro de diagnóstico <code>ABNDINFO-REC</code> e chama <code>ABEND-THIS-TASK</code>.</p>
+<p><strong>Passo 3 – Receber e validar a entrada do mapa (<code>PROCESS-MENU-MAP</code> / <code>RECEIVE-MENU-MAP</code> / <code>EDIT-MENU-DATA</code>)</strong></p>
+<p><code>PROCESS-MENU-MAP</code> (seção <code>PMM010</code>) orquestra três subetapas:</p>
+<ol>
+<li>
+<p><strong><code>RECEIVE-MENU-MAP</code> (RMM010):</strong> Emite <code>EXEC CICS RECEIVE MAP('BNK1ME') MAPSET('BNK1MAI') INTO(BNK1MEI)</code>. O código RESP é verificado imediatamente:</p>
+<ul>
+<li><code>MAPFAIL</code> (RESP=36): ocorre quando o terminal não envia dados de campo — por exemplo, o usuário pressionou ENTER em uma tela em branco ou pressionou uma tecla PA/CLEAR que ainda não havia sido tratada anteriormente. O mapa é reenviado com <code>SEND-ERASE</code> para recuperar uma tela limpa.</li>
+<li>Qualquer outro RESP não normal: o fluxo do tratador de abend é acionado (veja Tratamento de Erros abaixo).</li>
+</ul>
+</li>
+<li>
+<p><strong><code>EDIT-MENU-DATA</code> (EMD010):</strong> O campo <code>ACTIONI</code> (o caractere de ação recebido do mapa) é validado. Ele deve ser um entre <code>'1'</code>, <code>'2'</code>, <code>'3'</code>, <code>'4'</code>, <code>'5'</code>, <code>'6'</code>, <code>'7'</code> ou <code>'A'</code>. Qualquer outro valor faz com que:</p>
+<ul>
+<li>Uma mensagem de erro <code>'You must enter a valid value (1-7 or A).'</code> seja colocada no campo <code>MESSAGEO</code>.</li>
+<li><code>VALID-DATA-SW</code> seja definido como <code>'N'</code> (invalidando a condição de nível 88 <code>VALID-DATA</code>).
+Se o valor for válido, <code>ACTIONI</code> é movido para <code>ACTION-ALPHA</code> e <code>VALID-DATA-SW</code> permanece <code>'Y'</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Verificação de guarda:</strong> <code>IF VALID-DATA</code> controla a invocação de <code>INVOKE-OTHER-TXNS</code>. Se a validação falhar, esse bloco é ignorado.</p>
+</li>
+<li>
+<p>Após a invocação opcional, <code>SEND-FLAG</code> é definido incondicionalmente como <code>SEND-DATAONLY-ALARM</code> e <code>SEND-MAP</code> é chamado. <em>(Observação: na prática, se <code>INVOKE-OTHER-TXNS</code> emitir com sucesso um <code>RETURN TRANSID IMMEDIATE</code>, o CICS termina imediatamente a tarefa atual e esse código nunca é alcançado para seleções válidas.)</em></p>
+</li>
+</ol>
+<p><strong>Passo 4 – Roteamento de transação (<code>INVOKE-OTHER-TXNS</code> / IOT010)</strong></p>
+<p>Para cada caractere de ação válido, um <code>EXEC CICS RETURN TRANSID(...) IMMEDIATE</code> dedicado é emitido:</p>
+<table>
+<thead>
+<tr>
+<th>Seleção</th>
+<th>ID da Transação</th>
+<th>Função Bancária</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>1</code></td>
+<td><code>ODCS</code></td>
+<td>Exibir detalhes do cliente</td>
+</tr>
+<tr>
+<td><code>2</code></td>
+<td><code>ODAC</code></td>
+<td>Exibir detalhes da conta</td>
+</tr>
+<tr>
+<td><code>3</code></td>
+<td><code>OCCS</code></td>
+<td>Criar um cliente</td>
+</tr>
+<tr>
+<td><code>4</code></td>
+<td><code>OCAC</code></td>
+<td>Criar uma conta</td>
+</tr>
+<tr>
+<td><code>5</code></td>
+<td><code>OUAC</code></td>
+<td>Atualizar uma conta</td>
+</tr>
+<tr>
+<td><code>6</code></td>
+<td><code>OCRA</code></td>
+<td>Creditar / Debitar fundos</td>
+</tr>
+<tr>
+<td><code>7</code></td>
+<td><code>OTFN</code></td>
+<td>Transferir fundos</td>
+</tr>
+<tr>
+<td><code>A</code></td>
+<td><code>OCCA</code></td>
+<td>Pesquisar contas de um cliente</td>
+</tr>
+</tbody>
+</table>
+<p>A opção <code>IMMEDIATE</code> ignora quaisquer transações ATI (Automatic Transaction Initiation) enfileiradas e roteia diretamente para a transação nomeada. Como o CICS trata esse RETURN como uma terminação imediata da tarefa e novo despacho, nenhum código adicional em <code>BNKMENU</code> é executado para esse ciclo de interação.</p>
+<p><strong>Passo 5 – Envio do mapa (<code>SEND-MAP</code> / SMM010)</strong></p>
+<p>O modo de envio do mapa é controlado por <code>SEND-FLAG</code>:</p>
+<ul>
+<li><strong><code>SEND-ERASE</code> (<code>'1'</code>):</strong> <code>EXEC CICS SEND MAP ... ERASE FREEKB</code> — limpa todo o buffer da tela e redesenha o menu completo a partir da definição do mapa BMS. Necessário na primeira entrada e após uma recuperação de MAPFAIL.</li>
+<li><strong><code>SEND-DATAONLY</code> (<code>'2'</code>):</strong> <code>EXEC CICS SEND MAP ... DATAONLY FREEKB</code> — transmite apenas os campos de dados variáveis (por exemplo, <code>MESSAGEO</code>). Rótulos estáticos e atributos já presentes na tela não são alterados.</li>
+<li><strong><code>SEND-DATAONLY-ALARM</code> (<code>'3'</code>):</strong> <code>EXEC CICS SEND MAP ... DATAONLY ALARM FREEKB</code> — igual ao DATAONLY, mas também aciona o alarme sonoro do 3270 para alertar o usuário sobre uma condição de erro.</li>
+</ul>
+<p>As três variantes desbloqueiam o teclado (<code>FREEKB</code>) para que o usuário possa digitar novamente.</p>
+<p><strong>Passo 6 – Preenchimento de hora/data (<code>POPULATE-TIME-DATE</code> / PTD010)</strong></p>
+<p>Chamado exclusivamente dentro dos caminhos de tratamento de erro. <code>EXEC CICS ASKTIME ABSTIME(WS-U-TIME)</code> obtém a hora atual como um valor de tempo absoluto em decimal compactado. <code>EXEC CICS FORMATTIME ABSTIME(...) DDMMYYYY(WS-ORIG-DATE) TIME(WS-TIME-NOW) DATESEP</code> formata isso em campos legíveis por humanos DD/MM/YYYY e HHMMSS usados no registro de diagnóstico de abend.</p>
+<hr>
+<h4 id="423-tratamento-de-erros" tabindex="-1">4.2.3 Tratamento de Erros</h4>
+<p>Cada comando CICS é seguido por uma verificação de RESP/RESP2. Quando <code>WS-CICS-RESP NOT = DFHRESP(NORMAL)</code>:</p>
+<ol>
+<li><code>ABNDINFO-REC</code> é inicializado e preenchido com: <code>EIBRESP</code> / <code>EIBRESP2</code>, ID da aplicação (via <code>EXEC CICS ASSIGN APPLID</code>), número da tarefa (<code>EIBTASKN</code>), ID da transação (<code>EIBTRNID</code>), data e hora atuais, nome do programa (via <code>EXEC CICS ASSIGN PROGRAM</code>), código SQL (definido como zeros — não há DB2 neste programa) e uma string descritiva livre identificando o comando que falhou.</li>
+<li><code>EXEC CICS LINK PROGRAM('ABNDPROC') COMMAREA(ABNDINFO-REC)</code> direciona para o tratador de abend centralizado, que registra as informações de diagnóstico.</li>
+<li><code>ABEND-THIS-TASK</code> é então executado: ele exibe <code>WS-FAIL-INFO</code> (contendo o nome do programa, mensagem, códigos RESP) no log do CICS e emite <code>EXEC CICS ABEND ABCODE('HBNK') NODUMP</code> — encerrando a tarefa com anormalidade com o código <code>HBNK</code> sem produzir um dump da transação.</li>
+</ol>
+<hr>
+<h4 id="424-interaes-externas" tabindex="-1">4.2.4 Interações Externas</h4>
+<table>
+<thead>
+<tr>
+<th>Interação</th>
+<th>Comando CICS</th>
+<th>Finalidade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exibir tela de menu</td>
+<td><code>EXEC CICS SEND MAP BNK1ME MAPSET BNK1MAI</code></td>
+<td>Desenha / atualiza o menu principal no terminal 3270</td>
+</tr>
+<tr>
+<td>Receber entrada do usuário</td>
+<td><code>EXEC CICS RECEIVE MAP BNK1ME MAPSET BNK1MAI</code></td>
+<td>Lê o campo de ação digitado no mapa</td>
+</tr>
+<tr>
+<td>Exibição de encerramento de sessão</td>
+<td><code>EXEC CICS SEND TEXT</code></td>
+<td>Mostra “Session Ended” na saída do terminal</td>
+</tr>
+<tr>
+<td>Limpar tela</td>
+<td><code>EXEC CICS SEND CONTROL ERASE</code></td>
+<td>Limpa o terminal ao pressionar CLEAR</td>
+</tr>
+<tr>
+<td>Rotear para subtransação</td>
+<td><code>EXEC CICS RETURN TRANSID(...) IMMEDIATE</code></td>
+<td>Passa o controle para a função bancária selecionada</td>
+</tr>
+<tr>
+<td>Rearmar pseudo-conversação</td>
+<td><code>EXEC CICS RETURN TRANSID('OMEN') COMMAREA(...)</code></td>
+<td>Instrui o CICS a reinvocar <code>OMEN</code> na próxima entrada do terminal</td>
+</tr>
+<tr>
+<td>Obter hora atual</td>
+<td><code>EXEC CICS ASKTIME / FORMATTIME</code></td>
+<td>Preenche data/hora para diagnósticos de abend</td>
+</tr>
+<tr>
+<td>Obter informações do sistema</td>
+<td><code>EXEC CICS ASSIGN APPLID / PROGRAM</code></td>
+<td>Preenche o registro de abend com APPLID e nome do programa</td>
+</tr>
+<tr>
+<td>Tratador de abend</td>
+<td><code>EXEC CICS LINK PROGRAM('ABNDPROC')</code></td>
+<td>Registra dados de diagnóstico em qualquer falha de comando CICS</td>
+</tr>
+<tr>
+<td>Abendar tarefa</td>
+<td><code>EXEC CICS ABEND ABCODE('HBNK') NODUMP</code></td>
+<td>Encerra a tarefa anormalmente sem dump de armazenamento</td>
+</tr>
+</tbody>
+</table>
+<p>Nenhum SQL DB2, IMS DL/I, MQ, E/S de arquivo VSAM ou operações de fila de dados transitórios está presente neste programa.</p>
+<hr>
+<h4 id="425-resumo-em-linguagem-simples" tabindex="-1">4.2.5 Resumo em Linguagem Simples</h4>
+<p>BNKMENU é a “porta de entrada” da aplicação Bank of Z. Quando um operador bancário digita a transação <code>OMEN</code> em seu terminal 3270, este programa é executado. Na primeira execução, ele limpa a tela e mostra um menu numerado de opções bancárias (1 a 7, mais a opção A). O operador digita um número ou letra e pressiona Enter.</p>
+<p>O programa lê o que foi digitado, verifica se é uma das opções permitidas e — se for válido — transfere imediatamente o operador para a função bancária correta (por exemplo, a opção 3 leva diretamente à tela de criação de cliente). Se a entrada for inválida, o programa faz o terminal emitir um beep, mostra uma mensagem de erro e espera que o operador tente novamente.</p>
+<p>Quando o operador pressiona PF3 ou PF12, o programa mostra “Session Ended” e encerra a sessão de forma limpa. Se algo der errado internamente (um comando CICS falhar), o programa captura informações completas de diagnóstico — hora, data, códigos de erro, nome do programa — envia isso para um tratador de erro central e encerra a tarefa com um código de abend <code>HBNK</code>.</p>
+<hr>
+<h3 id="43-tabelas-de-banco-de-dados" tabindex="-1">4.3 Tabelas de Banco de Dados</h3>
+<p>Nenhuma tabela de banco de dados (DB2, VSAM, IMS) é acessada por BNKMENU. O programa interage somente com o terminal CICS (mapa BMS) e outras transações CICS. Nenhum <code>erDiagram</code> é aplicável.</p>
+<h2 id="5-paragraphs" tabindex="-1">5. Paragraphs</h2>
+<ul>
+<li>
+<p><strong>A010</strong> — Ponto de entrada principal e despachante primário do programa de menu bancário. Este parágrafo forma o coração do ciclo CICS pseudo-conversacional. Ele utiliza uma estrutura <code>EVALUATE TRUE</code> para ramificar com base nas condições de entrada do terminal detectadas por meio dos campos EIB:</p>
+<ul>
+<li>Quando <code>EIBCALEN = ZERO</code>, o programa está sendo invocado pela primeira vez (nenhum COMMAREA está presente), portanto, inicializa a área de saída do mapa BMS (<code>BNK1MEO</code>) com <code>LOW-VALUE</code>, define a posição do cursor no campo <code>ACTION</code>, define <code>SEND-ERASE</code> como TRUE e executa <code>SEND-MAP</code> para apresentar uma tela de menu recém-apagada.</li>
+<li>Quando uma tecla PA (<code>DFHPA1</code>, <code>DFHPA2</code> ou <code>DFHPA3</code>) é pressionada, o processamento simplesmente continua sem nenhuma ação (<code>CONTINUE</code>).</li>
+<li>Quando PF3 ou PF12 é pressionado, executa <code>SEND-TERMINATION-MSG</code> para exibir uma mensagem de encerramento e, em seguida, emite <code>EXEC CICS RETURN</code> sem TRANSID para encerrar a tarefa.</li>
+<li>Quando a tecla CLEAR é pressionada, emite <code>EXEC CICS SEND CONTROL ERASE FREEKB</code> para limpar a tela e, em seguida, retorna imediatamente.</li>
+<li>Quando a tecla ENTER é pressionada, executa <code>PROCESS-MENU-MAP</code> para receber, validar e processar a seleção do usuário.</li>
+<li>Para qualquer outra tecla, popula o campo de mensagem com <code>'Invalid key pressed.'</code>, define <code>SEND-DATAONLY-ALARM</code> e executa <code>SEND-MAP</code> para alertar o usuário.</li>
+<li>Após o <code>EVALUATE</code>, um <code>EXEC CICS RETURN TRANSID('OMEN') COMMAREA(COMMUNICATION-AREA) LENGTH(1)</code> é emitido para completar o ciclo pseudo-conversacional, agendando a transação de menu (<code>OMEN</code>) para ser retomada na próxima entrada do terminal.</li>
+<li>Se este RETURN falhar, o parágrafo constrói o registro de diagnóstico <code>ABNDINFO-REC</code>, chama <code>POPULATE-TIME-DATE</code>, faz link para o tratador de abend (<code>ABNDPROC</code>) e, em seguida, executa <code>ABEND-THIS-TASK</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>A999</strong> — Marcador de saída de parágrafo para a <code>PREMIERE SECTION</code>. Contém apenas uma instrução <code>EXIT</code>; serve como limite de terminação da seção.</p>
+</li>
+<li>
+<p><strong>PMM010</strong> — Orquestrador principal para tratar um pressionamento da tecla ENTER no menu bancário. Ele sequencia três operações subordinadas:</p>
+<ul>
+<li>Chama <code>RECEIVE-MENU-MAP</code> para recuperar os dados de entrada do mapa BMS do terminal.</li>
+<li>Chama <code>EDIT-MENU-DATA</code> para validar a seleção de menu do usuário.</li>
+<li>Se <code>VALID-DATA</code> for TRUE (ou seja, a validação foi aprovada), chama <code>INVOKE-OTHER-TXNS</code> para despachar a transação bancária apropriada.</li>
+<li>Incondicionalmente define <code>SEND-DATAONLY-ALARM</code> e executa <code>SEND-MAP</code> para atualizar a tela, fornecendo feedback ao usuário independentemente de a seleção ter sido válida ou não.</li>
+</ul>
+</li>
+<li>
+<p><strong>PMM999</strong> — Marcador de saída de parágrafo para a <code>PROCESS-MENU-MAP SECTION</code>. Contém apenas uma instrução <code>EXIT</code>.</p>
+</li>
+<li>
+<p><strong>RMM010</strong> — Recebe os dados do mapa BMS enviados pelo usuário a partir do terminal. Emite <code>EXEC CICS RECEIVE MAP('BNK1ME') MAPSET('BNK1MAI') INTO(BNK1MEI)</code> com captura de <code>RESP</code>/<code>RESP2</code>. O tratamento condicional de erros segue:</p>
+<ul>
+<li>Se a resposta for <code>MAPFAIL</code> (por exemplo, nenhum dado inserido, tecla CLEAR ou PA pressionada), a área de saída do mapa é limpa, o cursor é reposicionado, <code>SEND-ERASE</code> é definido e <code>SEND-MAP</code> é executado para reapresentar um menu limpo.</li>
+<li>Para qualquer outra resposta não normal, inicializa <code>ABNDINFO-REC</code>, captura <code>EIBRESP</code>/<code>EIBRESP2</code>, atribui <code>APPLID</code> e <code>PROGRAM</code>, chama <code>POPULATE-TIME-DATE</code>, constrói strings de diagnóstico, faz link para o tratador de abend e, em seguida, executa <code>ABEND-THIS-TASK</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>RMM999</strong> — Marcador de saída de parágrafo para a <code>RECEIVE-MENU-MAP SECTION</code>. Contém apenas uma instrução <code>EXIT</code>.</p>
+</li>
+<li>
+<p><strong>EMD010</strong> — Valida o campo de entrada de ação de menu do usuário (<code>ACTIONI</code>). Verifica se o valor é um dos caracteres aceitos: <code>'1'</code> a <code>'7'</code> ou <code>'A'</code>. Lógica condicional:</p>
+<ul>
+<li>Se o valor estiver fora deste conjunto aceito, uma mensagem de erro de validação (<code>'You must enter a valid value (1-7 or A).'</code>) é movida para o campo de saída de mensagem e <code>VALID-DATA-SW</code> é definido como <code>'N'</code>, impedindo a invocação de transações posteriores.</li>
+<li>Se o valor for válido, <code>ACTIONI</code> é movido para <code>ACTION-ALPHA</code> para uso pela lógica subsequente.</li>
+</ul>
+</li>
+<li>
+<p><strong>EMD999</strong> — Marcador de saída de parágrafo para a <code>EDIT-MENU-DATA SECTION</code>. Contém apenas uma instrução <code>EXIT</code>.</p>
+</li>
+<li>
+<p><strong>IOT010</strong> — Despacha o controle para a subtransação bancária apropriada com base na seleção de menu validada. Avalia <code>ACTIONI</code> por meio de uma série de instruções <code>IF</code> independentes, cada uma emitindo <code>EXEC CICS RETURN TRANSID(...) IMMEDIATE</code> para transferir imediatamente o controle para a transação de destino sem aguardar nova entrada do terminal:</p>
+<ul>
+<li><code>'1'</code> → Transação <code>ODCS</code> — Exibir Detalhes do Cliente.</li>
+<li><code>'2'</code> → Transação <code>ODAC</code> — Exibir Detalhes da Conta.</li>
+<li><code>'3'</code> → Transação <code>OCCS</code> — Criar um Cliente.</li>
+<li><code>'4'</code> → Transação <code>OCAC</code> — Criar uma Conta.</li>
+<li><code>'5'</code> → Transação <code>OUAC</code> — Atualizar uma Conta.</li>
+<li><code>'6'</code> → Transação <code>OCRA</code> — Creditar/Debitar fundos em uma Conta.</li>
+<li><code>'7'</code> → Transação <code>OTFN</code> — Transferir fundos entre Contas.</li>
+<li><code>'A'</code> → Transação <code>OCCA</code> — Consultar Contas de um determinado Cliente.</li>
+<li>Para cada chamada <code>EXEC CICS RETURN</code>, uma resposta não normal é tratada construindo o registro de diagnóstico <code>ABNDINFO-REC</code>, chamando <code>POPULATE-TIME-DATE</code>, fazendo link para o tratador de abend e, em seguida, executando <code>ABEND-THIS-TASK</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>IOT999</strong> — Marcador de saída de parágrafo para a <code>INVOKE-OTHER-TXNS SECTION</code>. Contém apenas uma instrução <code>EXIT</code>.</p>
+</li>
+<li>
+<p><strong>SMM010</strong> — Envia o mapa BMS <code>BNK1ME</code> do mapset <code>BNK1MAI</code> para o terminal. Utiliza os nomes de condição <code>SEND-FLAG</code> para selecionar o modo de envio apropriado:</p>
+<ul>
+<li>Se <code>SEND-ERASE</code> for TRUE, emite <code>EXEC CICS SEND MAP ... ERASE FREEKB</code> para limpar toda a tela e gravar tanto o conteúdo estático do mapa quanto os dados da aplicação. Após um envio bem-sucedido, o controle salta diretamente para <code>SMM999</code> via <code>GO TO</code>.</li>
+<li>Se <code>SEND-DATAONLY</code> for TRUE, emite <code>EXEC CICS SEND MAP ... DATAONLY FREEKB</code> para atualizar apenas os campos de dados variáveis sem redesenhar os elementos estáticos. Após o sucesso, <code>GO TO SMM999</code>.</li>
+<li>Se <code>SEND-DATAONLY-ALARM</code> for TRUE, emite <code>EXEC CICS SEND MAP ... DATAONLY ALARM FREEKB</code> para atualizar os campos de dados e simultaneamente acionar um alerta sonoro no terminal, utilizado para sinalizar entradas inválidas.</li>
+<li>Cada variante de envio verifica <code>WS-CICS-RESP</code>; uma resposta não normal aciona a sequência padrão de tratamento de abend: popular <code>ABNDINFO-REC</code>, chamar <code>POPULATE-TIME-DATE</code>, fazer link para <code>ABNDPROC</code> e executar <code>ABEND-THIS-TASK</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>SMM999</strong> — Marcador de saída de parágrafo e destino de <code>GO TO</code> para a <code>SEND-MAP SECTION</code>. Contém apenas uma instrução <code>EXIT</code>; as instruções <code>GO TO SMM999</code> nos ramos ERASE e DATAONLY causam saída antecipada após um envio bem-sucedido, ignorando as verificações de modo subsequentes.</p>
+</li>
+<li>
+<p><strong>STM010</strong> — Envia uma mensagem de encerramento em texto simples ao terminal quando o usuário sai do menu bancário. Emite <code>EXEC CICS SEND TEXT FROM(END-OF-SESSION-MESSAGE) ERASE FREEKB</code>, que exibe o texto <code>'Session Ended'</code> e limpa a tela. Se o envio falhar com uma resposta não normal, a sequência padrão de tratamento de abend é invocada: popular <code>ABNDINFO-REC</code>, chamar <code>POPULATE-TIME-DATE</code>, fazer link para <code>ABNDPROC</code> e executar <code>ABEND-THIS-TASK</code>.</p>
+</li>
+<li>
+<p><strong>STM999</strong> — Marcador de saída de parágrafo para a <code>SEND-TERMINATION-MSG SECTION</code>. Contém apenas uma instrução <code>EXIT</code>.</p>
+</li>
+<li>
+<p><strong>ATT010</strong> — Encerra a tarefa CICS de forma anormal após um erro não recuperável. Primeiro emite um <code>DISPLAY WS-FAIL-INFO</code> para gravar a descrição da falha (incluindo o nome do programa, mensagem de erro, códigos RESP e RESP2) no log do sistema CICS. Em seguida, emite <code>EXEC CICS ABEND ABCODE('HBNK') NODUMP</code> para encerrar anormalmente a tarefa com o código de abend de quatro caracteres <code>HBNK</code>. A opção <code>NODUMP</code> suprime a geração de um dump de transação, mantendo o encerramento leve.</p>
+</li>
+<li>
+<p><strong>ATT999</strong> — Marcador de saída de parágrafo para a <code>ABEND-THIS-TASK SECTION</code>. Contém apenas uma instrução <code>EXIT</code>.</p>
+</li>
+<li>
+<p><strong>PTD010</strong> — Recupera e formata a data e hora atuais do sistema para uso nos registros de diagnóstico de abend. Executa duas chamadas CICS sequenciais:</p>
+<ul>
+<li><code>EXEC CICS ASKTIME ABSTIME(WS-U-TIME)</code> — recupera o tempo absoluto atual (milissegundos desde 1º de janeiro de 1900) no campo decimal compactado <code>WS-U-TIME</code>.</li>
+<li><code>EXEC CICS FORMATTIME ABSTIME(WS-U-TIME) DDMMYYYY(WS-ORIG-DATE) TIME(WS-TIME-NOW) DATESEP</code> — converte o tempo absoluto em uma data legível por humanos no formato <code>DD/MM/YYYY</code> (armazenada em <code>WS-ORIG-DATE</code>) e um valor de hora de seis dígitos (<code>HHMMSS</code>) armazenado em <code>WS-TIME-NOW</code>, que é acessado por meio de seus subcampos <code>REDEFINES</code> (<code>WS-TIME-NOW-GRP-HH</code>, <code>WS-TIME-NOW-GRP-MM</code>) para construir a string <code>ABND-TIME</code> nos tratadores de abend.</li>
+</ul>
+</li>
+<li>
+<p><strong>PTD999</strong> — Marcador de saída de parágrafo para a <code>POPULATE-TIME-DATE SECTION</code>. Contém apenas uma instrução <code>EXIT</code>.</p>
+</li>
+</ul>
+<h2 id="6-dependencies" tabindex="-1">6. Dependencies</h2>
+<h3 id="61-recursos-bms-do-cics" tabindex="-1">6.1 Recursos BMS do CICS</h3>
+<ul>
+<li><strong>Mapa BMS: <code>BNK1ME</code></strong> — O mapa de tela de terminal interativo utilizado para todas as operações de exibição e entrada. Enviado via <code>EXEC CICS SEND MAP</code> (com as opções ERASE, DATAONLY ou DATAONLY+ALARM) e recebido via <code>EXEC CICS RECEIVE MAP</code>. Apresenta o menu bancário e captura a seleção de ação do usuário.</li>
+<li><strong>Mapset BMS: <code>BNK1MAI</code></strong> — O mapset BMS que contém o mapa <code>BNK1ME</code>. Referenciado em todos os comandos <code>EXEC CICS SEND MAP</code> e <code>EXEC CICS RECEIVE MAP</code>. Incorporado à Working Storage via <code>COPY BNK1MAI</code>, que define as estruturas de mapa simbólico <code>BNK1MEI</code> (entrada) e <code>BNK1MEO</code> (saída), incluindo os campos <code>ACTIONI</code>, <code>ACTIONL</code> e <code>MESSAGEO</code>.</li>
+</ul>
+<h3 id="62-transaes-cics-invocadas" tabindex="-1">6.2 Transações CICS Invocadas</h3>
+<ul>
+<li><strong>Transação <code>OMEN</code></strong> — O identificador de transação autorreferencial do próprio programa do menu bancário. Utilizado em <code>EXEC CICS RETURN TRANSID('OMEN')</code> para implementar o laço pseudo-conversacional, reinvocando BNKMENU após cada interação do usuário.</li>
+<li><strong>Transação <code>ODCS</code></strong> <em>(opção de menu 1)</em> — Exibir Detalhes do Cliente. Invocada via <code>EXEC CICS RETURN TRANSID('ODCS') IMMEDIATE</code> quando o usuário seleciona a opção 1.</li>
+<li><strong>Transação <code>ODAC</code></strong> <em>(opção de menu 2)</em> — Exibir Detalhes da Conta. Invocada via <code>EXEC CICS RETURN TRANSID('ODAC') IMMEDIATE</code> quando o usuário seleciona a opção 2.</li>
+<li><strong>Transação <code>OCCS</code></strong> <em>(opção de menu 3)</em> — Criar um Cliente. Invocada via <code>EXEC CICS RETURN TRANSID('OCCS') IMMEDIATE</code> quando o usuário seleciona a opção 3.</li>
+<li><strong>Transação <code>OCAC</code></strong> <em>(opção de menu 4)</em> — Criar uma Conta. Invocada via <code>EXEC CICS RETURN TRANSID('OCAC') IMMEDIATE</code> quando o usuário seleciona a opção 4.</li>
+<li><strong>Transação <code>OUAC</code></strong> <em>(opção de menu 5)</em> — Atualizar uma Conta. Invocada via <code>EXEC CICS RETURN TRANSID('OUAC') IMMEDIATE</code> quando o usuário seleciona a opção 5.</li>
+<li><strong>Transação <code>OCRA</code></strong> <em>(opção de menu 6)</em> — Creditar/Debitar Fundos. Invocada via <code>EXEC CICS RETURN TRANSID('OCRA') IMMEDIATE</code> quando o usuário seleciona a opção 6.</li>
+<li><strong>Transação <code>OTFN</code></strong> <em>(opção de menu 7)</em> — Transferir Fundos. Invocada via <code>EXEC CICS RETURN TRANSID('OTFN') IMMEDIATE</code> quando o usuário seleciona a opção 7.</li>
+<li><strong>Transação <code>OCCA</code></strong> <em>(opção de menu A)</em> — Consultar Contas de um Cliente. Invocada via <code>EXEC CICS RETURN TRANSID('OCCA') IMMEDIATE</code> quando o usuário seleciona a opção A.</li>
+</ul>
+<h3 id="63-programas-externos-exec-cics-link" tabindex="-1">6.3 Programas Externos (<code>EXEC CICS LINK</code>)</h3>
+<ul>
+<li><strong><code>ABNDPROC</code></strong> — Programa centralizador de tratamento de abend. Chamado via <code>EXEC CICS LINK PROGRAM(WS-ABEND-PGM)</code> com <code>COMMAREA(ABNDINFO-REC)</code> sempre que qualquer comando CICS retornar uma resposta não normal. Recebe a estrutura <code>ABNDINFO-REC</code> totalmente preenchida, contendo dados de diagnóstico (códigos RESP, APPLID, número da tarefa, identificador de transação, data, hora, nome do programa e uma descrição de erro em formato livre).</li>
+</ul>
+<h3 id="64-copybooks" tabindex="-1">6.4 Copybooks</h3>
+<ul>
+<li><strong><code>BNK1MAI</code></strong> — Copybook de mapa simbólico BMS incluído via <code>COPY BNK1MAI</code>. Define as estruturas de mapa simbólico de entrada (<code>BNK1MEI</code>) e saída (<code>BNK1MEO</code>) para o mapa <code>BNK1ME</code>, incluindo o campo de entrada do usuário <code>ACTIONI</code>/<code>ACTIONL</code> e o campo de saída de mensagem <code>MESSAGEO</code>.</li>
+<li><strong><code>DFHAID</code></strong> — Copybook fornecido pelo CICS, incluído via <code>COPY DFHAID</code>. Fornece as constantes padrão de identificador de atenção (AID) (<code>DFHENTER</code>, <code>DFHPF3</code>, <code>DFHPF12</code>, <code>DFHCLEAR</code>, <code>DFHPA1</code>, <code>DFHPA2</code>, <code>DFHPA3</code>) utilizadas para identificar qual tecla o usuário pressionou.</li>
+<li><strong><code>ABNDINFO</code></strong> <em>(expandido inline)</em> — Copybook do registro de informações de abend. A instrução <code>COPY ABNDINFO</code> está comentada e seu conteúdo é expandido inline (linhas 111–126). Define a estrutura <code>ABNDINFO-REC</code> utilizada para passar dados de diagnóstico ao handler de erros <code>ABNDPROC</code>.</li>
+</ul>
+<h3 id="65-servios-de-runtime-do-cics" tabindex="-1">6.5 Serviços de Runtime do CICS</h3>
+<ul>
+<li><strong><code>EXEC CICS RETURN TRANSID</code></strong> — Mecanismo de retorno pseudo-conversacional. Utilizado tanto para o laço próprio (<code>OMEN</code>) quanto para a transferência imediata a transações bancárias subordinadas. Passa uma <code>COMMUNICATION-AREA</code> mínima de 1 byte.</li>
+<li><strong><code>EXEC CICS RECEIVE MAP</code></strong> — Recebe dados de entrada do terminal a partir do mapa BMS <code>BNK1ME</code>/<code>BNK1MAI</code> na área de mapa simbólico <code>BNK1MEI</code>.</li>
+<li><strong><code>EXEC CICS SEND MAP</code></strong> — Envia o mapa <code>BNK1ME</code> para o terminal em um de três modos: ERASE completo, DATAONLY ou DATAONLY com ALARM.</li>
+<li><strong><code>EXEC CICS SEND TEXT</code></strong> — Envia uma mensagem de encerramento em texto simples (<code>'Session Ended'</code>) quando o usuário pressiona PF3 ou PF12.</li>
+<li><strong><code>EXEC CICS SEND CONTROL</code></strong> — Envia um comando somente de controle (ERASE + FREEKB) para limpar o terminal quando a tecla CLEAR é pressionada.</li>
+<li><strong><code>EXEC CICS ASSIGN</code></strong> — Utilizado para recuperar valores do sistema em tempo de execução: <code>APPLID</code> (identificador da aplicação) e <code>PROGRAM</code> (nome do programa atual), ambos armazenados no registro de diagnóstico de abend.</li>
+<li><strong><code>EXEC CICS ASKTIME</code></strong> — Recupera o tempo absoluto atual (<code>ABSTIME</code>) em <code>WS-U-TIME</code> para uso em registros de abend e formatação de hora.</li>
+<li><strong><code>EXEC CICS FORMATTIME</code></strong> — Formata o tempo absoluto em uma data legível (<code>DDMMYYYY</code> em <code>WS-ORIG-DATE</code>) e hora (<code>WS-TIME-NOW</code>) para preenchimento nos registros de diagnóstico de abend.</li>
+<li><strong><code>EXEC CICS ABEND</code></strong> — Emite um abend CICS definitivo com o código de abend <code>HBNK</code> e <code>NODUMP</code> quando um erro irrecuperável é detectado, encerrando a tarefa.</li>
+<li><strong><code>EXEC CICS LINK</code></strong> — Vincula ao programa externo <code>ABNDPROC</code> com a COMMAREA de informações de abend preenchida.</li>
+</ul>
+<h3 id="66-eib-do-cics-bloco-de-interface-de-execuo--campos" tabindex="-1">6.6 EIB do CICS (Bloco de Interface de Execução) — Campos</h3>
+<ul>
+<li><strong><code>EIBCALEN</code></strong> — Verificado na entrada do programa para determinar se esta é a primeira invocação (comprimento zero = primeira entrada, disparando o envio do mapa com ERASE).</li>
+<li><strong><code>EIBAID</code></strong> — Contém o identificador de atenção da tecla pressionada pelo usuário; comparado com as constantes DFHAID para desviar ao caminho de processamento adequado.</li>
+<li><strong><code>EIBRESP</code> / <code>EIBRESP2</code></strong> — Códigos de resposta primário e secundário do CICS, copiados para o registro de diagnóstico de abend em qualquer falha de comando CICS.</li>
+<li><strong><code>EIBTASKN</code></strong> — Número da tarefa atual, armazenado no registro de abend como <code>ABND-TASKNO-KEY</code>.</li>
+<li><strong><code>EIBTRNID</code></strong> — Identificador da transação atual, armazenado no registro de abend como <code>ABND-TRANID</code>.</li>
+</ul>
+<h3 id="67-definio-de-transao-cics" tabindex="-1">6.7 Definição de Transação CICS</h3>
+<ul>
+<li><strong>ID de Transação <code>OMEN</code></strong> — Deve ser definido no CSD do CICS (Control Store Definition) e mapeado para o programa <code>BNKMENU</code>. O programa depende que esta definição de transação esteja presente para que o laço <code>RETURN TRANSID</code> pseudo-conversacional funcione corretamente.</li>
+</ul>
+<h3 id="68-parmetros-de-entrada" tabindex="-1">6.8 Parâmetros de Entrada</h3>
+<ul>
+<li><strong><code>DFHCOMMAREA</code> (Seção de Ligação, 1 byte)</strong> — A área de comunicação passada em cada reinvocação pseudo-conversacional. Sua presença (indicada por <code>EIBCALEN &gt; 0</code>) sinaliza que esta não é a primeira entrada no programa. Seu conteúdo não é interrogado; apenas seu comprimento é verificado.</li>
+</ul>
+<h2 id="7-constraints" tabindex="-1">7. Constraints</h2>
+<h3 id="71-restries-de-validao-de-entrada" tabindex="-1">7.1 Restrições de Validação de Entrada</h3>
+<ul>
+<li>
+<p><strong>O campo de ação do menu é obrigatório e deve ser um único caractere de um conjunto enumerado</strong></p>
+<ul>
+<li>Aplicado em <code>EDIT-MENU-DATA</code> (linhas 387–398): <code>ACTIONI</code> é testado contra cada um dos valores <code>'1'</code>, <code>'2'</code>, <code>'3'</code>, <code>'4'</code>, <code>'5'</code>, <code>'6'</code>, <code>'7'</code> e <code>'A'</code> usando condições explícitas de desigualdade</li>
+<li>Qualquer valor fora deste conjunto faz com que <code>VALID-DATA-SW</code> seja definido como <code>'N'</code>, uma mensagem de erro descritiva (<code>'You must enter a valid value (1-7 or A).'</code>) seja colocada em <code>MESSAGEO</code>, e o terminal seja atualizado com um alarme sonoro (<code>SEND-DATAONLY-ALARM</code>)</li>
+<li>O campo <code>ACTIONI</code> é um campo de entrada BMS de um único caractere; nenhuma outra verificação de comprimento ou formato é aplicada além do teste de enumeração</li>
+</ul>
+</li>
+<li>
+<p><strong>A validação deve ser aprovada antes que qualquer transação downstream seja invocada</strong></p>
+<ul>
+<li>Aplicado em <code>PROCESS-MENU-MAP</code> (linhas 281–283): <code>PERFORM INVOKE-OTHER-TXNS</code> é protegido por <code>IF VALID-DATA</code>, o que significa que <code>INVOKE-OTHER-TXNS</code> só é alcançado quando <code>VALID-DATA-SW = 'Y'</code></li>
+<li>A validação (<code>EDIT-MENU-DATA</code>) deve ser concluída antes que a porta de despacho seja avaliada</li>
+</ul>
+</li>
+<li>
+<p><strong>O RECEIVE do MAP deve ser bem-sucedido antes que a validação possa prosseguir</strong></p>
+<ul>
+<li>Aplicado em <code>RECEIVE-MENU-MAP</code> (linhas 309–376): se <code>EXEC CICS RECEIVE MAP</code> retornar <code>MAPFAIL</code>, a tela é reenviada com ERASE e o cursor no campo de ação; nenhum processamento adicional dos dados do usuário ocorre</li>
+<li>Qualquer outra resposta CICS não normal causa um abend imediato via <code>ABEND-THIS-TASK</code>; validação e despacho não são alcançados</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="72-restries-de-interao-com-o-terminal-identificador-de-ateno" tabindex="-1">7.2 Restrições de Interação com o Terminal (Identificador de Atenção)</h3>
+<ul>
+<li>
+<p><strong>Apenas a tecla ENTER aciona o processamento de dados</strong></p>
+<ul>
+<li>Aplicado no bloco principal <code>EVALUATE TRUE</code> (linhas 138–192): <code>WHEN EIBAID = DFHENTER</code> é o único ramo que chama <code>PROCESS-MENU-MAP</code>; todas as outras teclas AID são roteadas para resultados diferentes</li>
+</ul>
+</li>
+<li>
+<p><strong>PF3 ou PF12 encerra a sessão incondicionalmente</strong></p>
+<ul>
+<li>Aplicado nas linhas 158–163: pressionar qualquer uma das teclas aciona <code>SEND-TERMINATION-MSG</code> seguido imediatamente por <code>EXEC CICS RETURN</code> (sem TRANSID), encerrando a tarefa; nenhuma entrada do usuário é processada</li>
+</ul>
+</li>
+<li>
+<p><strong>A tecla CLEAR apaga a tela e encerra a tarefa sem retornar ao menu</strong></p>
+<ul>
+<li>Aplicado nas linhas 168–174: <code>EXEC CICS SEND CONTROL ERASE FREEKB</code> é emitido, seguido de <code>EXEC CICS RETURN</code>; o ciclo pseudo-conversacional não reaposta a transação de menu</li>
+</ul>
+</li>
+<li>
+<p><strong>As teclas PA1, PA2 e PA3 são silenciosamente ignoradas</strong></p>
+<ul>
+<li>Aplicado nas linhas 152–153: <code>WHEN EIBAID = DFHPA1 OR DFHPA2 OR DFHPA3</code> é mapeado para <code>CONTINUE</code>; o programa continua para emitir <code>EXEC CICS RETURN TRANSID('OMEN')</code> e reapostar a mesma tela sem nenhum processamento</li>
+</ul>
+</li>
+<li>
+<p><strong>Qualquer tecla de atenção não reconhecida é rejeitada com um alarme</strong></p>
+<ul>
+<li>Aplicado nas linhas 185–190: o ramo <code>WHEN OTHER</code> define a mensagem <code>'Invalid key pressed.'</code>, redefine a saída do mapa para <code>LOW-VALUES</code> e define <code>SEND-DATAONLY-ALARM</code>, atualizando a tela com um alerta sonoro</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="73-restries-de-sequenciamento-e-fluxo" tabindex="-1">7.3 Restrições de Sequenciamento e Fluxo</h3>
+<ul>
+<li>
+<p><strong>A detecção de primeira entrada é obrigatória antes que o modo de exibição do mapa possa ser escolhido</strong></p>
+<ul>
+<li>Aplicado nas linhas 143–147: <code>WHEN EIBCALEN = ZERO</code> identifica a primeira invocação (sem COMMAREA presente); o programa incondicionalmente define <code>SEND-ERASE</code> e limpa a saída do mapa para <code>LOW-VALUE</code>; nenhum processamento de entrada é tentado</li>
+<li>Nas invocações subsequentes, <code>EIBCALEN</code> será diferente de zero (comprimento do COMMAREA é 1), portanto este ramo é ignorado</li>
+</ul>
+</li>
+<li>
+<p><strong>O recebimento do mapa deve preceder a edição de dados, que deve preceder o despacho de transações</strong></p>
+<ul>
+<li>Aplicado pela sequência de chamadas fixa em <code>PROCESS-MENU-MAP</code> (linhas 273–283): <code>PERFORM RECEIVE-MENU-MAP</code> → <code>PERFORM EDIT-MENU-DATA</code> → <code>IF VALID-DATA PERFORM INVOKE-OTHER-TXNS</code>; estas três etapas não podem ser reordenadas</li>
+</ul>
+</li>
+<li>
+<p><strong>Um SEND-MAP deve sempre ser executado ao final de <code>PROCESS-MENU-MAP</code>, independentemente do resultado da validação</strong></p>
+<ul>
+<li>Aplicado nas linhas 285–290: <code>SET SEND-DATAONLY-ALARM TO TRUE</code> e <code>PERFORM SEND-MAP</code> aparecem incondicionalmente após a porta de validação, garantindo que o terminal sempre receba uma resposta mesmo quando uma transferência de transação não é invocada</li>
+</ul>
+</li>
+<li>
+<p><strong>O despacho de transações é mutuamente exclusivo por valor de tecla; apenas o ramo correspondente é acionado</strong></p>
+<ul>
+<li>Aplicado em <code>INVOKE-OTHER-TXNS</code> (linhas 413–992): cada valor de ação (<code>'1'</code>–<code>'7'</code>, <code>'A'</code>) é testado em uma instrução <code>IF</code> separada; cada ramo bem-sucedido emite <code>EXEC CICS RETURN TRANSID(...) IMMEDIATE</code>, que transfere o controle para fora da tarefa atual, portanto apenas uma transação pode ser iniciada por ciclo</li>
+</ul>
+</li>
+<li>
+<p><strong><code>EXEC CICS RETURN TRANSID('OMEN')</code> é sempre a instrução final do fluxo principal</strong></p>
+<ul>
+<li>Aplicado nas linhas 197–203: após o bloco <code>EVALUATE</code> ser concluído (que por si mesmo pode incluir um <code>PERFORM</code> que emite seu próprio <code>RETURN</code>), o programa incondicionalmente emite <code>EXEC CICS RETURN TRANSID('OMEN') COMMAREA(COMMUNICATION-AREA) LENGTH(1)</code>, repostando o menu bancário como a próxima transação para o terminal</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="74-restries-da-rea-de-comunicao-commarea" tabindex="-1">7.4 Restrições da Área de Comunicação (COMMAREA)</h3>
+<ul>
+<li>
+<p><strong>O COMMAREA passado no retorno pseudo-conversacional tem exatamente 1 byte fixo</strong></p>
+<ul>
+<li>Aplicado nas linhas 197–203: <code>LENGTH(1)</code> é codificado diretamente em <code>EXEC CICS RETURN TRANSID('OMEN')</code>; o campo <code>COMMUNICATION-AREA</code> é declarado como <code>PIC X</code> (um byte)</li>
+<li>O único propósito deste COMMAREA é tornar <code>EIBCALEN</code> diferente de zero na próxima invocação, distinguindo entradas subsequentes da primeira</li>
+</ul>
+</li>
+<li>
+<p><strong>O conteúdo do COMMAREA nunca é lido ou inspecionado</strong></p>
+<ul>
+<li>A <code>LINKAGE SECTION</code> declara <code>DFHCOMMAREA PIC X</code> (linha 131), mas nenhum código na <code>PROCEDURE DIVISION</code> o referencia; o único uso do COMMAREA é sua existência (<code>EIBCALEN</code> diferente de zero) para ignorar o ramo de primeira entrada</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="75-restries-do-modo-de-envio-de-tela" tabindex="-1">7.5 Restrições do Modo de Envio de Tela</h3>
+<ul>
+<li>
+<p><strong>Exatamente um dos três modos de envio deve estar ativo antes que <code>SEND-MAP</code> seja chamado</strong></p>
+<ul>
+<li>Aplicado pela exclusividade mútua dos valores de <code>SEND-FLAG</code> (<code>'1'</code> = ERASE, <code>'2'</code> = DATAONLY, <code>'3'</code> = DATAONLY+ALARM); a seção <code>SEND-MAP</code> testa cada flag em ordem com <code>IF</code> / <code>GO TO SMM999</code>, portanto apenas o primeiro flag correspondente é acionado</li>
+<li>Se nenhum dos três flags estiver definido, <code>SEND-MAP</code> sai silenciosamente sem enviar nada — uma restrição implícita de que o chamador deve sempre definir o flag antes de invocar <code>SEND-MAP</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Um envio com ERASE causa uma saída imediata de <code>SEND-MAP</code> via <code>GO TO SMM999</code></strong></p>
+<ul>
+<li>Aplicado na linha 1074: após o ramo ERASE ser concluído (ou seu tratamento de erros ser executado), <code>GO TO SMM999</code> impede que os ramos DATAONLY sejam avaliados na mesma invocação; o mesmo padrão se aplica ao ramo DATAONLY na linha 1151</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="76-restries-de-tratamento-de-erros-e-abend" tabindex="-1">7.6 Restrições de Tratamento de Erros e Abend</h3>
+<ul>
+<li>
+<p><strong>Todo comando CICS deve retornar <code>DFHRESP(NORMAL)</code>; qualquer resposta não normal é uma condição fatal</strong></p>
+<ul>
+<li>Aplicado uniformemente após cada comando <code>EXEC CICS</code>: <code>IF WS-CICS-RESP NOT = DFHRESP(NORMAL)</code> aciona o caminho de abend — popula <code>ABNDINFO-REC</code>, vincula a <code>ABNDPROC</code> e chama <code>ABEND-THIS-TASK</code></li>
+<li>Aplica-se a: <code>EXEC CICS RECEIVE MAP</code>, <code>EXEC CICS SEND MAP</code> (todos os três modos), <code>EXEC CICS SEND TEXT</code>, <code>EXEC CICS RETURN TRANSID(...)</code> para todas as oito opções de menu e o <code>EXEC CICS RETURN TRANSID('OMEN')</code> final</li>
+</ul>
+</li>
+<li>
+<p><strong><code>MAPFAIL</code> no RECEIVE MAP é a única resposta CICS não normal tratada de forma não fatal</strong></p>
+<ul>
+<li>Aplicado nas linhas 311–315: <code>IF WS-CICS-RESP = DFHRESP(MAPFAIL)</code> reenvia o mapa com ERASE e retorna sem provocar abend; todas as outras respostas não normais são fatais</li>
+</ul>
+</li>
+<li>
+<p><strong>O código de abend é fixo como <code>'HBNK'</code> para todas as condições de erro neste programa</strong></p>
+<ul>
+<li>Aplicado na linha 1317: <code>EXEC CICS ABEND ABCODE('HBNK') NODUMP</code>; o mesmo literal também é movido para <code>ABND-CODE</code> em cada caminho de erro</li>
+</ul>
+</li>
+<li>
+<p><strong>As informações de diagnóstico devem ser totalmente preenchidas antes de vincular ao manipulador de abend</strong></p>
+<ul>
+<li>Aplicado pela sequência consistente em cada caminho de erro: <code>INITIALIZE ABNDINFO-REC</code> → mover RESP/RESP2 → <code>EXEC CICS ASSIGN APPLID</code> → mover campos de tarefa/transação → <code>PERFORM POPULATE-TIME-DATE</code> → construir string <code>ABND-TIME</code> → mover U-TIME → mover código de abend → <code>EXEC CICS ASSIGN PROGRAM</code> → mover código SQL (zero) → construir <code>ABND-FREEFORM</code> → <code>EXEC CICS LINK PROGRAM(WS-ABEND-PGM)</code>; esta sequência deve ser concluída na íntegra antes que <code>ABEND-THIS-TASK</code> seja chamado</li>
+</ul>
+</li>
+<li>
+<p><strong>O registro de diagnóstico de abend tem um máximo fixo de 600 caracteres para a descrição de formato livre</strong></p>
+<ul>
+<li>Aplicado pela declaração de <code>ABND-FREEFORM PIC X(600)</code> (linha 126); as instruções STRING que o preenchem são todas delimitadas por <code>DELIMITED BY SIZE</code>, portanto o overflow é silenciosamente truncado em 600 bytes</li>
+</ul>
+</li>
+<li>
+<p><strong><code>POPULATE-TIME-DATE</code> deve ser chamado antes que quaisquer campos de hora/data em <code>ABNDINFO-REC</code> sejam preenchidos</strong></p>
+<ul>
+<li>Aplicado pela ordenação em cada caminho de erro: <code>PERFORM POPULATE-TIME-DATE</code> é sempre chamado antes de <code>MOVE WS-ORIG-DATE TO ABND-DATE</code> e da construção STRING de <code>ABND-TIME</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="77-anomalia-de-codificao-conhecida-violao-de-restrio-implcita" tabindex="-1">7.7 Anomalia de Codificação Conhecida (Violação de Restrição Implícita)</h3>
+<ul>
+<li><strong>O componente de segundos de <code>ABND-TIME</code> é incorretamente preenchido com o valor dos minutos</strong>
+<ul>
+<li>Nas linhas 231, 343, 447, 519, 591, 663, 735, 807, 881, 955, 1041, 1115, 1191, 1271: a construção STRING de <code>ABND-TIME</code> referencia <code>WS-TIME-NOW-GRP-MM</code> duas vezes (no lugar de <code>WS-TIME-NOW-GRP-SS</code> para o slot de segundos); o horário armazenado no registro de abend sempre mostrará <code>HH:MM:MM</code> em vez de <code>HH:MM:SS</code> — isso é um defeito em vez de uma restrição intencional, mas limita a precisão dos registros de data e hora de diagnóstico</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-error-handling" tabindex="-1">8. Error Handling</h2>
+<h3 id="81-validao-de-entrada" tabindex="-1">8.1 Validação de Entrada</h3>
+<ul>
+<li>
+<p><strong>Verificação de ação de menu inválida</strong> — Na seção <code>EDIT-MENU-DATA</code>, o campo de entrada <code>ACTIONI</code> é testado explicitamente contra o conjunto completo de valores aceitos (<code>'1'</code> a <code>'7'</code> e <code>'A'</code>). Se o valor não corresponder a nenhum deles, a condição é considerada inválida.</p>
+<ul>
+<li>O sinalizador <code>VALID-DATA-SW</code> é definido como <code>'N'</code>, ativando o caminho de falha.</li>
+<li>Uma mensagem descritiva inline, <code>'You must enter a valid value (1-7 or A).'</code>, é gravada no campo de mapa <code>MESSAGEO</code> para notificar o usuário no terminal.</li>
+<li>A invocação da transação subsequente é bloqueada: a guarda <code>IF VALID-DATA</code> em <code>PROCESS-MENU-MAP</code> impede que <code>INVOKE-OTHER-TXNS</code> seja executado quando <code>VALID-DATA-SW</code> contém <code>'N'</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Tecla de identificação de atenção (AID) inválida</strong> — No bloco principal <code>EVALUATE TRUE</code> da seção <code>PREMIERE</code>, qualquer tecla de atenção não tratada explicitamente (diferente de Enter, PF3, PF12, PA1–PA3 ou CLEAR) cai no ramo <code>WHEN OTHER</code>.</p>
+<ul>
+<li>A área de saída do mapa é limpa com valores baixos e a mensagem <code>'Invalid key pressed.'</code> é colocada no campo <code>MESSAGEO</code>.</li>
+<li>O cursor é reposicionado para o campo de entrada de ação (comprimento definido como <code>-1</code>), e a tela é atualizada via <code>SEND-DATAONLY-ALARM</code>, produzindo uma atualização visual combinada com um alarme sonoro no terminal.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="82-tratamento-de-erros-de-es-de-terminal" tabindex="-1">8.2 Tratamento de Erros de E/S de Terminal</h3>
+<p>Cada comando CICS voltado ao terminal captura seus códigos de resposta em <code>WS-CICS-RESP</code> e <code>WS-CICS-RESP2</code> por meio das opções <code>RESP</code>/<code>RESP2</code>, e cada comando é seguido de uma verificação explícita de resposta não normal (<code>IF WS-CICS-RESP NOT = DFHRESP(NORMAL)</code>).</p>
+<ul>
+<li>
+<p><strong>Falha no <code>EXEC CICS RECEIVE MAP</code></strong> — Na seção <code>RECEIVE-MENU-MAP</code>, se o recebimento do mapa falhar:</p>
+<ul>
+<li>Se a resposta específica for <code>DFHRESP(MAPFAIL)</code> (significando que o usuário enviou a tela sem inserir dados), ela é tratada como uma condição recuperável: o mapa é atualizado com um envio <code>ERASE</code> em vez de acionar um abend.</li>
+<li>Para qualquer outra resposta não normal, o caminho completo de diagnóstico de abend é seguido (descrito abaixo).</li>
+</ul>
+</li>
+<li>
+<p><strong>Falha no <code>EXEC CICS SEND MAP</code> (modo <code>ERASE</code>)</strong> — Na seção <code>SEND-MAP</code>, a falha no envio do mapa com apagamento completo aciona o caminho de diagnóstico de abend com o descritor <code>'SMM010 - SEND MAP ERASE FAIL'</code>.</p>
+</li>
+<li>
+<p><strong>Falha no <code>EXEC CICS SEND MAP</code> (modo <code>DATAONLY</code>)</strong> — A falha em uma atualização de mapa apenas com dados aciona o caminho de diagnóstico de abend com o descritor <code>'SMM010 - SEND MAP DATAONLY FAIL'</code>.</p>
+</li>
+<li>
+<p><strong>Falha no <code>EXEC CICS SEND MAP</code> (modo <code>DATAONLY ALARM</code>)</strong> — A falha no envio de mapa apenas com dados acompanhado de alarme aciona o caminho de diagnóstico de abend com o descritor <code>'SMM010 - SEND MAP DATAONLY ALARM FAIL'</code>.</p>
+</li>
+<li>
+<p><strong>Falha no <code>EXEC CICS SEND TEXT</code></strong> — Na seção <code>SEND-TERMINATION-MSG</code>, a falha no envio da mensagem de encerramento de sessão (<code>'Session Ended'</code>) aciona o caminho de diagnóstico de abend com o descritor <code>'STM010 - SEND TEXT FAIL'</code>.</p>
+</li>
+</ul>
+<hr>
+<h3 id="83-tratamento-de-erros-de-despacho-de-transao" tabindex="-1">8.3 Tratamento de Erros de Despacho de Transação</h3>
+<p>Cada uma das oito chamadas <code>EXEC CICS RETURN TRANSID … IMMEDIATE</code> do CICS (para as transações <code>ODCS</code>, <code>ODAC</code>, <code>OCCS</code>, <code>OCAC</code>, <code>OUAC</code>, <code>OCRA</code>, <code>OTFN</code> e <code>OCCA</code>) é individualmente protegida por uma verificação <code>RESP</code>/<code>RESP2</code>. Se algum desses comandos de retorno falhar com uma resposta não normal:</p>
+<ul>
+<li>O registro de diagnóstico de abend (<code>ABNDINFO-REC</code>) é populado com os códigos RESP relevantes, APPLID, número da tarefa, ID da transação, data/hora, nome do programa, código de abend <code>'HBNK'</code> e uma descrição livre identificando a transação específica (ex.: <code>'IOT010 - RETURN TRANSID(ODCS) FAIL'</code>).</li>
+<li>O controle é vinculado ao programa tratador de abend (<code>ABNDPROC</code>) via <code>EXEC CICS LINK</code>.</li>
+<li>A tarefa é então encerrada via <code>PERFORM ABEND-THIS-TASK</code>.</li>
+</ul>
+<hr>
+<h3 id="84-tratamento-de-erros-no-retorno-pseudo-conversacional" tabindex="-1">8.4 Tratamento de Erros no Retorno Pseudo-Conversacional</h3>
+<ul>
+<li><strong>Falha no <code>EXEC CICS RETURN TRANSID</code></strong> — Após o bloco principal <code>EVALUATE</code>, o programa emite um <code>EXEC CICS RETURN TRANSID('OMEN')</code> pseudo-conversacional com uma <code>COMMAREA</code> mínima. Se esse retorno falhar (resposta não normal em <code>WS-CICS-RESP</code>), o caminho completo de diagnóstico de abend é seguido com o descritor <code>'A010 - RETURN TRANSID(MENU) FAIL'</code>.</li>
+</ul>
+<hr>
+<h3 id="85-mecanismo-centralizado-de-diagnstico-de-abend-e-encerramento" tabindex="-1">8.5 Mecanismo Centralizado de Diagnóstico de Abend e Encerramento</h3>
+<p>Todos os caminhos de erro não recuperáveis no programa seguem um padrão uniforme de abend em múltiplas etapas:</p>
+<ul>
+<li>
+<p><strong>População do <code>ABNDINFO-REC</code></strong> — O registro é inicializado e populado com:</p>
+<ul>
+<li>Campos EIB do CICS: <code>EIBRESP</code> → <code>ABND-RESPCODE</code>, <code>EIBRESP2</code> → <code>ABND-RESP2CODE</code>, <code>EIBTASKN</code> → <code>ABND-TASKNO-KEY</code>, <code>EIBTRNID</code> → <code>ABND-TRANID</code>.</li>
+<li>APPLID recuperado via <code>EXEC CICS ASSIGN APPLID</code>.</li>
+<li>Nome do programa corrente recuperado via <code>EXEC CICS ASSIGN PROGRAM</code>.</li>
+<li>Data e hora populadas via a seção <code>POPULATE-TIME-DATE</code>, que chama <code>EXEC CICS ASKTIME</code> para obter o tempo absoluto e <code>EXEC CICS FORMATTIME</code> para formatá-lo em <code>WS-ORIG-DATE</code> (DD/MM/AAAA) e <code>WS-TIME-NOW</code> (HHMMSS).</li>
+<li>Uma string de diagnóstico livre identificando o parágrafo e o comando com falha, além de ambos os códigos de resposta, é montada em <code>ABND-FREEFORM</code> usando uma instrução <code>STRING</code>.</li>
+<li>O código SQL é zerado (<code>ABND-SQLCODE = ZEROS</code>), pois este programa não possui interação com o DB2.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>EXEC CICS LINK</code> para <code>ABNDPROC</code></strong> — O <code>ABNDINFO-REC</code> populado é passado como <code>COMMAREA</code> para o programa tratador de abend centralizado <code>ABNDPROC</code>, permitindo que ele registre as informações de diagnóstico.</p>
+</li>
+<li>
+<p><strong>Construção de <code>WS-FAIL-INFO</code> e <code>DISPLAY</code></strong> — Antes de emitir o abend do CICS, <code>WS-FAIL-INFO</code> é populado com o identificador do programa (<code>BNKMENU</code>), uma mensagem de falha legível e as representações decimais de <code>WS-CICS-RESP</code> e <code>WS-CICS-RESP2</code>. Este registro composto é gravado na saída padrão da tarefa CICS via uma instrução <code>DISPLAY</code> em <code>ABEND-THIS-TASK</code>.</p>
+</li>
+<li>
+<p><strong><code>EXEC CICS ABEND</code> com código <code>'HBNK'</code></strong> — A seção <code>ABEND-THIS-TASK</code> encerra a tarefa CICS emitindo <code>EXEC CICS ABEND ABCODE('HBNK') NODUMP</code>, que aciona um abend CICS com o código definido pela aplicação <code>HBNK</code> sem gerar um dump do sistema.</p>
+</li>
+</ul>
+<hr>
+<h3 id="86-notificao-ao-usurio-via-alarme-de-terminal" tabindex="-1">8.6 Notificação ao Usuário via Alarme de Terminal</h3>
+<ul>
+<li>Quando a validação de entrada falha ou uma tecla inválida é pressionada, o sinalizador <code>SEND-DATAONLY-ALARM</code> é definido como <code>TRUE</code> antes de executar <code>SEND-MAP</code>. Isso faz com que o mapa BMS seja enviado com as opções <code>DATAONLY</code> e <code>ALARM</code>, acionando um alerta sonoro no terminal além de exibir a mensagem de erro no campo <code>MESSAGEO</code>. Isso fornece um caminho de notificação imediato e sem abend para erros corrigíveis pelo usuário.</li>
+</ul>
+<h2 id="9-examples" tabindex="-1">9. Examples</h2>
+<h3 id="91-exemplo-1--primeira-entrada-sem-commarea-menu-exibido-pela-primeira-vez" tabindex="-1">9.1 Exemplo 1 — Primeira Entrada (Sem COMMAREA): Menu Exibido pela Primeira Vez</h3>
+<p><strong>Entrada:</strong></p>
+<ul>
+<li><code>EIBCALEN = 0</code> (sem COMMAREA anterior — primeira invocação da transação <code>OMEN</code>)</li>
+<li>Nenhuma tecla pressionada ainda (terminal acabou de iniciar a transação)</li>
+</ul>
+<p><strong>Saída Esperada:</strong></p>
+<ul>
+<li>O mapa BMS <code>BNK1ME</code> é enviado ao terminal com <code>ERASE</code>, limpando a tela e apresentando o menu bancário vazio.</li>
+<li>O cursor é posicionado no campo <code>ACTION</code> (<code>ACTIONL = -1</code>).</li>
+<li>O CICS retorna o controle com <code>TRANSID('OMEN')</code> e uma COMMAREA de 1 byte, mantendo a sessão pseudo-conversacional.</li>
+</ul>
+<p><strong>Como Funciona:</strong>
+Quando <code>EIBCALEN = 0</code>, o programa sabe que é a primeira vez na execução. Ele inicializa <code>BNK1MEO</code> com <code>LOW-VALUE</code>, define <code>SEND-ERASE TO TRUE</code> e chama <code>SEND-MAP</code>, que emite <code>EXEC CICS SEND MAP … ERASE FREEKB</code>. O terminal recebe uma tela completamente limpa com o layout do menu. O CICS é então instruído a reinvocar <code>OMEN</code> na próxima interação do usuário.</p>
+<hr>
+<h3 id="92-exemplo-2--seleo-vlida-1-exibir-detalhes-do-cliente" tabindex="-1">9.2 Exemplo 2 — Seleção Válida <code>'1'</code> (Exibir Detalhes do Cliente)</h3>
+<p><strong>Entrada:</strong></p>
+<ul>
+<li><code>EIBCALEN = 1</code> (ciclo pseudo-conversacional de retorno)</li>
+<li><code>EIBAID = DFHENTER</code> (usuário pressionou Enter)</li>
+<li><code>ACTIONI = '1'</code> (usuário digitou <code>1</code> no campo de ação)</li>
+</ul>
+<p><strong>Saída Esperada:</strong></p>
+<ul>
+<li>O CICS transfere imediatamente o controle para a transação <code>ODCS</code> (Exibir Detalhes do Cliente).</li>
+<li>O menu <code>OMEN</code> não está mais ativo; a nova transação assume a sessão do terminal.</li>
+</ul>
+<p><strong>Como Funciona:</strong>
+<code>EIBAID = DFHENTER</code> direciona a execução para <code>PROCESS-MENU-MAP</code>. O mapa é recebido e <code>EDIT-MENU-DATA</code> verifica se <code>ACTIONI</code> está no intervalo <code>'1'</code>–<code>'7'</code> ou <code>'A'</code> — <code>'1'</code> é aprovado. <code>VALID-DATA-SW</code> permanece <code>'Y'</code>, então <code>INVOKE-OTHER-TXNS</code> é executado. O bloco <code>IF ACTIONI = '1'</code> emite <code>EXEC CICS RETURN TRANSID('OCDC') IMMEDIATE</code>, transferindo o terminal diretamente para a transação de exibição do cliente.</p>
+<hr>
+<h3 id="93-exemplo-3--seleo-invlida-falha-de-validao" tabindex="-1">9.3 Exemplo 3 — Seleção Inválida (Falha de Validação)</h3>
+<p><strong>Entrada:</strong></p>
+<ul>
+<li><code>EIBCALEN = 1</code> (ciclo pseudo-conversacional de retorno)</li>
+<li><code>EIBAID = DFHENTER</code></li>
+<li><code>ACTIONI = 'X'</code> (usuário digitou um caractere inválido)</li>
+</ul>
+<p><strong>Saída Esperada:</strong></p>
+<ul>
+<li>A tela é atualizada com a mensagem: <code>You must enter a valid value (1-7 or A).</code></li>
+<li>Um alarme sonoro é ativado no terminal (opção <code>ALARM</code>).</li>
+<li>O cursor retorna ao campo <code>ACTION</code>.</li>
+<li>O CICS retorna o controle para <code>OMEN</code> novamente, aguardando uma entrada corrigida.</li>
+</ul>
+<p><strong>Como Funciona:</strong>
+Em <code>EDIT-MENU-DATA</code>, <code>ACTIONI = 'X'</code> não corresponde a nenhum valor aceito (<code>'1'</code>–<code>'7'</code> ou <code>'A'</code>), portanto <code>VALID-DATA-SW</code> é definido como <code>'N'</code> e a mensagem de erro é movida para <code>MESSAGEO</code>. Como <code>VALID-DATA</code> agora é falso, <code>INVOKE-OTHER-TXNS</code> é ignorado. De volta a <code>PROCESS-MENU-MAP</code>, <code>SEND-DATAONLY-ALARM</code> é definido como <code>TRUE</code>, fazendo com que <code>SEND-MAP</code> emita <code>EXEC CICS SEND MAP … DATAONLY ALARM FREEKB</code> — atualizando apenas os campos de dados e acionando o bipe do terminal.</p>
+<hr>
+<h3 id="94-exemplo-4--usurio-pressiona-pf3-encerramento-da-sesso" tabindex="-1">9.4 Exemplo 4 — Usuário Pressiona PF3 (Encerramento da Sessão)</h3>
+<p><strong>Entrada:</strong></p>
+<ul>
+<li><code>EIBCALEN = 1</code></li>
+<li><code>EIBAID = DFHPF3</code></li>
+</ul>
+<p><strong>Saída Esperada:</strong></p>
+<ul>
+<li>O terminal exibe o texto <code>Session Ended</code> em uma tela limpa.</li>
+<li>A tarefa CICS é encerrada (<code>EXEC CICS RETURN</code> sem <code>TRANSID</code>), encerrando a sessão bancária.</li>
+</ul>
+<p><strong>Como Funciona:</strong>
+O bloco <code>WHEN EIBAID = DFHPF3 OR DFHPF12</code> chama <code>SEND-TERMINATION-MSG</code>, que emite <code>EXEC CICS SEND TEXT FROM(END-OF-SESSION-MESSAGE) ERASE FREEKB</code>. O literal <code>'Session Ended'</code> (armazenado em <code>END-OF-SESSION-MESSAGE</code>) é gravado na tela limpa do terminal. Um <code>EXEC CICS RETURN</code> incondicional encerra então a tarefa sem especificar uma próxima transação, finalizando a sessão completamente.</p>
+
+                    </article>
+                    <nav class="toc-panel" aria-label="On this page">
+  <span class="toc-panel-label">On this page</span>
+  <ul class="toc-list">
+<li class="toc-level-2"><a href="#1-purpose">1. Purpose</a></li>
+<li class="toc-level-2"><a href="#2-inputs">2. Inputs</a>
+<ul>
+<li class="toc-level-3"><a href="#21-entradas-do-terminal--mapa-bms">2.1 Entradas do Terminal / Mapa BMS</a></li>
+<li class="toc-level-3"><a href="#22-entradas-do-sistema-cics-eib--bloco-de-interface-de-execuo">2.2 Entradas do Sistema CICS (EIB — Bloco de Interface de Execução)</a></li>
+<li class="toc-level-3"><a href="#23-valores-do-cics-assign">2.3 Valores do CICS ASSIGN</a></li>
+<li class="toc-level-3"><a href="#24-servios-de-runtime-do-cics">2.4 Serviços de Runtime do CICS</a></li>
+<li class="toc-level-3"><a href="#25-rea-de-comunicao-cics-seo-de-linkage">2.5 Área de Comunicação CICS (Seção de Linkage)</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#3-outputs">3. Outputs</a>
+<ul>
+<li class="toc-level-3"><a href="#31-sadas-do-terminal-tela">3.1 Saídas do Terminal (Tela)</a></li>
+<li class="toc-level-3"><a href="#32-sadas-de-controle-de-transao-cics">3.2 Saídas de Controle de Transação CICS</a></li>
+<li class="toc-level-3"><a href="#33-sadas-de-erro-e-abend">3.3 Saídas de Erro e Abend</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#4-processing-logic">4. Processing Logic</a>
+<ul>
+<li class="toc-level-3"><a href="#41-diagrama-de-fluxo-mermaid">4.1 Diagrama de Fluxo Mermaid</a></li>
+<li class="toc-level-3"><a href="#42-descrio-da-lgica-de-processamento">4.2 Descrição da Lógica de Processamento</a>
+<ul>
+<li class="toc-level-4"><a href="#421-resumo-de-alto-nvel">4.2.1 Resumo de Alto Nível</a></li>
+<li class="toc-level-4"><a href="#422-fluxo-de-execuo">4.2.2 Fluxo de Execução</a></li>
+<li class="toc-level-4"><a href="#423-tratamento-de-erros">4.2.3 Tratamento de Erros</a></li>
+<li class="toc-level-4"><a href="#424-interaes-externas">4.2.4 Interações Externas</a></li>
+<li class="toc-level-4"><a href="#425-resumo-em-linguagem-simples">4.2.5 Resumo em Linguagem Simples</a></li>
+</ul>
+</li>
+<li class="toc-level-3"><a href="#43-tabelas-de-banco-de-dados">4.3 Tabelas de Banco de Dados</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#5-paragraphs">5. Paragraphs</a></li>
+<li class="toc-level-2"><a href="#6-dependencies">6. Dependencies</a>
+<ul>
+<li class="toc-level-3"><a href="#61-recursos-bms-do-cics">6.1 Recursos BMS do CICS</a></li>
+<li class="toc-level-3"><a href="#62-transaes-cics-invocadas">6.2 Transações CICS Invocadas</a></li>
+<li class="toc-level-3"><a href="#63-programas-externos-exec-cics-link">6.3 Programas Externos (EXEC CICS LINK)</a></li>
+<li class="toc-level-3"><a href="#64-copybooks">6.4 Copybooks</a></li>
+<li class="toc-level-3"><a href="#65-servios-de-runtime-do-cics">6.5 Serviços de Runtime do CICS</a></li>
+<li class="toc-level-3"><a href="#66-eib-do-cics-bloco-de-interface-de-execuo--campos">6.6 EIB do CICS (Bloco de Interface de Execução) — Campos</a></li>
+<li class="toc-level-3"><a href="#67-definio-de-transao-cics">6.7 Definição de Transação CICS</a></li>
+<li class="toc-level-3"><a href="#68-parmetros-de-entrada">6.8 Parâmetros de Entrada</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#7-constraints">7. Constraints</a>
+<ul>
+<li class="toc-level-3"><a href="#71-restries-de-validao-de-entrada">7.1 Restrições de Validação de Entrada</a></li>
+<li class="toc-level-3"><a href="#72-restries-de-interao-com-o-terminal-identificador-de-ateno">7.2 Restrições de Interação com o Terminal (Identificador de Atenção)</a></li>
+<li class="toc-level-3"><a href="#73-restries-de-sequenciamento-e-fluxo">7.3 Restrições de Sequenciamento e Fluxo</a></li>
+<li class="toc-level-3"><a href="#74-restries-da-rea-de-comunicao-commarea">7.4 Restrições da Área de Comunicação (COMMAREA)</a></li>
+<li class="toc-level-3"><a href="#75-restries-do-modo-de-envio-de-tela">7.5 Restrições do Modo de Envio de Tela</a></li>
+<li class="toc-level-3"><a href="#76-restries-de-tratamento-de-erros-e-abend">7.6 Restrições de Tratamento de Erros e Abend</a></li>
+<li class="toc-level-3"><a href="#77-anomalia-de-codificao-conhecida-violao-de-restrio-implcita">7.7 Anomalia de Codificação Conhecida (Violação de Restrição Implícita)</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#8-error-handling">8. Error Handling</a>
+<ul>
+<li class="toc-level-3"><a href="#81-validao-de-entrada">8.1 Validação de Entrada</a></li>
+<li class="toc-level-3"><a href="#82-tratamento-de-erros-de-es-de-terminal">8.2 Tratamento de Erros de E/S de Terminal</a></li>
+<li class="toc-level-3"><a href="#83-tratamento-de-erros-de-despacho-de-transao">8.3 Tratamento de Erros de Despacho de Transação</a></li>
+<li class="toc-level-3"><a href="#84-tratamento-de-erros-no-retorno-pseudo-conversacional">8.4 Tratamento de Erros no Retorno Pseudo-Conversacional</a></li>
+<li class="toc-level-3"><a href="#85-mecanismo-centralizado-de-diagnstico-de-abend-e-encerramento">8.5 Mecanismo Centralizado de Diagnóstico de Abend e Encerramento</a></li>
+<li class="toc-level-3"><a href="#86-notificao-ao-usurio-via-alarme-de-terminal">8.6 Notificação ao Usuário via Alarme de Terminal</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#9-examples">9. Examples</a>
+<ul>
+<li class="toc-level-3"><a href="#91-exemplo-1--primeira-entrada-sem-commarea-menu-exibido-pela-primeira-vez">9.1 Exemplo 1 — Primeira Entrada (Sem COMMAREA): Menu Exibido pela Primeira Vez</a></li>
+<li class="toc-level-3"><a href="#92-exemplo-2--seleo-vlida-1-exibir-detalhes-do-cliente">9.2 Exemplo 2 — Seleção Válida &#039;1&#039; (Exibir Detalhes do Cliente)</a></li>
+<li class="toc-level-3"><a href="#93-exemplo-3--seleo-invlida-falha-de-validao">9.3 Exemplo 3 — Seleção Inválida (Falha de Validação)</a></li>
+<li class="toc-level-3"><a href="#94-exemplo-4--usurio-pressiona-pf3-encerramento-da-sesso">9.4 Exemplo 4 — Usuário Pressiona PF3 (Encerramento da Sessão)</a></li>
+</ul>
+</li>
+</ul>
+
+</nav>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="wiki-footer">Made by IBM Bob Premium Package for Z</footer>
+    <script>
+    /* toc-spy.js — highlights the active heading in the TOC panel on scroll */
+    (function () {
+      function init() {
+        var panel = document.querySelector('.toc-panel');
+        if (!panel) return;
+        var links = Array.prototype.slice.call(panel.querySelectorAll('a[href^="#"]'));
+        if (!links.length) return;
+
+        var headingIds = links.map(function (a) { return a.getAttribute('href').slice(1); });
+        var headings = headingIds.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+
+        function clearActive() {
+          panel.querySelectorAll('.toc-active').forEach(function (el) { el.classList.remove('toc-active'); });
+          panel.querySelectorAll('.toc-parent-active').forEach(function (el) { el.classList.remove('toc-parent-active'); });
+        }
+
+        function setActive(id) {
+          clearActive();
+          var link = panel.querySelector('a[href="#' + id + '"]');
+          if (!link) return;
+          link.classList.add('toc-active');
+          var li = link.closest('li');
+          if (li) {
+            var parentLi = li.parentElement && li.parentElement.closest('li');
+            if (parentLi) parentLi.classList.add('toc-parent-active');
+          }
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              setActive(entry.target.id);
+            }
+          });
+        }, { rootMargin: '0px 0px -70% 0px', threshold: 0 });
+
+        headings.forEach(function (h) { observer.observe(h); });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+    </script>
+    <script>
+    /* breadcrumb.js — reads sessionStorage['wiki_referrer'] and renders breadcrumb.
+       Only fires when the referrer was set by clicking a link inside the Source Files
+       disclosure on a wiki page; clears after rendering so stale state never lingers. */
+    (function () {
+      var raw;
+      try { raw = sessionStorage.getItem('wiki_referrer'); } catch (_e) {}
+      if (!raw) return;
+      /* Consume immediately — prevents the breadcrumb re-appearing on the next visit. */
+      try { sessionStorage.removeItem('wiki_referrer'); } catch (_e) {}
+      var ref;
+      try { ref = JSON.parse(raw); } catch (_e) { return; }
+      if (!ref || !ref.href) return;
+      var bc = document.getElementById('wiki-breadcrumb');
+      if (!bc) return;
+      bc.className = 'wiki-breadcrumb';
+      bc.innerHTML =
+        '<a href="' + ref.href + '">' + (ref.title || 'Back') + '</a>' +
+        '<span class="wiki-breadcrumb-sep"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>' +
+        '<span class="wiki-breadcrumb-current">BNKMENU</span>';
+    })();
+    </script>
+    <script>
+    /* sidebar toggle — same as main wiki pages */
+    (function () {
+
+      var STORAGE_KEY = 'sb_open';
+
+      function getOpenSet() {
+        try {
+          var raw = sessionStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (e) { return null; }
+      }
+
+      function saveOpenSet(set) {
+        try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(set)); } catch (e) {}
+      }
+
+      function findItems(toggle) {
+        var node = toggle.nextSibling;
+        while (node) {
+          if (node.nodeType === 1 && node.classList.contains('nav-section-items'))
+            return node;
+          node = node.nextSibling;
+        }
+        return null;
+      }
+
+      function toggleKey(toggle, index) {
+        var label = (toggle.querySelector('.nav-toggle-text') || toggle).textContent.trim().replace(/\s+/g, ' ');
+        return index + ':' + label;
+      }
+
+      function openSection(toggle, items, key, set) {
+        toggle.classList.add('open');
+        items.classList.add('open');
+        if (set) set[key] = true;
+      }
+
+      function closeSection(toggle, items, key, set) {
+        toggle.classList.remove('open');
+        items.classList.remove('open');
+        if (set) set[key] = false;
+      }
+
+      function init() {
+        var sidebar = document.getElementById('wiki-sidebar');
+        var toggles = Array.prototype.slice.call(
+          document.querySelectorAll('.nav-section-toggle')
+        );
+
+        var savedSet = getOpenSet();
+        var openSet = savedSet || {};
+
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+
+          var key = toggleKey(toggle, idx);
+          var shouldOpen = openSet[key] === true;
+
+          if (shouldOpen) {
+            toggle.classList.add('open');
+            items.classList.add('open');
+          }
+
+          toggle.addEventListener('click', function () {
+            var nowOpen = toggle.classList.contains('open');
+            if (nowOpen) {
+              closeSection(toggle, items, key, openSet);
+            } else {
+              openSection(toggle, items, key, openSet);
+            }
+            saveOpenSet(openSet);
+          });
+        });
+
+        saveOpenSet(openSet);
+
+        /* Restore sidebar scroll position after sections are expanded so the
+           scroll height is correct when we apply scrollTop. */
+        if (sidebar) {
+          try {
+            var savedScroll = sessionStorage.getItem('sb_scroll');
+            if (savedScroll !== null) { sidebar.scrollTop = parseInt(savedScroll, 10) || 0; }
+          } catch (_e) {}
+        }
+
+        window.addEventListener('pagehide', function () {
+          saveOpenSet(openSet);
+          if (sidebar) {
+            try { sessionStorage.setItem('sb_scroll', String(sidebar.scrollTop)); } catch (_e) {}
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+
+    })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,854 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixing the CINO Abend - Bank of Z – Project Wiki</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/mermaid.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: { useMaxWidth: true }
+        });
+    </script>
+
+    <!-- Prism.js for syntax highlighting (bundled — no CDN required) -->
+    <link rel="stylesheet" href="../assets/prism-tomorrow.css">
+    <script src="../assets/prism-core.js"></script>
+    <script src="../assets/prism-languages.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <span class="header-app-name"><a href="../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – Project Wiki</a></span>
+        </div>
+        <div class="header-right">
+        </div>
+    </header>
+    <div class="shell">
+        <aside class="sidebar" id="wiki-sidebar">
+            <nav>
+                
+        <div class="nav-home-wrap">
+            <a href="../../index.html" class="nav-home">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                Home
+            </a>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Application Documentation</div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Overview</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="project-introduction.html" class="nav-link" data-page-id="project-introduction">Project Introduction</a>
+                <a href="capabilities-and-architecture-summary.html" class="nav-link" data-page-id="capabilities-and-architecture-summary">Key Capabilities &amp; Architecture Summary</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Installation &amp; Setup</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="prerequisites-and-environment.html" class="nav-link" data-page-id="prerequisites-and-environment">Prerequisites &amp; Environment Configuration</a>
+                <a href="local-tools-setup.html" class="nav-link" data-page-id="local-tools-setup">Local Tools Setup</a>
+                <a href="deployment-methods.html" class="nav-link" data-page-id="deployment-methods">Deployment Methods</a>
+                <a href="installation-verification.html" class="nav-link" data-page-id="installation-verification">Installation Verification</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Architecture</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="architecture-introduction.html" class="nav-link" data-page-id="architecture-introduction">Architecture Introduction</a>
+                <a href="application-components.html" class="nav-link" data-page-id="application-components">Application Components</a>
+                <a href="application-flow.html" class="nav-link" data-page-id="application-flow">Application Flow</a>
+                <a href="build-and-deployment-architecture.html" class="nav-link" data-page-id="build-and-deployment-architecture">Build &amp; Deployment Architecture</a>
+                <a href="cics-program-examples.html" class="nav-link" data-page-id="cics-program-examples">CICS COBOL Program Examples</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Development Workflows</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="workflows-overview.html" class="nav-link" data-page-id="workflows-overview">Development Workflows Overview</a>
+                <a href="grub-workflow.html" class="nav-link" data-page-id="grub-workflow">GRUB Workflow</a>
+                <a href="zowe-cli-workflow.html" class="nav-link" data-page-id="zowe-cli-workflow">Zowe CLI Workflow</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Tutorials</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="tutorials-overview.html" class="nav-link" data-page-id="tutorials-overview">Tutorials Overview &amp; Deployment Walkthrough</a>
+                <a href="debug-cics-transaction-tutorial.html" class="nav-link" data-page-id="debug-cics-transaction-tutorial">Tutorial: Debug a CICS Transaction</a>
+                <a href="cics-enhancement-tutorial.html" class="nav-link" data-page-id="cics-enhancement-tutorial">Tutorial: CICS Enhancement Scenario</a>
+                <a href="incremental-build-tutorial.html" class="nav-link" data-page-id="incremental-build-tutorial">Tutorial: Incremental Build</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Reference</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="configuration-reference.html" class="nav-link" data-page-id="configuration-reference">Configuration Reference</a>
+                <a href="commands-and-scripts-reference.html" class="nav-link" data-page-id="commands-and-scripts-reference">Commands &amp; Scripts Reference</a>
+                <a href="repository-structure.html" class="nav-link" data-page-id="repository-structure">Repository Structure</a>
+                <a href="glossary.html" class="nav-link" data-page-id="glossary">Glossary</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle open" type="button">
+                <span class="nav-toggle-text">Troubleshooting</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items open">
+                <a href="troubleshooting-guide.html" class="nav-link" data-page-id="troubleshooting-guide">Troubleshooting Guide</a>
+                <a href="abend-cino-fix.html" class="nav-link active" data-page-id="abend-cino-fix">Fixing the CINO Abend</a>
+            </div>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Program Documentation</div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">program</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">src</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+            <div class="nav-section">
+                <button class="nav-section-toggle" type="button">
+                    <span class="nav-toggle-text">base</span>
+                    <span class="nav-section-chevron">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="nav-section-items">
+                <div class="nav-section">
+                    <button class="nav-section-toggle" type="button">
+                        <span class="nav-toggle-text">cics</span>
+                        <span class="nav-section-chevron">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="nav-section-items">
+                    <div class="nav-section">
+                        <button class="nav-section-toggle" type="button">
+                            <span class="nav-toggle-text">cobol</span>
+                            <span class="nav-section-chevron">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="nav-section-items">
+                            <a href="../sources/program/src/base/cics/cobol/BNKMENU.html" class="nav-link">BNKMENU</a>
+                            <a href="../sources/program/src/base/cics/cobol/CRDTAGY2.html" class="nav-link">CRDTAGY2</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">docs</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">about-bank-of-z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
+            </div>
+        </div>
+        </div>
+    </div>
+            </nav>
+        </aside>
+        <main class="main">
+            <div class="page-container">
+                <div class="content-layout">
+                    <div class="prose">
+                        
+                        <h1 id="fixing-the-cino-abend" tabindex="-1">Fixing the CINO Abend</h1>
+<p>This page documents the diagnosis and remediation of abend code <code>4038</code> (IOERR). It occurred in transaction <code>OMEN</code> (program <code>BNKMENU</code>) in CICS region <code>CICSAOR1</code>. The cause was a closed Transient Data queue (TDQUEUE) named <code>CINO</code>.</p>
+<h2 id="1-overview" tabindex="-1">1. Overview</h2>
+<h3 id="11-incident-summary" tabindex="-1">1.1 Incident Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>JOBID</strong></td>
+<td>STC02872</td>
+</tr>
+<tr>
+<td><strong>CICS Region</strong></td>
+<td>CICSAOR1</td>
+</tr>
+<tr>
+<td><strong>Transaction</strong></td>
+<td>OMEN</td>
+</tr>
+<tr>
+<td><strong>Program</strong></td>
+<td>BNKMENU</td>
+</tr>
+<tr>
+<td><strong>Abend Code</strong></td>
+<td>4038 (IOERR)</td>
+</tr>
+<tr>
+<td><strong>Date/Time</strong></td>
+<td>24/10/2026 17:14:56 and 17:15:33</td>
+</tr>
+<tr>
+<td><strong>User</strong></td>
+<td>RAFAELT (terminals 0189/0190)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="12-root-cause" tabindex="-1">1.2 Root Cause</h3>
+<p>The TDQUEUE <code>CINO</code> is a CICS Transient Data output queue. It was <strong>closed</strong> in region <code>CICSAOR1</code>. Program <code>BNKMENU</code> tried to open it with <code>SET TDQUEUE(CINO) OPENSTATUS(OPEN)</code> and received:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">CODE</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code>RESP(IOERR) RESP2(14)</code></pre>
+</div>
+<p>The source analysis interprets <code>RESP2(14)</code> as <code>SYSIDERR</code>. It reads this as meaning the VSAM dataset associated with the TDQUEUE was not found in the catalog. The failed open caused CICS to abend the transaction with code <code>4038</code> and issue message <code>DFHAC2236</code>.</p>
+<h3 id="13-resolution-at-a-glance" tabindex="-1">1.3 Resolution at a Glance</h3>
+<ul>
+<li>The debug sessions were cleaned up. The terminals were terminated by the system and no pending profiles remain for RAFAELT.</li>
+<li>The TDQUEUE must be reopened by a CICS administrator. RAFAELT lacks RACF <code>UPDATE</code> authority on the required OPERCMDS resource.</li>
+<li>After the reopen, verify the queue state and have the user re-run <code>OMEN</code>.</li>
+</ul>
+<h2 id="2-system-architecture" tabindex="-1">2. System Architecture</h2>
+<h3 id="21-components-involved" tabindex="-1">2.1 Components Involved</h3>
+<p>The failing path involves the user terminal, the CICS region, the program and transaction, the TD queue, and its backing VSAM dataset. The RACF OPERCMDS check governs who may fix the problem from the MVS console.</p>
+<div class="mermaid">
+graph TD
+    U[User RAFAELT - Terminals 0189/0190] --> T[Transaction OMEN]
+    T --> P[Program BNKMENU]
+    P --> R[CICS Region CICSAOR1]
+    R --> Q[TDQUEUE CINO]
+    Q --> V[VSAM Dataset associated with CINO]
+    V --> C[System Catalog]
+    R --> L[MSGUSR DD 106 - Message Log]
+    A[CICS Administrator] --> M[MVS Console / CEMT]
+    M --> RACF[RACF OPERCMDS - MVS.MODIFY.STC.CICSAOR1.CICSAOR1]
+    RACF --> R
+</div>
+<p>The components are:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OMEN</code></td>
+<td>CICS transaction started by the user from the terminal</td>
+</tr>
+<tr>
+<td><code>BNKMENU</code></td>
+<td>Program that issues <code>SET TDQUEUE(CINO) OPENSTATUS(OPEN)</code></td>
+</tr>
+<tr>
+<td><code>CINO</code></td>
+<td>Transient Data output queue that was found closed</td>
+</tr>
+<tr>
+<td>VSAM dataset</td>
+<td>Backing storage for the TDQUEUE, expected to be resolvable via the catalog</td>
+</tr>
+<tr>
+<td><code>MSGUSR</code> (DD 106)</td>
+<td>Log where <code>DFHAP1900</code> and <code>DFHAC2236</code> were recorded</td>
+</tr>
+<tr>
+<td>RACF OPERCMDS</td>
+<td>Controls who may issue <code>MODIFY</code> commands against the CICS STC</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22-failure-sequence" tabindex="-1">2.2 Failure Sequence</h3>
+<p>The sequence below shows how the closed queue led to the abend.</p>
+<div class="mermaid">
+sequenceDiagram
+    participant User as RAFAELT
+    participant CICS as CICSAOR1
+    participant Pgm as BNKMENU
+    participant TDQ as TDQUEUE CINO
+    participant Log as MSGUSR
+
+    User->>CICS: Start transaction OMEN
+    CICS->>Pgm: Invoke BNKMENU
+    Pgm->>TDQ: SET TDQUEUE(CINO) OPENSTATUS(OPEN)
+    TDQ-->>Pgm: RESP(IOERR) RESP2(14)
+    Pgm-->>CICS: Unhandled error
+    CICS->>Log: DFHAP1900 (SET TDQUEUE failed)
+    CICS->>Log: DFHAC2236 (abend 4038)
+    CICS-->>User: Transaction abended
+</div>
+<h2 id="3-evidence-from-the-logs" tabindex="-1">3. Evidence from the Logs</h2>
+<h3 id="31-msgusr-dd-106-entries" tabindex="-1">3.1 MSGUSR (DD 106) Entries</h3>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">CODE</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code>DFHAP1900 10/24/2026 17:14:56 CICSAOR1 MVS10189 RAFAELT OMEN
+          SET TDQUEUE(CINO) OPENSTATUS(OPEN) RESP(IOERR) RESP2(14).
+
+DFHAC2236 10/24/2026 17:14:56 CICSAOR1
+          Transaction OMEN transaction number 69904 abend 4038
+          in program BNKMENU term 0189.</code></pre>
+</div>
+<h3 id="32-interpretation" tabindex="-1">3.2 Interpretation</h3>
+<table>
+<thead>
+<tr>
+<th>Message</th>
+<th>Meaning in this incident</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DFHAP1900</code></td>
+<td>Records the failing command, <code>SET TDQUEUE(CINO) OPENSTATUS(OPEN)</code>, with <code>RESP(IOERR)</code> and <code>RESP2(14)</code></td>
+</tr>
+<tr>
+<td><code>DFHAC2236</code></td>
+<td>Confirms transaction <code>OMEN</code> (number 69904) abended with <code>4038</code> in <code>BNKMENU</code> on terminal 0189</td>
+</tr>
+</tbody>
+</table>
+<p>The failure occurred twice, at 17:14:56 and 17:15:33. The two occurrences correspond to terminals 0189 and 0190.</p>
+<h2 id="4-actions-performed" tabindex="-1">4. Actions Performed</h2>
+<h3 id="41-debug-sessions-completed" tabindex="-1">4.1 Debug Sessions (Completed)</h3>
+<ul>
+<li>The terminals 0189 and 0190 for user RAFAELT were terminated by the system. The relevant messages are <code>DFHZC3462</code> and <code>DFHZC6966</code>.</li>
+<li>The <code>EQADPFMB</code> file holds only one active profile, <code>JCMARCA</code>. No profiles are pending for RAFAELT.</li>
+</ul>
+<h3 id="42-tdqueue-cino-requires-cics-administrator-action" tabindex="-1">4.2 TDQUEUE CINO (Requires CICS Administrator Action)</h3>
+<p>RAFAELT does <strong>not</strong> have RACF <code>UPDATE</code> authority on the following resource:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">CODE</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code>MVS.MODIFY.STC.CICSAOR1.CICSAOR1  CL(OPERCMDS)
+ACCESS INTENT(UPDATE)  ACCESS ALLOWED(READ)</code></pre>
+</div>
+<p>Because of this, RAFAELT cannot issue the <code>MODIFY</code> command that reopens the queue. The access check works as follows:</p>
+<div class="mermaid">
+graph TD
+    A[Issue F CICSAOR1,CEMT S TDQUEUE - CINO - OPEN] --> B{RACF OPERCMDS check}
+    B -- UPDATE authority --> C[Command accepted by CICSAOR1]
+    B -- READ only --> D[Command rejected]
+    C --> E[TDQUEUE CINO opened]
+    D --> F[Escalate to CICS Administrator]
+    F --> C
+</div>
+<h2 id="5-remediation-procedure" tabindex="-1">5. Remediation Procedure</h2>
+<h3 id="51-reopen-the-queue-from-the-console" tabindex="-1">5.1 Reopen the Queue from the Console</h3>
+<p>The CICS administrator runs the following command at the MVS console, or uses CEMT directly:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">CODE</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code>F CICSAOR1,CEMT S TDQUEUE(CINO) OPEN</code></pre>
+</div>
+<h3 id="52-reopen-the-queue-via-jcl" tabindex="-1">5.2 Reopen the Queue via JCL</h3>
+<p>Alternatively, submit the JCL below under a user ID that has <code>UPDATE</code> authority on OPERCMDS:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">JCL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-jcl">//FIXCINO  JOB (ACCT),&#039;FIX CINO TDQUEUE&#039;,CLASS=A,MSGCLASS=H,
+//         MSGLEVEL=(1,1),NOTIFY=&amp;SYSUID
+//*---------------------------------------------------------*
+//* CORRECAO: ABRIR TDQUEUE CINO NA REGIAO CICSAOR1         *
+//* ABEND 4038 TRANSACAO OMEN / PROGRAMA BNKMENU            *
+//*---------------------------------------------------------*
+//STEP1    EXEC PGM=IKJEFT01,REGION=0M
+//SYSTSPRT DD SYSOUT=*
+//SYSTSIN  DD *
+  CONSOLE
+  F CICSAOR1,CEMT S TDQUEUE(CINO) OPEN
+  F CICSAOR1,CEMT I TDQUEUE(CINO)
+  END
+/*</code></pre>
+</div>
+<p>The job runs <code>IKJEFT01</code> (the TSO terminal monitor program) and activates a console session. It then issues two commands:</p>
+<ol>
+<li><code>CEMT S TDQUEUE(CINO) OPEN</code> sets the queue open.</li>
+<li><code>CEMT I TDQUEUE(CINO)</code> inquires on the queue to show its resulting status.</li>
+</ol>
+<h3 id="53-remediation-flow" tabindex="-1">5.3 Remediation Flow</h3>
+<div class="mermaid">
+sequenceDiagram
+    participant Admin as CICS Administrator
+    participant Con as MVS Console / JCL
+    participant CICS as CICSAOR1
+    participant TDQ as TDQUEUE CINO
+    participant User as RAFAELT
+
+    Admin->>Con: F CICSAOR1,CEMT S TDQUEUE(CINO) OPEN
+    Con->>CICS: Pass CEMT command
+    CICS->>TDQ: Open queue
+    TDQ-->>CICS: STATUS OPEN
+    Admin->>Con: F CICSAOR1,CEMT I TDQUEUE(CINO)
+    Con-->>Admin: STATUS( OPEN ) ...
+    Admin->>User: Request re-run of OMEN
+    User->>CICS: Execute OMEN
+    CICS-->>User: Menu displayed, no abend 4038
+</div>
+<h2 id="6-post-fix-verification" tabindex="-1">6. Post-Fix Verification</h2>
+<ol>
+<li>
+<p>Confirm that the TDQUEUE is open:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">CODE</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code>F CICSAOR1,CEMT I TDQUEUE(CINO)</code></pre>
+</div>
+<p>The expected output is:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">CODE</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code>STATUS(  OPEN ) ...</code></pre>
+</div>
+</li>
+<li>
+<p>Ask RAFAELT to re-execute transaction <code>OMEN</code>.</p>
+</li>
+<li>
+<p>Check <code>MSGUSR</code> and confirm that no new <code>DFHAC2236</code> message with abend <code>4038</code> appears.</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Expected result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CEMT I TDQUEUE(CINO)</code></td>
+<td><code>STATUS(  OPEN )</code></td>
+</tr>
+<tr>
+<td>Re-run of <code>OMEN</code></td>
+<td>Transaction completes normally</td>
+</tr>
+<tr>
+<td><code>MSGUSR</code> review</td>
+<td>No <code>DFHAC2236</code> with abend <code>4038</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-prevention" tabindex="-1">7. Prevention</h2>
+<h3 id="71-recommendations" tabindex="-1">7.1 Recommendations</h3>
+<ol>
+<li><strong>Find out why CINO was closed.</strong> Check for a failure in the associated VSAM dataset. Also check whether someone intentionally ran <code>CEMT S TDQUEUE(CINO) CLOSE</code>.</li>
+<li><strong>Review <code>DEBUGTOOL=NO</code> in the SIT of CICSAOR1.</strong> With this parameter in effect, z/OS Debugger sessions that end abruptly can leave the enclave in an inconsistent state (<code>CEE2529S</code>). This can cause cascading failures.</li>
+<li><strong>Consider defining the CINO VSAM dataset as <code>RECOVERABLE</code> in the CSD.</strong> This helps the queue reopen automatically after a failure.</li>
+</ol>
+<h3 id="72-prevention-overview" tabindex="-1">7.2 Prevention Overview</h3>
+<div class="mermaid">
+graph TD
+    A[Closed TDQUEUE CINO] --> B[Investigate cause]
+    B --> B1[VSAM dataset failure]
+    B --> B2[Manual CEMT CLOSE]
+    A --> C[Review SIT DEBUGTOOL=NO]
+    C --> C1[Abrupt Debugger termination can leave enclave inconsistent - CEE2529S]
+    A --> D[Define CINO VSAM as RECOVERABLE in CSD]
+    D --> D1[Queue reopened automatically after failure]
+</div>
+<h2 id="8-quick-reference" tabindex="-1">8. Quick Reference</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Symptom</td>
+<td>Abend <code>4038</code> (IOERR) in <code>OMEN</code> / <code>BNKMENU</code></td>
+</tr>
+<tr>
+<td>Failing command</td>
+<td><code>SET TDQUEUE(CINO) OPENSTATUS(OPEN)</code></td>
+</tr>
+<tr>
+<td>Response codes</td>
+<td><code>RESP(IOERR) RESP2(14)</code></td>
+</tr>
+<tr>
+<td>Key messages</td>
+<td><code>DFHAP1900</code>, <code>DFHAC2236</code></td>
+</tr>
+<tr>
+<td>Authority gap</td>
+<td>RAFAELT has READ, but UPDATE is needed on <code>MVS.MODIFY.STC.CICSAOR1.CICSAOR1</code> (OPERCMDS)</td>
+</tr>
+<tr>
+<td>Fix</td>
+<td><code>F CICSAOR1,CEMT S TDQUEUE(CINO) OPEN</code></td>
+</tr>
+<tr>
+<td>Verification</td>
+<td><code>F CICSAOR1,CEMT I TDQUEUE(CINO)</code> returns <code>STATUS(  OPEN )</code></td>
+</tr>
+</tbody>
+</table>
+
+                        <div class="related-pages">
+                            <p class="related-pages-title">Related Pages</p>
+                            <div class="card-grid">
+                                
+            <a href="troubleshooting-guide.html" class="card">
+                <span class="card-title">Troubleshooting Guide</span>
+                <span class="card-description">Common problems and resolutions for installation, build, deployment and runtime.</span>
+            </a>
+            <a href="debug-cics-transaction-tutorial.html" class="card">
+                <span class="card-title">Tutorial: Debug a CICS Transaction</span>
+                <span class="card-description">Walkthrough of debugging a CICS transaction in Bank of Z.</span>
+            </a>
+                            </div>
+                        </div>
+                    </div>
+                    <nav class="toc-panel" aria-label="On this page">
+  <span class="toc-panel-label">On this page</span>
+  <ul class="toc-list">
+<li class="toc-level-2"><a href="#1-overview">1. Overview</a>
+<ul>
+<li class="toc-level-3"><a href="#11-incident-summary">1.1 Incident Summary</a></li>
+<li class="toc-level-3"><a href="#12-root-cause">1.2 Root Cause</a></li>
+<li class="toc-level-3"><a href="#13-resolution-at-a-glance">1.3 Resolution at a Glance</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#2-system-architecture">2. System Architecture</a>
+<ul>
+<li class="toc-level-3"><a href="#21-components-involved">2.1 Components Involved</a></li>
+<li class="toc-level-3"><a href="#22-failure-sequence">2.2 Failure Sequence</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#3-evidence-from-the-logs">3. Evidence from the Logs</a>
+<ul>
+<li class="toc-level-3"><a href="#31-msgusr-dd-106-entries">3.1 MSGUSR (DD 106) Entries</a></li>
+<li class="toc-level-3"><a href="#32-interpretation">3.2 Interpretation</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#4-actions-performed">4. Actions Performed</a>
+<ul>
+<li class="toc-level-3"><a href="#41-debug-sessions-completed">4.1 Debug Sessions (Completed)</a></li>
+<li class="toc-level-3"><a href="#42-tdqueue-cino-requires-cics-administrator-action">4.2 TDQUEUE CINO (Requires CICS Administrator Action)</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#5-remediation-procedure">5. Remediation Procedure</a>
+<ul>
+<li class="toc-level-3"><a href="#51-reopen-the-queue-from-the-console">5.1 Reopen the Queue from the Console</a></li>
+<li class="toc-level-3"><a href="#52-reopen-the-queue-via-jcl">5.2 Reopen the Queue via JCL</a></li>
+<li class="toc-level-3"><a href="#53-remediation-flow">5.3 Remediation Flow</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#6-post-fix-verification">6. Post-Fix Verification</a></li>
+<li class="toc-level-2"><a href="#7-prevention">7. Prevention</a>
+<ul>
+<li class="toc-level-3"><a href="#71-recommendations">7.1 Recommendations</a></li>
+<li class="toc-level-3"><a href="#72-prevention-overview">7.2 Prevention Overview</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#8-quick-reference">8. Quick Reference</a></li>
+</ul>
+
+</nav>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+    /* toc-spy.js — highlights the active heading in the TOC panel on scroll */
+    (function () {
+      function init() {
+        var panel = document.querySelector('.toc-panel');
+        if (!panel) return;
+        var links = Array.prototype.slice.call(panel.querySelectorAll('a[href^="#"]'));
+        if (!links.length) return;
+
+        var headingIds = links.map(function (a) { return a.getAttribute('href').slice(1); });
+        var headings = headingIds.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+
+        function clearActive() {
+          panel.querySelectorAll('.toc-active').forEach(function (el) { el.classList.remove('toc-active'); });
+          panel.querySelectorAll('.toc-parent-active').forEach(function (el) { el.classList.remove('toc-parent-active'); });
+        }
+
+        function setActive(id) {
+          clearActive();
+          var link = panel.querySelector('a[href="#' + id + '"]');
+          if (!link) return;
+          link.classList.add('toc-active');
+          var li = link.closest('li');
+          if (li) {
+            var parentLi = li.parentElement && li.parentElement.closest('li');
+            if (parentLi) parentLi.classList.add('toc-parent-active');
+          }
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              setActive(entry.target.id);
+            }
+          });
+        }, { rootMargin: '0px 0px -70% 0px', threshold: 0 });
+
+        headings.forEach(function (h) { observer.observe(h); });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+    </script>
+    <script>
+    /* sidebar-toggle.js — persists open/closed state across navigation */
+    (function () {
+
+      var STORAGE_KEY = 'sb_open';
+
+      function getOpenSet() {
+        try {
+          var raw = sessionStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (e) { return null; }
+      }
+
+      function saveOpenSet(set) {
+        try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(set)); } catch (e) {}
+      }
+
+      function findItems(toggle) {
+        var node = toggle.nextSibling;
+        while (node) {
+          if (node.nodeType === 1 && node.classList.contains('nav-section-items'))
+            return node;
+          node = node.nextSibling;
+        }
+        return null;
+      }
+
+      function toggleKey(toggle, index) {
+        var label = (toggle.querySelector('.nav-toggle-text') || toggle).textContent.trim().replace(/\s+/g, ' ');
+        return index + ':' + label;
+      }
+
+      function openSection(toggle, items, key, set) {
+        toggle.classList.add('open');
+        items.classList.add('open');
+        if (set) set[key] = true;
+      }
+
+      function closeSection(toggle, items, key, set) {
+        toggle.classList.remove('open');
+        items.classList.remove('open');
+        if (set) set[key] = false;
+      }
+
+      function init() {
+        var sidebar = document.getElementById('wiki-sidebar');
+        var toggles = Array.prototype.slice.call(
+          document.querySelectorAll('.nav-section-toggle')
+        );
+
+        var activeIdx = -1;
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+          if (items.querySelector('.nav-link.active')) {
+            activeIdx = idx;
+          }
+        });
+
+        var savedSet = getOpenSet();
+        var openSet = savedSet || {};
+
+        if (activeIdx !== -1) {
+          openSet[toggleKey(toggles[activeIdx], activeIdx)] = true;
+        }
+
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+
+          var key = toggleKey(toggle, idx);
+          var shouldOpen = openSet[key] === true;
+
+          if (shouldOpen) {
+            toggle.classList.add('open');
+            items.classList.add('open');
+          }
+
+          toggle.addEventListener('click', function () {
+            var nowOpen = toggle.classList.contains('open');
+            if (nowOpen) {
+              closeSection(toggle, items, key, openSet);
+            } else {
+              openSection(toggle, items, key, openSet);
+            }
+            saveOpenSet(openSet);
+          });
+        });
+
+        saveOpenSet(openSet);
+
+        /* Restore sidebar scroll position after sections are expanded so the
+           scroll height is correct when we apply scrollTop. */
+        if (sidebar) {
+          try {
+            var savedScroll = sessionStorage.getItem('sb_scroll');
+            if (savedScroll !== null) { sidebar.scrollTop = parseInt(savedScroll, 10) || 0; }
+          } catch (_e) {}
+        }
+
+        window.addEventListener('pagehide', function () {
+          saveOpenSet(openSet);
+          if (sidebar) {
+            try { sessionStorage.setItem('sb_scroll', String(sidebar.scrollTop)); } catch (_e) {}
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+
+    })();
+    </script>
+    <script>
+    /* nav-tracking.js — only stamps sessionStorage when clicking a source-file link
+       that lives inside the "Source Files" disclosure section, not from sidebar or cards. */
+    (function () {
+      document.addEventListener('click', function (e) {
+        var link = e.target.closest('a[href]');
+        if (!link) return;
+        var href = link.getAttribute('href');
+        if (!href || href.indexOf('sources/') === -1) return;
+        /* Only set referrer when the click originates from inside the Source Files
+           disclosure (.source-files-disclosure). Any other path — sidebar, cards,
+           direct navigation — must not set a referrer. */
+        if (!link.closest('.source-files-disclosure')) return;
+        try {
+          sessionStorage.setItem('wiki_referrer', JSON.stringify({
+            href: location.href,
+            title: document.title,
+            file: location.pathname.split('/').pop()
+          }));
+        } catch (_e) {}
+      });
+    })();
+    </script>
+    <footer class="wiki-footer">Made by IBM Bob Premium Package for Z</footer>
+</body>
+</html>

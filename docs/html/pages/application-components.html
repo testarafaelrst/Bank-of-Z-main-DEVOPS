@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Application Components - Bank of Z – IBM Z Modern Development Reference</title>
+    <title>Application Components - Bank of Z – Project Wiki</title>
     <link rel="stylesheet" href="../assets/style.css">
     <script src="../assets/mermaid.js"></script>
     <script>
@@ -23,7 +23,7 @@
 <body>
     <header class="header">
         <div class="header-left">
-            <span class="header-app-name"><a href="../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – IBM Z Modern Development Reference</a></span>
+            <span class="header-app-name"><a href="../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – Project Wiki</a></span>
         </div>
         <div class="header-right">
         </div>
@@ -45,7 +45,7 @@
         <div class="nav-group-label">Application Documentation</div>
         <div class="nav-section">
             <button class="nav-section-toggle" type="button">
-                <span class="nav-toggle-text">About Bank of Z</span>
+                <span class="nav-toggle-text">Overview</span>
                 <span class="nav-section-chevron">
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -53,24 +53,8 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="about-overview.html" class="nav-link" data-page-id="about-overview">Project Overview</a>
-                <a href="architecture-overview.html" class="nav-link" data-page-id="architecture-overview">Architecture Overview</a>
-                <a href="key-capabilities.html" class="nav-link" data-page-id="key-capabilities">Key Capabilities</a>
-            </div>
-        </div>
-        <div class="nav-section">
-            <button class="nav-section-toggle open" type="button">
-                <span class="nav-toggle-text">Architecture</span>
-                <span class="nav-section-chevron">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </span>
-            </button>
-            <div class="nav-section-items open">
-                <a href="application-components.html" class="nav-link active" data-page-id="application-components">Application Components</a>
-                <a href="application-flow.html" class="nav-link" data-page-id="application-flow">Application Flow</a>
-                <a href="build-and-deployment-arch.html" class="nav-link" data-page-id="build-and-deployment-arch">Build &amp; Deployment Architecture</a>
+                <a href="project-introduction.html" class="nav-link" data-page-id="project-introduction">Project Introduction</a>
+                <a href="capabilities-and-architecture-summary.html" class="nav-link" data-page-id="capabilities-and-architecture-summary">Key Capabilities &amp; Architecture Summary</a>
             </div>
         </div>
         <div class="nav-section">
@@ -83,11 +67,27 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="prerequisites-env.html" class="nav-link" data-page-id="prerequisites-env">Prerequisites &amp; Environment Configuration</a>
-                <a href="deploying-options.html" class="nav-link" data-page-id="deploying-options">Deployment Options</a>
+                <a href="prerequisites-and-environment.html" class="nav-link" data-page-id="prerequisites-and-environment">Prerequisites &amp; Environment Configuration</a>
                 <a href="local-tools-setup.html" class="nav-link" data-page-id="local-tools-setup">Local Tools Setup</a>
-                <a href="zowe-cli-setup.html" class="nav-link" data-page-id="zowe-cli-setup">Zowe CLI &amp; Profile Setup</a>
-                <a href="verification.html" class="nav-link" data-page-id="verification">Installation Verification</a>
+                <a href="deployment-methods.html" class="nav-link" data-page-id="deployment-methods">Deployment Methods</a>
+                <a href="installation-verification.html" class="nav-link" data-page-id="installation-verification">Installation Verification</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle open" type="button">
+                <span class="nav-toggle-text">Architecture</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items open">
+                <a href="architecture-introduction.html" class="nav-link" data-page-id="architecture-introduction">Architecture Introduction</a>
+                <a href="application-components.html" class="nav-link active" data-page-id="application-components">Application Components</a>
+                <a href="application-flow.html" class="nav-link" data-page-id="application-flow">Application Flow</a>
+                <a href="build-and-deployment-architecture.html" class="nav-link" data-page-id="build-and-deployment-architecture">Build &amp; Deployment Architecture</a>
+                <a href="cics-program-examples.html" class="nav-link" data-page-id="cics-program-examples">CICS COBOL Program Examples</a>
             </div>
         </div>
         <div class="nav-section">
@@ -100,10 +100,9 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="workflow-overview.html" class="nav-link" data-page-id="workflow-overview">Development Workflow Overview</a>
+                <a href="workflows-overview.html" class="nav-link" data-page-id="workflows-overview">Development Workflows Overview</a>
+                <a href="grub-workflow.html" class="nav-link" data-page-id="grub-workflow">GRUB Workflow</a>
                 <a href="zowe-cli-workflow.html" class="nav-link" data-page-id="zowe-cli-workflow">Zowe CLI Workflow</a>
-                <a href="grub-workflow.html" class="nav-link" data-page-id="grub-workflow">Grub Workflow</a>
-                <a href="development-best-practices.html" class="nav-link" data-page-id="development-best-practices">Development Best Practices</a>
             </div>
         </div>
         <div class="nav-section">
@@ -116,10 +115,10 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="deploy-bank-of-z.html" class="nav-link" data-page-id="deploy-bank-of-z">Tutorial: Deploy Bank of Z</a>
-                <a href="cics-enhancement.html" class="nav-link" data-page-id="cics-enhancement">Tutorial: CICS Enhancement Scenario</a>
-                <a href="incremental-build.html" class="nav-link" data-page-id="incremental-build">Tutorial: Incremental Build</a>
-                <a href="debug-cics-transaction.html" class="nav-link" data-page-id="debug-cics-transaction">Tutorial: Debug a CICS Transaction</a>
+                <a href="tutorials-overview.html" class="nav-link" data-page-id="tutorials-overview">Tutorials Overview &amp; Deployment Walkthrough</a>
+                <a href="debug-cics-transaction-tutorial.html" class="nav-link" data-page-id="debug-cics-transaction-tutorial">Tutorial: Debug a CICS Transaction</a>
+                <a href="cics-enhancement-tutorial.html" class="nav-link" data-page-id="cics-enhancement-tutorial">Tutorial: CICS Enhancement Scenario</a>
+                <a href="incremental-build-tutorial.html" class="nav-link" data-page-id="incremental-build-tutorial">Tutorial: Incremental Build</a>
             </div>
         </div>
         <div class="nav-section">
@@ -132,10 +131,10 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="commands-reference.html" class="nav-link" data-page-id="commands-reference">Commands Reference</a>
                 <a href="configuration-reference.html" class="nav-link" data-page-id="configuration-reference">Configuration Reference</a>
-                <a href="glossary.html" class="nav-link" data-page-id="glossary">Glossary</a>
+                <a href="commands-and-scripts-reference.html" class="nav-link" data-page-id="commands-and-scripts-reference">Commands &amp; Scripts Reference</a>
                 <a href="repository-structure.html" class="nav-link" data-page-id="repository-structure">Repository Structure</a>
+                <a href="glossary.html" class="nav-link" data-page-id="glossary">Glossary</a>
             </div>
         </div>
         <div class="nav-section">
@@ -148,38 +147,12 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="troubleshooting-overview.html" class="nav-link" data-page-id="troubleshooting-overview">Troubleshooting Overview</a>
-                <a href="fix-abend-cino.html" class="nav-link" data-page-id="fix-abend-cino">Fix: OMEN ABEND CINO</a>
-                <a href="program-internals.html" class="nav-link" data-page-id="program-internals">Program Internals: CRDTAGY2 Credit Agency Simulator</a>
+                <a href="troubleshooting-guide.html" class="nav-link" data-page-id="troubleshooting-guide">Troubleshooting Guide</a>
+                <a href="abend-cino-fix.html" class="nav-link" data-page-id="abend-cino-fix">Fixing the CINO Abend</a>
             </div>
         </div>
         <div class="nav-divider"></div>
         <div class="nav-group-label">Program Documentation</div>
-    <div class="nav-section">
-        <button class="nav-section-toggle" type="button">
-            <span class="nav-toggle-text">docs</span>
-            <span class="nav-section-chevron">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </span>
-        </button>
-        <div class="nav-section-items">
-        <div class="nav-section">
-            <button class="nav-section-toggle" type="button">
-                <span class="nav-toggle-text">about-bank-of-z</span>
-                <span class="nav-section-chevron">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </span>
-            </button>
-            <div class="nav-section-items">
-                <a href="../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
-            </div>
-        </div>
-        </div>
-    </div>
     <div class="nav-section">
         <button class="nav-section-toggle" type="button">
             <span class="nav-toggle-text">program</span>
@@ -230,6 +203,7 @@
                             </span>
                         </button>
                         <div class="nav-section-items">
+                            <a href="../sources/program/src/base/cics/cobol/BNKMENU.html" class="nav-link">BNKMENU</a>
                             <a href="../sources/program/src/base/cics/cobol/CRDTAGY2.html" class="nav-link">CRDTAGY2</a>
                         </div>
                     </div>
@@ -241,477 +215,192 @@
         </div>
         </div>
     </div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">docs</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">about-bank-of-z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
+            </div>
+        </div>
+        </div>
+    </div>
             </nav>
         </aside>
         <main class="main">
             <div class="page-container">
                 <div class="content-layout">
                     <div class="prose">
-                        <details class="source-files-disclosure">
-            <summary>
-                <svg class="sf-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Source Files
-                <span style="margin-left:4px;font-size:11px;color:var(--fg-subtle)">(1)</span>
-            </summary>
-            <div class="source-files-body">
-                <ul class="source-files-list">
-            <li><a href="../sources/program/src/base/cics/cobol/CRDTAGY2.html">
-                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
-                    <path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
-                    <path d="M10 2v4h4" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
-                </svg>
-                CRDTAGY2
-            </a></li>
-                </ul>
-            </div>
-        </details>
-                        <h1 id="application-components" tabindex="-1">Application Components</h1>
-<p>Bank of Z is a hybrid IBM Z banking application that combines modern web-based interfaces with enterprise-grade transaction processing. It is composed of several tightly integrated application and infrastructure components spanning front-end UI, API integration, transaction processing engines, data stores, and asynchronous messaging. Together, these components deliver a unified banking experience that leverages the full power of the IBM Z platform.</p>
+                        
+                        <h1 id="1-application-components" tabindex="-1">1. Application Components</h1>
+<p>The Bank of Z application consists of several application and infrastructure components that work together to provide a unified banking experience. These components enable the application to deliver modern web-based banking services while leveraging proven IBM Z transaction-processing technologies, hybrid data stores, and enterprise messaging infrastructure.</p>
 <hr>
-<h2 id="1-overview" tabindex="-1">1. Overview</h2>
-<p>Bank of Z demonstrates how a modern banking application can be built on IBM Z technology, exposing traditional CICS and IMS transaction-processing capabilities through REST APIs and a browser-based user interface. The system supports customer management, account management, transaction processing, and credit scoring — all running on IBM Z middleware.</p>
-<p>Key capabilities include:</p>
-<ul>
-<li><strong>Browser-based banking UI</strong> with no direct knowledge of backend systems</li>
-<li><strong>API-driven integration</strong> via z/OS Connect, bridging modern REST clients to CICS and IMS</li>
-<li><strong>Dual transaction-processing paths</strong> — one through CICS/Db2 and one through IMS TM/IMS DB</li>
-<li><strong>Asynchronous credit scoring</strong> using the CICS Async API and simulated credit agency programs (e.g., <code>CRDTAGY2</code>)</li>
-<li><strong>Inter-application messaging</strong> via IBM MQ with an external system (Bank of Q)</li>
-<li><strong>Centralized error handling</strong> and abend management across all COBOL programs</li>
-</ul>
+<h2 id="11-overview" tabindex="-1">1.1. Overview</h2>
+<p>Bank of Z is architected as a hybrid enterprise banking solution. It decouples customer-facing interactions from backend transactional workloads through a modern API gateway. Core banking functions—including customer management, account administration, and transaction processing—are distributed across dual transaction processing runtimes (CICS and IMS TM), supported by Db2 for z/OS relational tables and IMS hierarchical databases. Asynchronous inter-bank communications and cross-system fund transfers are facilitated by IBM MQ messaging to external institutions such as Bank of Q.</p>
 <hr>
-<h2 id="2-system-architecture" tabindex="-1">2. System Architecture</h2>
-<p>The following diagram illustrates the high-level architecture of Bank of Z, showing how each component relates to the others:</p>
+<h2 id="12-system-architecture" tabindex="-1">1.2. System Architecture</h2>
+<p>The Bank of Z architecture spans presentation, API gateway, transaction runtime, data persistence, and enterprise messaging tiers.</p>
 <div class="mermaid">
 graph TD
-    UI[Bank of Z UI\nBrowser-Based Frontend]
-    ZC[z/OS Connect\nREST API Layer]
-    CICS[CICS\nTransaction Processing]
-    IMS[IMS TM\nTransaction Processing]
-    DB2M[Money & Account Mgmt\nDb2 Database]
-    DB2H[Account History\nDb2 Database]
-    IMSDB[Money & Account Mgmt\nIMS Database]
-    MQ[IBM MQ\nAsynchronous Messaging]
-    BOQ[Bank of Q\nExternal Banking System]
-
-    UI -->|REST API Calls| ZC
-    ZC -->|CICS Processing Path| CICS
-    ZC -->|IMS Processing Path| IMS
-    CICS -->|Read/Write| DB2M
-    CICS -->|Read/Write| DB2H
-    IMS -->|Read/Write| IMSDB
-    IMS -->|Read/Write| DB2M
-    CICS -->|Publish/Subscribe| MQ
-    MQ -->|Message Exchange| BOQ
+    UI[Bank of Z UI<br/>Web Browser Application] -->|REST / JSON| ZOSC[z/OS Connect<br/>API Gateway Layer]
+    
+    ZOSC -->|Service Invocation| CICS[CICS<br/>Transaction Manager]
+    ZOSC -->|Service Invocation| IMSTM[IMS TM<br/>Transaction Manager]
+    
+    CICS -->|SQL / Relational Access| DB2_MAM[(Money & Account Mgmt<br/>Db2 Database)]
+    CICS -->|Audit & History SQL| DB2_HIST[(Account History<br/>Db2 Database)]
+    
+    IMSTM -->|DL/I Database Calls| IMS_DB[(Money & Account Mgmt<br/>IMS Database)]
+    IMSTM -->|SQL Access| DB2_MAM
+    
+    CICS -->|MQPUT / MQGET| MQ[IBM MQ<br/>Message Queuing]
+    IMSTM -->|MQPUT / MQGET| MQ
+    
+    MQ <-->|Asynchronous Messages| BOQ[Bank of Q<br/>External Banking System]
 </div>
-<p>The Bank of Z UI communicates exclusively with z/OS Connect through REST APIs. z/OS Connect routes requests to either the CICS or IMS processing path depending on the operation. Business logic executes within those transaction managers, and data is persisted in Db2 for z/OS and IMS databases. IBM MQ provides reliable asynchronous messaging for integration with external systems like Bank of Q.</p>
+<p>The system architecture diagram illustrates the flow of inbound requests from the browser client through z/OS Connect into the core transaction systems. Business logic executes inside CICS and IMS TM, interacting with relational Db2 databases and hierarchical IMS databases, with IBM MQ providing the bridge to external banking partners.</p>
 <hr>
-<h2 id="3-application-components" tabindex="-1">3. Application Components</h2>
-<h3 id="31-bank-of-z-ui" tabindex="-1">3.1 Bank of Z UI</h3>
-<p>The Bank of Z user interface provides a browser-based experience for performing banking operations. It allows operators and customers to manage customer records, accounts, and transactions through a single unified interface — without needing to know which backend system is processing the request.</p>
-<p><strong>Responsibilities:</strong></p>
+<h2 id="13-presentation-tier" tabindex="-1">1.3. Presentation Tier</h2>
+<h3 id="131-bank-of-z-ui" tabindex="-1">1.3.1. Bank of Z UI</h3>
+<p>The Bank of Z user interface provides a responsive, browser-based experience for performing everyday banking operations. Customers and bank personnel can manage customer profiles, open and monitor accounts, and execute fund transfers through a single application interface. The UI abstracts backend processing paths, allowing users to interact with services seamlessly regardless of whether a transaction is handled by CICS or IMS.</p>
+<hr>
+<h2 id="14-api-integration-layer" tabindex="-1">1.4. API Integration Layer</h2>
+<h3 id="141-zos-connect" tabindex="-1">1.4.1. z/OS Connect</h3>
+<p>z/OS Connect acts as the secure, high-performance API abstraction layer between the Bank of Z UI and backend mainframe transaction processors. It exposes RESTful APIs to client applications and converts incoming JSON payloads into binary data structures (such as COBOL copybook layouts) consumed by CICS programs and IMS transactions.</p>
+<h4 id="example-api-request-payload-transfer-funds" tabindex="-1">Example: API Request Payload (Transfer Funds)</h4>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">JSON</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-json">{
+  &quot;sourceAccount&quot;: &quot;1002938471&quot;,
+  &quot;targetAccount&quot;: &quot;9938210482&quot;,
+  &quot;amount&quot;: 250.00,
+  &quot;currency&quot;: &quot;USD&quot;,
+  &quot;transferType&quot;: &quot;INTERNAL&quot;,
+  &quot;reference&quot;: &quot;Monthly rent payment&quot;
+}</code></pre>
+</div>
+<hr>
+<h2 id="15-transaction-processing-systems" tabindex="-1">1.5. Transaction Processing Systems</h2>
+<h3 id="151-customer-information-control-system-cics" tabindex="-1">1.5.1. Customer Information Control System (CICS)</h3>
+<p>CICS delivers high-volume transaction processing for the CICS processing path within Bank of Z. CICS programs handle core business logic, including:</p>
 <ul>
-<li>Present banking operations through a web browser</li>
-<li>Issue REST API calls to z/OS Connect</li>
-<li>Display responses from CICS and IMS backend systems</li>
-<li>Abstract backend complexity from the end user</li>
+<li>Customer record lookups and updates</li>
+<li>Real-time balance inquiries and debit/credit ledger operations</li>
+<li>Writing transaction auditing records to relational storage</li>
+</ul>
+<h3 id="152-ims-transaction-manager-ims-tm" tabindex="-1">1.5.2. IMS Transaction Manager (IMS TM)</h3>
+<p>IMS TM provides transaction-processing services for the IMS processing path. It processes incoming banking requests concurrently with CICS, managing:</p>
+<ul>
+<li>Customer lifecycle operations</li>
+<li>Account balance modifications and validations</li>
+<li>Transaction settlement using DL/I and embedded SQL interfaces</li>
 </ul>
 <hr>
-<h3 id="32-zos-connect" tabindex="-1">3.2 z/OS Connect</h3>
-<p>z/OS Connect provides the API layer between the user interface and the backend transaction-processing systems. It exposes services that enable the Bank of Z UI to communicate with CICS and IMS applications through REST APIs, acting as the primary integration gateway into IBM Z.</p>
-<p><strong>Responsibilities:</strong></p>
-<ul>
-<li>Expose REST APIs to the Bank of Z UI</li>
-<li>Route requests to the appropriate backend (CICS or IMS)</li>
-<li>Translate between JSON/HTTP and native CICS/IMS communication protocols</li>
-<li>Enable modern API consumers to interact with IBM Z applications</li>
-</ul>
-<hr>
-<h3 id="33-cics-transaction-processing" tabindex="-1">3.3 CICS Transaction Processing</h3>
-<p>CICS provides the primary transaction-processing runtime for Bank of Z. It processes banking requests — including customer management, account management, and transaction processing — along the CICS processing path. CICS programs are written in COBOL and interact with Db2 for z/OS for data persistence.</p>
-<p><strong>Responsibilities:</strong></p>
-<ul>
-<li>Execute COBOL business logic for banking operations</li>
-<li>Manage transactional integrity for customer and account operations</li>
-<li>Invoke asynchronous child tasks (e.g., credit agency programs via the CICS Async API)</li>
-<li>Interface with Db2 databases for reads and writes</li>
-<li>Handle errors centrally via the <code>ABNDPROC</code> abend handler program</li>
-</ul>
-<h4 id="331-crdtagy2--simulated-credit-agency-program" tabindex="-1">3.3.1 CRDTAGY2 — Simulated Credit Agency Program</h4>
-<p><code>CRDTAGY2</code> is a CICS COBOL program that simulates an asynchronous external credit agency. It is invoked as a CICS child task by a parent orchestrator using the CICS Async API. Its role is to compute a random credit score for a customer and return it via a CICS channel and container.</p>
-<p><strong>Processing flow:</strong></p>
+<h2 id="16-enterprise-data-stores" tabindex="-1">1.6. Enterprise Data Stores</h2>
 <div class="mermaid">
-graph TD
-    classDef startEnd fill:#d5e8d4,stroke:#82b366,color:#000
-    classDef process fill:#dae8fc,stroke:#6c8ebf,color:#000
-    classDef decision fill:#fff2cc,stroke:#d6b656,color:#000
-    classDef error fill:#f8cecc,stroke:#b85450,color:#000
-    classDef io fill:#e1d5e7,stroke:#9673a6,color:#000
+graph LR
+    subgraph Data Tier
+        DB2_MAM[(Money & Account Mgmt<br/>Db2 Database)]
+        DB2_HIST[(Account History<br/>Db2 Database)]
+        IMS_DB[(Money & Account Mgmt<br/>IMS Database)]
+    end
 
-    A([CRDTAGY2 Invoked as Child Task]):::startEnd
-    B[Initialize container/channel names\nSeed RANDOM with EIBTASKN]:::process
-    C[Calculate random delay: 1–3 seconds\nusing FUNCTION RANDOM]:::process
-    D[EXEC CICS DELAY FOR SECONDS]:::io
-    E{DELAY RESP = NORMAL?}:::decision
-    F[Build ABNDINFO-REC\nCapture EIBRESP, EIBRESP2,\nAPPLID, TRANID, TASKNO,\nDate/Time via ASKTIME/FORMATTIME]:::error
-    G[EXEC CICS LINK to ABNDPROC\nEXEC CICS ABEND ABCODE PLOP]:::error
-    H[EXEC CICS GET CONTAINER CIPB\nfrom channel CIPCREDCHANN]:::io
-    I{GET CONTAINER\nRESP = NORMAL?}:::decision
-    J[DISPLAY error\nEXEC CICS RETURN]:::error
-    K[Calculate random credit score: 1–999\nusing FUNCTION RANDOM]:::process
-    L[Move new score to\nCUSTOMER-CREDIT-SCORE]:::process
-    M[EXEC CICS PUT CONTAINER CIPB\nback to channel CIPCREDCHANN]:::io
-    N{PUT CONTAINER\nRESP = NORMAL?}:::decision
-    O[DISPLAY error\nEXEC CICS RETURN]:::error
-    P[EXEC CICS RETURN\nTask completes normally]:::startEnd
-
-    A --> B --> C --> D --> E
-    E -- Yes --> H
-    E -- No --> F --> G
-    H --> I
-    I -- Yes --> K
-    I -- No --> J
-    K --> L --> M --> N
-    N -- Yes --> P
-    N -- No --> O
+    CICS_PROG[CICS Applications] -->|Read / Write| DB2_MAM
+    CICS_PROG -->|Write Log| DB2_HIST
+    IMS_PROG[IMS Applications] -->|Read / Write| IMS_DB
+    IMS_PROG -->|Cross-access| DB2_MAM
 </div>
-<p><code>CRDTAGY2</code> deliberately introduces a <strong>1-in-3 chance</strong> that the credit score is not returned within the parent’s 3-second timeout window, intentionally simulating the unpredictable response times of real-world third-party credit agencies.</p>
-<p><strong>Key implementation details:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Aspect</th>
-<th>Detail</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Invocation</td>
-<td>Asynchronous CICS child task via CICS Async API</td>
-</tr>
-<tr>
-<td>Input channel</td>
-<td><code>CIPCREDCHANN</code></td>
-</tr>
-<tr>
-<td>Input/output container</td>
-<td><code>CIPB</code></td>
-</tr>
-<tr>
-<td>Credit score range</td>
-<td>1–999 (computed via <code>FUNCTION RANDOM</code>)</td>
-</tr>
-<tr>
-<td>Random seed</td>
-<td><code>EIBTASKN</code> (CICS task number)</td>
-</tr>
-<tr>
-<td>Delay range</td>
-<td>1–3 seconds (<code>EXEC CICS DELAY FOR SECONDS</code>)</td>
-</tr>
-<tr>
-<td>Abend code</td>
-<td><code>PLOP</code></td>
-</tr>
-<tr>
-<td>Abend handler</td>
-<td><code>ABNDPROC</code> (via <code>EXEC CICS LINK</code>)</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Code example — random delay and credit score generation:</strong></p>
-<div class="code-block">
-  <div class="code-block-header">
-    <span class="code-block-lang">COBOL</span>
-    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
-  </div>
-  <pre><code class="language-cobol">* Seed the random number generator with the CICS task number
-MOVE EIBTASKN TO WS-SEED
-
-* Calculate a random delay between 1 and 3 seconds
-COMPUTE WS-DELAY-AMT = ((3 - 1) * FUNCTION RANDOM(WS-SEED)) + 1
-
-* Suspend the task for the calculated duration
-EXEC CICS DELAY
-    FOR SECONDS(WS-DELAY-AMT)
-    RESP(WS-CICS-RESP)
-    RESP2(WS-CICS-RESP2)
-END-EXEC
-
-* Calculate a random credit score between 1 and 999
-COMPUTE WS-NEW-CREDSCORE = ((999 - 1) * FUNCTION RANDOM) + 1
-
-* Update the customer record with the new credit score
-MOVE WS-NEW-CREDSCORE TO CUSTOMER-CREDIT-SCORE OF WS-CONT-IN</code></pre>
-</div>
-<p><strong>Code example — reading and writing the CICS container:</strong></p>
-<div class="code-block">
-  <div class="code-block-header">
-    <span class="code-block-lang">COBOL</span>
-    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
-  </div>
-  <pre><code class="language-cobol">* Read customer record from the CICS channel/container
-COMPUTE WS-CONTAINER-LEN = LENGTH OF WS-CONT-IN
-
-EXEC CICS GET CONTAINER(WS-CONTAINER-NAME)
-    CHANNEL(WS-CHANNEL-NAME)
-    INTO(WS-CONT-IN)
-    FLENGTH(WS-CONTAINER-LEN)
-    RESP(WS-CICS-RESP)
-    RESP2(WS-CICS-RESP2)
-END-EXEC
-
-* Write updated customer record back to the container
-EXEC CICS PUT CONTAINER(WS-CONTAINER-NAME)
-    FROM(WS-CONT-IN)
-    FLENGTH(WS-CONTAINER-LEN)
-    CHANNEL(WS-CHANNEL-NAME)
-    RESP(WS-CICS-RESP)
-    RESP2(WS-CICS-RESP2)
-END-EXEC</code></pre>
-</div>
-<p><strong>Code example — abend handling on DELAY failure:</strong></p>
-<div class="code-block">
-  <div class="code-block-header">
-    <span class="code-block-lang">COBOL</span>
-    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
-  </div>
-  <pre><code class="language-cobol">IF WS-CICS-RESP NOT = DFHRESP(NORMAL)
-    INITIALIZE ABNDINFO-REC
-    MOVE EIBRESP    TO ABND-RESPCODE
-    MOVE EIBRESP2   TO ABND-RESP2CODE
-    EXEC CICS ASSIGN APPLID(ABND-APPLID) END-EXEC
-    MOVE EIBTASKN   TO ABND-TASKNO-KEY
-    MOVE EIBTRNID   TO ABND-TRANID
-    PERFORM POPULATE-TIME-DATE
-    MOVE &#039;PLOP&#039;     TO ABND-CODE
-    EXEC CICS ASSIGN PROGRAM(ABND-PROGRAM) END-EXEC
-    MOVE ZEROS      TO ABND-SQLCODE
-    STRING &#039;CRDTAGY2 - DELAY FAILED. RESP=&#039;
-           WS-CICS-RESP &#039; RESP2=&#039; WS-CICS-RESP2
-           DELIMITED SIZE INTO ABND-FREEFORM
-    EXEC CICS LINK PROGRAM(WS-ABEND-PGM)
-        COMMAREA(ABNDINFO-REC)
-    END-EXEC
-    DISPLAY &#039;*** The delay messed up ! ***&#039;
-    EXEC CICS ABEND ABCODE(&#039;PLOP&#039;) END-EXEC
-END-IF</code></pre>
-</div>
+<h3 id="161-money-and-account-management-db2-database" tabindex="-1">1.6.1. Money and Account Management Db2 Database</h3>
+<p>The Money and Account Management Db2 database serves as the primary relational data store for the CICS processing path. It stores active customer records, account master data, and pending transactions. It is also accessible by IMS transactions requiring unified relational account verification.</p>
+<h3 id="162-money-and-account-management-ims-database" tabindex="-1">1.6.2. Money and Account Management IMS Database</h3>
+<p>The Money and Account Management IMS database provides hierarchical data storage tailored for the IMS processing path. It allows IMS applications to retrieve and manipulate customer profiles and segment-based account hierarchies with high throughput and low latency.</p>
+<h3 id="163-account-history-db2-database" tabindex="-1">1.6.3. Account History Db2 Database</h3>
+<p>The Account History Db2 database stores historical account activities, past statements, and audit logs. This dedicated repository supports customer inquiry workflows, compliance tracking, and periodic reporting without impacting transaction processing performance in active ledger tables.</p>
 <hr>
-<h3 id="34-ims-transaction-manager-ims-tm" tabindex="-1">3.4 IMS Transaction Manager (IMS TM)</h3>
-<p>IMS TM provides an alternative transaction-processing path for the Bank of Z application. It processes banking requests — including customer management, account management, and transaction processing — using the IMS processing path, accessing both the IMS database and the shared Money &amp; Account Management Db2 database.</p>
-<p><strong>Responsibilities:</strong></p>
-<ul>
-<li>Execute business logic along the IMS processing path</li>
-<li>Manage transactional integrity for IMS-based banking operations</li>
-<li>Access the IMS hierarchical database and Db2 relational database</li>
-</ul>
+<h2 id="17-messaging-and-inter-system-integration" tabindex="-1">1.7. Messaging and Inter-System Integration</h2>
+<h3 id="171-ibm-mq" tabindex="-1">1.7.1. IBM MQ</h3>
+<p>IBM MQ provides enterprise-grade message queuing for asynchronous communication between Bank of Z and external entities. It ensures guaranteed message delivery, transactional message integrity, and decoupling between independent banking platforms.</p>
+<h3 id="172-bank-of-q" tabindex="-1">1.7.2. Bank of Q</h3>
+<p>Bank of Q represents an external banking institution that integrates with Bank of Z via IBM MQ. This integration facilitates inter-bank scenarios, including external wire transfers and clearinghouse reconciliations.</p>
 <hr>
-<h2 id="4-data-layer" tabindex="-1">4. Data Layer</h2>
-<h3 id="41-money-and-account-management-db2-database" tabindex="-1">4.1 Money and Account Management Db2 Database</h3>
-<p>The Money and Account Management Db2 database is the primary relational data store for Bank of Z. It stores customer and account information used across both the CICS and IMS processing paths.</p>
-<p><strong>Responsibilities:</strong></p>
-<ul>
-<li>Persist customer records, account details, and transaction data</li>
-<li>Serve both the CICS and IMS transaction-processing paths</li>
-<li>Provide relational data access via embedded SQL (<code>EXEC SQL</code>) from COBOL programs</li>
-</ul>
-<hr>
-<h3 id="42-account-history-db2-database" tabindex="-1">4.2 Account History Db2 Database</h3>
-<p>The Account History Db2 database stores historical account and transaction information. It is used for inquiry and reporting functions, providing a time-ordered view of account activity.</p>
-<p><strong>Responsibilities:</strong></p>
-<ul>
-<li>Store historical transaction and account records</li>
-<li>Support inquiry and reporting operations</li>
-<li>Separate historical data from live operational data for performance and archival purposes</li>
-</ul>
-<hr>
-<h3 id="43-money-and-account-management-ims-database" tabindex="-1">4.3 Money and Account Management IMS Database</h3>
-<p>The Money and Account Management IMS database is the hierarchical data store for the IMS processing path. It enables IMS applications to manage and retrieve customer and account information using DL/I calls.</p>
-<p><strong>Responsibilities:</strong></p>
-<ul>
-<li>Persist customer and account data for the IMS processing path</li>
-<li>Provide hierarchical data access via DL/I from IMS application programs</li>
-<li>Support IMS TM transaction processing</li>
-</ul>
-<hr>
-<h2 id="5-messaging-and-external-integration" tabindex="-1">5. Messaging and External Integration</h2>
-<h3 id="51-ibm-mq" tabindex="-1">5.1 IBM MQ</h3>
-<p>IBM MQ provides asynchronous messaging capabilities for Bank of Z. It enables reliable, decoupled communication between Bank of Z and external banking systems, supporting integration scenarios where immediate synchronous responses are not required or practical.</p>
-<p><strong>Responsibilities:</strong></p>
-<ul>
-<li>Provide reliable message delivery between Bank of Z and external systems</li>
-<li>Decouple Bank of Z processing from external system availability</li>
-<li>Support publish/subscribe and point-to-point messaging patterns</li>
-</ul>
-<hr>
-<h3 id="52-bank-of-q" tabindex="-1">5.2 Bank of Q</h3>
-<p>Bank of Q represents an external banking system that exchanges information with Bank of Z through IBM MQ. It is used to demonstrate inter-application communication and money transfer scenarios between independent banking systems.</p>
-<p><strong>Responsibilities:</strong></p>
-<ul>
-<li>Act as an external system consumer/producer of IBM MQ messages</li>
-<li>Demonstrate cross-application money transfer scenarios</li>
-<li>Validate asynchronous integration patterns between banking systems</li>
-</ul>
-<hr>
-<h2 id="6-component-interaction-and-data-flows" tabindex="-1">6. Component Interaction and Data Flows</h2>
-<h3 id="61-end-to-end-request-flow" tabindex="-1">6.1 End-to-End Request Flow</h3>
-<p>The following sequence diagram illustrates the flow of a typical banking request from the browser through to the data layer:</p>
+<h2 id="18-component-relationships-and-interaction-flows" tabindex="-1">1.8. Component Relationships and Interaction Flows</h2>
+<h3 id="181-synchronous-banking-operation-flow" tabindex="-1">1.8.1. Synchronous Banking Operation Flow</h3>
+<p>The sequence below illustrates a standard synchronous banking operation initiated by a user through the web interface and routed to CICS.</p>
 <div class="mermaid">
 sequenceDiagram
-    participant User as Bank of Z UI
-    participant ZC as z/OS Connect
-    participant CICS as CICS
-    participant COBOL as COBOL Program
+    autonumber
+    actor User as Bank Customer
+    participant UI as Bank of Z UI
+    participant ZOSC as z/OS Connect
+    participant CICS as CICS Engine
     participant DB2 as Db2 Database
 
-    User->>ZC: REST API Request (e.g., GET /account)
-    ZC->>CICS: Route to CICS transaction
-    CICS->>COBOL: Invoke COBOL business logic
-    COBOL->>DB2: EXEC SQL SELECT / INSERT / UPDATE
-    DB2-->>COBOL: Result set / row count
-    COBOL-->>CICS: Populated response structure
-    CICS-->>ZC: Transaction response
-    ZC-->>User: JSON REST response
+    User->>UI: Submit Account Balance Inquiry
+    UI->>ZOSC: HTTP GET /api/v1/accounts/1002938471
+    ZOSC->>CICS: Transform JSON to Commarea / Channel & Invoke Program
+    CICS->>DB2: EXEC SQL SELECT balance, status FROM account_table ...
+    DB2-->>CICS: Return account record
+    CICS-->>ZOSC: Return response data structure
+    ZOSC-->>UI: HTTP 200 OK (JSON Response)
+    UI-->>User: Display Account Details & Balance
 </div>
-<h3 id="62-asynchronous-credit-scoring-flow" tabindex="-1">6.2 Asynchronous Credit Scoring Flow</h3>
-<p>The following sequence diagram shows how the CICS Async API is used to invoke multiple simulated credit agency programs (such as <code>CRDTAGY2</code>) in parallel, collecting results within a bounded timeout window:</p>
+<h3 id="182-asynchronous-external-transfer-flow" tabindex="-1">1.8.2. Asynchronous External Transfer Flow</h3>
+<p>When a transaction involves external institutions like Bank of Q, Bank of Z coordinates transactional updates and message queues across boundaries.</p>
 <div class="mermaid">
 sequenceDiagram
-    participant Parent as Parent CICS Program
-    participant CICS as CICS Runtime
-    participant AGY2 as CRDTAGY2\n(Credit Agency 2)
-    participant Container as CICS Channel/Container\nCIPCREDCHANN / CIPB
-
-    Parent->>Container: PUT customer record into CIPB
-    Parent->>CICS: EXEC CICS RUN TRANSID (async child task)
-    CICS->>AGY2: Start CRDTAGY2 as child task
-    AGY2->>CICS: EXEC CICS DELAY FOR SECONDS (1–3s)
-    AGY2->>Container: EXEC CICS GET CONTAINER CIPB
-    Container-->>AGY2: Customer record
-    AGY2->>AGY2: Compute credit score (1–999)\nvia FUNCTION RANDOM
-    AGY2->>Container: EXEC CICS PUT CONTAINER CIPB\n(updated with new credit score)
-    AGY2->>CICS: EXEC CICS RETURN
-    Parent->>CICS: EXEC CICS FETCH CHILD (wait up to 3s)
-    CICS-->>Parent: Child result (if within timeout)
-    Parent->>Container: GET CONTAINER CIPB\nRead updated credit score
-</div>
-<h3 id="63-asynchronous-messaging-flow-with-bank-of-q" tabindex="-1">6.3 Asynchronous Messaging Flow with Bank of Q</h3>
-<div class="mermaid">
-sequenceDiagram
+    autonumber
+    actor User as Bank Customer
     participant UI as Bank of Z UI
-    participant ZC as z/OS Connect
-    participant CICS as CICS Program
+    participant ZOSC as z/OS Connect
+    participant IMSTM as IMS TM Engine
+    participant IMSDB as IMS Database
     participant MQ as IBM MQ
     participant BOQ as Bank of Q
 
-    UI->>ZC: REST API call (money transfer)
-    ZC->>CICS: Invoke CICS transaction
-    CICS->>MQ: MQPUT — place transfer message on queue
-    MQ-->>CICS: Acknowledgement
-    CICS-->>ZC: Async response (transfer initiated)
-    ZC-->>UI: JSON response
-    MQ->>BOQ: Deliver message to Bank of Q
-    BOQ-->>MQ: Response message (transfer result)
-    MQ->>CICS: MQGET — retrieve transfer result
+    User->>UI: Request Transfer to Bank of Q
+    UI->>ZOSC: HTTP POST /api/v1/transfers/external
+    ZOSC->>IMSTM: Schedule IMS Transaction
+    IMSTM->>IMSDB: Update Local Account Ledger (Debit)
+    IMSDB-->>IMSTM: Update Confirmed
+    IMSTM->>MQ: MQPUT Transfer Message to Outbound Queue
+    MQ-->>BOQ: Deliver Transfer Notification
+    IMSTM-->>ZOSC: Transaction Acknowledged
+    ZOSC-->>UI: HTTP 202 Accepted
+    UI-->>User: Display "Transfer In Progress" Confirmation
 </div>
-<hr>
-<h2 id="7-customer-record-data-structure" tabindex="-1">7. Customer Record Data Structure</h2>
-<p>The following entity diagram describes the <code>CUSTOMER-RECORD</code> structure that is exchanged between CICS programs via channels and containers (as used by <code>CRDTAGY2</code>):</p>
-<div class="mermaid">
-erDiagram
-    CUSTOMER_RECORD {
-        string CUSTOMER_EYECATCHER "PIC X(4) - value CUST"
-        int    CUSTOMER_SORTCODE   "PIC 9(6)"
-        int    CUSTOMER_NUMBER     "PIC 9(10)"
-        string CUSTOMER_TITLE      "PIC X(10)"
-        string CUSTOMER_FIRST_NAME "PIC X(50)"
-        string CUSTOMER_LAST_NAME  "PIC X(50)"
-        int    CUSTOMER_DOB_DAY    "PIC 99"
-        int    CUSTOMER_DOB_MONTH  "PIC 99"
-        int    CUSTOMER_DOB_YEAR   "PIC 9999"
-        string CUSTOMER_PHONE      "PIC X(20)"
-        string CUSTOMER_ADDR_LINE1 "PIC X(50)"
-        string CUSTOMER_ADDR_LINE2 "PIC X(50)"
-        string CUSTOMER_CITY       "PIC X(50)"
-        string CUSTOMER_POSTCODE   "PIC X(10)"
-        string CUSTOMER_COUNTRY    "PIC X(50)"
-        string CUSTOMER_STATUS     "PIC X(10) - ACTIVE / INACTIVE / SUSPENDED"
-        int    CUSTOMER_CREDIT_SCORE "PIC 999 - range 1 to 999"
-        int    CUSTOMER_CS_REVIEW_DAY   "PIC 99"
-        int    CUSTOMER_CS_REVIEW_MONTH "PIC 99"
-        int    CUSTOMER_CS_REVIEW_YEAR  "PIC 9999"
-    }
-    CICS_CONTAINER {
-        string CHANNEL_NAME   "CIPCREDCHANN - PIC X(16)"
-        string CONTAINER_NAME "CIPB - PIC X(16)"
-        int    FLENGTH        "byte length of CUSTOMER_RECORD"
-    }
-    CICS_CONTAINER ||--|| CUSTOMER_RECORD : "carries"
-</div>
-<p>The <code>CUSTOMER-RECORD</code> structure is defined in the <code>CUSTOMER.cpy</code> copybook and is included in the working storage of programs such as <code>CRDTAGY2</code>. The <code>CUSTOMER-CREDIT-SCORE</code> field (three-digit unsigned numeric, range 1–999) is the primary output field updated by the credit agency simulation.</p>
-<hr>
-<h2 id="8-copybooks-and-shared-definitions" tabindex="-1">8. Copybooks and Shared Definitions</h2>
-<p>Bank of Z COBOL programs share common data definitions through COBOL copybooks. These copybooks are included in program working-storage sections and define shared record layouts and constants.</p>
-<table>
-<thead>
-<tr>
-<th>Copybook</th>
-<th>Path</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>CUSTOMER.cpy</code></td>
-<td><code>src/base/cics/copy/CUSTOMER.cpy</code></td>
-<td>Defines the <code>CUSTOMER-RECORD</code> layout used by all customer-related programs</td>
-</tr>
-<tr>
-<td><code>SORTCODE.cpy</code></td>
-<td><code>src/base/cics/copy/SORTCODE.cpy</code></td>
-<td>Defines the <code>SORTCODE</code> constant (<code>PIC 9(6) VALUE 987654</code>) shared across programs</td>
-</tr>
-<tr>
-<td><code>ABNDINFO.cpy</code></td>
-<td><code>src/base/cics/copy/ABNDINFO.cpy</code></td>
-<td>Defines the <code>ABNDINFO-REC</code> structure used to pass diagnostic data to the <code>ABNDPROC</code> abend handler</td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h2 id="9-error-handling-architecture" tabindex="-1">9. Error Handling Architecture</h2>
-<p>All CICS COBOL programs in Bank of Z follow a consistent error handling pattern. Every CICS command captures response codes via <code>RESP</code> and <code>RESP2</code> options, and any non-normal response triggers structured error processing.</p>
-<div class="mermaid">
-graph TD
-    A[EXEC CICS Command] --> B{RESP = DFHRESP NORMAL?}
-    B -- Yes --> C[Continue Normal Processing]
-    B -- No --> D[Populate ABNDINFO-REC\nRESP, RESP2, APPLID, TRANID,\nTASKNO, Date/Time, Program Name]
-    D --> E[EXEC CICS LINK\nPROGRAM ABNDPROC\nCOMMARED ABNDINFO-REC]
-    E --> F[EXEC CICS ABEND\nABCODE PLOP]
-    F --> G([Task Terminates Abnormally\nCICS Produces Transaction Dump])
-</div>
-<p>The <code>ABNDPROC</code> program acts as a <strong>centralized abend handler</strong> for the entire Bank of Z application. When any CICS COBOL program encounters an unrecoverable error, it:</p>
-<ol>
-<li>Initializes and populates the <code>ABNDINFO-REC</code> structure with full diagnostic context</li>
-<li>Links to <code>ABNDPROC</code> via <code>EXEC CICS LINK</code>, passing <code>ABNDINFO-REC</code> as the COMMAREA</li>
-<li>Issues <code>EXEC CICS ABEND ABCODE('PLOP')</code> to terminate the task and produce a transaction dump</li>
-</ol>
-<p>This pattern ensures that all abend information is captured and routed consistently, regardless of which program encountered the error.</p>
-
                         <div class="related-pages">
                             <p class="related-pages-title">Related Pages</p>
                             <div class="card-grid">
                                 
-            <a href="architecture-overview.html" class="card">
-                <span class="card-title">Architecture Overview</span>
-                <span class="card-description">High-level architectural summary of Bank of Z, describing how the system layers interact across CICS, COBOL, DB2, and supporting IBM Z middleware.</span>
-            </a>
             <a href="application-flow.html" class="card">
                 <span class="card-title">Application Flow</span>
-                <span class="card-description">End-to-end flow of transactions through Bank of Z, covering request lifecycle, asynchronous processing, CICS channel/container usage, and data handoff between programs.</span>
+                <span class="card-description">How a user request moves through the menu, transactions and supporting services at runtime.</span>
+            </a>
+            <a href="cics-program-examples.html" class="card">
+                <span class="card-title">CICS COBOL Program Examples</span>
+                <span class="card-description">Program-level views of selected COBOL CICS programs: the BNKMENU navigation hub and the CRDTAGY2 asynchronous credit agency simulator.</span>
+            </a>
+            <a href="repository-structure.html" class="card">
+                <span class="card-title">Repository Structure</span>
+                <span class="card-description">Layout of the repository and where each type of artifact lives.</span>
             </a>
                             </div>
                         </div>
@@ -719,43 +408,47 @@ graph TD
                     <nav class="toc-panel" aria-label="On this page">
   <span class="toc-panel-label">On this page</span>
   <ul class="toc-list">
-<li class="toc-level-2"><a href="#1-overview">1. Overview</a></li>
-<li class="toc-level-2"><a href="#2-system-architecture">2. System Architecture</a></li>
-<li class="toc-level-2"><a href="#3-application-components">3. Application Components</a>
+<li class="toc-level-2"><a href="#11-overview">1.1. Overview</a></li>
+<li class="toc-level-2"><a href="#12-system-architecture">1.2. System Architecture</a></li>
+<li class="toc-level-2"><a href="#13-presentation-tier">1.3. Presentation Tier</a>
 <ul>
-<li class="toc-level-3"><a href="#31-bank-of-z-ui">3.1 Bank of Z UI</a></li>
-<li class="toc-level-3"><a href="#32-zos-connect">3.2 z/OS Connect</a></li>
-<li class="toc-level-3"><a href="#33-cics-transaction-processing">3.3 CICS Transaction Processing</a>
-<ul>
-<li class="toc-level-4"><a href="#331-crdtagy2--simulated-credit-agency-program">3.3.1 CRDTAGY2 — Simulated Credit Agency Program</a></li>
+<li class="toc-level-3"><a href="#131-bank-of-z-ui">1.3.1. Bank of Z UI</a></li>
 </ul>
 </li>
-<li class="toc-level-3"><a href="#34-ims-transaction-manager-ims-tm">3.4 IMS Transaction Manager (IMS TM)</a></li>
-</ul>
-</li>
-<li class="toc-level-2"><a href="#4-data-layer">4. Data Layer</a>
+<li class="toc-level-2"><a href="#14-api-integration-layer">1.4. API Integration Layer</a>
 <ul>
-<li class="toc-level-3"><a href="#41-money-and-account-management-db2-database">4.1 Money and Account Management Db2 Database</a></li>
-<li class="toc-level-3"><a href="#42-account-history-db2-database">4.2 Account History Db2 Database</a></li>
-<li class="toc-level-3"><a href="#43-money-and-account-management-ims-database">4.3 Money and Account Management IMS Database</a></li>
-</ul>
-</li>
-<li class="toc-level-2"><a href="#5-messaging-and-external-integration">5. Messaging and External Integration</a>
+<li class="toc-level-3"><a href="#141-zos-connect">1.4.1. z/OS Connect</a>
 <ul>
-<li class="toc-level-3"><a href="#51-ibm-mq">5.1 IBM MQ</a></li>
-<li class="toc-level-3"><a href="#52-bank-of-q">5.2 Bank of Q</a></li>
+<li class="toc-level-4"><a href="#example-api-request-payload-transfer-funds">Example: API Request Payload (Transfer Funds)</a></li>
 </ul>
 </li>
-<li class="toc-level-2"><a href="#6-component-interaction-and-data-flows">6. Component Interaction and Data Flows</a>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#15-transaction-processing-systems">1.5. Transaction Processing Systems</a>
 <ul>
-<li class="toc-level-3"><a href="#61-end-to-end-request-flow">6.1 End-to-End Request Flow</a></li>
-<li class="toc-level-3"><a href="#62-asynchronous-credit-scoring-flow">6.2 Asynchronous Credit Scoring Flow</a></li>
-<li class="toc-level-3"><a href="#63-asynchronous-messaging-flow-with-bank-of-q">6.3 Asynchronous Messaging Flow with Bank of Q</a></li>
+<li class="toc-level-3"><a href="#151-customer-information-control-system-cics">1.5.1. Customer Information Control System (CICS)</a></li>
+<li class="toc-level-3"><a href="#152-ims-transaction-manager-ims-tm">1.5.2. IMS Transaction Manager (IMS TM)</a></li>
 </ul>
 </li>
-<li class="toc-level-2"><a href="#7-customer-record-data-structure">7. Customer Record Data Structure</a></li>
-<li class="toc-level-2"><a href="#8-copybooks-and-shared-definitions">8. Copybooks and Shared Definitions</a></li>
-<li class="toc-level-2"><a href="#9-error-handling-architecture">9. Error Handling Architecture</a></li>
+<li class="toc-level-2"><a href="#16-enterprise-data-stores">1.6. Enterprise Data Stores</a>
+<ul>
+<li class="toc-level-3"><a href="#161-money-and-account-management-db2-database">1.6.1. Money and Account Management Db2 Database</a></li>
+<li class="toc-level-3"><a href="#162-money-and-account-management-ims-database">1.6.2. Money and Account Management IMS Database</a></li>
+<li class="toc-level-3"><a href="#163-account-history-db2-database">1.6.3. Account History Db2 Database</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#17-messaging-and-inter-system-integration">1.7. Messaging and Inter-System Integration</a>
+<ul>
+<li class="toc-level-3"><a href="#171-ibm-mq">1.7.1. IBM MQ</a></li>
+<li class="toc-level-3"><a href="#172-bank-of-q">1.7.2. Bank of Q</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#18-component-relationships-and-interaction-flows">1.8. Component Relationships and Interaction Flows</a>
+<ul>
+<li class="toc-level-3"><a href="#181-synchronous-banking-operation-flow">1.8.1. Synchronous Banking Operation Flow</a></li>
+<li class="toc-level-3"><a href="#182-asynchronous-external-transfer-flow">1.8.2. Asynchronous External Transfer Flow</a></li>
+</ul>
+</li>
 </ul>
 
 </nav>
