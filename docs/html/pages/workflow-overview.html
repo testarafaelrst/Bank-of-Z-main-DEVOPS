@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Development Workflow Overview - Bank of Z – IBM Z Modern Development Reference</title>
+    <title>Development Workflows Overview - Bank of Z – IBM Z Banking Application</title>
     <link rel="stylesheet" href="../assets/style.css">
     <script src="../assets/mermaid.js"></script>
     <script>
@@ -23,7 +23,7 @@
 <body>
     <header class="header">
         <div class="header-left">
-            <span class="header-app-name"><a href="../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – IBM Z Modern Development Reference</a></span>
+            <span class="header-app-name"><a href="../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – IBM Z Banking Application</a></span>
         </div>
         <div class="header-right">
         </div>
@@ -54,8 +54,24 @@
             </button>
             <div class="nav-section-items">
                 <a href="about-overview.html" class="nav-link" data-page-id="about-overview">Project Overview</a>
-                <a href="architecture-overview.html" class="nav-link" data-page-id="architecture-overview">Architecture Overview</a>
-                <a href="key-capabilities.html" class="nav-link" data-page-id="key-capabilities">Key Capabilities</a>
+                <a href="about-capabilities.html" class="nav-link" data-page-id="about-capabilities">Key Capabilities</a>
+                <a href="about-architecture-overview.html" class="nav-link" data-page-id="about-architecture-overview">Architecture Overview</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Getting Started</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="prerequisites.html" class="nav-link" data-page-id="prerequisites">Prerequisites</a>
+                <a href="installation-setup.html" class="nav-link" data-page-id="installation-setup">Installation &amp; Setup</a>
+                <a href="environment-configuration.html" class="nav-link" data-page-id="environment-configuration">Environment Configuration</a>
+                <a href="verification.html" class="nav-link" data-page-id="verification">Verification &amp; Smoke Testing</a>
             </div>
         </div>
         <div class="nav-section">
@@ -68,14 +84,14 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="application-components.html" class="nav-link" data-page-id="application-components">Application Components</a>
-                <a href="application-flow.html" class="nav-link" data-page-id="application-flow">Application Flow</a>
-                <a href="build-and-deployment-arch.html" class="nav-link" data-page-id="build-and-deployment-arch">Build &amp; Deployment Architecture</a>
+                <a href="architecture-components.html" class="nav-link" data-page-id="architecture-components">Application Components</a>
+                <a href="architecture-flow.html" class="nav-link" data-page-id="architecture-flow">Application Flow</a>
+                <a href="architecture-build-deployment.html" class="nav-link" data-page-id="architecture-build-deployment">Build &amp; Deployment Architecture</a>
             </div>
         </div>
         <div class="nav-section">
             <button class="nav-section-toggle" type="button">
-                <span class="nav-toggle-text">Installation &amp; Setup</span>
+                <span class="nav-toggle-text">Program Reference</span>
                 <span class="nav-section-chevron">
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -83,11 +99,9 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="prerequisites-env.html" class="nav-link" data-page-id="prerequisites-env">Prerequisites &amp; Environment Configuration</a>
-                <a href="deploying-options.html" class="nav-link" data-page-id="deploying-options">Deployment Options</a>
-                <a href="local-tools-setup.html" class="nav-link" data-page-id="local-tools-setup">Local Tools Setup</a>
-                <a href="zowe-cli-setup.html" class="nav-link" data-page-id="zowe-cli-setup">Zowe CLI &amp; Profile Setup</a>
-                <a href="verification.html" class="nav-link" data-page-id="verification">Installation Verification</a>
+                <a href="program-bnkmenu.html" class="nav-link" data-page-id="program-bnkmenu">BNKMENU – Main Menu Program</a>
+                <a href="program-crdtagy2.html" class="nav-link" data-page-id="program-crdtagy2">CRDTAGY2 – Credit Agency Simulator</a>
+                <a href="program-delacc.html" class="nav-link" data-page-id="program-delacc">DELACC – Delete Account Program</a>
             </div>
         </div>
         <div class="nav-section">
@@ -100,10 +114,10 @@
                 </span>
             </button>
             <div class="nav-section-items open">
-                <a href="workflow-overview.html" class="nav-link active" data-page-id="workflow-overview">Development Workflow Overview</a>
-                <a href="zowe-cli-workflow.html" class="nav-link" data-page-id="zowe-cli-workflow">Zowe CLI Workflow</a>
-                <a href="grub-workflow.html" class="nav-link" data-page-id="grub-workflow">Grub Workflow</a>
-                <a href="development-best-practices.html" class="nav-link" data-page-id="development-best-practices">Development Best Practices</a>
+                <a href="workflow-overview.html" class="nav-link active" data-page-id="workflow-overview">Development Workflows Overview</a>
+                <a href="workflow-zowe-cli.html" class="nav-link" data-page-id="workflow-zowe-cli">Zowe CLI Workflow</a>
+                <a href="workflow-grub.html" class="nav-link" data-page-id="workflow-grub">GRUB Workflow</a>
+                <a href="workflow-best-practices.html" class="nav-link" data-page-id="workflow-best-practices">Development Best Practices</a>
             </div>
         </div>
         <div class="nav-section">
@@ -116,10 +130,10 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="deploy-bank-of-z.html" class="nav-link" data-page-id="deploy-bank-of-z">Tutorial: Deploy Bank of Z</a>
-                <a href="cics-enhancement.html" class="nav-link" data-page-id="cics-enhancement">Tutorial: CICS Enhancement Scenario</a>
-                <a href="incremental-build.html" class="nav-link" data-page-id="incremental-build">Tutorial: Incremental Build</a>
-                <a href="debug-cics-transaction.html" class="nav-link" data-page-id="debug-cics-transaction">Tutorial: Debug a CICS Transaction</a>
+                <a href="tutorial-deploy.html" class="nav-link" data-page-id="tutorial-deploy">Tutorial: Deploy Bank of Z</a>
+                <a href="tutorial-cics-enhancement.html" class="nav-link" data-page-id="tutorial-cics-enhancement">Tutorial: CICS Enhancement Scenario</a>
+                <a href="tutorial-incremental-build.html" class="nav-link" data-page-id="tutorial-incremental-build">Tutorial: Incremental Build</a>
+                <a href="tutorial-debug-cics.html" class="nav-link" data-page-id="tutorial-debug-cics">Tutorial: Debug a CICS Transaction</a>
             </div>
         </div>
         <div class="nav-section">
@@ -132,54 +146,14 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="commands-reference.html" class="nav-link" data-page-id="commands-reference">Commands Reference</a>
-                <a href="configuration-reference.html" class="nav-link" data-page-id="configuration-reference">Configuration Reference</a>
-                <a href="glossary.html" class="nav-link" data-page-id="glossary">Glossary</a>
-                <a href="repository-structure.html" class="nav-link" data-page-id="repository-structure">Repository Structure</a>
-            </div>
-        </div>
-        <div class="nav-section">
-            <button class="nav-section-toggle" type="button">
-                <span class="nav-toggle-text">Troubleshooting</span>
-                <span class="nav-section-chevron">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </span>
-            </button>
-            <div class="nav-section-items">
-                <a href="troubleshooting-overview.html" class="nav-link" data-page-id="troubleshooting-overview">Troubleshooting Overview</a>
-                <a href="fix-abend-cino.html" class="nav-link" data-page-id="fix-abend-cino">Fix: OMEN ABEND CINO</a>
-                <a href="program-internals.html" class="nav-link" data-page-id="program-internals">Program Internals: CRDTAGY2 Credit Agency Simulator</a>
+                <a href="ref-configuration.html" class="nav-link" data-page-id="ref-configuration">Configuration Reference</a>
+                <a href="ref-commands.html" class="nav-link" data-page-id="ref-commands">Commands Reference</a>
+                <a href="ref-repository-structure.html" class="nav-link" data-page-id="ref-repository-structure">Repository Structure</a>
+                <a href="ref-glossary.html" class="nav-link" data-page-id="ref-glossary">Glossary</a>
             </div>
         </div>
         <div class="nav-divider"></div>
         <div class="nav-group-label">Program Documentation</div>
-    <div class="nav-section">
-        <button class="nav-section-toggle" type="button">
-            <span class="nav-toggle-text">docs</span>
-            <span class="nav-section-chevron">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </span>
-        </button>
-        <div class="nav-section-items">
-        <div class="nav-section">
-            <button class="nav-section-toggle" type="button">
-                <span class="nav-toggle-text">about-bank-of-z</span>
-                <span class="nav-section-chevron">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </span>
-            </button>
-            <div class="nav-section-items">
-                <a href="../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
-            </div>
-        </div>
-        </div>
-    </div>
     <div class="nav-section">
         <button class="nav-section-toggle" type="button">
             <span class="nav-toggle-text">program</span>
@@ -230,13 +204,40 @@
                             </span>
                         </button>
                         <div class="nav-section-items">
+                            <a href="../sources/program/src/base/cics/cobol/BNKMENU.html" class="nav-link">BNKMENU</a>
                             <a href="../sources/program/src/base/cics/cobol/CRDTAGY2.html" class="nav-link">CRDTAGY2</a>
+                            <a href="../sources/program/src/base/cics/cobol/DELACC.html" class="nav-link">DELACC</a>
                         </div>
                     </div>
                     </div>
                 </div>
                 </div>
             </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">docs</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">about-bank-of-z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
             </div>
         </div>
         </div>
@@ -267,126 +268,148 @@
                 </ul>
             </div>
         </details>
-                        <h1 id="development-workflow-overview" tabindex="-1">Development Workflow Overview</h1>
-<p>Bank of Z supports modern, Git-based development practices for z/OS application assets. This page provides a comparison and selection guide for the two supported development workflows — the <strong>Zowe CLI workflow</strong> and the <strong>GRUB workflow</strong> — helping developers choose the right approach based on tooling, environment, and team preferences.</p>
-<p>Both workflows enable developers to modify application source code, build and validate changes, and deploy updates to the target z/OS environment, leveraging enterprise technologies such as Db2, CICS, IMS, z/OS Connect, IBM Dependency Based Build (DBB), and Wazi Deploy.</p>
+                        <h1 id="development-workflows-overview" tabindex="-1">Development Workflows Overview</h1>
+<p>Bank of Z supports modern, Git-based development practices that integrate seamlessly with enterprise z/OS technologies, including Db2, CICS, IMS, z/OS Connect, IBM Dependency Based Build (DBB), and Wazi Deploy. This page provides a comparison and selection guide for the supported development workflows: <strong>direct mainframe editing</strong>, <strong>Zowe CLI</strong>, and <strong>GRUB</strong>, helping developers choose the approach that best fits their needs.</p>
 <hr>
 <h2 id="1-system-architecture" tabindex="-1">1. System Architecture</h2>
-<p>The Bank of Z development environment is built around a z/OS target system and a Git-based source repository. Both workflows interact with the same core infrastructure but differ in how changes are synchronized and how pipeline activities are triggered.</p>
+<p>The Bank of Z development platform connects developer workstations to the z/OS target environment through a set of tools and pipelines. Regardless of which workflow is chosen, all paths converge on the same target runtime environment — consisting of CICS, Db2, IMS, and z/OS Connect — ensuring consistency across development approaches.</p>
 <div class="mermaid">
 graph TD
-    DEV[Developer Workstation]
+    DEV[👨‍💻 Developer Workstation]
     GIT[Git Repository / GitHub]
-    VSCODE[VS Code + Zowe CLI Extension]
-    ZUSS[z/OS USS - Unix System Services]
+    USS[z/OS Unix System Services - USS]
     DBB[IBM Dependency Based Build - DBB]
-    WAZI[Wazi Deploy]
-    RUNTIME[z/OS Runtime Environments\nCICS · Db2 · IMS · z/OS Connect]
+    WD[Wazi Deploy]
+    CICS[CICS Runtime]
+    DB2[Db2]
+    IMS[IMS]
+    ZCON[z/OS Connect]
 
-    DEV -->|Edit source code| VSCODE
-    VSCODE -->|Commit & push| GIT
-
-    GIT -->|Clone branch via Zowe CLI| ZUSS
-    VSCODE -->|Sync files via SSH/GRUB| ZUSS
-
-    ZUSS --> DBB
-    DBB -->|Package artifacts| WAZI
-    WAZI -->|Deploy & activate| RUNTIME
+    DEV -->|Zowe CLI Workflow| GIT
+    GIT -->|Clone branch on USS| USS
+    DEV -->|GRUB Workflow - SSH + GRUB sync| USS
+    USS --> DBB
+    DBB --> WD
+    WD --> CICS
+    WD --> DB2
+    WD --> IMS
+    WD --> ZCON
 </div>
-<p>The diagram above illustrates the high-level architecture shared by both workflows. Source changes originate on the developer workstation and are delivered to z/OS USS, where IBM DBB performs the build and Wazi Deploy activates the updated components in the target runtime environments. The key architectural difference is the synchronization path: the Zowe CLI workflow routes changes through the Git repository, while the GRUB workflow pushes files directly to USS via SSH.</p>
+<p>The diagram above illustrates the two primary paths from the developer workstation to the z/OS runtime. The <strong>Zowe CLI workflow</strong> routes changes through Git before landing on USS, while the <strong>GRUB workflow</strong> synchronizes files directly to USS via SSH — both ultimately feeding the same build and deployment pipeline.</p>
 <hr>
 <h2 id="2-overview" tabindex="-1">2. Overview</h2>
-<h3 id="21-development-workflow-lifecycle" tabindex="-1">2.1 Development Workflow Lifecycle</h3>
-<p>Every Bank of Z development cycle follows the same six-step lifecycle, regardless of which workflow is selected:</p>
-<div class="mermaid">
-graph LR
-    A[1. Make Changes] --> B[2. Commit Changes]
-    B --> C[3. Run Pipeline]
-    C --> D[4. Review Results]
-    D --> E[5. Deploy Changes]
-    E --> F[6. Validate Changes]
-    F -->|Iterate| A
-</div>
-<p>Each step is described in detail below.</p>
-<h4 id="211-make-changes" tabindex="-1">2.1.1 Make Changes</h4>
-<p>Modify application source code, configuration files, or deployment artifacts. Common changes include:</p>
+<p>A typical Bank of Z development cycle follows a structured sequence of activities, from making a code change through to validating the deployed result. The steps below apply broadly to all supported workflows, with differences in how source synchronization and pipeline triggering are handled.</p>
+<h3 id="21-make-changes" tabindex="-1">2.1 Make Changes</h3>
 <ul>
-<li>COBOL programs</li>
-<li>BMS maps</li>
-<li>Copybooks</li>
-<li>z/OS Connect APIs</li>
-<li>Web application components</li>
+<li>Modify application source code, configuration files, or deployment artifacts.</li>
+<li>Common changes include updates to <strong>COBOL programs</strong>, <strong>BMS maps</strong>, <strong>copybooks</strong>, <strong>z/OS Connect APIs</strong>, and web application components.</li>
 </ul>
-<h4 id="212-commit-changes" tabindex="-1">2.1.2 Commit Changes</h4>
-<p>Review and commit changes to the source repository. Use meaningful commit messages to document modifications and support traceability.</p>
+<h3 id="22-commit-changes" tabindex="-1">2.2 Commit Changes</h3>
+<ul>
+<li>Review and commit changes to the source repository.</li>
+<li>Use meaningful commit messages to document modifications and support traceability.</li>
+</ul>
 <blockquote>
-<p><strong>Note (GRUB workflow):</strong> The GRUB workflow does not require a commit before testing. Changes are synchronized directly to z/OS USS, enabling rapid iteration without going through Git.</p>
+<p><strong>Note:</strong> Committing before testing is <strong>required</strong> in the Zowe CLI workflow but <strong>optional</strong> in the GRUB workflow.</p>
 </blockquote>
-<h4 id="213-run-the-pipeline" tabindex="-1">2.1.3 Run the Pipeline</h4>
-<p>Run the build pipeline using the supported development workflow. The pipeline:</p>
+<h3 id="23-run-the-pipeline" tabindex="-1">2.3 Run the Pipeline</h3>
 <ul>
-<li>Analyzes source changes</li>
-<li>Builds affected components</li>
-<li>Packages deployment artifacts</li>
-<li>Prepares deployment plans</li>
+<li>Run the build pipeline using the supported development workflow.</li>
+<li>The pipeline analyzes source changes, builds affected components, packages deployment artifacts, and prepares deployment plans.</li>
 </ul>
-<h4 id="214-review-results" tabindex="-1">2.1.4 Review Results</h4>
-<p>Review build logs, reports, and generated artifacts. Address any build, dependency, or deployment issues identified during the pipeline run.</p>
-<h4 id="215-deploy-changes" tabindex="-1">2.1.5 Deploy Changes</h4>
-<p>Deploy validated artifacts to the target environment. Updated components are activated in the appropriate runtime environments, including CICS, Db2, IMS, and z/OS Connect.</p>
-<h4 id="216-validate-changes" tabindex="-1">2.1.6 Validate Changes</h4>
-<p>Verify that the deployed changes function as expected. Run application tests and review runtime behavior before promoting changes to additional environments.</p>
+<h3 id="24-review-results" tabindex="-1">2.4 Review Results</h3>
+<ul>
+<li>Review build logs, reports, and generated artifacts.</li>
+<li>Address any build, dependency, or deployment issues identified during the pipeline run.</li>
+</ul>
+<h3 id="25-deploy-changes" tabindex="-1">2.5 Deploy Changes</h3>
+<ul>
+<li>Deploy validated artifacts to the target environment.</li>
+<li>Updated components are activated in the appropriate runtime environments, including CICS, Db2, IMS, and z/OS Connect.</li>
+</ul>
+<h3 id="26-validate-changes" tabindex="-1">2.6 Validate Changes</h3>
+<ul>
+<li>Verify that the deployed changes function as expected.</li>
+<li>Run application tests and review runtime behavior before promoting changes to additional environments.</li>
+</ul>
+<p>The sequence below visualizes these activities end-to-end:</p>
+<div class="mermaid">
+sequenceDiagram
+    participant Dev as Developer
+    participant Git as Git Repository
+    participant USS as z/OS USS
+    participant DBB as IBM DBB (Build)
+    participant WD  as Wazi Deploy
+    participant RT  as z/OS Runtime
+
+    Dev->>Git: 1. Commit source changes
+    Git->>USS: 2. Clone / sync branch on USS
+    USS->>DBB: 3. Trigger build pipeline
+    DBB-->>USS: 4. Build logs & artifacts
+    USS-->>Dev: 5. Review results
+    Dev->>WD: 6. Initiate deployment
+    WD->>RT: 7. Activate components (CICS, Db2, IMS, z/OS Connect)
+    RT-->>Dev: 8. Validate runtime behaviour
+</div>
 <hr>
 <h2 id="3-supported-workflows" tabindex="-1">3. Supported Workflows</h2>
-<p>Bank of Z supports two distinct development approaches. Each workflow targets a different development style and access model.</p>
-<h3 id="31-zowe-cli-workflow" tabindex="-1">3.1 Zowe CLI Workflow</h3>
-<p>A task-based workflow that uses <strong>Zowe CLI</strong> to clone your branch on z/OS USS and run the setup and pipeline scripts. It can be triggered from:</p>
+<p>Bank of Z provides three development approaches. Each is optimized for a different combination of tooling, access constraints, and development pace.</p>
+<h3 id="31-direct-mainframe-editing" tabindex="-1">3.1 Direct Mainframe Editing</h3>
+<p>Developers edit source files directly on the mainframe using traditional tools (e.g., ISPF/Edit or z/OS Explorer). Changes take effect immediately within the mainframe environment without requiring a local workstation or Git integration.</p>
+<p><strong>Best suited for:</strong> Quick, targeted fixes directly on z/OS where local tooling is not available.</p>
+<h3 id="32-zowe-cli-workflow" tabindex="-1">3.2 Zowe CLI Workflow</h3>
+<p>A task-based workflow that uses <strong>Zowe CLI</strong> to clone a repository branch on z/OS USS and run the setup and pipeline scripts. It can be triggered from the command line or from a <strong>VS Code task</strong>, making it well-suited for developers who prefer an IDE-driven experience.</p>
+<p><strong>Key characteristics:</strong></p>
 <ul>
-<li>The <strong>command line</strong> using <code>setup-local.sh</code></li>
-<li>A <strong>VS Code task</strong> via the Zowe CLI VS Code extension</li>
+<li>Source synchronization is driven by <strong>Git</strong> and <strong>Zowe CLI</strong>.</li>
+<li>A commit is required before the pipeline can be triggered.</li>
+<li>Fits naturally into branch-based, team-collaborative development.</li>
+<li>Works even when direct SSH access to z/OS USS is restricted.</li>
 </ul>
-<p>This workflow is inherently branch-based and version-controlled, making it well suited for team collaboration, feature development, and environments where direct SSH access to z/OS USS is limited or unavailable.</p>
-<p><strong>Example: Triggering the setup script from the command line</strong></p>
+<p><strong>Example: Triggering the pipeline via <code>setup-local.sh</code></strong></p>
 <div class="code-block">
   <div class="code-block-header">
     <span class="code-block-lang">BASH</span>
     <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
   </div>
-  <pre><code class="language-bash"># Clone the feature branch to z/OS USS and run the setup
-./setup-local.sh --branch feature/my-cobol-update</code></pre>
+  <pre><code class="language-bash"># After committing your changes and checking out your feature branch:
+./setup-local.sh --branch feature/my-cobol-fix</code></pre>
 </div>
-<p><strong>Example: VS Code task definition (tasks.json)</strong></p>
+<p><strong>Example: Triggering via VS Code task</strong></p>
 <div class="code-block">
   <div class="code-block-header">
     <span class="code-block-lang">JSON</span>
     <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
   </div>
   <pre><code class="language-json">{
-  &quot;label&quot;: &quot;Run Bank of Z Pipeline (Zowe CLI)&quot;,
+  &quot;label&quot;: &quot;Bank of Z: Run Pipeline (Zowe CLI)&quot;,
   &quot;type&quot;: &quot;shell&quot;,
   &quot;command&quot;: &quot;./setup-local.sh&quot;,
   &quot;args&quot;: [&quot;--branch&quot;, &quot;${input:branchName}&quot;],
-  &quot;problemMatcher&quot;: []
+  &quot;group&quot;: &quot;build&quot;
 }</code></pre>
 </div>
-<hr>
-<h3 id="32-grub-workflow" tabindex="-1">3.2 GRUB Workflow</h3>
-<p>A development workflow optimized for <strong>rapid iteration</strong>, allowing developers to synchronize local file changes directly to the z/OS USS target environment and run build and deployment activities without requiring committed changes.</p>
-<p>This workflow is ideal for fast feedback cycles, frequent incremental changes, and individual development and testing scenarios where the developer has SSH access to z/OS USS.</p>
-<p><strong>Example: Syncing a changed COBOL file via SSH/GRUB</strong></p>
+<h3 id="33-grub-workflow" tabindex="-1">3.3 GRUB Workflow</h3>
+<p>A development workflow optimized for <strong>rapid iteration</strong>, allowing developers to synchronize local changes directly to the z/OS USS target environment and run build and deployment activities — <strong>without requiring committed changes</strong>.</p>
+<p><strong>Key characteristics:</strong></p>
+<ul>
+<li>Changes are transferred via <strong>SSH</strong> and the <strong>GRUB</strong> synchronization mechanism.</li>
+<li>Setup is initiated automatically after synchronization.</li>
+<li>Ideal for fast feedback loops and frequent incremental changes.</li>
+<li>Primarily suited for individual development and testing rather than team collaboration.</li>
+</ul>
+<p><strong>Example: Synchronizing changes with GRUB</strong></p>
 <div class="code-block">
   <div class="code-block-header">
     <span class="code-block-lang">BASH</span>
     <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
   </div>
-  <pre><code class="language-bash"># Synchronize a modified COBOL source file directly to z/OS USS
-grub sync src/COBPGM1.cbl /u/developer/bankofz/src/COBPGM1.cbl</code></pre>
+  <pre><code class="language-bash"># Synchronize local working directory changes to z/OS USS
+grub sync --target uss://mymainframe/u/developer/boz</code></pre>
 </div>
-<p>After synchronization, the setup and build activities are <strong>initiated automatically</strong>, eliminating the need for a manual commit-push-clone cycle.</p>
 <hr>
 <h2 id="4-workflow-comparison" tabindex="-1">4. Workflow Comparison</h2>
-<h3 id="41-feature-comparison-table" tabindex="-1">4.1 Feature Comparison Table</h3>
-<p>The table below summarizes the key differences between the two workflows:</p>
+<p>The table below summarizes the key differences between the Zowe CLI and GRUB workflows to help you select the right tool for your situation.</p>
 <table>
 <thead>
 <tr>
@@ -398,13 +421,13 @@ grub sync src/COBPGM1.cbl /u/developer/bankofz/src/COBPGM1.cbl</code></pre>
 <tbody>
 <tr>
 <td><strong>Source synchronization</strong></td>
-<td>Git clone via Zowe CLI to z/OS USS</td>
+<td>Git + Zowe CLI clone on z/OS USS</td>
 <td>Direct file sync to z/OS USS</td>
 </tr>
 <tr>
 <td><strong>Commit required before testing</strong></td>
-<td>Yes</td>
-<td>No</td>
+<td>✅ Yes</td>
+<td>❌ No</td>
 </tr>
 <tr>
 <td><strong>GitHub dependency</strong></td>
@@ -418,12 +441,12 @@ grub sync src/COBPGM1.cbl /u/developer/bankofz/src/COBPGM1.cbl</code></pre>
 </tr>
 <tr>
 <td><strong>Development style</strong></td>
-<td>Branch-based and version-controlled</td>
+<td>Branch-based, version-controlled</td>
 <td>Rapid local iteration</td>
 </tr>
 <tr>
 <td><strong>Change transfer</strong></td>
-<td>Repository clone and setup execution</td>
+<td>Repository clone + setup execution</td>
 <td>Synchronization of changed files</td>
 </tr>
 <tr>
@@ -434,7 +457,7 @@ grub sync src/COBPGM1.cbl /u/developer/bankofz/src/COBPGM1.cbl</code></pre>
 <tr>
 <td><strong>Setup execution</strong></td>
 <td>VS Code task or <code>setup-local.sh</code></td>
-<td>Initiated automatically after synchronization</td>
+<td>Automatic after synchronization</td>
 </tr>
 <tr>
 <td><strong>Best suited for</strong></td>
@@ -443,111 +466,72 @@ grub sync src/COBPGM1.cbl /u/developer/bankofz/src/COBPGM1.cbl</code></pre>
 </tr>
 </tbody>
 </table>
-<hr>
-<h3 id="42-workflow-selection-guide" tabindex="-1">4.2 Workflow Selection Guide</h3>
-<p>Use the decision flowchart below to determine which workflow best fits your needs:</p>
+<p>The following diagram maps each workflow against its primary attributes:</p>
 <div class="mermaid">
-graph TD
-    START([Start: Choose a Workflow]) --> Q1{Do you have\ndirect SSH access\nto z/OS USS?}
+graph LR
+    subgraph Zowe_CLI_Workflow["🔵 Zowe CLI Workflow"]
+        Z1[Git Commit Required]
+        Z2[Branch-Based Development]
+        Z3[VS Code / CLI Triggered]
+        Z4[Works Without SSH Access]
+    end
 
-    Q1 -->|No| ZOWE[Use Zowe CLI Workflow]
-    Q1 -->|Yes| Q2{Do you need to commit\nchanges before testing?}
+    subgraph GRUB_Workflow["🟢 GRUB Workflow"]
+        G1[No Commit Required]
+        G2[Rapid Local Iteration]
+        G3[Auto-Setup After Sync]
+        G4[SSH + GRUB Access]
+    end
 
-    Q2 -->|Yes| ZOWE
-    Q2 -->|No| Q3{Are you working\non a shared team\nbranch?}
+    subgraph Shared["⚙️ Shared Target Environment"]
+        S1[z/OS USS]
+        S2[IBM DBB Build]
+        S3[Wazi Deploy]
+        S4[CICS / Db2 / IMS / z/OS Connect]
+    end
 
-    Q3 -->|Yes| ZOWE
-    Q3 -->|No| Q4{Do you need\nrapid iteration\nand fast feedback?}
-
-    Q4 -->|Yes| GRUB[Use GRUB Workflow]
-    Q4 -->|No| ZOWE
-
-    ZOWE --> ENV[Same Bank of Z\nTarget Environment]
-    GRUB --> ENV
+    Zowe_CLI_Workflow --> Shared
+    GRUB_Workflow --> Shared
+    S1 --> S2 --> S3 --> S4
 </div>
+<p>Both workflows converge on the same Bank of Z target environment — the choice between them is purely a matter of <strong>process fit</strong>, <strong>tooling preference</strong>, and <strong>access constraints</strong>.</p>
 <hr>
-<h4 id="421-use-the-zowe-cli-workflow-when" tabindex="-1">4.2.1 Use the Zowe CLI Workflow When:</h4>
+<h2 id="5-choosing-a-workflow" tabindex="-1">5. Choosing a Workflow</h2>
+<h3 id="51-use-the-zowe-cli-workflow-when" tabindex="-1">5.1 Use the Zowe CLI Workflow When</h3>
 <ul>
-<li>You work in a <strong>branch-based development model</strong></li>
-<li>Changes should be <strong>committed and tracked</strong> through Git</li>
-<li>You want to use <strong>Zowe CLI and VS Code integration</strong></li>
-<li><strong>SSH access</strong> to z/OS USS is limited or unavailable</li>
-<li>You are collaborating on a <strong>shared team branch</strong></li>
+<li>You work in a <strong>branch-based development model</strong>.</li>
+<li>Changes should be <strong>committed and tracked</strong> through Git before testing.</li>
+<li>You want to use <strong>Zowe CLI and VS Code integration</strong>.</li>
+<li><strong>SSH access</strong> to z/OS USS is limited or unavailable.</li>
+<li>You are working on a <strong>shared feature branch</strong> with other team members.</li>
 </ul>
-<h4 id="422-use-the-grub-workflow-when" tabindex="-1">4.2.2 Use the GRUB Workflow When:</h4>
+<h3 id="52-use-the-grub-workflow-when" tabindex="-1">5.2 Use the GRUB Workflow When</h3>
 <ul>
-<li>You need to <strong>test changes quickly</strong> without committing them</li>
-<li>You want <strong>rapid feedback</strong> during development</li>
-<li>You have <strong>SSH access</strong> to z/OS USS</li>
-<li>You frequently make and validate <strong>incremental changes</strong></li>
+<li>You need to <strong>test changes quickly</strong> without committing them first.</li>
+<li>You want <strong>rapid feedback</strong> during active development.</li>
+<li>You have <strong>SSH access</strong> to z/OS USS.</li>
+<li>You frequently make and validate <strong>incremental changes</strong>.</li>
+<li>You are working on <strong>individual, exploratory development</strong> or debugging.</li>
 </ul>
-<hr>
-<h2 id="5-workflow-sequence-diagrams" tabindex="-1">5. Workflow Sequence Diagrams</h2>
-<h3 id="51-zowe-cli-workflow--end-to-end-sequence" tabindex="-1">5.1 Zowe CLI Workflow — End-to-End Sequence</h3>
-<div class="mermaid">
-sequenceDiagram
-    participant Dev as Developer
-    participant GIT as Git Repository
-    participant VSCODE as VS Code / CLI
-    participant USS as z/OS USS
-    participant DBB as IBM DBB
-    participant WAZI as Wazi Deploy
-    participant RT as z/OS Runtime
-
-    Dev->>VSCODE: Edit source files
-    Dev->>GIT: git commit & git push
-    Dev->>VSCODE: Trigger VS Code task or run setup-local.sh
-    VSCODE->>USS: Clone branch via Zowe CLI
-    USS->>DBB: Execute build pipeline
-    DBB-->>USS: Build artifacts packaged
-    USS->>WAZI: Initiate deployment
-    WAZI->>RT: Activate updated components
-    RT-->>Dev: Validate runtime behavior
-</div>
-<hr>
-<h3 id="52-grub-workflow--end-to-end-sequence" tabindex="-1">5.2 GRUB Workflow — End-to-End Sequence</h3>
-<div class="mermaid">
-sequenceDiagram
-    participant Dev as Developer
-    participant GRUB as GRUB / SSH
-    participant USS as z/OS USS
-    participant DBB as IBM DBB
-    participant WAZI as Wazi Deploy
-    participant RT as z/OS Runtime
-
-    Dev->>Dev: Edit source files locally
-    Dev->>GRUB: Sync changed files via SSH/GRUB
-    GRUB->>USS: Transfer changed files
-    USS->>DBB: Automatically trigger build pipeline
-    DBB-->>USS: Build artifacts packaged
-    USS->>WAZI: Initiate deployment
-    WAZI->>RT: Activate updated components
-    RT-->>Dev: Validate runtime behavior
-</div>
-<hr>
-<h2 id="6-summary" tabindex="-1">6. Summary</h2>
-<p>Both the <strong>Zowe CLI workflow</strong> and the <strong>GRUB workflow</strong> ultimately prepare and update the same Bank of Z environment. The choice between them depends on your development process, tooling preferences, and access requirements:</p>
-<ul>
-<li>Choose the <strong>Zowe CLI workflow</strong> for structured, team-based, version-controlled development — especially where SSH access is restricted.</li>
-<li>Choose the <strong>GRUB workflow</strong> for speed and agility during individual development, where rapid iteration and immediate feedback are the priority.</li>
-</ul>
-<p>The following sections provide detailed setup and usage instructions for each workflow.</p>
+<blockquote>
+<p><strong>Important:</strong> Both workflows ultimately prepare and update the same Bank of Z environment. The choice depends on your development process, tooling preferences, and access requirements.</p>
+</blockquote>
 
                         <div class="related-pages">
                             <p class="related-pages-title">Related Pages</p>
                             <div class="card-grid">
                                 
-            <a href="zowe-cli-workflow.html" class="card">
+            <a href="workflow-zowe-cli.html" class="card">
                 <span class="card-title">Zowe CLI Workflow</span>
-                <span class="card-description">Full walkthrough of the Zowe CLI-based development workflow for Bank of Z, covering editing, building, uploading, and testing COBOL and CICS changes from a local workstation.</span>
+                <span class="card-description">Step-by-step guide to using the Zowe CLI workflow for developing, building, and deploying Bank of Z changes from a local workstation.</span>
             </a>
-            <a href="grub-workflow.html" class="card">
-                <span class="card-title">Grub Workflow</span>
-                <span class="card-description">Step-by-step guide for using the Grub-based development workflow in Bank of Z, including project setup, build execution, and deployment automation via Grub.</span>
+            <a href="workflow-grub.html" class="card">
+                <span class="card-title">GRUB Workflow</span>
+                <span class="card-description">Step-by-step guide to using the GRUB (Git Remote Utilities for Build) workflow for source control integration and automated build triggering on IBM Z.</span>
             </a>
-            <a href="development-best-practices.html" class="card">
+            <a href="workflow-best-practices.html" class="card">
                 <span class="card-title">Development Best Practices</span>
-                <span class="card-description">Recommended best practices for developing, testing, and maintaining Bank of Z code on IBM Z, covering branching strategies, code quality, and collaboration guidelines.</span>
+                <span class="card-description">Recommended practices for IBM Z development with Bank of Z, covering branching strategies, incremental builds, testing, and team collaboration.</span>
             </a>
                             </div>
                         </div>
@@ -558,42 +542,28 @@ sequenceDiagram
 <li class="toc-level-2"><a href="#1-system-architecture">1. System Architecture</a></li>
 <li class="toc-level-2"><a href="#2-overview">2. Overview</a>
 <ul>
-<li class="toc-level-3"><a href="#21-development-workflow-lifecycle">2.1 Development Workflow Lifecycle</a>
-<ul>
-<li class="toc-level-4"><a href="#211-make-changes">2.1.1 Make Changes</a></li>
-<li class="toc-level-4"><a href="#212-commit-changes">2.1.2 Commit Changes</a></li>
-<li class="toc-level-4"><a href="#213-run-the-pipeline">2.1.3 Run the Pipeline</a></li>
-<li class="toc-level-4"><a href="#214-review-results">2.1.4 Review Results</a></li>
-<li class="toc-level-4"><a href="#215-deploy-changes">2.1.5 Deploy Changes</a></li>
-<li class="toc-level-4"><a href="#216-validate-changes">2.1.6 Validate Changes</a></li>
-</ul>
-</li>
+<li class="toc-level-3"><a href="#21-make-changes">2.1 Make Changes</a></li>
+<li class="toc-level-3"><a href="#22-commit-changes">2.2 Commit Changes</a></li>
+<li class="toc-level-3"><a href="#23-run-the-pipeline">2.3 Run the Pipeline</a></li>
+<li class="toc-level-3"><a href="#24-review-results">2.4 Review Results</a></li>
+<li class="toc-level-3"><a href="#25-deploy-changes">2.5 Deploy Changes</a></li>
+<li class="toc-level-3"><a href="#26-validate-changes">2.6 Validate Changes</a></li>
 </ul>
 </li>
 <li class="toc-level-2"><a href="#3-supported-workflows">3. Supported Workflows</a>
 <ul>
-<li class="toc-level-3"><a href="#31-zowe-cli-workflow">3.1 Zowe CLI Workflow</a></li>
-<li class="toc-level-3"><a href="#32-grub-workflow">3.2 GRUB Workflow</a></li>
+<li class="toc-level-3"><a href="#31-direct-mainframe-editing">3.1 Direct Mainframe Editing</a></li>
+<li class="toc-level-3"><a href="#32-zowe-cli-workflow">3.2 Zowe CLI Workflow</a></li>
+<li class="toc-level-3"><a href="#33-grub-workflow">3.3 GRUB Workflow</a></li>
 </ul>
 </li>
-<li class="toc-level-2"><a href="#4-workflow-comparison">4. Workflow Comparison</a>
+<li class="toc-level-2"><a href="#4-workflow-comparison">4. Workflow Comparison</a></li>
+<li class="toc-level-2"><a href="#5-choosing-a-workflow">5. Choosing a Workflow</a>
 <ul>
-<li class="toc-level-3"><a href="#41-feature-comparison-table">4.1 Feature Comparison Table</a></li>
-<li class="toc-level-3"><a href="#42-workflow-selection-guide">4.2 Workflow Selection Guide</a>
-<ul>
-<li class="toc-level-4"><a href="#421-use-the-zowe-cli-workflow-when">4.2.1 Use the Zowe CLI Workflow When:</a></li>
-<li class="toc-level-4"><a href="#422-use-the-grub-workflow-when">4.2.2 Use the GRUB Workflow When:</a></li>
+<li class="toc-level-3"><a href="#51-use-the-zowe-cli-workflow-when">5.1 Use the Zowe CLI Workflow When</a></li>
+<li class="toc-level-3"><a href="#52-use-the-grub-workflow-when">5.2 Use the GRUB Workflow When</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toc-level-2"><a href="#5-workflow-sequence-diagrams">5. Workflow Sequence Diagrams</a>
-<ul>
-<li class="toc-level-3"><a href="#51-zowe-cli-workflow--end-to-end-sequence">5.1 Zowe CLI Workflow — End-to-End Sequence</a></li>
-<li class="toc-level-3"><a href="#52-grub-workflow--end-to-end-sequence">5.2 GRUB Workflow — End-to-End Sequence</a></li>
-</ul>
-</li>
-<li class="toc-level-2"><a href="#6-summary">6. Summary</a></li>
 </ul>
 
 </nav>

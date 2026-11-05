@@ -1,34 +1,26 @@
 ---
 name: bank-of-z-coding-standards
-description: >
-  Enforces Bank of Z coding standards for COBOL (CICS, IMS, Batch), PL/I, and JCL.
-  Discovered by automated codebase analysis of 20 representative files.
-  Use when: "review code", "check standards", "generate code", "refactor code",
-  "new COBOL program", "new JCL", "new PL/I", "does this follow our standards",
-  "create a program", "write a program".
+description: 'Enforces Bank of Z coding standards for COBOL (CICS, IMS, Batch), PL/I, and JCL. Discovered by automated codebase analysis of 20 representative files. Use when: "review code", "check standards", "generate code", "refactor code", "new COBOL program", "new JCL", "new PL/I", "does this follow our standards", "create a program", "write a program".'
 metadata:
   author: Discovered by Bob Z Coding Standards Builder
   version: 1.0.0
-  enforcement-level: strict
-  target-languages: COBOL CICS, COBOL IMS, COBOL Batch, PL/I, JCL
-  discovery-date: 2025-07-14
-  files-analyzed: 20
+  enforcement-level: moderate
+  target-languages: COBOL, JCL, PL/I
+  discovery-date: 2026-11-05
   confidence-threshold: 80%
 ---
 
 # Bank of Z — Coding Standards
 
-These standards were **discovered by automated analysis** of the Bank of Z codebase.
-All rules marked **MUST** have 80%+ adoption in the analyzed files.
-Rules marked **SHOULD** have 60–79% adoption. Rules marked **MAY** are advisory.
+These standards were extracted from the actual Bank of Z codebase. Apply them whenever generating, reviewing, or modifying COBOL, PL/I, or JCL code in this repository.
 
 ---
 
-## 1. COBOL — General (All Subsystems)
+## COBOL Standards
 
-### 1.1 File Header (MUST)
+### Program Header (MUST — 100% adoption)
 
-Every COBOL source file MUST begin with a copyright block before IDENTIFICATION DIVISION:
+Every COBOL program begins with a copyright block of asterisks **before** the IDENTIFICATION DIVISION:
 
 ```cobol
       ******************************************************************
@@ -36,262 +28,220 @@ Every COBOL source file MUST begin with a copyright block before IDENTIFICATION 
       *  Copyright IBM Corp. 2023                                      *
       *                                                                *
       ******************************************************************
-```
-
-Followed immediately by a description block:
-
-```cobol
       ******************************************************************
-      * This program <one-line purpose summary>
-      *
-      * <detailed description of inputs, outputs, and logic>
-      *
+      * <One-paragraph description of the program purpose>
       ******************************************************************
-```
-
-The IDENTIFICATION DIVISION MUST include `AUTHOR.`:
-
-```cobol
        IDENTIFICATION DIVISION.
-       PROGRAM-ID. MYPROG.
-       AUTHOR. <author name>.
+       PROGRAM-ID. PROGNAME.
+       AUTHOR. IBM Bank-of-Z.
 ```
 
-### 1.2 ENVIRONMENT DIVISION (MUST)
+- Description block: one block of `*` lines with free-text explaining the purpose
+- `SOURCE-COMPUTER. IBM-Z.` and `OBJECT-COMPUTER. IBM-Z.` in CONFIGURATION SECTION (MUST — use `IBM-Z`, not `IBM-370`)
+- `AUTHOR.` clause: use `IBM Bank-of-Z.`
 
-Always include CONFIGURATION SECTION with these exact entries. The `WITH DEBUGGING MODE` line MUST be commented out (not active):
+### CICS Program Compiler Directives (MUST)
 
-```cobol
-       ENVIRONMENT DIVISION.
-       CONFIGURATION SECTION.
-      *SOURCE-COMPUTER.   IBM-370 WITH DEBUGGING MODE.
-       SOURCE-COMPUTER.  IBM-370.
-       OBJECT-COMPUTER.  IBM-370.
-       INPUT-OUTPUT SECTION.
-```
-
-Batch programs (non-CICS) use `IBM-Z` instead of `IBM-370`.
-
-### 1.3 Working-Storage Naming (MUST)
-
-- All WORKING-STORAGE variables MUST use the `WS-` prefix on 01-levels.
-- DB2 host variables MUST use the `HV-` prefix, grouped as `HV-<TABLENAME>-<COLUMN>`.
-  - Example: `HV-CUSTOMER-SORTCODE`, `HV-ACCOUNT-AVAIL-BAL`
-- DB2 null indicators MUST use the `NI-` prefix.
-  - Example: `NI-TITLE`, `NI-CREDIT-SCORE`
-- Local retry counters (77-level or 01-level) use the pattern `<CONTEXT>-RETRY` (e.g., `SYSIDERR-RETRY`, `FILE-RETRY`).
-
-### 1.4 Switches and Flags (MUST)
-
-Switches and flags MUST be declared as distinct 01-level groups named `SWITCHES` and `FLAGS`.
-All boolean switches use PIC X with 88-level conditions:
-
-```cobol
-       01 SWITCHES.
-           03 VALID-DATA-SW            PIC X VALUE 'Y'.
-              88 VALID-DATA                VALUE 'Y'.
-
-       01 FLAGS.
-           03 SEND-FLAG                PIC X.
-              88 SEND-ERASE              VALUE '1'.
-              88 SEND-DATAONLY           VALUE '2'.
-              88 SEND-DATAONLY-ALARM     VALUE '3'.
-```
-
-### 1.5 Date and Time Working-Storage Block (MUST — CICS programs)
-
-Every CICS program with abend handling MUST include this exact block in WORKING-STORAGE:
-
-```cobol
-       01 WS-U-TIME                    PIC S9(15) COMP-3.
-       01 WS-ORIG-DATE                 PIC X(10).
-       01 WS-ORIG-DATE-GRP REDEFINES WS-ORIG-DATE.
-          03 WS-ORIG-DATE-DD           PIC 99.
-          03 FILLER                    PIC X.
-          03 WS-ORIG-DATE-MM           PIC 99.
-          03 FILLER                    PIC X.
-          03 WS-ORIG-DATE-YYYY         PIC 9999.
-
-       01 WS-ORIG-DATE-GRP-X.
-          03 WS-ORIG-DATE-DD-X         PIC XX.
-          03 FILLER                    PIC X VALUE '.'.
-          03 WS-ORIG-DATE-MM-X         PIC XX.
-          03 FILLER                    PIC X VALUE '.'.
-          03 WS-ORIG-DATE-YYYY-X       PIC X(4).
-
-       01 WS-TIME-DATA.
-           03 WS-TIME-NOW              PIC 9(6).
-           03 WS-TIME-NOW-GRP REDEFINES WS-TIME-NOW.
-              05 WS-TIME-NOW-GRP-HH    PIC 99.
-              05 WS-TIME-NOW-GRP-MM    PIC 99.
-              05 WS-TIME-NOW-GRP-SS    PIC 99.
-```
-
-### 1.6 Abend Handler Reference (MUST — CICS programs)
-
-Every CICS program MUST declare the abend program reference and info record:
-
-```cobol
-       01 WS-ABEND-PGM                 PIC X(8) VALUE 'ABNDPROC'.
-
-       01 ABNDINFO-REC.
-           COPY ABNDINFO.
-```
-
-### 1.7 PROCEDURE DIVISION Structure (MUST)
-
-Sections use VERB-NOUN naming. Each section has a three-character + `010` opening paragraph and a `999` closing paragraph with `EXIT.`:
-
-```cobol
-       RECEIVE-MENU-MAP SECTION.
-       RMM010.
-      *
-      *    <one-line description>
-      *
-           <statements>
-
-       RMM999.
-           EXIT.
-```
-
-The main entry section MUST be named `PREMIERE SECTION` with opening paragraph `A010`:
-
-```cobol
-       PROCEDURE DIVISION.
-       PREMIERE SECTION.
-       A010.
-           ...
-       A999.
-           EXIT.
-```
-
-Inline comments above PERFORMs use the pattern:
-```cobol
-      *
-      *    <description of what is about to happen>
-      *
-           PERFORM <section-name>.
-```
-
-### 1.8 LOCAL-STORAGE SECTION (SHOULD)
-
-Use `LOCAL-STORAGE SECTION` for variables that must be re-initialized on every invocation (especially loop counters, retry flags, and work areas passed to sub-programs). Do NOT put these in WORKING-STORAGE for re-entrant programs.
-
----
-
-## 2. COBOL CICS — Specific Standards
-
-### 2.1 Compilation Header (MUST)
-
-CICS programs MUST use only `CBL` directives — no `PROCESS` statement:
+New CICS programs use only `CBL CICS(...)` on line 1 — **do not add** `PROCESS CICS,NODYNAM,...`:
 
 ```cobol
        CBL CICS('SP,EDF')
 ```
 
-For programs that also use DB2:
-
+If the program also uses DB2:
 ```cobol
        CBL CICS('SP,EDF')
        CBL SQL
 ```
 
-For programs that also use DL/I:
-
+If the program uses both CICS and IMS DL/I:
 ```cobol
        CBL CICS('SP,EDF,DLI')
 ```
 
-### 2.2 CICS Work Area (MUST)
-
-MUST be declared exactly as follows (level `05` inside `WS-CICS-WORK-AREA`):
-
+IMS-only batch programs use:
 ```cobol
-       01 WS-CICS-WORK-AREA.
-          05 WS-CICS-RESP               PIC S9(8) COMP.
-          05 WS-CICS-RESP2              PIC S9(8) COMP.
+       CBL LIST,MAP,XREF,FLAG(I)
 ```
 
-### 2.3 CICS Command Error Handling (MUST)
+Batch COBOL programs (no subsystem) have **no** CBL directive on line 1.
 
-Every EXEC CICS command MUST include `RESP` and `RESP2`, and MUST be followed by an immediate check:
+### WORKING-STORAGE vs LOCAL-STORAGE (SHOULD — 80% adoption)
+
+For CICS programs with re-entrant requirements:
+
+- **WORKING-STORAGE**: shared/static data only — `WS-CICS-WORK-AREA`, `WS-ABEND-PGM`, `ABNDINFO-REC`, copybooks for DB2 host variable structures, `SORTCODE` copybook
+- **LOCAL-STORAGE**: all instance-level variables (keys, flags, work areas, counters) — re-entrant safe
+
+For IMS and batch COBOL: use only WORKING-STORAGE.
+
+### Naming Conventions (MUST — 100% adoption)
+
+| Prefix | Usage | Example |
+|--------|-------|---------|
+| `WS-` | General working storage variables | `WS-CICS-RESP`, `WS-EOF-SW` |
+| `HV-` | DB2 host variables (COBOL) | `HV-CUSTOMER-NUMBER`, `HV-ACCOUNT-SORTCODE` |
+| `NI-` | DB2 null indicators | `NI-TITLE`, `NI-DOB` |
+| `HV_` | DB2 host variables (PL/I) | `HV_CUST_NUMBER`, `HV_ACCT_SORTCODE` |
+| No prefix | IMS segment areas, SSAs, PCB structures | `CUSTOMER-SEG`, `CUSTOMER-SSA1` |
+
+- Paragraph/section names: VERB-NOUN format, all uppercase, hyphenated (`SECURITY-CHECK`, `WRITE-CUSTOMER-DB2`, `GET-ME-OUT-OF-HERE`)
+- 88-level condition names: all uppercase, hyphenated, named for the true state (`SEC-OK`, `WS-EOF`, `DATASTORE-TYPE-DB2`)
+
+### 88-Level Boolean Pattern (MUST — 100% adoption)
+
+Use 88-levels for all boolean flags and switches. Group under named 01-level:
 
 ```cobol
-           EXEC CICS
-              <COMMAND>
-              RESP(WS-CICS-RESP)
-              RESP2(WS-CICS-RESP2)
+       01 SWITCHES.
+           03 VALID-DATA-SW        PIC X VALUE 'Y'.
+              88 VALID-DATA             VALUE 'Y'.
+
+       01 FLAGS.
+           03 SEND-FLAG            PIC X.
+              88 SEND-ERASE             VALUE '1'.
+              88 SEND-DATAONLY          VALUE '2'.
+              88 SEND-DATAONLY-ALARM    VALUE '3'.
+```
+
+For simple single-field booleans (outside a SWITCHES group):
+```cobol
+       01 WS-SEC-SW                PIC X VALUE 'N'.
+           88 SEC-OK                   VALUE 'Y'.
+           88 SEC-NOT-OK               VALUE 'N'.
+```
+
+### CICS RESP Handling (MUST — 100% adoption)
+
+Always declare in WORKING-STORAGE (CICS programs):
+```cobol
+       01 WS-CICS-WORK-AREA.
+           05 WS-CICS-RESP         PIC S9(8) COMP.
+           05 WS-CICS-RESP2        PIC S9(8) COMP.
+```
+
+Every EXEC CICS command that can fail must specify `RESP` and `RESP2`, checked immediately after:
+```cobol
+           EXEC CICS LINK PROGRAM('BNKSECCK')
+                COMMAREA(BNKSEC-COMMAREA)
+                LENGTH(LENGTH OF BNKSEC-COMMAREA)
+                RESP(WS-CICS-RESP)
+                RESP2(WS-CICS-RESP2)
            END-EXEC.
 
            IF WS-CICS-RESP NOT = DFHRESP(NORMAL)
-              <abend block — see 2.4>
+              ...error handling...
            END-IF.
 ```
 
-Never use `EXEC CICS HANDLE CONDITION` — always use inline RESP checking.
-
-### 2.4 Standard Abend Block (MUST)
-
-When a CICS command fails, use this exact sequence:
-
+When handling a CICS error that leads to ABEND, always populate `ABNDINFO-REC` fully before linking to `ABNDPROC`:
 ```cobol
-           INITIALIZE ABNDINFO-REC
-           MOVE EIBRESP    TO ABND-RESPCODE
-           MOVE EIBRESP2   TO ABND-RESP2CODE
-      *
-      *    Get supplemental information
-      *
-           EXEC CICS ASSIGN APPLID(ABND-APPLID)
-           END-EXEC
-
-           MOVE EIBTASKN   TO ABND-TASKNO-KEY
-           MOVE EIBTRNID   TO ABND-TRANID
-
-           PERFORM POPULATE-TIME-DATE
-
-           MOVE WS-ORIG-DATE TO ABND-DATE
-           STRING WS-TIME-NOW-GRP-HH DELIMITED BY SIZE,
-                 ':' DELIMITED BY SIZE,
-                  WS-TIME-NOW-GRP-MM DELIMITED BY SIZE,
-                  ':' DELIMITED BY SIZE,
-                  WS-TIME-NOW-GRP-SS DELIMITED BY SIZE
-                  INTO ABND-TIME
-           END-STRING
-
-           MOVE WS-U-TIME   TO ABND-UTIME-KEY
-           MOVE 'HBNK'      TO ABND-CODE
-
-           EXEC CICS ASSIGN PROGRAM(ABND-PROGRAM)
-           END-EXEC
-
-           MOVE ZEROS      TO ABND-SQLCODE
-
-           STRING '<PARAGRAPH_ID> - <COMMAND> FAIL.'
-                 DELIMITED BY SIZE,
-                 ' EIBRESP=' DELIMITED BY SIZE,
-                 ABND-RESPCODE DELIMITED BY SIZE,
-                 ' RESP2=' DELIMITED BY SIZE,
-                 ABND-RESP2CODE DELIMITED BY SIZE
-                 INTO ABND-FREEFORM
-           END-STRING
-
-           EXEC CICS LINK PROGRAM(WS-ABEND-PGM)
-                     COMMAREA(ABNDINFO-REC)
-           END-EXEC
-
-           INITIALIZE WS-FAIL-INFO
-           MOVE '<PROGRAM> - <PARAGRAPH_ID> - <COMMAND> FAIL' TO
-              WS-CICS-FAIL-MSG
-           MOVE WS-CICS-RESP  TO WS-CICS-RESP-DISP
-           MOVE WS-CICS-RESP2 TO WS-CICS-RESP2-DISP
-           PERFORM ABEND-THIS-TASK
+               INITIALIZE ABNDINFO-REC
+               MOVE EIBRESP    TO ABND-RESPCODE
+               MOVE EIBRESP2   TO ABND-RESP2CODE
+               EXEC CICS ASSIGN APPLID(ABND-APPLID) END-EXEC
+               MOVE EIBTASKN   TO ABND-TASKNO-KEY
+               MOVE EIBTRNID   TO ABND-TRANID
+               PERFORM POPULATE-TIME-DATE
+               MOVE WS-ORIG-DATE TO ABND-DATE
+               ...populate ABND-TIME, ABND-UTIME-KEY, ABND-CODE, ABND-PROGRAM, ABND-FREEFORM...
+               EXEC CICS LINK PROGRAM(WS-ABEND-PGM)
+                      COMMAREA(ABNDINFO-REC)
+               END-EXEC
+               EXEC CICS ABEND ABCODE('XXXX') CANCEL END-EXEC
 ```
 
-Replace `<PARAGRAPH_ID>`, `<COMMAND>`, and `<PROGRAM>` with actual values.
+### CICS Security Check Pattern (MUST — every program that touches data)
 
-### 2.5 LINKAGE SECTION for CICS (MUST)
+```cobol
+       01 BNKSEC-COMMAREA.
+           COPY BNKSEC.
+       01 WS-SEC-SW                PIC X VALUE 'N'.
+           88 SEC-OK                   VALUE 'Y'.
+           88 SEC-NOT-OK               VALUE 'N'.
+```
 
-Programs receiving a COMMAREA MUST declare it in LINKAGE SECTION and use `COPY` from the corresponding copybook:
+In PREMIERE section, always first action:
+```cobol
+           PERFORM SECURITY-CHECK.
+           IF SEC-NOT-OK
+              PERFORM GET-ME-OUT-OF-HERE
+           END-IF.
+```
+
+Followed immediately by:
+```cobol
+           EXEC CICS HANDLE ABEND
+              LABEL(ABEND-HANDLING)
+           END-EXEC.
+```
+
+### CICS ABEND Handling Section (MUST)
+
+Every CICS program with data access must have an `ABEND-HANDLING` section that:
+1. Reads abend code: `EXEC CICS ASSIGN ABCODE(MY-ABEND-CODE) END-EXEC`
+2. Uses `EVALUATE MY-ABEND-CODE` to handle specific codes (`AD2Z`, `AFCR`, `AFCS`, `AFCT`)
+3. If not a storm-drain case: re-abends with `EXEC CICS ABEND ABCODE(MY-ABEND-CODE) NODUMP CANCEL END-EXEC`
+
+Also declare:
+```cobol
+       01 WS-ABEND-PGM             PIC X(8) VALUE 'ABNDPROC'.
+       01 ABNDINFO-REC.
+           COPY ABNDINFO.
+```
+
+### CICS Exit Pattern (MUST — 100% adoption)
+
+All CICS programs exit via a dedicated section:
+```cobol
+       GET-ME-OUT-OF-HERE SECTION.
+       GMOFH010.
+           EXEC CICS RETURN
+           END-EXEC.
+
+       GMOFH999.
+           EXIT.
+```
+
+The last paragraph of every section is always `XYZ999.` with `EXIT.` — no code after EXIT.
+
+### Procedure Division SECTION Structure (MUST)
+
+Procedure Division is organized into SECTIONs, not flat paragraphs:
+- Entry section always named `PREMIERE SECTION`
+- First paragraph in each section: `VERB010.` or `A010.`
+- Last paragraph in each section: `VERB999.` with `EXIT.`
+- Use `PERFORM <SECTION-NAME>` to call sections (not paragraph ranges)
+
+### Date/Time Standard Variables (SHOULD — 90% adoption)
+
+Declare this block in every CICS program that needs timestamp for ABEND record:
+```cobol
+       01 WS-U-TIME                PIC S9(15) COMP-3.
+       01 WS-ORIG-DATE             PIC X(10).
+       01 WS-ORIG-DATE-GRP REDEFINES WS-ORIG-DATE.
+           03 WS-ORIG-DATE-DD      PIC 99.
+           03 FILLER               PIC X.
+           03 WS-ORIG-DATE-MM      PIC 99.
+           03 FILLER               PIC X.
+           03 WS-ORIG-DATE-YYYY    PIC 9999.
+       01 WS-ORIG-DATE-GRP-X.
+           03 WS-ORIG-DATE-DD-X    PIC XX.
+           03 FILLER               PIC X VALUE '.'.
+           03 WS-ORIG-DATE-MM-X    PIC XX.
+           03 FILLER               PIC X VALUE '.'.
+           03 WS-ORIG-DATE-YYYY-X  PIC X(4).
+       01 WS-TIME-DATA.
+           03 WS-TIME-NOW          PIC 9(6).
+           03 WS-TIME-NOW-GRP REDEFINES WS-TIME-NOW.
+              05 WS-TIME-NOW-GRP-HH   PIC 99.
+              05 WS-TIME-NOW-GRP-MM   PIC 99.
+              05 WS-TIME-NOW-GRP-SS   PIC 99.
+```
+
+With `POPULATE-TIME-DATE` section using `EXEC CICS ASKTIME` + `EXEC CICS FORMATTIME DDMMYYYY(WS-ORIG-DATE)`.
+
+### LINKAGE SECTION — DFHCOMMAREA (MUST for CICS programs)
 
 ```cobol
        LINKAGE SECTION.
@@ -301,481 +251,203 @@ Programs receiving a COMMAREA MUST declare it in LINKAGE SECTION and use `COPY` 
        PROCEDURE DIVISION USING DFHCOMMAREA.
 ```
 
-### 2.6 CICS FAIL-INFO Area (MUST)
+### DB2 Host Variable Naming (MUST — 100% adoption)
 
-Every CICS program MUST declare `WS-FAIL-INFO` with the program name embedded as a literal:
-
+Host variables grouped under a named 01-level, prefixed with the table abbreviation:
 ```cobol
-       01 WS-FAIL-INFO.
-          03 FILLER                    PIC X(9) VALUE '<PROGNAME>  '.
-          03 WS-CICS-FAIL-MSG          PIC X(70) VALUE ' '.
-          03 FILLER                    PIC X(6)  VALUE ' RESP='.
-          03 WS-CICS-RESP-DISP         PIC 9(10) VALUE 0.
-          03 FILLER                    PIC X(7)  VALUE ' RESP2='.
-          03 WS-CICS-RESP2-DISP        PIC 9(10) VALUE 0.
-          03 FILLER                   PIC X(15) VALUE ' ABENDING TASK.'.
+       01 HOST-CUSTOMER-ROW.
+           03 HV-CUSTOMER-EYECATCHER    PIC X(4).
+           03 HV-CUSTOMER-SORTCODE      PIC X(6).
+           03 HV-CUSTOMER-NUMBER        PIC X(10).
+           ...
 ```
 
----
+Pattern: `01 HOST-<TABLE>-ROW.` → `03 HV-<TABLE>-<FIELD>`.
 
-## 3. COBOL IMS — Specific Standards
+Every table row structure has an `EYE-CATCHER` field as first element (PIC X(4)) — used for validation.
 
-### 3.1 Compilation Header (MUST)
+### IMS COBOL Conventions (MUST for IMS programs)
 
-IMS programs MUST use:
-
+1. DL/I function codes declared as 77-level constants:
 ```cobol
-       CBL LIST,MAP,XREF,FLAG(I)
+       77  GU     PIC X(04) VALUE "GU  ".
+       77  GHU    PIC X(04) VALUE "GHU ".
+       77  GN     PIC X(04) VALUE "GN  ".
+       77  ISRT   PIC X(04) VALUE "ISRT".
+       77  REPL   PIC X(04) VALUE "REPL".
+       77  GE     PIC X(02) VALUE "GE".
+       77  GB     PIC X(02) VALUE "GB".
 ```
 
-No CICS directives. No PROCESS statement.
-
-### 3.2 DL/I Call Codes as 77-Levels (MUST)
-
-All DL/I function codes MUST be declared as 77-level items at the top of WORKING-STORAGE:
-
-```cobol
-       77  GU                  PIC  X(04)        VALUE "GU  ".
-       77  GHU                 PIC  X(04)        VALUE "GHU ".
-       77  GN                  PIC  X(04)        VALUE "GN  ".
-       77  GHN                 PIC  X(04)        VALUE "GHN ".
-       77  ISRT                PIC  X(04)        VALUE "ISRT".
-       77  REPL                PIC  X(04)        VALUE "REPL".
-```
-
-IMS status codes:
-
-```cobol
-       77  GE                  PIC  X(02)        VALUE "GE".
-       77  GB                  PIC  X(02)        VALUE "GB".
-```
-
-### 3.3 Bad-Status Capture Area (MUST)
-
+2. Error status area:
 ```cobol
        01  BAD-STATUS.
            05  SC-MSG  PIC X(30) VALUE "BAD STATUS CODE WAS RECEIVED: ".
-           05  SC             PIC X(2).
+           05  SC      PIC X(2).
 ```
 
-### 3.4 IMS Message Areas (MUST)
-
-Input and output message areas MUST begin with LL and ZZ fields (COMP, 4 bytes each):
-
-```cobol
-       01  INPUT-AREA.
-           05  LL-IN           PIC  9(04) COMP.
-           05  ZZ-IN           PIC  9(04) COMP.
-           05  TRAN-CODE       PIC  X(08).
-           <remaining fields>
-
-       01  OUTPUT-AREA.
-           05  LL-OUT          PIC  9(04) COMP.
-           05  ZZ-OUT          PIC  9(04) COMP.
-           05  MSG-OUT         PIC  X(<n>).
-           <remaining fields>
-```
-
-### 3.5 Segment Search Arguments (MUST)
-
-SSAs MUST be declared as 01-level items with FILLER fields carrying the segment name, qualifier, field name, operator, and value:
-
-```cobol
-       01  CUSTOMER-SSA1.
-           05  FILLER          PIC  X(08)        VALUE "CUSTOMER".
-           05  FILLER          PIC  X(01)        VALUE "(".
-           05  FILLER          PIC  X(08)        VALUE "CUSTID  ".
-           05  FILLER          PIC  X(02)        VALUE "EQ".
-           05  CUSTID          PIC  S9(9) COMP-5 VALUE +0.
-           05  FILLER          PIC  X(01)        VALUE ")".
-           05  FILLER          PIC  X(01)        VALUE ' '.
-```
-
-Unqualified SSAs (for sequential reads):
-
-```cobol
-       01  HISTORY-SSA1.
-           05  FILLER          PIC  X(08)        VALUE "HISTORY ".
-           05  FILLER          PIC  X(01)        VALUE ' '.
-```
-
-### 3.6 LINKAGE SECTION for IMS (MUST)
-
+3. PCBs declared in LINKAGE SECTION as POINTER, then mapped via SET ADDRESS:
 ```cobol
        LINKAGE SECTION.
-
        01  IOPCBA POINTER.
        01  DBPCB1 POINTER.
-
-       PROCEDURE DIVISION USING IOPCBA DBPCB1.
+       ...
+       PROCEDURE DIVISION.
+             ENTRY "DLITCBL"
+             USING IOPCBA, DBPCB1.
 ```
+
+4. Check `DBSTAT = SPACES` (success), `GE` / `GB` (end of data), else `BAD-STATUS`.
+
+### Batch COBOL — Return Codes (SHOULD — 100% in batch programs)
+
+Document all return codes in the header comment block:
+```
+*  Return codes:
+*    0  = Successful execution
+*    4  = Warning condition
+*    8  = I/O error
+*   12  = DB2 error (negative SQLCODE)
+```
+
+DB2 Null indicators declared as `PIC S9(4) COMP-5` under a group `01 NULL-INDICATORS`.
+
+### Formatting (MUST)
+
+- COBOL indentation: 1 space per level (configured in `zcodeformat.yaml`)
+- Copybook code: always UPPERCASE
+- Comments: dedicated line starting with `*` in column 7, never inline after code
+- Separate logical blocks with blank comment lines (`*` alone or blank line above/below paragraph names)
 
 ---
 
-## 4. COBOL — DB2 Standards (All Subsystems)
+## JCL Standards
 
-### 4.1 DB2 Includes (MUST)
-
-Use `EXEC SQL INCLUDE` — never `COPY` — for DB2 table definitions and SQLCA:
-
-```cobol
-      * <Table description> DB2 copybook
-            EXEC SQL
-               INCLUDE CUSTDB2
-            END-EXEC.
-
-      * Pull in the SQL COMMAREA
-       EXEC SQL
-          INCLUDE SQLCA
-       END-EXEC.
-```
-
-Place table INCLUDEs before the corresponding host variable 01-level. Place SQLCA last among DB2 includes.
-
-### 4.2 Host Variable Groups (MUST)
-
-Host variables MUST form a named 01-level group with `HV-<TABLE>-` prefix on all fields:
-
-```cobol
-       01 HOST-CUSTOMER-ROW.
-          03 HV-CUSTOMER-EYECATCHER     PIC X(4).
-          03 HV-CUSTOMER-SORTCODE       PIC X(6).
-          03 HV-CUSTOMER-NUMBER         PIC X(10).
-          ...
-```
-
-### 4.3 DB2 Declare Section (MUST — Batch programs)
-
-Batch programs with DB2 MUST use an explicit DECLARE SECTION to wrap host variables:
-
-```cobol
-           EXEC SQL BEGIN DECLARE SECTION END-EXEC.
-       01  HOST-CUSTOMER-ROW.
-           ...
-           EXEC SQL END DECLARE SECTION END-EXEC.
-```
-
-### 4.4 Null Indicators (MUST — Batch programs)
-
-Use `NI-` prefix, PIC S9(4) COMP-5, in a separate 01-level group:
-
-```cobol
-       01  NULL-INDICATORS.
-           05  NI-TITLE                 PIC S9(4) COMP-5.
-           05  NI-FIRST-NAME            PIC S9(4) COMP-5.
-           ...
-```
-
-Reference null indicators in FETCH with space-separated syntax:
-`:HV-CUSTOMER-TITLE :NI-TITLE`
-
-### 4.5 SQL SELECT Formatting (MUST)
-
-Each selected column on its own line, aligned:
-
-```cobol
-           EXEC SQL
-              SELECT CUSTOMER_EYECATCHER,
-                     CUSTOMER_SORTCODE,
-                     CUSTOMER_NUMBER,
-                     ...
-                INTO :HV-CUSTOMER-EYECATCHER,
-                     :HV-CUSTOMER-SORTCODE,
-                     ...
-                FROM CUSTOMER
-               WHERE CUSTOMER_SORTCODE = :HV-CUSTOMER-SORTCODE
-                 AND CUSTOMER_NUMBER   = :HV-CUSTOMER-NUMBER
-           END-EXEC.
-```
-
-### 4.6 Cursors (MUST)
-
-All SELECT-only cursors MUST include `FOR FETCH ONLY`. Cursor name uses format `<TABLE>-CURSOR`:
-
-```cobol
-           EXEC SQL DECLARE CUST-CURSOR CURSOR FOR
-              SELECT ...
-              FROM CUSTOMER
-              WHERE ...
-              FOR FETCH ONLY
-           END-EXEC.
-```
-
-Batch programs MUST use the "first FETCH before loop" pattern:
-
-```cobol
-           EXEC SQL OPEN CUST-CURSOR END-EXEC.
-
-      *   First FETCH before loop — PERFORM UNTIL tests condition BEFORE body
-           EXEC SQL
-               FETCH CUST-CURSOR INTO ...
-           END-EXEC.
-
-           PERFORM FETCH-LOOP
-               UNTIL SQLCODE NOT EQUAL ZERO.
-```
-
-### 4.7 SQLCODE Checking (MUST)
-
-After all EXEC SQL statements check `SQLCODE`. Use +100 for end-of-data:
-
-```cobol
-           IF SQLCODE NOT EQUAL ZERO
-               PERFORM DB2-ERROR-HANDLING
-           END-IF.
-
-           ...
-
-           IF SQLCODE = +100
-               <end of data handling>
-           ELSE
-               PERFORM DB2-ERROR-HANDLING
-           END-IF.
-```
-
----
-
-## 5. Copybook Standards (MUST)
-
-### 5.1 Level Numbers
-
-Copybooks start at level `03` (not `01`) so the calling program can embed them inside a named `01` group.
-
-### 5.2 Eyecatcher with 88-Level
-
-Every entity copybook MUST include an eyecatcher field with a 88-level validation:
-
-```cobol
-       03 CUSTOMER-RECORD.
-          05 CUSTOMER-EYECATCHER                 PIC X(4).
-             88 CUSTOMER-EYECATCHER-VALUE        VALUE 'CUST'.
-```
-
-### 5.3 Status Fields with 88-Levels
-
-Status/type fields MUST enumerate all valid values as 88-levels:
-
-```cobol
-          05 CUSTOMER-STATUS                     PIC X(10).
-             88 CUSTOMER-STATUS-ACTIVE           VALUE 'ACTIVE'.
-             88 CUSTOMER-STATUS-INACTIVE         VALUE 'INACTIVE'.
-             88 CUSTOMER-STATUS-SUSPENDED        VALUE 'SUSPENDED'.
-```
-
-### 5.4 Date Subfields
-
-Date fields MUST be broken into DD/MM/YYYY subfields using DISPLAY format:
-
-```cobol
-          05 CUSTOMER-DOB.
-             07 CUSTOMER-DOB-DAY                 PIC 99 DISPLAY.
-             07 CUSTOMER-DOB-MONTH               PIC 99 DISPLAY.
-             07 CUSTOMER-DOB-YEAR                PIC 9999 DISPLAY.
-```
-
-### 5.5 REDEFINES for Multiple Interpretations
-
-Use REDEFINES to overlay date/time fields for formatted output, and to model alternative data structures (e.g., XFR transfer description, DELACC delete description) — see `PROCTRAN.cpy` as canonical example.
-
----
-
-## 6. JCL Standards
-
-### 6.1 Job Card (MUST)
+### Job Card (MUST — 100% adoption)
 
 ```jcl
-//JOBNAME  JOB 'description',NOTIFY=&SYSUID,CLASS=A,
+//JOBNAME  JOB 'Description',NOTIFY=&SYSUID,CLASS=A,
 //          MSGCLASS=H,MSGLEVEL=(1,1),REGION=4M
 ```
 
-Use `REGION=4M` for standard jobs; `REGION=256M` for compile jobs.
+Always add `REGION=` (typically 4M or 144M for larger jobs).
 
-### 6.2 Job Header Comment Block (MUST — production JCL)
+### HLQ Parametrization (MUST — 100% adoption)
+
+Always parametrize the HLQ on the first non-comment line after the job card:
+```jcl
+//    SET HLQ='RAFAELT'                       *TSO USER ID
+```
+
+Never hardcode HLQs directly in DD statements — always use `&HLQ..DATASET`.
+
+### JCL Header Comment Block (MUST)
 
 ```jcl
 //*=============================================================
-//* JOB:  <jobname>
-//* DESC: <description in caps>
-//* PROG: <program name>
+//* JOB:  PROGNAME
+//* DESC: Brief description in Portuguese
+//* PROG: PROGNAME
+//* SAIDA: HLQ.OUTPUT.DATASET
+//*        RECFM=FB  LRECL=nnn
 //*
 //* CODIGOS DE RETORNO:
-//*   RC= 0  <meaning>
-//*   RC= 4  <meaning>
-//*   RC= 8  <meaning>
-//*  RC=12  <meaning>
-//*
-//* PRE-REQUISITOS:
-//*   - <prerequisite 1>
+//*   RC= 0  ...
+//*   RC= 4  ...
+//*   RC= 8  ...
+//*   RC=12  ...
 //*=============================================================
 ```
 
-### 6.3 DB2 Program Execution (MUST)
+### Standard DD Names (SHOULD)
 
-All DB2 batch programs MUST execute via `IKJEFT01` with DSN commands:
-
-```jcl
-//STEP1    EXEC PGM=IKJEFT01
-//STEPLIB  DD  DISP=SHR,DSN=DB2V13.SDSNEXIT
-//         DD  DISP=SHR,DSN=DB2V13.SDSNLOAD
-//         DD  DISP=SHR,DSN=BANKZ.V0R1M0.LOAD
-//SYSPRINT DD  SYSOUT=*
-//SYSOUT   DD  SYSOUT=*
-//SYSTSPRT DD  SYSOUT=*
-//SYSTSIN  DD *
- DSN SYSTEM(DBD1)
- RUN  PROGRAM(<progname>) PLAN(BANKZPLN) -
-      LIB('BANKZ.V0R1M0.LOAD')
- END
-/*
-```
-
-STEPLIB MUST list SDSNEXIT first, then SDSNLOAD, then the application LOAD library.
-
-### 6.4 Compile JCL (MUST)
-
-- Use symbolic variables with `SET` at the top for all library names and HLQs.
-- Chain steps with `COND=(4,LT,STEP_PREVIOUS)` to stop on error.
-- DB2 programs require 3 steps: DSNHPC (pre-compiler) → IGYCRCTL (compiler) → IEWL (link-editor).
-- After compilation, DB2 programs MUST be BINDed: `BIND PACKAGE` then `BIND PLAN(BANKZPLN)`.
-
-### 6.5 Output Dataset Allocation (MUST)
-
-New sequential output datasets use `DISP=(NEW,CATLG,DELETE)` with explicit DCB:
-
-```jcl
-//LSTOUT   DD  DSN=<HLQ>.BANK.<JOBNAME>.REPORT,
-//             DISP=(NEW,CATLG,DELETE),
-//             SPACE=(TRK,(50,10),RLSE),
-//             DCB=(RECFM=FB,LRECL=133,BLKSIZE=27930)
-```
+| DD Name | Purpose |
+|---------|---------|
+| `STEPLIB` | Load library |
+| `SYSOUT` | SYSOUT=* |
+| `SYSUDUMP` | SYSOUT=* (core dumps) |
+| `SYSPRINT` | Utility/compiler output |
+| `SYSTSPRT` | TSO print output |
 
 ---
 
-## 7. PL/I Standards
+## PL/I Standards
 
-### 7.1 File Header (MUST)
+### Program Header (MUST)
 
 ```pli
   /*------------------------------------------------------------*
    * Licensed Materials - Property of IBM
    *
-   * (c) Copyright IBM Corp. <year>.
-   *
-   * US Government Users Restricted Rights - Use, duplication or
-   * disclosure restricted by GSA ADP Schedule Contract
-   * with IBM Corp.
-  *------------------------------------------------------------*/
+   * (c) Copyright IBM Corp. YYYY.
+   *------------------------------------------------------------*/
 
   /*------------------------------------------------------------*
-  * Procedure: <NAME>
-  * Description: <one-line description>
-  *
-  * Purpose: <detailed purpose>
-  *
-  * Input:  <input description>
-  * Output: <output description>
-  *
+  * Procedure: PROGNAME
+  * Description: Brief description
+  * Input:  ...
+  * Output: ...
   * DB2 Tables Used: (if applicable)
-  *   - <TABLE>: <description>
   *------------------------------------------------------------*/
+
+  PROGNAME: PROCEDURE OPTIONS(MAIN);
 ```
 
-### 7.2 IMS PL/I — Process Statement (MUST)
+### Naming Conventions (MUST)
 
-IMS PL/I programs MUST begin with:
+- Host variables: `HV_` prefix with UNDERSCORE (not hyphen), grouped in `DCL 1 HV_<TABLE>` structures
+- Null indicators: `HV_<TABLE>_NULL_IND` group with `HV_<FIELD>_NULL FIXED BIN(15)` members
+- Working variables: all UPPERCASE, underscore-separated (`TRANS_COUNT`, `END_OF_DATA`)
+- Subroutines: `VERB_NOUN` pattern with underscores, declared as nested `PROCEDURE`
 
+### PL/I Error Handling (SHOULD)
+
+Use `ON ENDFILE(<file>)` and `ON ERROR` conditions, not simple IF checks for file I/O:
 ```pli
-*PROCESS SYSTEM(IMS);
+   ON ENDFILE(SORTCODE)
+     BEGIN;
+       PUT SKIP LIST('SORTCODE FILE NOT FOUND - USING DEFAULT');
+       ...fallback logic...
+       GO TO LABEL;
+     END;
 ```
 
-### 7.3 Naming Conventions (MUST)
-
-PL/I uses **underscores**, not hyphens:
-- Host variables: `HV_<TABLE>_<COLUMN>` (e.g., `HV_CUST_SORTCODE`)
-- Group levels: 1 and 5 (not 01/03 as in COBOL)
-- Null indicators: `HV_<TABLE>_NULL_IND` group, fields `HV_<FIELD>_NULL`
-- Constants: ALL_CAPS with underscores (e.g., `LOGINSUCCESSFUL`, `NO_MORE_MESSAGE`)
-
-### 7.4 Data Types (MUST)
-
-| Use case | PL/I type |
-|----------|-----------|
-| 32-bit integer | `FIXED BIN(31)` |
-| 16-bit (null indicator) | `FIXED BIN(15)` |
-| Packed decimal money | `FIXED DEC(10,2)` |
-| Interest rate | `FIXED DEC(4,2)` |
-| Character strings | `CHAR(<n>)` |
-
-### 7.5 IMS PL/I — PROCEDURE Signature (MUST)
+### PL/I SQL Cursor Pattern (MUST for DB2 programs)
 
 ```pli
-PROCNAME: PROCEDURE(IOPCB_PTR, DBPCB_PTR) OPTIONS(MAIN);
-DCL PLITDLI ENTRY EXTERNAL;
-DCL IOPCB_PTR POINTER;
-DCL DBPCB_PTR POINTER;
-```
-
-### 7.6 Section Delimiters (MUST)
-
-Use comment blocks to visually separate logical sections:
-
-```pli
-  /*------------------------------------------------------------*
-  * CONSTANTS
-  * ERROR MESSAGES & MESSAGE PROCESSING
-  *------------------------------------------------------------*/
-  ...
-  /*---------------------------------------------------------*
-  * DATABASE CALL CODES
-  *----------------------------------------------------------*/
+   EXEC SQL DECLARE CURSOR_NAME CURSOR FOR
+     SELECT ...
+     FROM TABLE
+     WHERE ... = :HV_FIELD
+     ORDER BY ...;
 ```
 
 ---
 
-## 8. Code Era Notes
+## Cross-Cutting Rules
 
-### CICS Programs (modern standard)
+### SORTCODE Copybook (MUST for all CICS programs)
 
-- Enterprise COBOL with `END-IF`, `END-EXEC`, `END-STRING`, `END-EVALUATE`
-- No GO TO (except in error handling last-resort)
-- No ALTER statement
-- Structured error handling via RESP/RESP2, never `EXEC CICS HANDLE CONDITION`
+`COPY SORTCODE.` is the first statement in WORKING-STORAGE of every CICS program. It provides the bank sort code constant used throughout the application.
 
-### IMS Programs
+### Eye-Catcher Fields (MUST for all data structures)
 
-- Use `PROGRAM-ID. "<NAME>" recursive.` when the program is re-entrant
-- Java class interop via `REPOSITORY.` section (as in IBTRAN.cbl) is acceptable for hybrid programs
-- `COMP-5` for binary IMS segment fields (platform-independent)
+Every DB2 table row structure (both COBOL and PL/I) has a 4-byte eye-catcher as its first field:
+- COBOL: `HV-<TABLE>-EYECATCHER PIC X(4)`
+- PL/I: `HV_<TABLE>_EYECATCHER CHAR(4)`
 
-### Batch Programs
+The copybook versions define the valid value: e.g., `88 ACCOUNT-EYECATCHER-VALUE VALUE 'ACCT'.`
 
-- `MAIN-PROCESS` as the top-level paragraph (no SECTION wrapper for main control)
-- `STOP RUN` at the end of MAIN-PROCESS only; sub-paragraphs use `EXIT PARAGRAPH` for early exit
-- `MOVE <rc> TO WS-RETURN-CODE` + `MOVE WS-RETURN-CODE TO RETURN-CODE` before `STOP RUN`
+### Copybook Locations (MUST)
 
----
+- CICS copybooks: `src/base/cics/copy/*.cpy`
+- IMS copybooks: `src/base/ims/copy/*.cpy`
+- Do NOT place copybooks in program directories
+- Generated API copybooks: `src/api/src/main/zosAssets/<PROGNAME>/providerFiles/gen/` — never edit manually
 
-## Quick Reference: Standard Patterns Checklist
+### Documentation Sync (MUST)
 
-When generating or reviewing ANY COBOL program, verify:
-
-- [ ] Copyright block before IDENTIFICATION DIVISION
-- [ ] Description block after copyright
-- [ ] `AUTHOR.` in IDENTIFICATION DIVISION
-- [ ] `*SOURCE-COMPUTER.` commented out with `WITH DEBUGGING MODE`
-- [ ] `WS-` prefix on all WORKING-STORAGE 01-levels
-- [ ] CICS: `CBL CICS('SP,EDF')` as first line (no PROCESS statement)
-- [ ] CICS: `WS-CICS-WORK-AREA` with level-05 `WS-CICS-RESP` and `WS-CICS-RESP2`
-- [ ] CICS: `WS-ABEND-PGM VALUE 'ABNDPROC'` declared
-- [ ] CICS: `ABNDINFO-REC` with `COPY ABNDINFO.`
-- [ ] CICS: Date/time block (WS-U-TIME, WS-ORIG-DATE, WS-TIME-DATA) present
-- [ ] CICS: Every EXEC CICS has `RESP(WS-CICS-RESP) RESP2(WS-CICS-RESP2)`
-- [ ] CICS: Immediate `IF WS-CICS-RESP NOT = DFHRESP(NORMAL)` after every EXEC CICS
-- [ ] CICS: `PREMIERE SECTION. A010.` as first section
-- [ ] All sections end with `<XXX>999. EXIT.`
-- [ ] DB2: `EXEC SQL INCLUDE` (not COPY) for table definitions and SQLCA
-- [ ] DB2: Host variables grouped as `HOST-<TABLE>-ROW` with `HV-<TABLE>-` prefix
-- [ ] IMS: `CBL LIST,MAP,XREF,FLAG(I)` as first line
-- [ ] IMS: DL/I call codes as 77-levels
-- [ ] IMS: `BAD-STATUS` area declared
-- [ ] IMS: INPUT-AREA and OUTPUT-AREA start with LL/ZZ COMP fields
+After modifying any COBOL program:
+1. Check `.bobz/specs/<PROGNAME>-technical-spec.md` — if it exists, flag for update
+2. Check `docs/program/src/base/cics/cobol/<PROGNAME>.md` — if it exists, update accordingly
+3. Specs are written in **Portuguese**

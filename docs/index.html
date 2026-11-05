@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bank of Z – Project Wiki</title>
+    <title>Bank of Z – IBM Z Banking Application</title>
     <link rel="stylesheet" href="html/assets/style.css">
 </head>
 <body>
     <header class="header">
         <div class="header-left">
-            <span class="header-app-name">Bank of Z – Project Wiki</span>
+            <span class="header-app-name">Bank of Z – IBM Z Banking Application</span>
         </div>
         <div class="header-right">
         </div>
@@ -32,7 +32,7 @@
         <div class="nav-group-label">Application Documentation</div>
         <div class="nav-section">
             <button class="nav-section-toggle" type="button">
-                <span class="nav-toggle-text">Overview</span>
+                <span class="nav-toggle-text">About Bank of Z</span>
                 <span class="nav-section-chevron">
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -40,13 +40,14 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="html/pages/project-introduction.html" class="nav-link" data-page-id="project-introduction">Project Introduction</a>
-                <a href="html/pages/capabilities-and-architecture-summary.html" class="nav-link" data-page-id="capabilities-and-architecture-summary">Key Capabilities &amp; Architecture Summary</a>
+                <a href="html/pages/about-overview.html" class="nav-link" data-page-id="about-overview">Project Overview</a>
+                <a href="html/pages/about-capabilities.html" class="nav-link" data-page-id="about-capabilities">Key Capabilities</a>
+                <a href="html/pages/about-architecture-overview.html" class="nav-link" data-page-id="about-architecture-overview">Architecture Overview</a>
             </div>
         </div>
         <div class="nav-section">
             <button class="nav-section-toggle" type="button">
-                <span class="nav-toggle-text">Installation &amp; Setup</span>
+                <span class="nav-toggle-text">Getting Started</span>
                 <span class="nav-section-chevron">
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -54,10 +55,10 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="html/pages/prerequisites-and-environment.html" class="nav-link" data-page-id="prerequisites-and-environment">Prerequisites &amp; Environment Configuration</a>
-                <a href="html/pages/local-tools-setup.html" class="nav-link" data-page-id="local-tools-setup">Local Tools Setup</a>
-                <a href="html/pages/deployment-methods.html" class="nav-link" data-page-id="deployment-methods">Deployment Methods</a>
-                <a href="html/pages/installation-verification.html" class="nav-link" data-page-id="installation-verification">Installation Verification</a>
+                <a href="html/pages/prerequisites.html" class="nav-link" data-page-id="prerequisites">Prerequisites</a>
+                <a href="html/pages/installation-setup.html" class="nav-link" data-page-id="installation-setup">Installation &amp; Setup</a>
+                <a href="html/pages/environment-configuration.html" class="nav-link" data-page-id="environment-configuration">Environment Configuration</a>
+                <a href="html/pages/verification.html" class="nav-link" data-page-id="verification">Verification &amp; Smoke Testing</a>
             </div>
         </div>
         <div class="nav-section">
@@ -70,11 +71,24 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="html/pages/architecture-introduction.html" class="nav-link" data-page-id="architecture-introduction">Architecture Introduction</a>
-                <a href="html/pages/application-components.html" class="nav-link" data-page-id="application-components">Application Components</a>
-                <a href="html/pages/application-flow.html" class="nav-link" data-page-id="application-flow">Application Flow</a>
-                <a href="html/pages/build-and-deployment-architecture.html" class="nav-link" data-page-id="build-and-deployment-architecture">Build &amp; Deployment Architecture</a>
-                <a href="html/pages/cics-program-examples.html" class="nav-link" data-page-id="cics-program-examples">CICS COBOL Program Examples</a>
+                <a href="html/pages/architecture-components.html" class="nav-link" data-page-id="architecture-components">Application Components</a>
+                <a href="html/pages/architecture-flow.html" class="nav-link" data-page-id="architecture-flow">Application Flow</a>
+                <a href="html/pages/architecture-build-deployment.html" class="nav-link" data-page-id="architecture-build-deployment">Build &amp; Deployment Architecture</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Program Reference</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="html/pages/program-bnkmenu.html" class="nav-link" data-page-id="program-bnkmenu">BNKMENU – Main Menu Program</a>
+                <a href="html/pages/program-crdtagy2.html" class="nav-link" data-page-id="program-crdtagy2">CRDTAGY2 – Credit Agency Simulator</a>
+                <a href="html/pages/program-delacc.html" class="nav-link" data-page-id="program-delacc">DELACC – Delete Account Program</a>
             </div>
         </div>
         <div class="nav-section">
@@ -87,9 +101,10 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="html/pages/workflows-overview.html" class="nav-link" data-page-id="workflows-overview">Development Workflows Overview</a>
-                <a href="html/pages/grub-workflow.html" class="nav-link" data-page-id="grub-workflow">GRUB Workflow</a>
-                <a href="html/pages/zowe-cli-workflow.html" class="nav-link" data-page-id="zowe-cli-workflow">Zowe CLI Workflow</a>
+                <a href="html/pages/workflow-overview.html" class="nav-link" data-page-id="workflow-overview">Development Workflows Overview</a>
+                <a href="html/pages/workflow-zowe-cli.html" class="nav-link" data-page-id="workflow-zowe-cli">Zowe CLI Workflow</a>
+                <a href="html/pages/workflow-grub.html" class="nav-link" data-page-id="workflow-grub">GRUB Workflow</a>
+                <a href="html/pages/workflow-best-practices.html" class="nav-link" data-page-id="workflow-best-practices">Development Best Practices</a>
             </div>
         </div>
         <div class="nav-section">
@@ -102,10 +117,10 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="html/pages/tutorials-overview.html" class="nav-link" data-page-id="tutorials-overview">Tutorials Overview &amp; Deployment Walkthrough</a>
-                <a href="html/pages/debug-cics-transaction-tutorial.html" class="nav-link" data-page-id="debug-cics-transaction-tutorial">Tutorial: Debug a CICS Transaction</a>
-                <a href="html/pages/cics-enhancement-tutorial.html" class="nav-link" data-page-id="cics-enhancement-tutorial">Tutorial: CICS Enhancement Scenario</a>
-                <a href="html/pages/incremental-build-tutorial.html" class="nav-link" data-page-id="incremental-build-tutorial">Tutorial: Incremental Build</a>
+                <a href="html/pages/tutorial-deploy.html" class="nav-link" data-page-id="tutorial-deploy">Tutorial: Deploy Bank of Z</a>
+                <a href="html/pages/tutorial-cics-enhancement.html" class="nav-link" data-page-id="tutorial-cics-enhancement">Tutorial: CICS Enhancement Scenario</a>
+                <a href="html/pages/tutorial-incremental-build.html" class="nav-link" data-page-id="tutorial-incremental-build">Tutorial: Incremental Build</a>
+                <a href="html/pages/tutorial-debug-cics.html" class="nav-link" data-page-id="tutorial-debug-cics">Tutorial: Debug a CICS Transaction</a>
             </div>
         </div>
         <div class="nav-section">
@@ -118,24 +133,10 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="html/pages/configuration-reference.html" class="nav-link" data-page-id="configuration-reference">Configuration Reference</a>
-                <a href="html/pages/commands-and-scripts-reference.html" class="nav-link" data-page-id="commands-and-scripts-reference">Commands &amp; Scripts Reference</a>
-                <a href="html/pages/repository-structure.html" class="nav-link" data-page-id="repository-structure">Repository Structure</a>
-                <a href="html/pages/glossary.html" class="nav-link" data-page-id="glossary">Glossary</a>
-            </div>
-        </div>
-        <div class="nav-section">
-            <button class="nav-section-toggle" type="button">
-                <span class="nav-toggle-text">Troubleshooting</span>
-                <span class="nav-section-chevron">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </span>
-            </button>
-            <div class="nav-section-items">
-                <a href="html/pages/troubleshooting-guide.html" class="nav-link" data-page-id="troubleshooting-guide">Troubleshooting Guide</a>
-                <a href="html/pages/abend-cino-fix.html" class="nav-link" data-page-id="abend-cino-fix">Fixing the CINO Abend</a>
+                <a href="html/pages/ref-configuration.html" class="nav-link" data-page-id="ref-configuration">Configuration Reference</a>
+                <a href="html/pages/ref-commands.html" class="nav-link" data-page-id="ref-commands">Commands Reference</a>
+                <a href="html/pages/ref-repository-structure.html" class="nav-link" data-page-id="ref-repository-structure">Repository Structure</a>
+                <a href="html/pages/ref-glossary.html" class="nav-link" data-page-id="ref-glossary">Glossary</a>
             </div>
         </div>
         <div class="nav-divider"></div>
@@ -192,6 +193,7 @@
                         <div class="nav-section-items">
                             <a href="html/sources/program/src/base/cics/cobol/BNKMENU.html" class="nav-link">BNKMENU</a>
                             <a href="html/sources/program/src/base/cics/cobol/CRDTAGY2.html" class="nav-link">CRDTAGY2</a>
+                            <a href="html/sources/program/src/base/cics/cobol/DELACC.html" class="nav-link">DELACC</a>
                         </div>
                     </div>
                     </div>
@@ -232,138 +234,142 @@
         <main class="main">
             <div class="ov-page">
                 <div class="page-header">
-                    <h1 class="page-title">Bank of Z – Project Wiki</h1>
-                    <p class="page-desc">Documentation wiki for Bank of Z, a sample CICS/COBOL online banking application for IBM Z. It covers architecture, installation and deployment, development workflows, tutorials, reference material and troubleshooting.</p>
+                    <h1 class="page-title">Bank of Z – IBM Z Banking Application</h1>
+                    <p class="page-desc">A sample enterprise banking application built on IBM Z, demonstrating modern development practices, CICS/COBOL/DB2 architecture, and end-to-end build and deployment automation.</p>
                 </div>
                 <div class="ov-group-heading ov-group-heading--first">Application Documentation</div>
         <div class="ov-section">
-            <span class="ov-section-title">Overview</span>
+            <span class="ov-section-title">About Bank of Z</span>
             <div class="card-grid">
-                <a href="html/pages/project-introduction.html" class="card">
-                    <span class="card-title">Project Introduction</span>
-                    <span class="card-description">What Bank of Z is, why it exists, who it is for and how the documentation is organized.</span>
+                <a href="html/pages/about-overview.html" class="card">
+                    <span class="card-title">Project Overview</span>
+                    <span class="card-description">Introduction to Bank of Z, its purpose, intended audience, and how it can be used for learning, demonstration, and proof-of-concept scenarios on IBM Z.</span>
                 </a>
-                <a href="html/pages/capabilities-and-architecture-summary.html" class="card">
-                    <span class="card-title">Key Capabilities &amp; Architecture Summary</span>
-                    <span class="card-description">High-level view of the capabilities the sample application demonstrates and its overall architecture.</span>
+                <a href="html/pages/about-capabilities.html" class="card">
+                    <span class="card-title">Key Capabilities</span>
+                    <span class="card-description">Describes the core capabilities of Bank of Z, including supported banking functions, IBM Z tooling integrations, and modernization features.</span>
+                </a>
+                <a href="html/pages/about-architecture-overview.html" class="card">
+                    <span class="card-title">Architecture Overview</span>
+                    <span class="card-description">High-level architectural overview of Bank of Z, covering the main technology stack (CICS, COBOL, DB2) and how the components interact.</span>
                 </a>
             </div>
         </div>
         <div class="ov-section">
-            <span class="ov-section-title">Installation &amp; Setup</span>
+            <span class="ov-section-title">Getting Started</span>
             <div class="card-grid">
-                <a href="html/pages/prerequisites-and-environment.html" class="card">
-                    <span class="card-title">Prerequisites &amp; Environment Configuration</span>
-                    <span class="card-description">Installation landing page, required software and access, and environment configuration needed before deployment.</span>
+                <a href="html/pages/prerequisites.html" class="card">
+                    <span class="card-title">Prerequisites</span>
+                    <span class="card-description">All prerequisites required before installing and running Bank of Z, including IBM Z access, software versions, and tooling requirements.</span>
                 </a>
-                <a href="html/pages/local-tools-setup.html" class="card">
-                    <span class="card-title">Local Tools Setup</span>
-                    <span class="card-description">Setting up the local development toolchain: IDE, Zowe CLI, Zowe profiles and GRUB.</span>
+                <a href="html/pages/installation-setup.html" class="card">
+                    <span class="card-title">Installation &amp; Setup</span>
+                    <span class="card-description">Step-by-step guide to installing Bank of Z, covering all deployment paths (direct, Zowe CLI, GRUB) and local tool setup including IDE and Zowe profiles.</span>
                 </a>
-                <a href="html/pages/deployment-methods.html" class="card">
-                    <span class="card-title">Deployment Methods</span>
-                    <span class="card-description">Overview of deployment options and step-by-step guidance for Zowe CLI, direct and GRUB deployments.</span>
+                <a href="html/pages/environment-configuration.html" class="card">
+                    <span class="card-title">Environment Configuration</span>
+                    <span class="card-description">Details on configuring the Bank of Z environment, including system variables, dataset names, CICS region settings, and backup configuration.</span>
                 </a>
-                <a href="html/pages/installation-verification.html" class="card">
-                    <span class="card-title">Installation Verification</span>
-                    <span class="card-description">How to confirm that Bank of Z has been installed and deployed correctly.</span>
+                <a href="html/pages/verification.html" class="card">
+                    <span class="card-title">Verification &amp; Smoke Testing</span>
+                    <span class="card-description">How to verify a successful Bank of Z installation by running smoke tests, checking CICS transactions, and confirming DB2 connectivity.</span>
                 </a>
             </div>
         </div>
         <div class="ov-section">
             <span class="ov-section-title">Architecture</span>
             <div class="card-grid">
-                <a href="html/pages/architecture-introduction.html" class="card">
-                    <span class="card-title">Architecture Introduction</span>
-                    <span class="card-description">Entry point to the architecture documentation and how its pieces fit together.</span>
-                </a>
-                <a href="html/pages/application-components.html" class="card">
+                <a href="html/pages/architecture-components.html" class="card">
                     <span class="card-title">Application Components</span>
-                    <span class="card-description">The programs, maps, data stores and supporting resources that make up the application.</span>
+                    <span class="card-description">Detailed breakdown of all Bank of Z application components, including CICS programs, DB2 tables, BMS maps, copybooks, and supporting utilities.</span>
                 </a>
-                <a href="html/pages/application-flow.html" class="card">
+                <a href="html/pages/architecture-flow.html" class="card">
                     <span class="card-title">Application Flow</span>
-                    <span class="card-description">How a user request moves through the menu, transactions and supporting services at runtime.</span>
+                    <span class="card-description">End-to-end walkthrough of transaction flows within Bank of Z, from menu navigation through account management, credit scoring, and fund transfers.</span>
                 </a>
-                <a href="html/pages/build-and-deployment-architecture.html" class="card">
+                <a href="html/pages/architecture-build-deployment.html" class="card">
                     <span class="card-title">Build &amp; Deployment Architecture</span>
-                    <span class="card-description">How source code is built and delivered to z/OS, including the supporting automation.</span>
+                    <span class="card-description">Overview of the build pipeline and deployment architecture, including DBB (Dependency Based Build), packaging, and pipeline automation for IBM Z.</span>
                 </a>
-                <a href="html/pages/cics-program-examples.html" class="card">
-                    <span class="card-title">CICS COBOL Program Examples</span>
-                    <span class="card-description">Program-level views of selected COBOL CICS programs: the BNKMENU navigation hub and the CRDTAGY2 asynchronous credit agency simulator.</span>
+            </div>
+        </div>
+        <div class="ov-section">
+            <span class="ov-section-title">Program Reference</span>
+            <div class="card-grid">
+                <a href="html/pages/program-bnkmenu.html" class="card">
+                    <span class="card-title">BNKMENU – Main Menu Program</span>
+                    <span class="card-description">Reference documentation for the BNKMENU CICS COBOL program, the primary navigation hub of Bank of Z. Covers BMS screen handling, pseudo-conversational logic, option routing, and error/abend handling.</span>
+                </a>
+                <a href="html/pages/program-crdtagy2.html" class="card">
+                    <span class="card-title">CRDTAGY2 – Credit Agency Simulator</span>
+                    <span class="card-description">Reference documentation for the CRDTAGY2 CICS COBOL program. Covers asynchronous credit scoring via CICS channels and containers, random score generation, deliberate latency simulation, and timeout behavior.</span>
+                </a>
+                <a href="html/pages/program-delacc.html" class="card">
+                    <span class="card-title">DELACC – Delete Account Program</span>
+                    <span class="card-description">Reference documentation for the DELACC CICS COBOL program. Covers RACF security checks, DB2 account record deletion, audit trail writing to PROCTRAN, communication area conventions, and abend handling.</span>
                 </a>
             </div>
         </div>
         <div class="ov-section">
             <span class="ov-section-title">Development Workflows</span>
             <div class="card-grid">
-                <a href="html/pages/workflows-overview.html" class="card">
+                <a href="html/pages/workflow-overview.html" class="card">
                     <span class="card-title">Development Workflows Overview</span>
-                    <span class="card-description">Introduction to the supported development workflows, a comparison of them, and best practices.</span>
+                    <span class="card-description">Comparison and selection guide for the supported Bank of Z development workflows: direct mainframe editing, Zowe CLI, and GRUB.</span>
                 </a>
-                <a href="html/pages/grub-workflow.html" class="card">
-                    <span class="card-title">GRUB Workflow</span>
-                    <span class="card-description">Day-to-day development using the GRUB-based workflow.</span>
-                </a>
-                <a href="html/pages/zowe-cli-workflow.html" class="card">
+                <a href="html/pages/workflow-zowe-cli.html" class="card">
                     <span class="card-title">Zowe CLI Workflow</span>
-                    <span class="card-description">Day-to-day development using Zowe CLI.</span>
+                    <span class="card-description">Step-by-step guide to using the Zowe CLI workflow for developing, building, and deploying Bank of Z changes from a local workstation.</span>
+                </a>
+                <a href="html/pages/workflow-grub.html" class="card">
+                    <span class="card-title">GRUB Workflow</span>
+                    <span class="card-description">Step-by-step guide to using the GRUB (Git Remote Utilities for Build) workflow for source control integration and automated build triggering on IBM Z.</span>
+                </a>
+                <a href="html/pages/workflow-best-practices.html" class="card">
+                    <span class="card-title">Development Best Practices</span>
+                    <span class="card-description">Recommended practices for IBM Z development with Bank of Z, covering branching strategies, incremental builds, testing, and team collaboration.</span>
                 </a>
             </div>
         </div>
         <div class="ov-section">
             <span class="ov-section-title">Tutorials</span>
             <div class="card-grid">
-                <a href="html/pages/tutorials-overview.html" class="card">
-                    <span class="card-title">Tutorials Overview &amp; Deployment Walkthrough</span>
-                    <span class="card-description">Tutorial index and an end-to-end walkthrough for deploying Bank of Z.</span>
+                <a href="html/pages/tutorial-deploy.html" class="card">
+                    <span class="card-title">Tutorial: Deploy Bank of Z</span>
+                    <span class="card-description">Guided tutorial walking through a full end-to-end deployment of the Bank of Z application onto an IBM Z environment.</span>
                 </a>
-                <a href="html/pages/debug-cics-transaction-tutorial.html" class="card">
-                    <span class="card-title">Tutorial: Debug a CICS Transaction</span>
-                    <span class="card-description">Walkthrough of debugging a CICS transaction in Bank of Z.</span>
-                </a>
-                <a href="html/pages/cics-enhancement-tutorial.html" class="card">
+                <a href="html/pages/tutorial-cics-enhancement.html" class="card">
                     <span class="card-title">Tutorial: CICS Enhancement Scenario</span>
-                    <span class="card-description">Scenario-driven tutorial for enhancing the CICS application.</span>
+                    <span class="card-description">Hands-on tutorial demonstrating how to make, build, and deploy an enhancement to a CICS program within Bank of Z.</span>
                 </a>
-                <a href="html/pages/incremental-build-tutorial.html" class="card">
+                <a href="html/pages/tutorial-incremental-build.html" class="card">
                     <span class="card-title">Tutorial: Incremental Build</span>
-                    <span class="card-description">Using incremental builds to build and deploy only what has changed.</span>
+                    <span class="card-description">Tutorial on triggering and validating an incremental build in Bank of Z, demonstrating how only changed components are recompiled and redeployed.</span>
+                </a>
+                <a href="html/pages/tutorial-debug-cics.html" class="card">
+                    <span class="card-title">Tutorial: Debug a CICS Transaction</span>
+                    <span class="card-description">Step-by-step tutorial for debugging a CICS transaction in Bank of Z, covering how to set breakpoints, inspect storage, and diagnose abends.</span>
                 </a>
             </div>
         </div>
         <div class="ov-section">
             <span class="ov-section-title">Reference</span>
             <div class="card-grid">
-                <a href="html/pages/configuration-reference.html" class="card">
+                <a href="html/pages/ref-configuration.html" class="card">
                     <span class="card-title">Configuration Reference</span>
-                    <span class="card-description">Reference for configuration settings and parameters, including the legacy configuration backup.</span>
+                    <span class="card-description">Complete reference for all Bank of Z configuration parameters, dataset naming conventions, CICS definitions, and environment-level settings.</span>
                 </a>
-                <a href="html/pages/commands-and-scripts-reference.html" class="card">
-                    <span class="card-title">Commands &amp; Scripts Reference</span>
-                    <span class="card-description">Reference for the commands and helper scripts used to build, deploy and operate the project.</span>
+                <a href="html/pages/ref-commands.html" class="card">
+                    <span class="card-title">Commands Reference</span>
+                    <span class="card-description">Reference guide for all CLI commands, JCL jobs, and scripts used to build, deploy, and manage Bank of Z.</span>
                 </a>
-                <a href="html/pages/repository-structure.html" class="card">
+                <a href="html/pages/ref-repository-structure.html" class="card">
                     <span class="card-title">Repository Structure</span>
-                    <span class="card-description">Layout of the repository and where each type of artifact lives.</span>
+                    <span class="card-description">Annotated map of the Bank of Z repository layout, explaining the purpose of each directory and key file.</span>
                 </a>
-                <a href="html/pages/glossary.html" class="card">
+                <a href="html/pages/ref-glossary.html" class="card">
                     <span class="card-title">Glossary</span>
-                    <span class="card-description">Definitions of terms, acronyms and concepts used across the documentation.</span>
-                </a>
-            </div>
-        </div>
-        <div class="ov-section">
-            <span class="ov-section-title">Troubleshooting</span>
-            <div class="card-grid">
-                <a href="html/pages/troubleshooting-guide.html" class="card">
-                    <span class="card-title">Troubleshooting Guide</span>
-                    <span class="card-description">Common problems and resolutions for installation, build, deployment and runtime.</span>
-                </a>
-                <a href="html/pages/abend-cino-fix.html" class="card">
-                    <span class="card-title">Fixing the CINO Abend</span>
-                    <span class="card-description">Diagnosis and fix notes for a specific abend (CINO) encountered in the environment.</span>
+                    <span class="card-description">Definitions of key terms, acronyms, and IBM Z concepts used throughout the Bank of Z documentation.</span>
                 </a>
             </div>
         </div>

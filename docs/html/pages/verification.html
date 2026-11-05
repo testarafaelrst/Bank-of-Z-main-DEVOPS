@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Installation Verification - Bank of Z – IBM Z Modern Development Reference</title>
+    <title>Verification & Smoke Testing - Bank of Z – IBM Z Banking Application</title>
     <link rel="stylesheet" href="../assets/style.css">
     <script src="../assets/mermaid.js"></script>
     <script>
@@ -23,7 +23,7 @@
 <body>
     <header class="header">
         <div class="header-left">
-            <span class="header-app-name"><a href="../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – IBM Z Modern Development Reference</a></span>
+            <span class="header-app-name"><a href="../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – IBM Z Banking Application</a></span>
         </div>
         <div class="header-right">
         </div>
@@ -54,8 +54,24 @@
             </button>
             <div class="nav-section-items">
                 <a href="about-overview.html" class="nav-link" data-page-id="about-overview">Project Overview</a>
-                <a href="architecture-overview.html" class="nav-link" data-page-id="architecture-overview">Architecture Overview</a>
-                <a href="key-capabilities.html" class="nav-link" data-page-id="key-capabilities">Key Capabilities</a>
+                <a href="about-capabilities.html" class="nav-link" data-page-id="about-capabilities">Key Capabilities</a>
+                <a href="about-architecture-overview.html" class="nav-link" data-page-id="about-architecture-overview">Architecture Overview</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle open" type="button">
+                <span class="nav-toggle-text">Getting Started</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items open">
+                <a href="prerequisites.html" class="nav-link" data-page-id="prerequisites">Prerequisites</a>
+                <a href="installation-setup.html" class="nav-link" data-page-id="installation-setup">Installation &amp; Setup</a>
+                <a href="environment-configuration.html" class="nav-link" data-page-id="environment-configuration">Environment Configuration</a>
+                <a href="verification.html" class="nav-link active" data-page-id="verification">Verification &amp; Smoke Testing</a>
             </div>
         </div>
         <div class="nav-section">
@@ -68,26 +84,24 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="application-components.html" class="nav-link" data-page-id="application-components">Application Components</a>
-                <a href="application-flow.html" class="nav-link" data-page-id="application-flow">Application Flow</a>
-                <a href="build-and-deployment-arch.html" class="nav-link" data-page-id="build-and-deployment-arch">Build &amp; Deployment Architecture</a>
+                <a href="architecture-components.html" class="nav-link" data-page-id="architecture-components">Application Components</a>
+                <a href="architecture-flow.html" class="nav-link" data-page-id="architecture-flow">Application Flow</a>
+                <a href="architecture-build-deployment.html" class="nav-link" data-page-id="architecture-build-deployment">Build &amp; Deployment Architecture</a>
             </div>
         </div>
         <div class="nav-section">
-            <button class="nav-section-toggle open" type="button">
-                <span class="nav-toggle-text">Installation &amp; Setup</span>
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Program Reference</span>
                 <span class="nav-section-chevron">
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </span>
             </button>
-            <div class="nav-section-items open">
-                <a href="prerequisites-env.html" class="nav-link" data-page-id="prerequisites-env">Prerequisites &amp; Environment Configuration</a>
-                <a href="deploying-options.html" class="nav-link" data-page-id="deploying-options">Deployment Options</a>
-                <a href="local-tools-setup.html" class="nav-link" data-page-id="local-tools-setup">Local Tools Setup</a>
-                <a href="zowe-cli-setup.html" class="nav-link" data-page-id="zowe-cli-setup">Zowe CLI &amp; Profile Setup</a>
-                <a href="verification.html" class="nav-link active" data-page-id="verification">Installation Verification</a>
+            <div class="nav-section-items">
+                <a href="program-bnkmenu.html" class="nav-link" data-page-id="program-bnkmenu">BNKMENU – Main Menu Program</a>
+                <a href="program-crdtagy2.html" class="nav-link" data-page-id="program-crdtagy2">CRDTAGY2 – Credit Agency Simulator</a>
+                <a href="program-delacc.html" class="nav-link" data-page-id="program-delacc">DELACC – Delete Account Program</a>
             </div>
         </div>
         <div class="nav-section">
@@ -100,10 +114,10 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="workflow-overview.html" class="nav-link" data-page-id="workflow-overview">Development Workflow Overview</a>
-                <a href="zowe-cli-workflow.html" class="nav-link" data-page-id="zowe-cli-workflow">Zowe CLI Workflow</a>
-                <a href="grub-workflow.html" class="nav-link" data-page-id="grub-workflow">Grub Workflow</a>
-                <a href="development-best-practices.html" class="nav-link" data-page-id="development-best-practices">Development Best Practices</a>
+                <a href="workflow-overview.html" class="nav-link" data-page-id="workflow-overview">Development Workflows Overview</a>
+                <a href="workflow-zowe-cli.html" class="nav-link" data-page-id="workflow-zowe-cli">Zowe CLI Workflow</a>
+                <a href="workflow-grub.html" class="nav-link" data-page-id="workflow-grub">GRUB Workflow</a>
+                <a href="workflow-best-practices.html" class="nav-link" data-page-id="workflow-best-practices">Development Best Practices</a>
             </div>
         </div>
         <div class="nav-section">
@@ -116,10 +130,10 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="deploy-bank-of-z.html" class="nav-link" data-page-id="deploy-bank-of-z">Tutorial: Deploy Bank of Z</a>
-                <a href="cics-enhancement.html" class="nav-link" data-page-id="cics-enhancement">Tutorial: CICS Enhancement Scenario</a>
-                <a href="incremental-build.html" class="nav-link" data-page-id="incremental-build">Tutorial: Incremental Build</a>
-                <a href="debug-cics-transaction.html" class="nav-link" data-page-id="debug-cics-transaction">Tutorial: Debug a CICS Transaction</a>
+                <a href="tutorial-deploy.html" class="nav-link" data-page-id="tutorial-deploy">Tutorial: Deploy Bank of Z</a>
+                <a href="tutorial-cics-enhancement.html" class="nav-link" data-page-id="tutorial-cics-enhancement">Tutorial: CICS Enhancement Scenario</a>
+                <a href="tutorial-incremental-build.html" class="nav-link" data-page-id="tutorial-incremental-build">Tutorial: Incremental Build</a>
+                <a href="tutorial-debug-cics.html" class="nav-link" data-page-id="tutorial-debug-cics">Tutorial: Debug a CICS Transaction</a>
             </div>
         </div>
         <div class="nav-section">
@@ -132,54 +146,14 @@
                 </span>
             </button>
             <div class="nav-section-items">
-                <a href="commands-reference.html" class="nav-link" data-page-id="commands-reference">Commands Reference</a>
-                <a href="configuration-reference.html" class="nav-link" data-page-id="configuration-reference">Configuration Reference</a>
-                <a href="glossary.html" class="nav-link" data-page-id="glossary">Glossary</a>
-                <a href="repository-structure.html" class="nav-link" data-page-id="repository-structure">Repository Structure</a>
-            </div>
-        </div>
-        <div class="nav-section">
-            <button class="nav-section-toggle" type="button">
-                <span class="nav-toggle-text">Troubleshooting</span>
-                <span class="nav-section-chevron">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </span>
-            </button>
-            <div class="nav-section-items">
-                <a href="troubleshooting-overview.html" class="nav-link" data-page-id="troubleshooting-overview">Troubleshooting Overview</a>
-                <a href="fix-abend-cino.html" class="nav-link" data-page-id="fix-abend-cino">Fix: OMEN ABEND CINO</a>
-                <a href="program-internals.html" class="nav-link" data-page-id="program-internals">Program Internals: CRDTAGY2 Credit Agency Simulator</a>
+                <a href="ref-configuration.html" class="nav-link" data-page-id="ref-configuration">Configuration Reference</a>
+                <a href="ref-commands.html" class="nav-link" data-page-id="ref-commands">Commands Reference</a>
+                <a href="ref-repository-structure.html" class="nav-link" data-page-id="ref-repository-structure">Repository Structure</a>
+                <a href="ref-glossary.html" class="nav-link" data-page-id="ref-glossary">Glossary</a>
             </div>
         </div>
         <div class="nav-divider"></div>
         <div class="nav-group-label">Program Documentation</div>
-    <div class="nav-section">
-        <button class="nav-section-toggle" type="button">
-            <span class="nav-toggle-text">docs</span>
-            <span class="nav-section-chevron">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </span>
-        </button>
-        <div class="nav-section-items">
-        <div class="nav-section">
-            <button class="nav-section-toggle" type="button">
-                <span class="nav-toggle-text">about-bank-of-z</span>
-                <span class="nav-section-chevron">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </span>
-            </button>
-            <div class="nav-section-items">
-                <a href="../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
-            </div>
-        </div>
-        </div>
-    </div>
     <div class="nav-section">
         <button class="nav-section-toggle" type="button">
             <span class="nav-toggle-text">program</span>
@@ -230,13 +204,40 @@
                             </span>
                         </button>
                         <div class="nav-section-items">
+                            <a href="../sources/program/src/base/cics/cobol/BNKMENU.html" class="nav-link">BNKMENU</a>
                             <a href="../sources/program/src/base/cics/cobol/CRDTAGY2.html" class="nav-link">CRDTAGY2</a>
+                            <a href="../sources/program/src/base/cics/cobol/DELACC.html" class="nav-link">DELACC</a>
                         </div>
                     </div>
                     </div>
                 </div>
                 </div>
             </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">docs</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">about-bank-of-z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
             </div>
         </div>
         </div>
@@ -248,109 +249,158 @@
                 <div class="content-layout">
                     <div class="prose">
                         
-                        <h1 id="installation-verification" tabindex="-1">Installation Verification</h1>
-<p>Bank of Z installation verification confirms that the application stack has been deployed correctly on IBM Z and that the supporting development, middleware, runtime, and API components are operational. This page describes the post-installation checks needed to validate the development workstation, target z/OS connectivity, required platform services, deployed application artifacts, and end-to-end application access.</p>
+                        <h1 id="verification--smoke-testing" tabindex="-1">Verification &amp; Smoke Testing</h1>
+<hr>
 <h2 id="1-overview" tabindex="-1">1. Overview</h2>
-<p>Installation verification for Bank of Z is intended to establish confidence that the environment is ready for development and use. After deployment, verification should confirm:</p>
+<p>The <strong>Bank of Z</strong> application runs on IBM Z infrastructure and integrates multiple enterprise middleware platforms — CICS, IMS, Db2, MQ, and z/OS Connect EE — to deliver a fully functional core banking system. Before development or operational activities can begin, every layer of this stack must be confirmed as correctly installed, configured, and reachable.</p>
+<p>This page guides platform engineers and developers through a structured verification and smoke-testing workflow. It covers:</p>
 <ul>
-<li>The local development toolchain is installed and accessible</li>
-<li>The workstation can communicate with the target z/OS environment</li>
-<li>Required IBM Z middleware components are available</li>
-<li>Bank of Z application resources have been deployed successfully</li>
-<li>Runtime resources are active</li>
-<li>Application services and APIs respond correctly</li>
+<li>Validating the local development toolchain (Java, Git, Zowe CLI)</li>
+<li>Confirming connectivity to the target z/OS environment</li>
+<li>Checking that all required middleware subsystems are active</li>
+<li>Verifying that application artifacts (load modules, Db2 plans, IMS resources, CICS definitions) have been deployed</li>
+<li>Running end-to-end smoke tests against live transactions and APIs to confirm the system is fully operational</li>
 </ul>
-<p>A successful verification indicates that Bank of Z is correctly installed and that its components are communicating as expected across the development and runtime environments.</p>
+<p>A clean pass through all checks means the Bank of Z environment is ready for development, testing, or production use.</p>
+<hr>
 <h2 id="2-system-architecture" tabindex="-1">2. System Architecture</h2>
-<p>Bank of Z verification spans both the local development environment and the target IBM Z platform. The process begins on the workstation, where the installed tooling and z/OS connectivity are validated. Verification then moves to the target environment, where core middleware and deployed application resources are checked, followed by functional validation of application access and API execution.</p>
+<p>The diagram below illustrates the major components of the Bank of Z platform and the relationships between them. Verification activities target each layer in turn — from the developer workstation down through the z/OS runtime and its middleware subsystems.</p>
 <div class="mermaid">
 graph TD
-    A[Developer Workstation] --> B[Java]
-    A --> C[Git]
-    A --> D[Zowe CLI]
-    D --> E[z/OSMF Connectivity]
-    E --> F[z/OS 3.1 or later]
-    F --> G[CICS]
-    F --> H[IMS TM]
-    F --> I[IMS DB]
-    F --> J[Db2 for z/OS]
-    F --> K[z/OS Connect EE]
-    F --> L[IBM MQ]
-    G --> M[Bank of Z Application Resources]
-    H --> M
-    I --> M
-    J --> M
-    K --> N[Bank of Z APIs]
-    M --> O[Bank of Z User Access and Transactions]
-    N --> O
+    WS["👩‍💻 Developer Workstation\n(Java · Git · Zowe CLI)"]
+    ZOSMF["z/OSMF\n(REST Gateway)"]
+    ZCONN["z/OS Connect EE\n(API Layer)"]
+    CICS["CICS Region\n(Transaction Manager)"]
+    IMS["IMS TM / IMS DB\n(Transaction & Hierarchical DB)"]
+    DB2["Db2 for z/OS\n(Relational Database)"]
+    MQ["IBM MQ\n(Messaging)"]
+    ZOS["z/OS 3.1+\n(Operating System)"]
+    UI["Bank of Z\nUser Interface"]
+
+    WS -->|"zowe zosmf check status"| ZOSMF
+    UI -->|HTTP/S API calls| ZCONN
+    ZCONN --> CICS
+    ZCONN --> IMS
+    CICS --> DB2
+    CICS --> MQ
+    IMS --> DB2
+    ZOSMF --> ZOS
+    ZOS --> CICS
+    ZOS --> IMS
+    ZOS --> DB2
+    ZOS --> MQ
 </div>
-<p>This architecture shows how verification depends on both platform readiness and application deployment. The workstation tools provide the entry point for validation, while the z/OS platform hosts the middleware and application resources that must be available for Bank of Z to function.</p>
-<h3 id="21-verification-scope" tabindex="-1">2.1 Verification Scope</h3>
-<p>The verification scope includes the following layers:</p>
-<ul>
-<li>
-<p><strong>Development environment</strong></p>
-<ul>
-<li>Java</li>
-<li>Git</li>
-<li>Zowe CLI</li>
-</ul>
-</li>
-<li>
-<p><strong>Connectivity</strong></p>
-<ul>
-<li>z/OSMF communication from the workstation to z/OS</li>
-</ul>
-</li>
-<li>
-<p><strong>Target platform</strong></p>
-<ul>
-<li>z/OS 3.1 or later</li>
-<li>CICS</li>
-<li>IMS Transaction Manager</li>
-<li>IMS DB</li>
-<li>Db2 for z/OS</li>
-<li>z/OS Connect Enterprise Edition</li>
-<li>IBM MQ</li>
-</ul>
-</li>
-<li>
-<p><strong>Application deployment</strong></p>
-<ul>
-<li>Load modules</li>
-<li>Db2 tables and plans</li>
-<li>IMS resources</li>
-<li>CICS resources</li>
-<li>z/OS Connect API artifacts</li>
-<li>Configuration resources</li>
-</ul>
-</li>
-<li>
-<p><strong>Application access</strong></p>
-<ul>
-<li>User interface access</li>
-<li>User retrieval</li>
-<li>Account detail lookup</li>
-<li>Transaction execution</li>
-<li>API invocation</li>
-</ul>
-</li>
-</ul>
-<h3 id="22-verification-flow" tabindex="-1">2.2 Verification Flow</h3>
-<div class="mermaid">
-graph TD
-    A[Start Verification] --> B[Verify Development Tools]
-    B --> C[Verify z/OS Connectivity]
-    C --> D[Verify Target Platform Components]
-    D --> E[Verify Application Deployment]
-    E --> F[Verify Application Access]
-    F --> G[Confirm Operational Environment]
-</div>
-<p>This flow emphasizes that verification should proceed in sequence. Problems found early, such as missing tools or failed connectivity, should be resolved before checking middleware or application behavior.</p>
-<h2 id="3-development-environment-verification" tabindex="-1">3. Development Environment Verification</h2>
-<p>The first stage of installation verification is to confirm that the required tools are installed and accessible from the workstation.</p>
-<h3 id="31-verify-java" tabindex="-1">3.1 Verify Java</h3>
-<p>Java must be present and executable from the command line.</p>
+<p>The workstation communicates with z/OS through z/OSMF. The Bank of Z UI drives business transactions through z/OS Connect EE, which fans out to CICS and IMS. Both CICS and IMS persist data in Db2, while IBM MQ handles asynchronous messaging between components.</p>
+<hr>
+<h2 id="3-verification-checklist" tabindex="-1">3. Verification Checklist</h2>
+<p>Before running detailed smoke tests, confirm that each of the following items is in a ready state. Use this checklist as a gate: do not proceed to the next phase until all items in the current phase are checked.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Check</th>
+<th>Target Layer</th>
+<th>Expected Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Java runtime installed</td>
+<td>Workstation</td>
+<td>Version string printed</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Git installed</td>
+<td>Workstation</td>
+<td>Version string printed</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Zowe CLI installed</td>
+<td>Workstation</td>
+<td>Version string printed</td>
+</tr>
+<tr>
+<td>4</td>
+<td>z/OSMF connectivity</td>
+<td>Network</td>
+<td>HTTP 200 / status OK</td>
+</tr>
+<tr>
+<td>5</td>
+<td>z/OS 3.1+ available</td>
+<td>Platform</td>
+<td>Syslog confirms IPL level</td>
+</tr>
+<tr>
+<td>6</td>
+<td>CICS region active</td>
+<td>Middleware</td>
+<td>CICS master terminal responds</td>
+</tr>
+<tr>
+<td>7</td>
+<td>IMS TM / IMS DB active</td>
+<td>Middleware</td>
+<td>IMS control region up</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Db2 subsystem active</td>
+<td>Middleware</td>
+<td>DB2 DISPLAY responds</td>
+</tr>
+<tr>
+<td>9</td>
+<td>z/OS Connect EE active</td>
+<td>API Layer</td>
+<td>Health endpoint returns OK</td>
+</tr>
+<tr>
+<td>10</td>
+<td>IBM MQ queue manager active</td>
+<td>Messaging</td>
+<td>MQSC DISPLAY QMGR responds</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Load modules deployed</td>
+<td>Application</td>
+<td>DSN present in target library</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Db2 tables and plans created</td>
+<td>Application</td>
+<td>Bind completed without error</td>
+</tr>
+<tr>
+<td>13</td>
+<td>IMS application resources installed</td>
+<td>Application</td>
+<td>IMS PSB/DBD loaded</td>
+</tr>
+<tr>
+<td>14</td>
+<td>CICS resource definitions active</td>
+<td>Application</td>
+<td>RDO definitions enabled</td>
+</tr>
+<tr>
+<td>15</td>
+<td>z/OS Connect APIs deployed</td>
+<td>Application</td>
+<td>Swagger/OpenAPI doc reachable</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="4-verify-development-environment" tabindex="-1">4. Verify Development Environment</h2>
+<p>The development toolchain must be installed and accessible on the engineer’s workstation before any remote interaction with z/OS can take place.</p>
+<h3 id="41-verify-java" tabindex="-1">4.1 Verify Java</h3>
+<p>Bank of Z build tooling and Zowe CLI require a Java runtime. Confirm availability with:</p>
 <div class="code-block">
   <div class="code-block-header">
     <span class="code-block-lang">BASH</span>
@@ -358,14 +408,17 @@ graph TD
   </div>
   <pre><code class="language-bash">java --version</code></pre>
 </div>
-<p>Expected outcome:</p>
-<ul>
-<li>The command completes successfully</li>
-<li>A Java version is returned</li>
-<li>The executable is available in the current shell environment</li>
-</ul>
-<h3 id="32-verify-git" tabindex="-1">3.2 Verify Git</h3>
-<p>Git should be installed and available for source management tasks.</p>
+<p>Expected output (exact version may vary):</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">CODE</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code>openjdk 17.0.x 2024-xx-xx
+OpenJDK Runtime Environment ...</code></pre>
+</div>
+<h3 id="42-verify-git" tabindex="-1">4.2 Verify Git</h3>
+<p>Source control operations depend on Git. Confirm availability with:</p>
 <div class="code-block">
   <div class="code-block-header">
     <span class="code-block-lang">BASH</span>
@@ -373,13 +426,16 @@ graph TD
   </div>
   <pre><code class="language-bash">git --version</code></pre>
 </div>
-<p>Expected outcome:</p>
-<ul>
-<li>The command completes successfully</li>
-<li>A Git version is displayed</li>
-</ul>
-<h3 id="33-verify-zowe-cli" tabindex="-1">3.3 Verify Zowe CLI</h3>
-<p>Zowe CLI is required to interact with the z/OS environment from the workstation.</p>
+<p>Expected output:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">CODE</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code>git version 2.x.x</code></pre>
+</div>
+<h3 id="43-verify-zowe-cli" tabindex="-1">4.3 Verify Zowe CLI</h3>
+<p>Zowe CLI is the primary command-line interface for interacting with z/OS services from the workstation. Confirm availability with:</p>
 <div class="code-block">
   <div class="code-block-header">
     <span class="code-block-lang">BASH</span>
@@ -387,13 +443,16 @@ graph TD
   </div>
   <pre><code class="language-bash">zowe --version</code></pre>
 </div>
-<p>Expected outcome:</p>
-<ul>
-<li>The command completes successfully</li>
-<li>The installed Zowe CLI version is displayed</li>
-</ul>
-<h3 id="34-verify-connectivity-to-zos" tabindex="-1">3.4 Verify Connectivity to z/OS</h3>
-<p>Once the toolchain is confirmed, validate that the workstation can reach the target z/OS environment through z/OSMF.</p>
+<p>Expected output:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">CODE</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code>X.X.X</code></pre>
+</div>
+<h3 id="44-verify-zosmf-connectivity" tabindex="-1">4.4 Verify z/OSMF Connectivity</h3>
+<p>With the toolchain confirmed, test end-to-end network connectivity to the z/OS environment:</p>
 <div class="code-block">
   <div class="code-block-header">
     <span class="code-block-lang">BASH</span>
@@ -401,352 +460,350 @@ graph TD
   </div>
   <pre><code class="language-bash">zowe zosmf check status</code></pre>
 </div>
-<p>Expected outcome:</p>
-<ul>
-<li>The command returns a successful status</li>
-<li>The response confirms communication with the target z/OS environment</li>
-</ul>
-<p>If this check fails, the remaining platform and application verification steps should be postponed until connectivity is restored.</p>
-<h2 id="4-target-environment-verification" tabindex="-1">4. Target Environment Verification</h2>
-<p>After confirming workstation readiness and connectivity, verify that the IBM Z platform provides the middleware services required by Bank of Z.</p>
-<h3 id="41-required-platform-components" tabindex="-1">4.1 Required Platform Components</h3>
-<p>The following components should be available in the target environment:</p>
-<ul>
-<li>z/OS 3.1 or later</li>
-<li>CICS</li>
-<li>IMS Transaction Manager (IMS TM)</li>
-<li>IMS DB</li>
-<li>Db2 for z/OS</li>
-<li>z/OS Connect Enterprise Edition</li>
-<li>IBM MQ</li>
-</ul>
-<p>These subsystems collectively support transaction processing, database access, API exposure, and messaging for the application.</p>
-<h3 id="42-platform-readiness-validation" tabindex="-1">4.2 Platform Readiness Validation</h3>
-<p>The target environment should be reviewed to ensure that each required subsystem is available for use by Bank of Z. If any of these components are unavailable, installation verification is incomplete and the environment should not be treated as ready.</p>
-<div class="mermaid">
-graph TD
-    A[z/OS Platform] --> B[CICS]
-    A --> C[IMS TM]
-    A --> D[IMS DB]
-    A --> E[Db2 for z/OS]
-    A --> F[z/OS Connect EE]
-    A --> G[IBM MQ]
-    B --> H[Transaction Processing]
-    C --> H
-    D --> I[Data Access]
-    E --> I
-    F --> J[API Exposure]
-    G --> K[Messaging Support]
-</div>
-<p>This diagram illustrates the relationship between the core platform components and the roles they serve in Bank of Z.</p>
-<h2 id="5-application-deployment-verification" tabindex="-1">5. Application Deployment Verification</h2>
-<p>With the platform confirmed, the next step is to verify that the Bank of Z application resources have been deployed successfully.</p>
-<h3 id="51-application-resources-to-verify" tabindex="-1">5.1 Application Resources to Verify</h3>
-<p>The following resources should be present and available:</p>
-<ul>
-<li>Application load modules are available</li>
-<li>Db2 tables and plans have been created</li>
-<li>IMS application resources are installed</li>
-<li>CICS resources are active</li>
-<li>z/OS Connect API artifacts have been deployed</li>
-<li>Required configuration resources are available</li>
-</ul>
-<h3 id="52-deployment-validation-objectives" tabindex="-1">5.2 Deployment Validation Objectives</h3>
-<p>Deployment verification should establish that:</p>
-<ul>
-<li>Executable application components are installed</li>
-<li>Database definitions required by the application exist</li>
-<li>Middleware-specific resources are active</li>
-<li>API definitions are deployed and ready to be invoked</li>
-<li>Configuration resources needed at runtime are present</li>
-</ul>
-<h3 id="53-deployment-dependency-view" tabindex="-1">5.3 Deployment Dependency View</h3>
-<div class="mermaid">
-graph TD
-    A[Bank of Z Deployment] --> B[Load Modules]
-    A --> C[Db2 Tables and Plans]
-    A --> D[IMS Resources]
-    A --> E[CICS Resources]
-    A --> F[z/OS Connect API Artifacts]
-    A --> G[Configuration Resources]
-    B --> H[Application Runtime]
-    C --> H
-    D --> H
-    E --> H
-    F --> I[API Runtime]
-    G --> H
-    G --> I
-</div>
-<p>This dependency view shows that application execution depends not on a single deployment artifact, but on a complete set of runtime, middleware, database, and configuration resources.</p>
-<h2 id="6-application-access-verification" tabindex="-1">6. Application Access Verification</h2>
-<p>After validating the deployment, verify that the application can process requests successfully.</p>
-<h3 id="61-functional-validation-activities" tabindex="-1">6.1 Functional Validation Activities</h3>
-<p>Typical post-installation validation includes:</p>
-<ul>
-<li>Accessing the Bank of Z user interface</li>
-<li>Retrieving user information</li>
-<li>Viewing account details</li>
-<li>Executing account transactions</li>
-<li>Invoking deployed z/OS Connect APIs</li>
-</ul>
-<p>These checks help confirm that the deployed components are communicating correctly and that Bank of Z is functional from an application perspective.</p>
-<h3 id="62-end-to-end-validation-sequence" tabindex="-1">6.2 End-to-End Validation Sequence</h3>
+<p>A successful response returns the z/OSMF server details and confirms the workstation can reach the target z/OS system. Any connection error at this stage indicates a network, firewall, or profile configuration issue that must be resolved before proceeding.</p>
+<p>The sequence below illustrates the connectivity check flow:</p>
 <div class="mermaid">
 sequenceDiagram
-    participant U as User
-    participant BOZ as Bank of Z
-    participant MW as Middleware Services
-    participant DB as Data Services
-    participant API as z/OS Connect APIs
+    participant DEV as Developer Workstation
+    participant CLI as Zowe CLI
+    participant ZOSMF as z/OSMF (z/OS)
 
-    U->>BOZ: Access user interface
-    BOZ->>MW: Request application services
-    MW->>DB: Retrieve user/account data
-    DB-->>MW: Return results
-    MW-->>BOZ: Provide application response
-    BOZ-->>U: Display user and account details
-    U->>BOZ: Execute account transaction
-    BOZ->>API: Invoke deployed API
-    API->>MW: Process transaction
-    MW-->>API: Transaction result
-    API-->>BOZ: API response
-    BOZ-->>U: Confirm successful operation
+    DEV->>CLI: zowe zosmf check status
+    CLI->>ZOSMF: HTTPS GET /zosmf/info
+    ZOSMF-->>CLI: 200 OK + server metadata
+    CLI-->>DEV: ✅ Connection successful
 </div>
-<p>This sequence shows how user actions depend on successful interactions between the application, middleware, data services, and APIs. A successful run validates both deployment correctness and runtime interoperability.</p>
-<h2 id="7-verification-checklist" tabindex="-1">7. Verification Checklist</h2>
-<p>Use the following checklist to confirm the installation state of Bank of Z.</p>
-<h3 id="71-workstation-and-connectivity-checklist" tabindex="-1">7.1 Workstation and Connectivity Checklist</h3>
+<hr>
+<h2 id="5-verify-target-zos-environment" tabindex="-1">5. Verify Target z/OS Environment</h2>
+<p>With workstation tooling confirmed, validate that the required IBM Z platform components are present and active on the target system.</p>
+<h3 id="51-required-platform-components" tabindex="-1">5.1 Required Platform Components</h3>
+<p>The following subsystems must be available before Bank of Z artifacts can function:</p>
 <table>
 <thead>
 <tr>
-<th>Check</th>
-<th>Validation</th>
+<th>Component</th>
+<th>Minimum Level</th>
+<th>Role</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Java installed</td>
-<td><code>java --version</code> returns successfully</td>
+<td>z/OS</td>
+<td>3.1</td>
+<td>Base operating system</td>
 </tr>
 <tr>
-<td>Git installed</td>
-<td><code>git --version</code> returns successfully</td>
+<td>CICS</td>
+<td>Current supported release</td>
+<td>Online transaction processing</td>
 </tr>
 <tr>
-<td>Zowe CLI installed</td>
-<td><code>zowe --version</code> returns successfully</td>
+<td>IMS Transaction Manager</td>
+<td>Current supported release</td>
+<td>IMS transaction routing</td>
 </tr>
 <tr>
-<td>z/OS connectivity established</td>
-<td><code>zowe zosmf check status</code> succeeds</td>
+<td>IMS DB</td>
+<td>Current supported release</td>
+<td>Hierarchical database</td>
+</tr>
+<tr>
+<td>Db2 for z/OS</td>
+<td>Current supported release</td>
+<td>Relational database</td>
+</tr>
+<tr>
+<td>z/OS Connect Enterprise Edition</td>
+<td>Current supported release</td>
+<td>RESTful API gateway</td>
+</tr>
+<tr>
+<td>IBM MQ</td>
+<td>Current supported release</td>
+<td>Asynchronous messaging</td>
 </tr>
 </tbody>
 </table>
-<h3 id="72-platform-and-deployment-checklist" tabindex="-1">7.2 Platform and Deployment Checklist</h3>
-<table>
-<thead>
-<tr>
-<th>Check</th>
-<th>Validation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>z/OS available</td>
-<td>z/OS 3.1 or later present</td>
-</tr>
-<tr>
-<td>CICS available</td>
-<td>Subsystem accessible</td>
-</tr>
-<tr>
-<td>IMS TM available</td>
-<td>Subsystem accessible</td>
-</tr>
-<tr>
-<td>IMS DB available</td>
-<td>Subsystem accessible</td>
-</tr>
-<tr>
-<td>Db2 available</td>
-<td>Database services accessible</td>
-</tr>
-<tr>
-<td>z/OS Connect EE available</td>
-<td>API runtime accessible</td>
-</tr>
-<tr>
-<td>IBM MQ available</td>
-<td>Messaging services accessible</td>
-</tr>
-<tr>
-<td>Load modules deployed</td>
-<td>Executables available</td>
-</tr>
-<tr>
-<td>Db2 tables and plans created</td>
-<td>Database objects present</td>
-</tr>
-<tr>
-<td>IMS resources installed</td>
-<td>IMS application resources available</td>
-</tr>
-<tr>
-<td>CICS resources active</td>
-<td>CICS definitions active</td>
-</tr>
-<tr>
-<td>z/OS Connect APIs deployed</td>
-<td>API artifacts available</td>
-</tr>
-<tr>
-<td>Configuration resources available</td>
-<td>Required configuration present</td>
-</tr>
-</tbody>
-</table>
-<h3 id="73-functional-verification-checklist" tabindex="-1">7.3 Functional Verification Checklist</h3>
-<table>
-<thead>
-<tr>
-<th>Check</th>
-<th>Validation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>User interface accessible</td>
-<td>Application opens correctly</td>
-</tr>
-<tr>
-<td>User information retrieval works</td>
-<td>Data is returned successfully</td>
-</tr>
-<tr>
-<td>Account details available</td>
-<td>Account data displays correctly</td>
-</tr>
-<tr>
-<td>Transactions execute</td>
-<td>Processing completes successfully</td>
-</tr>
-<tr>
-<td>APIs operational</td>
-<td>z/OS Connect API calls succeed</td>
-</tr>
-</tbody>
-</table>
+<blockquote>
+<p><strong>Note:</strong> If any required subsystem is unavailable, contact your system administrator before proceeding with application deployment or smoke testing.</p>
+</blockquote>
+<h3 id="52-middleware-status-checks" tabindex="-1">5.2 Middleware Status Checks</h3>
+<p>Use the Zowe CLI to interrogate subsystem status remotely from the workstation, or use the native operator console commands directly on z/OS.</p>
+<p><strong>Check CICS region status via Zowe:</strong></p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe zos-console issue command &quot;CEMT INQ TASK&quot; --sysplex-system &lt;LPAR&gt;</code></pre>
+</div>
+<p><strong>Check Db2 subsystem status via operator console:</strong></p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe zos-console issue command &quot;DISPLAY DB2,TYPE=ACTIVE&quot;</code></pre>
+</div>
+<p><strong>Check IMS control region via operator console:</strong></p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe zos-console issue command &quot;/DIS ACT&quot;</code></pre>
+</div>
+<p><strong>Check IBM MQ queue manager:</strong></p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe zos-console issue command &quot;DISPLAY QMGR&quot;</code></pre>
+</div>
+<hr>
+<h2 id="6-verify-application-deployment" tabindex="-1">6. Verify Application Deployment</h2>
+<p>Once the platform is confirmed healthy, verify that the Bank of Z application artifacts have been deployed correctly to each middleware layer.</p>
+<h3 id="61-application-deployment-overview" tabindex="-1">6.1 Application Deployment Overview</h3>
+<div class="mermaid">
+graph LR
+    subgraph "Deployment Artifacts"
+        LM["Load Modules\n(PDS/E library)"]
+        DB2A["Db2 Tables\n& Bound Plans"]
+        IMSR["IMS PSB / DBD\n& ACBs"]
+        CICSR["CICS RDO\nDefinitions"]
+        ZAPI["z/OS Connect\nAPI Artifacts"]
+        CFG["Configuration\nResources"]
+    end
+
+    subgraph "Runtime Targets"
+        LPAR["z/OS LPAR"]
+        CICS2["CICS Region"]
+        IMS2["IMS Subsystem"]
+        DB2B["Db2 Subsystem"]
+        ZCONN2["z/OS Connect EE"]
+    end
+
+    LM --> LPAR
+    DB2A --> DB2B
+    IMSR --> IMS2
+    CICSR --> CICS2
+    ZAPI --> ZCONN2
+    CFG --> LPAR
+</div>
+<h3 id="62-verify-load-modules" tabindex="-1">6.2 Verify Load Modules</h3>
+<p>Confirm that the application load modules have been placed in the target partitioned data set (PDS/E):</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe zos-files list ds-members &quot;BANKOFZ.LOADLIB&quot;</code></pre>
+</div>
+<p>Expected: a list of member names corresponding to the deployed Bank of Z programs.</p>
+<h3 id="63-verify-db2-tables-and-plans" tabindex="-1">6.3 Verify Db2 Tables and Plans</h3>
+<p>Confirm that tables exist and the application plan has been bound successfully:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe zos-console issue command &quot;DISPLAY DDF&quot;</code></pre>
+</div>
+<p>To check bound plans directly, issue the following from a Db2 command prompt or SPUFI:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">SQL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-sql">SELECT NAME, OWNER, VALID, OPERATIVE
+FROM SYSIBM.SYSPLAN
+WHERE NAME LIKE &#039;BANKOFZ%&#039;;</code></pre>
+</div>
+<p>Expected: rows returned with <code>VALID = 'Y'</code> and <code>OPERATIVE = 'Y'</code>.</p>
+<h3 id="64-verify-ims-application-resources" tabindex="-1">6.4 Verify IMS Application Resources</h3>
+<p>Confirm that the Bank of Z PSBs and DBDs have been loaded into the IMS subsystem:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe zos-console issue command &quot;/DIS PGM NAME=BANKOFZ*&quot;</code></pre>
+</div>
+<p>Expected: program entries listed with a status of <code>NOTINIT</code> or <code>STOSCHD</code> (available for scheduling).</p>
+<h3 id="65-verify-cics-resource-definitions" tabindex="-1">6.5 Verify CICS Resource Definitions</h3>
+<p>Confirm that CICS resource definitions (transactions, programs, files) are installed and enabled:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">zowe zos-console issue command &quot;CEMT INQ PROG(BANKOFZ*)&quot;</code></pre>
+</div>
+<p>Expected: program entries returned with <code>Enabled</code> status and a non-zero <code>Length</code> indicating the module is loaded.</p>
+<h3 id="66-verify-zos-connect-api-artifacts" tabindex="-1">6.6 Verify z/OS Connect API Artifacts</h3>
+<p>Confirm that the Bank of Z APIs are registered and reachable in z/OS Connect EE. Access the health endpoint:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash">curl -k https://&lt;ZCONN_HOST&gt;:&lt;PORT&gt;/zosConnect/apis</code></pre>
+</div>
+<p>Expected: a JSON response listing the deployed Bank of Z APIs with a status of <code>started</code>.</p>
+<hr>
+<h2 id="7-smoke-testing--end-to-end-validation" tabindex="-1">7. Smoke Testing — End-to-End Validation</h2>
+<p>With all platform and deployment checks passed, run the following smoke tests to confirm that the full application stack is functioning end-to-end. These tests exercise real transactions and data flows through the system.</p>
+<h3 id="71-smoke-test-flow" tabindex="-1">7.1 Smoke Test Flow</h3>
+<p>The sequence diagram below illustrates the end-to-end flow exercised during smoke testing:</p>
+<div class="mermaid">
+sequenceDiagram
+    participant Tester
+    participant UI as Bank of Z UI
+    participant ZCONN as z/OS Connect EE
+    participant CICS as CICS Region
+    participant IMS as IMS TM
+    participant DB2 as Db2 for z/OS
+
+    Tester->>UI: Open Bank of Z UI
+    UI-->>Tester: Login page rendered ✅
+
+    Tester->>UI: Authenticate (user credentials)
+    UI->>ZCONN: POST /api/auth
+    ZCONN->>CICS: EXEC CICS LINK PROGRAM(BOZBAUTH)
+    CICS->>DB2: SELECT from USER_ACCOUNT
+    DB2-->>CICS: User record returned
+    CICS-->>ZCONN: Auth token issued
+    ZCONN-->>UI: 200 OK + token
+    UI-->>Tester: Dashboard displayed ✅
+
+    Tester->>UI: View account details
+    UI->>ZCONN: GET /api/accounts/{id}
+    ZCONN->>IMS: DL/I GU call (Account segment)
+    IMS-->>ZCONN: Account data
+    ZCONN-->>UI: Account JSON
+    UI-->>Tester: Account details displayed ✅
+
+    Tester->>UI: Execute a transaction (transfer)
+    UI->>ZCONN: POST /api/transactions
+    ZCONN->>CICS: EXEC CICS START TRANSID(BOZT)
+    CICS->>DB2: UPDATE ACCOUNT balance
+    DB2-->>CICS: Commit confirmed
+    CICS-->>ZCONN: Transaction ID returned
+    ZCONN-->>UI: 201 Created
+    UI-->>Tester: Transaction confirmation ✅
+</div>
+<h3 id="72-smoke-test-1--access-the-user-interface" tabindex="-1">7.2 Smoke Test 1 — Access the User Interface</h3>
+<ol>
+<li>Open a browser and navigate to the Bank of Z UI endpoint.</li>
+<li>Confirm the login page renders without errors.</li>
+<li>Log in with a valid test user account.</li>
+<li>Confirm the dashboard is displayed successfully.</li>
+</ol>
+<p><strong>Pass criteria:</strong> Login completes and the account dashboard is visible.</p>
+<h3 id="73-smoke-test-2--retrieve-user-information" tabindex="-1">7.3 Smoke Test 2 — Retrieve User Information</h3>
+<ol>
+<li>From the dashboard, navigate to the user profile section.</li>
+<li>Confirm that user details (name, account number, address) are returned and displayed correctly.</li>
+</ol>
+<p><strong>Pass criteria:</strong> User data is fetched and rendered without errors or timeouts.</p>
+<h3 id="74-smoke-test-3--view-account-details" tabindex="-1">7.4 Smoke Test 3 — View Account Details</h3>
+<ol>
+<li>Select an account from the account list.</li>
+<li>Confirm that the account balance, account type, and transaction history are displayed.</li>
+</ol>
+<p><strong>Pass criteria:</strong> Account data is retrieved from IMS/Db2 and displayed without errors.</p>
+<h3 id="75-smoke-test-4--execute-an-account-transaction" tabindex="-1">7.5 Smoke Test 4 — Execute an Account Transaction</h3>
+<ol>
+<li>Initiate a fund transfer or deposit operation from the UI.</li>
+<li>Confirm the transaction is submitted and a confirmation number is returned.</li>
+<li>Confirm the updated balance reflects the transaction.</li>
+</ol>
+<p><strong>Pass criteria:</strong> Transaction is processed end-to-end, persisted in Db2, and the UI reflects the updated balance.</p>
+<h3 id="76-smoke-test-5--invoke-zos-connect-apis-directly" tabindex="-1">7.6 Smoke Test 5 — Invoke z/OS Connect APIs Directly</h3>
+<p>Invoke a deployed API endpoint directly using <code>curl</code> or a REST client to verify the API layer independently of the UI:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">BASH</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-bash"># Retrieve account list for a test user
+curl -k -X GET \
+  https://&lt;ZCONN_HOST&gt;:&lt;PORT&gt;/api/v1/accounts \
+  -H &quot;Authorization: Bearer &lt;TOKEN&gt;&quot; \
+  -H &quot;Content-Type: application/json&quot;</code></pre>
+</div>
+<p>Expected response:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">JSON</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-json">{
+  &quot;accounts&quot;: [
+    {
+      &quot;accountId&quot;: &quot;000001234&quot;,
+      &quot;accountType&quot;: &quot;CHECKING&quot;,
+      &quot;balance&quot;: 1500.00,
+      &quot;currency&quot;: &quot;USD&quot;
+    }
+  ]
+}</code></pre>
+</div>
+<p><strong>Pass criteria:</strong> HTTP 200 response with valid account data in the JSON body.</p>
+<hr>
 <h2 id="8-verification-results" tabindex="-1">8. Verification Results</h2>
-<p>A successful installation verification should result in the following outcomes:</p>
-<ul>
-<li>A configured development environment</li>
-<li>Access to the target z/OS platform</li>
-<li>Deployed application artifacts</li>
-<li>Available middleware resources</li>
-<li>Operational APIs and services</li>
-<li>A functioning Bank of Z application environment</li>
-</ul>
-<p>If all verification steps complete successfully, the Bank of Z deployment can be considered operational and ready for development activities.</p>
-<h2 id="9-troubleshooting-verification-failures" tabindex="-1">9. Troubleshooting Verification Failures</h2>
-<p>If verification does not complete successfully, isolate the issue by stage:</p>
-<h3 id="91-tooling-failures" tabindex="-1">9.1 Tooling Failures</h3>
-<p>Symptoms:</p>
-<ul>
-<li><code>java --version</code> fails</li>
-<li><code>git --version</code> fails</li>
-<li><code>zowe --version</code> fails</li>
-</ul>
-<p>Recommended action:</p>
-<ul>
-<li>Confirm the tool is installed</li>
-<li>Confirm the executable is on the system path</li>
-<li>Reopen the shell or reload the environment if needed</li>
-</ul>
-<h3 id="92-connectivity-failures" tabindex="-1">9.2 Connectivity Failures</h3>
-<p>Symptoms:</p>
-<ul>
-<li><code>zowe zosmf check status</code> does not return a successful response</li>
-</ul>
-<p>Recommended action:</p>
-<ul>
-<li>Confirm network access to the target z/OS environment</li>
-<li>Confirm z/OSMF is reachable</li>
-<li>Resolve authentication or connection issues before continuing</li>
-</ul>
-<h3 id="93-platform-availability-failures" tabindex="-1">9.3 Platform Availability Failures</h3>
-<p>Symptoms:</p>
-<ul>
-<li>One or more required subsystems are unavailable</li>
-</ul>
-<p>Recommended action:</p>
-<ul>
-<li>Contact the system administrator</li>
-<li>Confirm that required middleware components are started and accessible</li>
-</ul>
-<h3 id="94-deployment-failures" tabindex="-1">9.4 Deployment Failures</h3>
-<p>Symptoms:</p>
-<ul>
-<li>Missing load modules</li>
-<li>Missing database objects</li>
-<li>Inactive CICS or IMS resources</li>
-<li>Missing z/OS Connect API artifacts</li>
-<li>Missing configuration resources</li>
-</ul>
-<p>Recommended action:</p>
-<ul>
-<li>Review deployment completion status</li>
-<li>Re-run or correct failed deployment tasks</li>
-<li>Confirm all required application resources were created</li>
-</ul>
-<h3 id="95-functional-validation-failures" tabindex="-1">9.5 Functional Validation Failures</h3>
-<p>Symptoms:</p>
-<ul>
-<li>UI cannot be accessed</li>
-<li>User or account data cannot be retrieved</li>
-<li>Transactions fail</li>
-<li>API calls fail</li>
-</ul>
-<p>Recommended action:</p>
-<ul>
-<li>Verify that middleware and database components are available</li>
-<li>Confirm that deployed resources are active</li>
-<li>Recheck application configuration and runtime dependencies</li>
-</ul>
-<h2 id="10-code-examples" tabindex="-1">10. Code Examples</h2>
-<p>The following commands are used directly during installation verification.</p>
-<h3 id="101-verify-tooling" tabindex="-1">10.1 Verify Tooling</h3>
-<div class="code-block">
-  <div class="code-block-header">
-    <span class="code-block-lang">BASH</span>
-    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
-  </div>
-  <pre><code class="language-bash">java --version
-git --version
-zowe --version</code></pre>
-</div>
-<h3 id="102-verify-zos-connectivity" tabindex="-1">10.2 Verify z/OS Connectivity</h3>
-<div class="code-block">
-  <div class="code-block-header">
-    <span class="code-block-lang">BASH</span>
-    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
-  </div>
-  <pre><code class="language-bash">zowe zosmf check status</code></pre>
-</div>
-<p>These examples provide a minimal command-based verification of the workstation setup and the ability to communicate with the target IBM Z environment.</p>
-<h2 id="11-next-steps" tabindex="-1">11. Next Steps</h2>
-<p>After verification is complete, continue to the Tutorials section to learn how to build, deploy, and enhance Bank of Z application components.</p>
+<p>A fully successful verification run confirms the following:</p>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Expected Outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Development environment</td>
+<td>Java, Git, and Zowe CLI installed; z/OSMF reachable</td>
+</tr>
+<tr>
+<td>z/OS platform</td>
+<td>All required subsystems (CICS, IMS, Db2, MQ, z/OS Connect EE) active</td>
+</tr>
+<tr>
+<td>Application artifacts</td>
+<td>Load modules, Db2 plans, IMS resources, CICS definitions, and APIs deployed</td>
+</tr>
+<tr>
+<td>Smoke tests</td>
+<td>All 5 end-to-end scenarios pass without errors</td>
+</tr>
+<tr>
+<td>APIs</td>
+<td>z/OS Connect EE APIs return valid data with HTTP 200</td>
+</tr>
+<tr>
+<td>Overall</td>
+<td>Bank of Z application environment is fully operational</td>
+</tr>
+</tbody>
+</table>
+<p>If any check fails, refer to the relevant middleware or application deployment section of the installation guide and contact your system administrator if a platform-level issue is suspected.</p>
+<hr>
+<h2 id="9-next-steps" tabindex="-1">9. Next Steps</h2>
+<p>After all verification checks and smoke tests have passed, the Bank of Z environment is confirmed operational and ready for development activities. Continue to the <strong>Tutorials</strong> section to learn how to build, deploy, and enhance Bank of Z application components — including writing COBOL programs, creating CICS transactions, and extending the z/OS Connect API layer.</p>
 
                         <div class="related-pages">
                             <p class="related-pages-title">Related Pages</p>
                             <div class="card-grid">
                                 
-            <a href="deploying-options.html" class="card">
-                <span class="card-title">Deployment Options</span>
-                <span class="card-description">Comprehensive guide to the available deployment paths for Bank of Z, including direct deployment, Zowe CLI-based deployment, and Grub-based deployment approaches.</span>
+            <a href="installation-setup.html" class="card">
+                <span class="card-title">Installation &amp; Setup</span>
+                <span class="card-description">Step-by-step guide to installing Bank of Z, covering all deployment paths (direct, Zowe CLI, GRUB) and local tool setup including IDE and Zowe profiles.</span>
             </a>
-            <a href="troubleshooting-overview.html" class="card">
-                <span class="card-title">Troubleshooting Overview</span>
-                <span class="card-description">General troubleshooting guidance for Bank of Z, covering common installation, deployment, and runtime issues with diagnostic steps and resolution strategies.</span>
+            <a href="tutorial-deploy.html" class="card">
+                <span class="card-title">Tutorial: Deploy Bank of Z</span>
+                <span class="card-description">Guided tutorial walking through a full end-to-end deployment of the Bank of Z application onto an IBM Z environment.</span>
             </a>
                             </div>
                         </div>
@@ -755,63 +812,44 @@ zowe --version</code></pre>
   <span class="toc-panel-label">On this page</span>
   <ul class="toc-list">
 <li class="toc-level-2"><a href="#1-overview">1. Overview</a></li>
-<li class="toc-level-2"><a href="#2-system-architecture">2. System Architecture</a>
+<li class="toc-level-2"><a href="#2-system-architecture">2. System Architecture</a></li>
+<li class="toc-level-2"><a href="#3-verification-checklist">3. Verification Checklist</a></li>
+<li class="toc-level-2"><a href="#4-verify-development-environment">4. Verify Development Environment</a>
 <ul>
-<li class="toc-level-3"><a href="#21-verification-scope">2.1 Verification Scope</a></li>
-<li class="toc-level-3"><a href="#22-verification-flow">2.2 Verification Flow</a></li>
+<li class="toc-level-3"><a href="#41-verify-java">4.1 Verify Java</a></li>
+<li class="toc-level-3"><a href="#42-verify-git">4.2 Verify Git</a></li>
+<li class="toc-level-3"><a href="#43-verify-zowe-cli">4.3 Verify Zowe CLI</a></li>
+<li class="toc-level-3"><a href="#44-verify-zosmf-connectivity">4.4 Verify z/OSMF Connectivity</a></li>
 </ul>
 </li>
-<li class="toc-level-2"><a href="#3-development-environment-verification">3. Development Environment Verification</a>
+<li class="toc-level-2"><a href="#5-verify-target-zos-environment">5. Verify Target z/OS Environment</a>
 <ul>
-<li class="toc-level-3"><a href="#31-verify-java">3.1 Verify Java</a></li>
-<li class="toc-level-3"><a href="#32-verify-git">3.2 Verify Git</a></li>
-<li class="toc-level-3"><a href="#33-verify-zowe-cli">3.3 Verify Zowe CLI</a></li>
-<li class="toc-level-3"><a href="#34-verify-connectivity-to-zos">3.4 Verify Connectivity to z/OS</a></li>
+<li class="toc-level-3"><a href="#51-required-platform-components">5.1 Required Platform Components</a></li>
+<li class="toc-level-3"><a href="#52-middleware-status-checks">5.2 Middleware Status Checks</a></li>
 </ul>
 </li>
-<li class="toc-level-2"><a href="#4-target-environment-verification">4. Target Environment Verification</a>
+<li class="toc-level-2"><a href="#6-verify-application-deployment">6. Verify Application Deployment</a>
 <ul>
-<li class="toc-level-3"><a href="#41-required-platform-components">4.1 Required Platform Components</a></li>
-<li class="toc-level-3"><a href="#42-platform-readiness-validation">4.2 Platform Readiness Validation</a></li>
+<li class="toc-level-3"><a href="#61-application-deployment-overview">6.1 Application Deployment Overview</a></li>
+<li class="toc-level-3"><a href="#62-verify-load-modules">6.2 Verify Load Modules</a></li>
+<li class="toc-level-3"><a href="#63-verify-db2-tables-and-plans">6.3 Verify Db2 Tables and Plans</a></li>
+<li class="toc-level-3"><a href="#64-verify-ims-application-resources">6.4 Verify IMS Application Resources</a></li>
+<li class="toc-level-3"><a href="#65-verify-cics-resource-definitions">6.5 Verify CICS Resource Definitions</a></li>
+<li class="toc-level-3"><a href="#66-verify-zos-connect-api-artifacts">6.6 Verify z/OS Connect API Artifacts</a></li>
 </ul>
 </li>
-<li class="toc-level-2"><a href="#5-application-deployment-verification">5. Application Deployment Verification</a>
+<li class="toc-level-2"><a href="#7-smoke-testing--end-to-end-validation">7. Smoke Testing — End-to-End Validation</a>
 <ul>
-<li class="toc-level-3"><a href="#51-application-resources-to-verify">5.1 Application Resources to Verify</a></li>
-<li class="toc-level-3"><a href="#52-deployment-validation-objectives">5.2 Deployment Validation Objectives</a></li>
-<li class="toc-level-3"><a href="#53-deployment-dependency-view">5.3 Deployment Dependency View</a></li>
-</ul>
-</li>
-<li class="toc-level-2"><a href="#6-application-access-verification">6. Application Access Verification</a>
-<ul>
-<li class="toc-level-3"><a href="#61-functional-validation-activities">6.1 Functional Validation Activities</a></li>
-<li class="toc-level-3"><a href="#62-end-to-end-validation-sequence">6.2 End-to-End Validation Sequence</a></li>
-</ul>
-</li>
-<li class="toc-level-2"><a href="#7-verification-checklist">7. Verification Checklist</a>
-<ul>
-<li class="toc-level-3"><a href="#71-workstation-and-connectivity-checklist">7.1 Workstation and Connectivity Checklist</a></li>
-<li class="toc-level-3"><a href="#72-platform-and-deployment-checklist">7.2 Platform and Deployment Checklist</a></li>
-<li class="toc-level-3"><a href="#73-functional-verification-checklist">7.3 Functional Verification Checklist</a></li>
+<li class="toc-level-3"><a href="#71-smoke-test-flow">7.1 Smoke Test Flow</a></li>
+<li class="toc-level-3"><a href="#72-smoke-test-1--access-the-user-interface">7.2 Smoke Test 1 — Access the User Interface</a></li>
+<li class="toc-level-3"><a href="#73-smoke-test-2--retrieve-user-information">7.3 Smoke Test 2 — Retrieve User Information</a></li>
+<li class="toc-level-3"><a href="#74-smoke-test-3--view-account-details">7.4 Smoke Test 3 — View Account Details</a></li>
+<li class="toc-level-3"><a href="#75-smoke-test-4--execute-an-account-transaction">7.5 Smoke Test 4 — Execute an Account Transaction</a></li>
+<li class="toc-level-3"><a href="#76-smoke-test-5--invoke-zos-connect-apis-directly">7.6 Smoke Test 5 — Invoke z/OS Connect APIs Directly</a></li>
 </ul>
 </li>
 <li class="toc-level-2"><a href="#8-verification-results">8. Verification Results</a></li>
-<li class="toc-level-2"><a href="#9-troubleshooting-verification-failures">9. Troubleshooting Verification Failures</a>
-<ul>
-<li class="toc-level-3"><a href="#91-tooling-failures">9.1 Tooling Failures</a></li>
-<li class="toc-level-3"><a href="#92-connectivity-failures">9.2 Connectivity Failures</a></li>
-<li class="toc-level-3"><a href="#93-platform-availability-failures">9.3 Platform Availability Failures</a></li>
-<li class="toc-level-3"><a href="#94-deployment-failures">9.4 Deployment Failures</a></li>
-<li class="toc-level-3"><a href="#95-functional-validation-failures">9.5 Functional Validation Failures</a></li>
-</ul>
-</li>
-<li class="toc-level-2"><a href="#10-code-examples">10. Code Examples</a>
-<ul>
-<li class="toc-level-3"><a href="#101-verify-tooling">10.1 Verify Tooling</a></li>
-<li class="toc-level-3"><a href="#102-verify-zos-connectivity">10.2 Verify z/OS Connectivity</a></li>
-</ul>
-</li>
-<li class="toc-level-2"><a href="#11-next-steps">11. Next Steps</a></li>
+<li class="toc-level-2"><a href="#9-next-steps">9. Next Steps</a></li>
 </ul>
 
 </nav>

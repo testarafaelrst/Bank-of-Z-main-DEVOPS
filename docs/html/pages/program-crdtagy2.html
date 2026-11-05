@@ -1,0 +1,1342 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRDTAGY2 – Credit Agency Simulator - Bank of Z – IBM Z Banking Application</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/mermaid.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: { useMaxWidth: true }
+        });
+    </script>
+
+    <!-- Prism.js for syntax highlighting (bundled — no CDN required) -->
+    <link rel="stylesheet" href="../assets/prism-tomorrow.css">
+    <script src="../assets/prism-core.js"></script>
+    <script src="../assets/prism-languages.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <span class="header-app-name"><a href="../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – IBM Z Banking Application</a></span>
+        </div>
+        <div class="header-right">
+        </div>
+    </header>
+    <div class="shell">
+        <aside class="sidebar" id="wiki-sidebar">
+            <nav>
+                
+        <div class="nav-home-wrap">
+            <a href="../../index.html" class="nav-home">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                Home
+            </a>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Application Documentation</div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">About Bank of Z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="about-overview.html" class="nav-link" data-page-id="about-overview">Project Overview</a>
+                <a href="about-capabilities.html" class="nav-link" data-page-id="about-capabilities">Key Capabilities</a>
+                <a href="about-architecture-overview.html" class="nav-link" data-page-id="about-architecture-overview">Architecture Overview</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Getting Started</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="prerequisites.html" class="nav-link" data-page-id="prerequisites">Prerequisites</a>
+                <a href="installation-setup.html" class="nav-link" data-page-id="installation-setup">Installation &amp; Setup</a>
+                <a href="environment-configuration.html" class="nav-link" data-page-id="environment-configuration">Environment Configuration</a>
+                <a href="verification.html" class="nav-link" data-page-id="verification">Verification &amp; Smoke Testing</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Architecture</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="architecture-components.html" class="nav-link" data-page-id="architecture-components">Application Components</a>
+                <a href="architecture-flow.html" class="nav-link" data-page-id="architecture-flow">Application Flow</a>
+                <a href="architecture-build-deployment.html" class="nav-link" data-page-id="architecture-build-deployment">Build &amp; Deployment Architecture</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle open" type="button">
+                <span class="nav-toggle-text">Program Reference</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items open">
+                <a href="program-bnkmenu.html" class="nav-link" data-page-id="program-bnkmenu">BNKMENU – Main Menu Program</a>
+                <a href="program-crdtagy2.html" class="nav-link active" data-page-id="program-crdtagy2">CRDTAGY2 – Credit Agency Simulator</a>
+                <a href="program-delacc.html" class="nav-link" data-page-id="program-delacc">DELACC – Delete Account Program</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Development Workflows</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="workflow-overview.html" class="nav-link" data-page-id="workflow-overview">Development Workflows Overview</a>
+                <a href="workflow-zowe-cli.html" class="nav-link" data-page-id="workflow-zowe-cli">Zowe CLI Workflow</a>
+                <a href="workflow-grub.html" class="nav-link" data-page-id="workflow-grub">GRUB Workflow</a>
+                <a href="workflow-best-practices.html" class="nav-link" data-page-id="workflow-best-practices">Development Best Practices</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Tutorials</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="tutorial-deploy.html" class="nav-link" data-page-id="tutorial-deploy">Tutorial: Deploy Bank of Z</a>
+                <a href="tutorial-cics-enhancement.html" class="nav-link" data-page-id="tutorial-cics-enhancement">Tutorial: CICS Enhancement Scenario</a>
+                <a href="tutorial-incremental-build.html" class="nav-link" data-page-id="tutorial-incremental-build">Tutorial: Incremental Build</a>
+                <a href="tutorial-debug-cics.html" class="nav-link" data-page-id="tutorial-debug-cics">Tutorial: Debug a CICS Transaction</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Reference</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="ref-configuration.html" class="nav-link" data-page-id="ref-configuration">Configuration Reference</a>
+                <a href="ref-commands.html" class="nav-link" data-page-id="ref-commands">Commands Reference</a>
+                <a href="ref-repository-structure.html" class="nav-link" data-page-id="ref-repository-structure">Repository Structure</a>
+                <a href="ref-glossary.html" class="nav-link" data-page-id="ref-glossary">Glossary</a>
+            </div>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Program Documentation</div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">program</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">src</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+            <div class="nav-section">
+                <button class="nav-section-toggle" type="button">
+                    <span class="nav-toggle-text">base</span>
+                    <span class="nav-section-chevron">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="nav-section-items">
+                <div class="nav-section">
+                    <button class="nav-section-toggle" type="button">
+                        <span class="nav-toggle-text">cics</span>
+                        <span class="nav-section-chevron">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="nav-section-items">
+                    <div class="nav-section">
+                        <button class="nav-section-toggle" type="button">
+                            <span class="nav-toggle-text">cobol</span>
+                            <span class="nav-section-chevron">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="nav-section-items">
+                            <a href="../sources/program/src/base/cics/cobol/BNKMENU.html" class="nav-link">BNKMENU</a>
+                            <a href="../sources/program/src/base/cics/cobol/CRDTAGY2.html" class="nav-link">CRDTAGY2</a>
+                            <a href="../sources/program/src/base/cics/cobol/DELACC.html" class="nav-link">DELACC</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">docs</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">about-bank-of-z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
+            </div>
+        </div>
+        </div>
+    </div>
+            </nav>
+        </aside>
+        <main class="main">
+            <div class="page-container">
+                <div class="content-layout">
+                    <div class="prose">
+                        <details class="source-files-disclosure">
+            <summary>
+                <svg class="sf-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Source Files
+                <span style="margin-left:4px;font-size:11px;color:var(--fg-subtle)">(1)</span>
+            </summary>
+            <div class="source-files-body">
+                <ul class="source-files-list">
+            <li><a href="../sources/program/src/base/cics/cobol/CRDTAGY2.html">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+                    <path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M10 2v4h4" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                CRDTAGY2
+            </a></li>
+                </ul>
+            </div>
+        </details>
+                        <h1 id="crdtagy2--credit-agency-simulator" tabindex="-1">CRDTAGY2 – Credit Agency Simulator</h1>
+<h2 id="1-overview" tabindex="-1">1. Overview</h2>
+<p><strong>CRDTAGY2</strong> is a simulated credit agency program that operates asynchronously within a CICS environment. Its primary purpose is to assign a randomly generated credit score to a customer record delivered via a CICS channel and container. When invoked as an asynchronous child task by a parent orchestrator program, CRDTAGY2:</p>
+<ol>
+<li>Introduces a <strong>random delay of 1 to 3 seconds</strong> to emulate the response latency of a real external credit bureau.</li>
+<li>Generates a <strong>random credit score between 1 and 999</strong> using the COBOL <code>FUNCTION RANDOM</code>, seeded with the current CICS task number (<code>EIBTASKN</code>).</li>
+<li>Writes the updated customer record — with the newly computed credit score — back to the originating CICS channel/container (<code>CIPCREDCHANN</code>/<code>CIPB</code>), making it available for the parent program to collect via a <code>FETCH</code>.</li>
+</ol>
+<p>The deliberate latency simulation is architecturally significant: combined with the parent program’s 3-second timeout window, it creates a realistic <strong>1-in-3 chance</strong> that the score will not be returned in time — intentionally modelling the imperfect reliability of real-world third-party credit agencies.</p>
+<hr>
+<h2 id="2-system-architecture" tabindex="-1">2. System Architecture</h2>
+<p>CRDTAGY2 operates as a <strong>child task</strong> within the CICS Asynchronous API model. It has no direct database access; all data exchange is performed exclusively through the CICS channel-and-container mechanism. The program depends on three external copybooks for its data structures and links to a centralised abend handler (<code>ABNDPROC</code>) on any error path.</p>
+<div class="mermaid">
+graph TD
+    subgraph Parent["Parent Orchestrator Program"]
+        P1[Place CUSTOMER-RECORD\ninto Container CIPB\nChannel CIPCREDCHANN]
+        P2[EXEC CICS RUN TRANSID\nASYNC - Start CRDTAGY2]
+        P3[EXEC CICS FETCH CHILD\nWait up to 3 seconds]
+    end
+
+    subgraph CRDTAGY2["CRDTAGY2 – Credit Agency Simulator"]
+        C1[A010 – Initialise\nChannel & Container Names\nSeed RANDOM with EIBTASKN]
+        C2[EXEC CICS DELAY\n1–3 seconds random]
+        C3[EXEC CICS GET CONTAINER\nCIPB / CIPCREDCHANN]
+        C4[Compute Credit Score\n1–999 via FUNCTION RANDOM]
+        C5[Update CUSTOMER-CREDIT-SCORE\nin WS-CONT-IN]
+        C6[EXEC CICS PUT CONTAINER\nCIPB / CIPCREDCHANN]
+        C7[GET-ME-OUT-OF-HERE\nEXEC CICS RETURN]
+    end
+
+    subgraph ErrorPath["Error Handling"]
+        E1[Populate ABNDINFO-REC\nRESP, APPLID, TRANID, Time]
+        E2[EXEC CICS LINK\nABNDPROC]
+        E3[EXEC CICS ABEND\nABCODE PLOP]
+    end
+
+    subgraph Copybooks["Copybooks"]
+        CB1[CUSTOMER.cpy\nCUSTOMER-RECORD layout]
+        CB2[ABNDINFO.cpy\nABNDINFO-REC layout]
+        CB3[SORTCODE.cpy\nSORT CODE constant 987654]
+    end
+
+    P1 --> P2
+    P2 --> C1
+    C1 --> C2
+    C2 -->|RESP = NORMAL| C3
+    C2 -->|RESP ≠ NORMAL| E1
+    E1 --> E2 --> E3
+    C3 -->|RESP = NORMAL| C4
+    C3 -->|RESP ≠ NORMAL| C7
+    C4 --> C5 --> C6
+    C6 -->|RESP = NORMAL| C7
+    C6 -->|RESP ≠ NORMAL| C7
+    C7 --> P3
+
+    CB1 -.->|defines WS-CONT-IN| CRDTAGY2
+    CB2 -.->|defines ABNDINFO-REC| ErrorPath
+    CB3 -.->|defines SORTCODE| CRDTAGY2
+</div>
+<p>The diagram above captures the full runtime topology: the parent program populates and hands off the container, CRDTAGY2 executes its delay-and-score logic as an isolated child task, and the parent collects the result — or times out — via <code>FETCH</code>. The error path diverges at the <code>DELAY</code> command and routes through the centralised <code>ABNDPROC</code> handler.</p>
+<hr>
+<h2 id="3-processing-logic" tabindex="-1">3. Processing Logic</h2>
+<h3 id="31-high-level-flow" tabindex="-1">3.1 High-Level Flow</h3>
+<p>The following flowchart illustrates every decision point and execution path within CRDTAGY2, from task invocation through to normal return or abend termination.</p>
+<div class="mermaid">
+graph TD
+    classDef startEnd fill:#d5e8d4,stroke:#82b366,color:#000
+    classDef process fill:#dae8fc,stroke:#6c8ebf,color:#000
+    classDef decision fill:#fff2cc,stroke:#d6b656,color:#000
+    classDef error fill:#f8cecc,stroke:#b85450,color:#000
+    classDef io fill:#e1d5e7,stroke:#9673a6,color:#000
+
+    A([Start – CRDTAGY2 Invoked]):::startEnd
+    B[Set WS-CONTAINER-NAME = CIPB\nSet WS-CHANNEL-NAME = CIPCREDCHANN\nMove EIBTASKN to WS-SEED]:::process
+    C[Compute random delay 1–3 s\nFUNCTION RANDOM with WS-SEED]:::process
+    D[EXEC CICS DELAY FOR SECONDS\nWS-DELAY-AMT]:::io
+    E{{RESP = DFHRESP NORMAL?}}:::decision
+    F[Initialise ABNDINFO-REC\nCapture EIBRESP / EIBRESP2]:::error
+    G[EXEC CICS ASSIGN APPLID\nCapture EIBTASKN / EIBTRNID]:::error
+    H[PERFORM POPULATE-TIME-DATE\nASKTIME + FORMATTIME]:::error
+    I[Build ABND-TIME via STRING\nSet ABND-CODE = PLOP\nAssign ABND-PROGRAM\nBuild ABND-FREEFORM]:::error
+    J[EXEC CICS LINK ABNDPROC\nCOMMARE = ABNDINFO-REC]:::error
+    K[EXEC CICS ABEND\nABCODE PLOP]:::error
+    L[Compute WS-CONTAINER-LEN\nLENGTH OF WS-CONT-IN]:::process
+    M[EXEC CICS GET CONTAINER CIPB\nCHANNEL CIPCREDCHANN\nINTO WS-CONT-IN]:::io
+    N{{RESP = DFHRESP NORMAL?}}:::decision
+    O[DISPLAY error message\nPERFORM GET-ME-OUT-OF-HERE]:::error
+    P[Compute credit score 1–999\nFUNCTION RANDOM no seed]:::process
+    Q[Move WS-NEW-CREDSCORE\nto CUSTOMER-CREDIT-SCORE]:::process
+    R[Recalculate WS-CONTAINER-LEN]:::process
+    S[EXEC CICS PUT CONTAINER CIPB\nFROM WS-CONT-IN\nCHANNEL CIPCREDCHANN]:::io
+    T{{RESP = DFHRESP NORMAL?}}:::decision
+    U[DISPLAY error message\nPERFORM GET-ME-OUT-OF-HERE]:::error
+    V[PERFORM GET-ME-OUT-OF-HERE\nEXEC CICS RETURN]:::startEnd
+    W([End – Task Returns to CICS]):::startEnd
+
+    A --> B --> C --> D --> E
+    E -- Yes --> L
+    E -- No --> F --> G --> H --> I --> J --> K --> W
+    L --> M --> N
+    N -- Yes --> P --> Q --> R --> S --> T
+    N -- No --> O --> W
+    T -- Yes --> V --> W
+    T -- No --> U --> W
+</div>
+<h3 id="32-step-by-step-execution-description" tabindex="-1">3.2 Step-by-Step Execution Description</h3>
+<h4 id="321-step-1--initialisation-paragraph-a010" tabindex="-1">3.2.1 Step 1 — Initialisation (Paragraph A010)</h4>
+<p>The program’s entry point sets up the channel and container names and primes the COBOL random number generator:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">MOVE &#039;CIPB            &#039; TO WS-CONTAINER-NAME
+MOVE &#039;CIPCREDCHANN    &#039; TO WS-CHANNEL-NAME
+MOVE EIBTASKN           TO WS-SEED</code></pre>
+</div>
+<p><code>EIBTASKN</code> — the current CICS task number from the Execute Interface Block — is used as the seed value so that each task invocation produces a unique and unpredictable sequence of random numbers.</p>
+<hr>
+<h4 id="322-step-2--random-delay-calculation-and-application" tabindex="-1">3.2.2 Step 2 — Random Delay Calculation and Application</h4>
+<p>A random delay between 1 and 3 seconds is computed and applied using <code>EXEC CICS DELAY</code>:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">COMPUTE WS-DELAY-AMT = ((3 - 1) * FUNCTION RANDOM(WS-SEED)) + 1
+
+EXEC CICS DELAY
+    FOR SECONDS(WS-DELAY-AMT)
+    RESP(WS-CICS-RESP)
+    RESP2(WS-CICS-RESP2)
+END-EXEC</code></pre>
+</div>
+<p>Since <code>FUNCTION RANDOM</code> returns a value in the range <code>[0, 1)</code>, <code>WS-DELAY-AMT</code> is bounded to the interval <code>[1, 3)</code> seconds. The CICS <code>DELAY</code> command suspends the child task for this duration, freeing the CICS dispatcher to run other tasks in the meantime.</p>
+<hr>
+<h4 id="323-step-3--customer-data-retrieval" tabindex="-1">3.2.3 Step 3 — Customer Data Retrieval</h4>
+<p>After the delay, the customer record is read from the named container into working storage:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">MOVE LENGTH OF WS-CONT-IN TO WS-CONTAINER-LEN
+
+EXEC CICS GET CONTAINER(WS-CONTAINER-NAME)
+    CHANNEL(WS-CHANNEL-NAME)
+    INTO(WS-CONT-IN)
+    FLENGTH(WS-CONTAINER-LEN)
+    RESP(WS-CICS-RESP)
+    RESP2(WS-CICS-RESP2)
+END-EXEC</code></pre>
+</div>
+<p><code>WS-CONT-IN</code> is a copy of the <code>CUSTOMER-RECORD</code> structure defined in <code>CUSTOMER.cpy</code>. <code>FLENGTH</code> specifies the maximum number of bytes to retrieve, computed using the <code>LENGTH OF</code> special register to match the exact structural size of the data area.</p>
+<hr>
+<h4 id="324-step-4--credit-score-generation" tabindex="-1">3.2.4 Step 4 — Credit Score Generation</h4>
+<p>With the random generator already seeded in Step 2, a second call to <code>FUNCTION RANDOM</code> — this time without a seed argument — continues the same pseudo-random sequence to produce the credit score:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">COMPUTE WS-NEW-CREDSCORE = ((999 - 1) * FUNCTION RANDOM) + 1
+
+MOVE WS-NEW-CREDSCORE TO CUSTOMER-CREDIT-SCORE OF WS-CONT-IN</code></pre>
+</div>
+<p>This maps the <code>[0, 1)</code> output of <code>FUNCTION RANDOM</code> to a credit score in the range <strong>1 to 999</strong>, which is then written directly into the <code>CUSTOMER-CREDIT-SCORE</code> field of the in-memory customer record.</p>
+<hr>
+<h4 id="325-step-5--write-updated-record-back-to-container" tabindex="-1">3.2.5 Step 5 — Write Updated Record Back to Container</h4>
+<p>The updated customer record — now containing the newly computed credit score — is written back to the same container, overwriting the previous content:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">MOVE LENGTH OF WS-CONT-IN TO WS-CONTAINER-LEN
+
+EXEC CICS PUT CONTAINER(WS-CONTAINER-NAME)
+    FROM(WS-CONT-IN)
+    FLENGTH(WS-CONTAINER-LEN)
+    CHANNEL(WS-CHANNEL-NAME)
+    RESP(WS-CICS-RESP)
+    RESP2(WS-CICS-RESP2)
+END-EXEC</code></pre>
+</div>
+<hr>
+<h4 id="326-step-6--normal-termination" tabindex="-1">3.2.6 Step 6 — Normal Termination</h4>
+<p>On the success path, control is passed to the <code>GET-ME-OUT-OF-HERE</code> section, which issues <code>EXEC CICS RETURN</code> to hand control back to CICS and signal task completion to the parent’s <code>FETCH</code>:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">GET-ME-OUT-OF-HERE SECTION.
+GMOFH010.
+    EXEC CICS RETURN
+    END-EXEC.
+GMOFH999.
+    EXIT.</code></pre>
+</div>
+<h3 id="33-external-interactions-summary" tabindex="-1">3.3 External Interactions Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Interaction</th>
+<th>CICS Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latency simulation</td>
+<td><code>EXEC CICS DELAY FOR SECONDS</code></td>
+<td>Suspends task for 1–3 s to model external agency response time</td>
+</tr>
+<tr>
+<td>Customer data read</td>
+<td><code>EXEC CICS GET CONTAINER</code></td>
+<td>Reads customer record from container <code>CIPB</code> on channel <code>CIPCREDCHANN</code></td>
+</tr>
+<tr>
+<td>Customer data write</td>
+<td><code>EXEC CICS PUT CONTAINER</code></td>
+<td>Writes updated customer record (with new score) back to same container</td>
+</tr>
+<tr>
+<td>Timestamp capture</td>
+<td><code>EXEC CICS ASKTIME</code> / <code>EXEC CICS FORMATTIME</code></td>
+<td>Obtains and formats current date/time for abend diagnostics</td>
+</tr>
+<tr>
+<td>Environment metadata</td>
+<td><code>EXEC CICS ASSIGN APPLID</code> / <code>EXEC CICS ASSIGN PROGRAM</code></td>
+<td>Retrieves CICS application ID and current program name for abend records</td>
+</tr>
+<tr>
+<td>Abend delegation</td>
+<td><code>EXEC CICS LINK PROGRAM('ABNDPROC')</code></td>
+<td>Invokes centralised abend handler with fully populated <code>ABNDINFO-REC</code></td>
+</tr>
+<tr>
+<td>Abnormal termination</td>
+<td><code>EXEC CICS ABEND ABCODE('PLOP')</code></td>
+<td>Forces task abend with transaction dump on unrecoverable DELAY failure</td>
+</tr>
+<tr>
+<td>Normal termination</td>
+<td><code>EXEC CICS RETURN</code></td>
+<td>Returns control to CICS; signals child task completion for parent <code>FETCH</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="4-inputs-and-outputs" tabindex="-1">4. Inputs and Outputs</h2>
+<h3 id="41-inputs" tabindex="-1">4.1 Inputs</h3>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CICS Channel/Container</td>
+<td><code>CIPCREDCHANN</code> / <code>CIPB</code></td>
+<td>The channel and container populated by the parent program before invoking CRDTAGY2 asynchronously. Contains the serialised <code>CUSTOMER-RECORD</code> payload.</td>
+</tr>
+<tr>
+<td>CICS EIB</td>
+<td><code>EIBTASKN</code></td>
+<td>Current CICS task number. Used as the seed for <code>FUNCTION RANDOM</code> to guarantee varied delay and score values per task execution.</td>
+</tr>
+<tr>
+<td>CICS EIB</td>
+<td><code>EIBRESP</code> / <code>EIBRESP2</code></td>
+<td>Primary and secondary response codes set by the CICS runtime after each CICS command. Checked to detect errors and populate the abend record.</td>
+</tr>
+<tr>
+<td>CICS EIB</td>
+<td><code>EIBTRNID</code></td>
+<td>Current transaction ID. Stored in <code>ABND-TRANID</code> within the abend diagnostic record.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42-outputs" tabindex="-1">4.2 Outputs</h3>
+<table>
+<thead>
+<tr>
+<th>Destination</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CICS Channel/Container</td>
+<td><code>CIPB</code> on <code>CIPCREDCHANN</code></td>
+<td>The updated <code>CUSTOMER-RECORD</code> with <code>CUSTOMER-CREDIT-SCORE</code> set to the newly computed value (1–999), written back via <code>PUT CONTAINER</code>. This is the sole data output consumed by the parent program.</td>
+</tr>
+<tr>
+<td>Abend handler (<code>ABNDPROC</code>)</td>
+<td><code>ABNDINFO-REC</code></td>
+<td>Fully populated diagnostic structure passed as <code>COMMAREA</code> to <code>ABNDPROC</code> via <code>EXEC CICS LINK</code> on any error path.</td>
+</tr>
+<tr>
+<td>CICS transaction dump</td>
+<td>Abend code <code>PLOP</code></td>
+<td>Issued via <code>EXEC CICS ABEND ABCODE('PLOP')</code> following a <code>DELAY</code> command failure.</td>
+</tr>
+<tr>
+<td>CICS console / log</td>
+<td><code>DISPLAY</code> messages</td>
+<td>Diagnostic text written when <code>DELAY</code>, <code>GET CONTAINER</code>, or <code>PUT CONTAINER</code> commands fail.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43-customer-record-data-structure" tabindex="-1">4.3 Customer Record Data Structure</h3>
+<p>The following entity diagram describes the <code>CUSTOMER-RECORD</code> structure (defined in <code>CUSTOMER.cpy</code>) that is transported within the <code>CIPB</code> container. <code>CUSTOMER-CREDIT-SCORE</code> is the only field modified by CRDTAGY2.</p>
+<div class="mermaid">
+erDiagram
+    CICS_CONTAINER {
+        string CONTAINER_NAME "CIPB - 16 chars"
+        string CHANNEL_NAME   "CIPCREDCHANN - 16 chars"
+        int    FLENGTH        "byte length of CUSTOMER_RECORD"
+    }
+    CUSTOMER_RECORD {
+        string CUSTOMER_EYECATCHER    "PIC X(4) – value CUST"
+        int    CUSTOMER_SORTCODE      "PIC 9(6) – e.g. 987654"
+        int    CUSTOMER_NUMBER        "PIC 9(10)"
+        string CUSTOMER_TITLE         "PIC X(10)"
+        string CUSTOMER_FIRST_NAME    "PIC X(50)"
+        string CUSTOMER_LAST_NAME     "PIC X(50)"
+        int    CUSTOMER_DOB_DAY       "PIC 99"
+        int    CUSTOMER_DOB_MONTH     "PIC 99"
+        int    CUSTOMER_DOB_YEAR      "PIC 9999"
+        string CUSTOMER_PHONE         "PIC X(20)"
+        string CUSTOMER_ADDR_LINE1    "PIC X(50)"
+        string CUSTOMER_ADDR_LINE2    "PIC X(50)"
+        string CUSTOMER_CITY          "PIC X(50)"
+        string CUSTOMER_POSTCODE      "PIC X(10)"
+        string CUSTOMER_COUNTRY       "PIC X(50)"
+        string CUSTOMER_STATUS        "PIC X(10) – ACTIVE / INACTIVE / SUSPENDED"
+        int    CUSTOMER_CREDIT_SCORE  "PIC 999 – range 1 to 999 – UPDATED by CRDTAGY2"
+        int    CUSTOMER_CS_REVIEW_DAY "PIC 99"
+        int    CUSTOMER_CS_REVIEW_MONTH "PIC 99"
+        int    CUSTOMER_CS_REVIEW_YEAR  "PIC 9999"
+    }
+    CICS_CONTAINER ||--|| CUSTOMER_RECORD : "carries"
+</div>
+<hr>
+<h2 id="5-program-paragraphs" tabindex="-1">5. Program Paragraphs</h2>
+<h3 id="51-premiere-section" tabindex="-1">5.1 PREMIERE SECTION</h3>
+<table>
+<thead>
+<tr>
+<th>Paragraph</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>A010</code></td>
+<td>Main processing paragraph. Orchestrates all program operations from initialisation through delay, container I/O, credit score computation, and termination.</td>
+</tr>
+<tr>
+<td><code>A999</code></td>
+<td>Terminal paragraph of <code>PREMIERE SECTION</code>. Contains only <code>EXIT</code>; acts as a structured section-end marker with no executable logic.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="52-get-me-out-of-here-section" tabindex="-1">5.2 GET-ME-OUT-OF-HERE SECTION</h3>
+<table>
+<thead>
+<tr>
+<th>Paragraph</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GMOFH010</code></td>
+<td>Single exit point for all execution paths. Issues <code>EXEC CICS RETURN</code> to return control to CICS and terminate the task (normally or after a container error).</td>
+</tr>
+<tr>
+<td><code>GMOFH999</code></td>
+<td>Terminal paragraph. Contains only <code>EXIT</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="53-populate-time-date-section" tabindex="-1">5.3 POPULATE-TIME-DATE SECTION</h3>
+<table>
+<thead>
+<tr>
+<th>Paragraph</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PTD010</code></td>
+<td>Called exclusively from within the <code>DELAY</code> error path in <code>A010</code>. Issues <code>EXEC CICS ASKTIME ABSTIME(WS-U-TIME)</code> to capture the current absolute time, then <code>EXEC CICS FORMATTIME</code> to convert it into a human-readable date (<code>DD/MM/YYYY</code> in <code>WS-ORIG-DATE</code>) and time (<code>HHMMSS</code> in <code>WS-TIME-NOW</code>) for use in the abend record.</td>
+</tr>
+<tr>
+<td><code>PTD999</code></td>
+<td>Terminal paragraph. Contains only <code>EXIT</code>.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="6-dependencies" tabindex="-1">6. Dependencies</h2>
+<h3 id="61-copybooks" tabindex="-1">6.1 Copybooks</h3>
+<table>
+<thead>
+<tr>
+<th>Copybook</th>
+<th>Path</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CUSTOMER.cpy</code></td>
+<td><code>src/base/cics/copy/CUSTOMER.cpy</code></td>
+<td>Defines the full <code>CUSTOMER-RECORD</code> layout. <code>CUSTOMER-CREDIT-SCORE</code> within this copybook is the primary output field updated by CRDTAGY2.</td>
+</tr>
+<tr>
+<td><code>ABNDINFO.cpy</code></td>
+<td><code>src/base/cics/copy/ABNDINFO.cpy</code></td>
+<td>Defines <code>ABNDINFO-REC</code>, the diagnostic structure passed to <code>ABNDPROC</code> on error.</td>
+</tr>
+<tr>
+<td><code>SORTCODE.cpy</code></td>
+<td><code>src/base/cics/copy/SORTCODE.cpy</code></td>
+<td>Defines the <code>SORTCODE</code> constant (<code>PIC 9(6) VALUE 987654</code>) included in Working-Storage.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="62-external-programs-invoked" tabindex="-1">6.2 External Programs Invoked</h3>
+<table>
+<thead>
+<tr>
+<th>Program</th>
+<th>Invocation</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ABNDPROC</code></td>
+<td><code>EXEC CICS LINK PROGRAM(WS-ABEND-PGM) COMMAREA(ABNDINFO-REC)</code></td>
+<td>Centralised abend handler. Receives the fully populated <code>ABNDINFO-REC</code> on any CICS command failure. Must be installed in the CICS region; if absent, the <code>LINK</code> itself will fail.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="63-cics-services" tabindex="-1">6.3 CICS Services</h3>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Command</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Task delay</td>
+<td><code>EXEC CICS DELAY FOR SECONDS</code></td>
+<td>Introduces 1–3 s latency simulation</td>
+</tr>
+<tr>
+<td>Container read</td>
+<td><code>EXEC CICS GET CONTAINER</code></td>
+<td>Reads customer record from <code>CIPB</code> / <code>CIPCREDCHANN</code></td>
+</tr>
+<tr>
+<td>Container write</td>
+<td><code>EXEC CICS PUT CONTAINER</code></td>
+<td>Writes updated customer record back to <code>CIPB</code> / <code>CIPCREDCHANN</code></td>
+</tr>
+<tr>
+<td>Environment info</td>
+<td><code>EXEC CICS ASSIGN APPLID / PROGRAM</code></td>
+<td>Retrieves CICS APPLID and current program name for abend diagnostics</td>
+</tr>
+<tr>
+<td>Time services</td>
+<td><code>EXEC CICS ASKTIME / FORMATTIME</code></td>
+<td>Captures and formats current timestamp for abend records</td>
+</tr>
+<tr>
+<td>Abend handler call</td>
+<td><code>EXEC CICS LINK PROGRAM(ABNDPROC)</code></td>
+<td>Delegates error processing to the centralised handler</td>
+</tr>
+<tr>
+<td>Abnormal termination</td>
+<td><code>EXEC CICS ABEND ABCODE('PLOP')</code></td>
+<td>Forces task abend with dump after an unrecoverable DELAY failure</td>
+</tr>
+<tr>
+<td>Normal termination</td>
+<td><code>EXEC CICS RETURN</code></td>
+<td>Returns control to CICS at all exit points</td>
+</tr>
+</tbody>
+</table>
+<h3 id="64-cics-eib-fields" tabindex="-1">6.4 CICS EIB Fields</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EIBTASKN</code></td>
+<td>Numeric</td>
+<td>Seed for <code>FUNCTION RANDOM</code>; also copied to <code>ABND-TASKNO-KEY</code></td>
+</tr>
+<tr>
+<td><code>EIBRESP</code> / <code>EIBRESP2</code></td>
+<td>Numeric</td>
+<td>Captured after each CICS command; stored in <code>ABND-RESPCODE</code> / <code>ABND-RESP2CODE</code></td>
+</tr>
+<tr>
+<td><code>EIBTRNID</code></td>
+<td>Character</td>
+<td>Current transaction ID; stored in <code>ABND-TRANID</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="7-constraints" tabindex="-1">7. Constraints</h2>
+<h3 id="71-data-validation-constraints" tabindex="-1">7.1 Data Validation Constraints</h3>
+<ul>
+<li><strong><code>CUSTOMER-EYECATCHER</code></strong> (<code>PIC X(4)</code>) — A level-88 condition <code>CUSTOMER-EYECATCHER-VALUE</code> requires the value <code>'CUST'</code>. The program does not explicitly validate this before processing, but any valid customer record placed in the container must contain this sentinel value.</li>
+<li><strong><code>CUSTOMER-STATUS</code></strong> (<code>PIC X(10)</code>) — Three mutually exclusive level-88 conditions restrict valid status values to <code>'ACTIVE'</code>, <code>'INACTIVE'</code>, and <code>'SUSPENDED'</code>.</li>
+<li><strong><code>CUSTOMER-CREDIT-SCORE</code></strong> (<code>PIC 999</code>) — The picture clause restricts storage to values 0–999. The computed formula <code>((999 - 1) * FUNCTION RANDOM) + 1</code> further constrains the generated value to the range <strong>1–999</strong>.</li>
+<li><strong><code>ABND-FREEFORM</code></strong> (<code>PIC X(600)</code>) — The free-form diagnostic message built by the <code>STRING</code> statement is capped at 600 characters; any overflow is silently discarded.</li>
+<li><strong><code>ABND-SQLCODE</code></strong> — Hard-coded to <code>ZEROS</code> since CRDTAGY2 performs no DB2 activity.</li>
+</ul>
+<h3 id="72-channel-and-container-constraints" tabindex="-1">7.2 Channel and Container Constraints</h3>
+<ul>
+<li><strong>Fixed channel name</strong> — <code>WS-CHANNEL-NAME</code> is hard-coded as <code>'CIPCREDCHANN    '</code> (16 characters, space-padded). Any divergence between the name placed by the parent and this hard-coded value will result in a non-NORMAL CICS response.</li>
+<li><strong>Fixed container name</strong> — <code>WS-CONTAINER-NAME</code> is hard-coded as <code>'CIPB            '</code> (16 characters, space-padded). The same name is used for both <code>GET</code> and <code>PUT</code> operations.</li>
+<li><strong><code>WS-CONTAINER-LEN</code></strong> (<code>PIC S9(8) COMP</code>) — Calculated via <code>LENGTH OF WS-CONT-IN</code> before each container operation. Use of <code>LENGTH OF</code> ensures the value always equals the exact structural byte length of <code>WS-CONT-IN</code>, preventing under- or overflow in <code>FLENGTH</code>.</li>
+<li><strong>Read-before-write ordering</strong> — The program unconditionally aborts (via <code>GET-ME-OUT-OF-HERE</code>) if <code>GET CONTAINER</code> fails. The credit score computation and <code>PUT CONTAINER</code> are therefore only reached if the <code>GET</code> succeeded, enforcing a strict read-before-write ordering on the container.</li>
+</ul>
+<h3 id="73-sequencing-and-timing-constraints" tabindex="-1">7.3 Sequencing and Timing Constraints</h3>
+<ul>
+<li><strong>Delay must complete before container I/O</strong> — <code>EXEC CICS DELAY</code> is issued before any container access. A DELAY failure triggers the full abend path and <code>EXEC CICS ABEND ABCODE('PLOP')</code>, preventing any subsequent container or score computation activity.</li>
+<li><strong><code>RANDOM</code> seed must be set before unseeded calls</strong> — <code>FUNCTION RANDOM(WS-SEED)</code> must be called first to initialise the COBOL pseudo-random generator. The subsequent unseeded <code>FUNCTION RANDOM</code> call for the credit score continues that same sequence and must follow the seeded call.</li>
+<li><strong>Abend handler link must precede <code>EXEC CICS ABEND</code></strong> — On every error path, <code>ABNDINFO-REC</code> is fully populated and <code>EXEC CICS LINK PROGRAM(ABNDPROC)</code> is issued before <code>EXEC CICS ABEND</code>, ensuring the diagnostic record is persisted before task termination.</li>
+</ul>
+<h3 id="74-resource-and-value-range-constraints" tabindex="-1">7.4 Resource and Value Range Constraints</h3>
+<ul>
+<li><strong>Delay range: 1–3 seconds</strong> — <code>FUNCTION RANDOM</code> returns a value in <code>[0, 1)</code>, so <code>WS-DELAY-AMT</code> is bounded to <code>[1, 3)</code> seconds (at least 1 second, strictly less than 3 seconds).</li>
+<li><strong>Credit score range: 1–999</strong> — <code>WS-NEW-CREDSCORE</code> (<code>PIC 999</code>) and its generating formula bound the value to <code>[1, 999)</code>.</li>
+<li><strong>Abend code convention</strong> — The abend code <code>'PLOP'</code> complies with the CICS constraint that user-defined abend codes must not begin with <code>'A'</code> (reserved for CICS system use).</li>
+<li><strong><code>ABNDPROC</code> must be installed</strong> — <code>WS-ABEND-PGM</code> is the literal <code>'ABNDPROC'</code>. This name cannot be changed at runtime; if the program is absent from the CICS region, the <code>LINK</code> command itself will fail.</li>
+</ul>
+<hr>
+<h2 id="8-error-handling" tabindex="-1">8. Error Handling</h2>
+<p>The following sequence diagram illustrates the two distinct error paths — the full abend path triggered by a <code>DELAY</code> failure, and the simplified return path triggered by a container I/O failure.</p>
+<div class="mermaid">
+sequenceDiagram
+    participant CRDTAGY2
+    participant CICS
+    participant ABNDPROC
+
+    Note over CRDTAGY2,CICS: Normal Path
+    CRDTAGY2->>CICS: EXEC CICS DELAY FOR SECONDS(WS-DELAY-AMT)
+    CICS-->>CRDTAGY2: RESP = NORMAL
+    CRDTAGY2->>CICS: EXEC CICS GET CONTAINER CIPB
+    CICS-->>CRDTAGY2: RESP = NORMAL, customer record returned
+    CRDTAGY2->>CRDTAGY2: Compute credit score 1–999
+    CRDTAGY2->>CICS: EXEC CICS PUT CONTAINER CIPB
+    CICS-->>CRDTAGY2: RESP = NORMAL
+    CRDTAGY2->>CICS: EXEC CICS RETURN
+
+    Note over CRDTAGY2,ABNDPROC: Error Path A – DELAY Failure
+    CRDTAGY2->>CICS: EXEC CICS DELAY FOR SECONDS(WS-DELAY-AMT)
+    CICS-->>CRDTAGY2: RESP ≠ NORMAL
+    CRDTAGY2->>CRDTAGY2: Populate ABNDINFO-REC\n(RESP, APPLID, TRANID, timestamp, ABND-CODE=PLOP)
+    CRDTAGY2->>ABNDPROC: EXEC CICS LINK COMMAREA(ABNDINFO-REC)
+    ABNDPROC-->>CRDTAGY2: Return from LINK
+    CRDTAGY2->>CICS: EXEC CICS ABEND ABCODE(PLOP)
+    CICS-->>CRDTAGY2: Task terminated – transaction dump produced
+
+    Note over CRDTAGY2,CICS: Error Path B – GET/PUT CONTAINER Failure
+    CRDTAGY2->>CICS: EXEC CICS GET CONTAINER (or PUT CONTAINER)
+    CICS-->>CRDTAGY2: RESP ≠ NORMAL
+    CRDTAGY2->>CRDTAGY2: DISPLAY diagnostic message\n(RESP, RESP2, container/channel details)
+    CRDTAGY2->>CICS: EXEC CICS RETURN (via GET-ME-OUT-OF-HERE)
+</div>
+<h3 id="81-cics-response-code-checking-respresp2-pattern" tabindex="-1">8.1 CICS Response Code Checking (RESP/RESP2 Pattern)</h3>
+<p>Every CICS command in CRDTAGY2 uses the <code>RESP</code> and <code>RESP2</code> options to capture primary and secondary response codes into <code>WS-CICS-RESP</code> and <code>WS-CICS-RESP2</code>. After each command, the primary response is tested against the <code>DFHRESP(NORMAL)</code> symbolic constant:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">IF WS-CICS-RESP NOT = DFHRESP(NORMAL)
+   ... error handling ...
+END-IF</code></pre>
+</div>
+<p>This pattern is applied consistently after <code>EXEC CICS DELAY</code>, <code>EXEC CICS GET CONTAINER</code>, and <code>EXEC CICS PUT CONTAINER</code>.</p>
+<h3 id="82-full-abend-path--delay-failure" tabindex="-1">8.2 Full Abend Path — DELAY Failure</h3>
+<p>When <code>EXEC CICS DELAY</code> returns a non-normal response, the program executes the most comprehensive error path:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">INITIALIZE ABNDINFO-REC
+MOVE EIBRESP    TO ABND-RESPCODE
+MOVE EIBRESP2   TO ABND-RESP2CODE
+EXEC CICS ASSIGN APPLID(ABND-APPLID) END-EXEC
+MOVE EIBTASKN   TO ABND-TASKNO-KEY
+MOVE EIBTRNID   TO ABND-TRANID
+PERFORM POPULATE-TIME-DATE
+MOVE WS-ORIG-DATE TO ABND-DATE
+MOVE WS-U-TIME    TO ABND-UTIME-KEY
+MOVE &#039;PLOP&#039;       TO ABND-CODE
+EXEC CICS ASSIGN PROGRAM(ABND-PROGRAM) END-EXEC
+MOVE ZEROS        TO ABND-SQLCODE
+STRING &#039;CRDTAGY2 - DELAY FAILED ...&#039; DELIMITED SIZE
+       &#039; RESP=&#039; DELIMITED SIZE
+       WS-CICS-RESP DELIMITED SIZE
+       INTO ABND-FREEFORM
+DISPLAY &#039;*** The delay messed up ! ***&#039;
+EXEC CICS LINK PROGRAM(WS-ABEND-PGM)
+    COMMAREA(ABNDINFO-REC)
+END-EXEC
+EXEC CICS ABEND ABCODE(&#039;PLOP&#039;) END-EXEC</code></pre>
+</div>
+<p>The <code>POPULATE-TIME-DATE</code> paragraph is only invoked on this error path, calling <code>EXEC CICS ASKTIME</code> and <code>EXEC CICS FORMATTIME</code> to provide a precise failure timestamp.</p>
+<h3 id="83-simplified-error-path--getput-container-failure" tabindex="-1">8.3 Simplified Error Path — GET/PUT CONTAINER Failure</h3>
+<p>Container I/O failures trigger a lighter-weight error path that logs diagnostics and exits cleanly without an abend:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">* GET CONTAINER failure:
+DISPLAY &#039;CRDTAGY2 - UNABLE TO GET CONTAINER. RESP=&#039; WS-CICS-RESP
+        &#039; RESP2=&#039; WS-CICS-RESP2
+DISPLAY &#039;CONTAINER=&#039; WS-CONTAINER-NAME
+        &#039; CHANNEL=&#039; WS-CHANNEL-NAME
+        &#039; FLENGTH=&#039; WS-CONTAINER-LEN
+PERFORM GET-ME-OUT-OF-HERE
+
+* PUT CONTAINER failure:
+DISPLAY &#039;CRDTAGY2 - UNABLE TO PUT CONTAINER. RESP=&#039; WS-CICS-RESP
+        &#039; RESP2=&#039; WS-CICS-RESP2
+DISPLAY &#039;CONTAINER=&#039; WS-CONTAINER-NAME
+        &#039; CHANNEL=&#039; WS-CHANNEL-NAME
+        &#039; FLENGTH=&#039; WS-CONTAINER-LEN
+PERFORM GET-ME-OUT-OF-HERE</code></pre>
+</div>
+<p>Unlike the <code>DELAY</code> failure path, these paths do <strong>not</strong> invoke <code>ABNDPROC</code> or issue <code>EXEC CICS ABEND</code> — they perform a controlled return via <code>EXEC CICS RETURN</code>.</p>
+<h3 id="84-controlled-task-exit" tabindex="-1">8.4 Controlled Task Exit</h3>
+<p><code>GET-ME-OUT-OF-HERE</code> is the single exit point for all execution paths — both the normal success path and both container error paths:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">GET-ME-OUT-OF-HERE SECTION.
+GMOFH010.
+    EXEC CICS RETURN
+    END-EXEC.
+GMOFH999.
+    EXIT.</code></pre>
+</div>
+<hr>
+<h2 id="9-examples" tabindex="-1">9. Examples</h2>
+<h3 id="91-example-1--successful-credit-score-generation-normal-flow" tabindex="-1">9.1 Example 1 — Successful Credit Score Generation (Normal Flow)</h3>
+<p><strong>Scenario:</strong> The parent orchestrator program invokes CRDTAGY2 asynchronously via the CICS Async API, placing the following customer record into channel <code>CIPCREDCHANN</code>, container <code>CIPB</code>:</p>
+<p><strong>Input (customer record placed in container):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CUSTOMER-EYECATCHER</code></td>
+<td><code>CUST</code></td>
+</tr>
+<tr>
+<td><code>CUSTOMER-SORTCODE</code></td>
+<td><code>987654</code></td>
+</tr>
+<tr>
+<td><code>CUSTOMER-NUMBER</code></td>
+<td><code>0000000042</code></td>
+</tr>
+<tr>
+<td><code>CUSTOMER-FIRST-NAME</code></td>
+<td><code>John</code></td>
+</tr>
+<tr>
+<td><code>CUSTOMER-LAST-NAME</code></td>
+<td><code>Smith</code></td>
+</tr>
+<tr>
+<td><code>CUSTOMER-STATUS</code></td>
+<td><code>ACTIVE</code></td>
+</tr>
+<tr>
+<td><code>CUSTOMER-CREDIT-SCORE</code></td>
+<td><code>000</code> <em>(placeholder — to be overwritten)</em></td>
+</tr>
+<tr>
+<td><code>EIBTASKN</code> (CICS task number)</td>
+<td><code>1234</code> <em>(used as RANDOM seed)</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Execution steps:</strong></p>
+<ol>
+<li><code>WS-SEED</code> ← <code>1234</code>. <code>FUNCTION RANDOM(1234)</code> returns, for example, <code>0.47</code>.
+<code>WS-DELAY-AMT</code> = ((3 − 1) × 0.47) + 1 = <strong>~1.94 seconds</strong> → <code>EXEC CICS DELAY FOR SECONDS(1)</code> <em>(integer-truncated by <code>PIC S9(8) COMP</code>)</em>.</li>
+<li>RESP = NORMAL → no abend path taken.</li>
+<li><code>EXEC CICS GET CONTAINER</code> retrieves the customer record into <code>WS-CONT-IN</code>. RESP = NORMAL.</li>
+<li><code>FUNCTION RANDOM</code> (unseeded, continuing sequence) returns <code>0.71</code>.
+<code>WS-NEW-CREDSCORE</code> = ((999 − 1) × 0.71) + 1 = <strong>~709</strong>.</li>
+<li><code>CUSTOMER-CREDIT-SCORE</code> in <code>WS-CONT-IN</code> is set to <code>709</code>.</li>
+<li><code>EXEC CICS PUT CONTAINER</code> writes the updated record back to <code>CIPB</code>. RESP = NORMAL.</li>
+<li><code>EXEC CICS RETURN</code> — task completes normally; parent can <code>FETCH</code> the result.</li>
+</ol>
+<p><strong>Output (updated container <code>CIPB</code>):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CUSTOMER-CREDIT-SCORE</code></td>
+<td><code>709</code> <em>(newly assigned score)</em></td>
+</tr>
+<tr>
+<td>All other customer fields</td>
+<td>Unchanged</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="92-example-2--delay-causes-parent-timeout-score-arrives-too-late" tabindex="-1">9.2 Example 2 — Delay Causes Parent Timeout (Score Arrives Too Late)</h3>
+<p><strong>Scenario:</strong> Same setup as Example 1, but <code>EIBTASKN</code> produces a <code>FUNCTION RANDOM</code> value close to <code>1.0</code>, pushing the delay toward the 3-second boundary.</p>
+<p><strong>Input:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EIBTASKN</code></td>
+<td><code>9999</code> <em>(seed generating a high random fraction, e.g. 0.97)</em></td>
+</tr>
+<tr>
+<td>Customer record</td>
+<td>Same as Example 1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Execution steps:</strong></p>
+<ol>
+<li><code>WS-DELAY-AMT</code> = ((3 − 1) × 0.97) + 1 = <strong>~2.94 seconds</strong> → <code>EXEC CICS DELAY FOR SECONDS(2)</code> <em>(truncated to integer)</em>.</li>
+<li>RESP = NORMAL → no abend; delay completes in approximately 2 seconds.</li>
+<li>Container read, score generation (e.g. <code>850</code>), and container write all complete successfully.</li>
+<li><code>EXEC CICS RETURN</code> — CRDTAGY2 completes normally.</li>
+</ol>
+<p><strong>Result from the parent program’s perspective:</strong></p>
+<p>The parent waits up to <strong>3 seconds</strong> for all asynchronous child agency tasks. Because CRDTAGY2 consumed ~2–3 seconds, the parent <strong>may have already timed out</strong> before issuing a successful <code>FETCH</code>, meaning the updated credit score is never read in this transaction execution. CRDTAGY2 itself completes successfully — it is the parent’s 3-second <code>FETCH</code> window that determines whether the score is consumed.</p>
+<blockquote>
+<p><strong>Key behavioural note:</strong> There is approximately a <strong>1-in-3 chance</strong> of the delay exceeding the parent’s timeout window. This is a deliberate design choice to simulate the realistic scenario of a slow or unresponsive external credit bureau.</p>
+</blockquote>
+
+                        <div class="related-pages">
+                            <p class="related-pages-title">Related Pages</p>
+                            <div class="card-grid">
+                                
+            <a href="architecture-flow.html" class="card">
+                <span class="card-title">Application Flow</span>
+                <span class="card-description">End-to-end walkthrough of transaction flows within Bank of Z, from menu navigation through account management, credit scoring, and fund transfers.</span>
+            </a>
+            <a href="architecture-components.html" class="card">
+                <span class="card-title">Application Components</span>
+                <span class="card-description">Detailed breakdown of all Bank of Z application components, including CICS programs, DB2 tables, BMS maps, copybooks, and supporting utilities.</span>
+            </a>
+            <a href="program-bnkmenu.html" class="card">
+                <span class="card-title">BNKMENU – Main Menu Program</span>
+                <span class="card-description">Reference documentation for the BNKMENU CICS COBOL program, the primary navigation hub of Bank of Z. Covers BMS screen handling, pseudo-conversational logic, option routing, and error/abend handling.</span>
+            </a>
+                            </div>
+                        </div>
+                    </div>
+                    <nav class="toc-panel" aria-label="On this page">
+  <span class="toc-panel-label">On this page</span>
+  <ul class="toc-list">
+<li class="toc-level-2"><a href="#1-overview">1. Overview</a></li>
+<li class="toc-level-2"><a href="#2-system-architecture">2. System Architecture</a></li>
+<li class="toc-level-2"><a href="#3-processing-logic">3. Processing Logic</a>
+<ul>
+<li class="toc-level-3"><a href="#31-high-level-flow">3.1 High-Level Flow</a></li>
+<li class="toc-level-3"><a href="#32-step-by-step-execution-description">3.2 Step-by-Step Execution Description</a>
+<ul>
+<li class="toc-level-4"><a href="#321-step-1--initialisation-paragraph-a010">3.2.1 Step 1 — Initialisation (Paragraph A010)</a></li>
+<li class="toc-level-4"><a href="#322-step-2--random-delay-calculation-and-application">3.2.2 Step 2 — Random Delay Calculation and Application</a></li>
+<li class="toc-level-4"><a href="#323-step-3--customer-data-retrieval">3.2.3 Step 3 — Customer Data Retrieval</a></li>
+<li class="toc-level-4"><a href="#324-step-4--credit-score-generation">3.2.4 Step 4 — Credit Score Generation</a></li>
+<li class="toc-level-4"><a href="#325-step-5--write-updated-record-back-to-container">3.2.5 Step 5 — Write Updated Record Back to Container</a></li>
+<li class="toc-level-4"><a href="#326-step-6--normal-termination">3.2.6 Step 6 — Normal Termination</a></li>
+</ul>
+</li>
+<li class="toc-level-3"><a href="#33-external-interactions-summary">3.3 External Interactions Summary</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#4-inputs-and-outputs">4. Inputs and Outputs</a>
+<ul>
+<li class="toc-level-3"><a href="#41-inputs">4.1 Inputs</a></li>
+<li class="toc-level-3"><a href="#42-outputs">4.2 Outputs</a></li>
+<li class="toc-level-3"><a href="#43-customer-record-data-structure">4.3 Customer Record Data Structure</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#5-program-paragraphs">5. Program Paragraphs</a>
+<ul>
+<li class="toc-level-3"><a href="#51-premiere-section">5.1 PREMIERE SECTION</a></li>
+<li class="toc-level-3"><a href="#52-get-me-out-of-here-section">5.2 GET-ME-OUT-OF-HERE SECTION</a></li>
+<li class="toc-level-3"><a href="#53-populate-time-date-section">5.3 POPULATE-TIME-DATE SECTION</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#6-dependencies">6. Dependencies</a>
+<ul>
+<li class="toc-level-3"><a href="#61-copybooks">6.1 Copybooks</a></li>
+<li class="toc-level-3"><a href="#62-external-programs-invoked">6.2 External Programs Invoked</a></li>
+<li class="toc-level-3"><a href="#63-cics-services">6.3 CICS Services</a></li>
+<li class="toc-level-3"><a href="#64-cics-eib-fields">6.4 CICS EIB Fields</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#7-constraints">7. Constraints</a>
+<ul>
+<li class="toc-level-3"><a href="#71-data-validation-constraints">7.1 Data Validation Constraints</a></li>
+<li class="toc-level-3"><a href="#72-channel-and-container-constraints">7.2 Channel and Container Constraints</a></li>
+<li class="toc-level-3"><a href="#73-sequencing-and-timing-constraints">7.3 Sequencing and Timing Constraints</a></li>
+<li class="toc-level-3"><a href="#74-resource-and-value-range-constraints">7.4 Resource and Value Range Constraints</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#8-error-handling">8. Error Handling</a>
+<ul>
+<li class="toc-level-3"><a href="#81-cics-response-code-checking-respresp2-pattern">8.1 CICS Response Code Checking (RESP/RESP2 Pattern)</a></li>
+<li class="toc-level-3"><a href="#82-full-abend-path--delay-failure">8.2 Full Abend Path — DELAY Failure</a></li>
+<li class="toc-level-3"><a href="#83-simplified-error-path--getput-container-failure">8.3 Simplified Error Path — GET/PUT CONTAINER Failure</a></li>
+<li class="toc-level-3"><a href="#84-controlled-task-exit">8.4 Controlled Task Exit</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#9-examples">9. Examples</a>
+<ul>
+<li class="toc-level-3"><a href="#91-example-1--successful-credit-score-generation-normal-flow">9.1 Example 1 — Successful Credit Score Generation (Normal Flow)</a></li>
+<li class="toc-level-3"><a href="#92-example-2--delay-causes-parent-timeout-score-arrives-too-late">9.2 Example 2 — Delay Causes Parent Timeout (Score Arrives Too Late)</a></li>
+</ul>
+</li>
+</ul>
+
+</nav>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+    /* toc-spy.js — highlights the active heading in the TOC panel on scroll */
+    (function () {
+      function init() {
+        var panel = document.querySelector('.toc-panel');
+        if (!panel) return;
+        var links = Array.prototype.slice.call(panel.querySelectorAll('a[href^="#"]'));
+        if (!links.length) return;
+
+        var headingIds = links.map(function (a) { return a.getAttribute('href').slice(1); });
+        var headings = headingIds.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+
+        function clearActive() {
+          panel.querySelectorAll('.toc-active').forEach(function (el) { el.classList.remove('toc-active'); });
+          panel.querySelectorAll('.toc-parent-active').forEach(function (el) { el.classList.remove('toc-parent-active'); });
+        }
+
+        function setActive(id) {
+          clearActive();
+          var link = panel.querySelector('a[href="#' + id + '"]');
+          if (!link) return;
+          link.classList.add('toc-active');
+          var li = link.closest('li');
+          if (li) {
+            var parentLi = li.parentElement && li.parentElement.closest('li');
+            if (parentLi) parentLi.classList.add('toc-parent-active');
+          }
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              setActive(entry.target.id);
+            }
+          });
+        }, { rootMargin: '0px 0px -70% 0px', threshold: 0 });
+
+        headings.forEach(function (h) { observer.observe(h); });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+    </script>
+    <script>
+    /* sidebar-toggle.js — persists open/closed state across navigation */
+    (function () {
+
+      var STORAGE_KEY = 'sb_open';
+
+      function getOpenSet() {
+        try {
+          var raw = sessionStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (e) { return null; }
+      }
+
+      function saveOpenSet(set) {
+        try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(set)); } catch (e) {}
+      }
+
+      function findItems(toggle) {
+        var node = toggle.nextSibling;
+        while (node) {
+          if (node.nodeType === 1 && node.classList.contains('nav-section-items'))
+            return node;
+          node = node.nextSibling;
+        }
+        return null;
+      }
+
+      function toggleKey(toggle, index) {
+        var label = (toggle.querySelector('.nav-toggle-text') || toggle).textContent.trim().replace(/\s+/g, ' ');
+        return index + ':' + label;
+      }
+
+      function openSection(toggle, items, key, set) {
+        toggle.classList.add('open');
+        items.classList.add('open');
+        if (set) set[key] = true;
+      }
+
+      function closeSection(toggle, items, key, set) {
+        toggle.classList.remove('open');
+        items.classList.remove('open');
+        if (set) set[key] = false;
+      }
+
+      function init() {
+        var sidebar = document.getElementById('wiki-sidebar');
+        var toggles = Array.prototype.slice.call(
+          document.querySelectorAll('.nav-section-toggle')
+        );
+
+        var activeIdx = -1;
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+          if (items.querySelector('.nav-link.active')) {
+            activeIdx = idx;
+          }
+        });
+
+        var savedSet = getOpenSet();
+        var openSet = savedSet || {};
+
+        if (activeIdx !== -1) {
+          openSet[toggleKey(toggles[activeIdx], activeIdx)] = true;
+        }
+
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+
+          var key = toggleKey(toggle, idx);
+          var shouldOpen = openSet[key] === true;
+
+          if (shouldOpen) {
+            toggle.classList.add('open');
+            items.classList.add('open');
+          }
+
+          toggle.addEventListener('click', function () {
+            var nowOpen = toggle.classList.contains('open');
+            if (nowOpen) {
+              closeSection(toggle, items, key, openSet);
+            } else {
+              openSection(toggle, items, key, openSet);
+            }
+            saveOpenSet(openSet);
+          });
+        });
+
+        saveOpenSet(openSet);
+
+        /* Restore sidebar scroll position after sections are expanded so the
+           scroll height is correct when we apply scrollTop. */
+        if (sidebar) {
+          try {
+            var savedScroll = sessionStorage.getItem('sb_scroll');
+            if (savedScroll !== null) { sidebar.scrollTop = parseInt(savedScroll, 10) || 0; }
+          } catch (_e) {}
+        }
+
+        window.addEventListener('pagehide', function () {
+          saveOpenSet(openSet);
+          if (sidebar) {
+            try { sessionStorage.setItem('sb_scroll', String(sidebar.scrollTop)); } catch (_e) {}
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+
+    })();
+    </script>
+    <script>
+    /* nav-tracking.js — only stamps sessionStorage when clicking a source-file link
+       that lives inside the "Source Files" disclosure section, not from sidebar or cards. */
+    (function () {
+      document.addEventListener('click', function (e) {
+        var link = e.target.closest('a[href]');
+        if (!link) return;
+        var href = link.getAttribute('href');
+        if (!href || href.indexOf('sources/') === -1) return;
+        /* Only set referrer when the click originates from inside the Source Files
+           disclosure (.source-files-disclosure). Any other path — sidebar, cards,
+           direct navigation — must not set a referrer. */
+        if (!link.closest('.source-files-disclosure')) return;
+        try {
+          sessionStorage.setItem('wiki_referrer', JSON.stringify({
+            href: location.href,
+            title: document.title,
+            file: location.pathname.split('/').pop()
+          }));
+        } catch (_e) {}
+      });
+    })();
+    </script>
+    <footer class="wiki-footer">Made by IBM Bob Premium Package for Z</footer>
+</body>
+</html>

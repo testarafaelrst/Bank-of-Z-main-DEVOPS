@@ -1,202 +1,196 @@
 # Z Language Patterns — Bank of Z
 
-Pattern detection rules and language-specific knowledge for working with the Bank of Z codebase.
+Detection rules, idioms, and subsystem identification patterns for IBM Z languages in this codebase.
 
 ---
 
 ## Subsystem Detection
 
-Use these indicators to identify what subsystem a COBOL program uses:
+### CICS Program
+Any file containing:
+- `CBL CICS(` on line 1
+- `EXEC CICS` anywhere in body
+- `DFHCOMMAREA` in LINKAGE SECTION
+- `WS-CICS-WORK-AREA` in WORKING-STORAGE
 
-| Indicator | Subsystem |
-|-----------|-----------|
-| `CBL CICS(...)` or `EXEC CICS` | CICS |
-| `CBL LIST,MAP,XREF,FLAG(I)` + `GU`/`GN` 77-levels | IMS |
-| `CBL SQL` or `EXEC SQL` | DB2 |
-| `CBL CICS('SP,EDF,DLI')` | CICS + IMS (hybrid) |
-| Neither CICS nor IMS | Batch |
-| `DFHCOMMAREA` in LINKAGE SECTION | CICS |
-| `IOPCBA POINTER` in LINKAGE SECTION | IMS |
+### IMS Program (Online — MPP)
+Any file containing:
+- `CBL LIST,MAP,XREF,FLAG(I)` on line 1
+- `CALL 'CBLTDLI'`
+- `ENTRY "DLITCBL"`
+- `IOPCBA POINTER` in LINKAGE SECTION
 
----
+### IMS Program (Batch — BMP/DLB)
+Any file containing:
+- `CALL 'CBLTDLI'` AND file I/O (SELECT ... ASSIGN)
+- No `EXEC CICS`
 
-## Code Era Detection for this Project
+### DB2 Program
+Any file containing:
+- `EXEC SQL`
+- `SQLCA` or `INCLUDE SQLCA`
 
-| Feature observed | Era |
-|-----------------|-----|
-| `END-IF`, `END-EXEC`, `END-EVALUATE`, inline PERFORM | Enterprise COBOL (modern, standard) |
-| `EXEC CICS HANDLE ABEND LABEL(...)` | Older style — seen in INQCUST, avoid in new code |
-| `PROGRAM-ID. "NAME" recursive.` | Java-interop IMS programs (IBTRAN, IBLOGIN1) |
-| `COMP-5` for IMS binary fields | Modern IMS convention for platform-independence |
-| `FREE FORMAT PL/I` syntax | Modern PL/I (BNKSTMT.pli, IBLOGIN.pli) |
+### Batch (No Subsystem)
+Any file containing:
+- No `EXEC CICS`, no `CALL 'CBLTDLI'`, no `EXEC SQL`
+- `STOP RUN` in PROCEDURE DIVISION
+- Typically has `FILE SECTION` with SELECT/FD
 
----
-
-## COBOL Data Type Quick Reference
-
-| Usage | COBOL Picture |
-|-------|--------------|
-| CICS RESP/RESP2 | `PIC S9(8) COMP` |
-| Packed decimal time | `PIC S9(15) COMP-3` |
-| Packed decimal money | `PIC S9(10)V99 COMP-3` |
-| Packed decimal rate | `PIC S9(4)V99 COMP-3` |
-| DB2 integer (null ind) | `PIC S9(4) COMP` (CICS) or `PIC S9(4) COMP-5` (Batch) |
-| IMS binary segment field | `PIC S9(9) COMP-5` or `PIC S9(18) COMP-5` |
-| Binary counter | `PIC S9(8) COMP` or `PIC S9(4) COMP` |
-| Customer number | `PIC 9(10) DISPLAY` |
-| Sort code | `PIC 9(6) DISPLAY` |
-| Account number | `PIC 9(8)` or `PIC X(8)` (depending on context) |
-| Date stored as integer (YYYYMMDD) | `PIC S9(9) COMP` (CICS) or `PIC S9(9) COMP-5` (Batch) |
-| Date for display | `PIC X(10)` |
-| Program name | `PIC X(8)` |
-| CICS transaction ID | `PIC X(4)` |
+### PL/I (Batch with DB2)
+Any file containing:
+- `PROCEDURE OPTIONS(MAIN)` (not `PROGRAM-ID.`)
+- `EXEC SQL` in PL/I syntax (without COBOL EXEC spacing)
 
 ---
 
-## IMS Segment Field Types
+## COBOL Idioms Specific to Bank of Z
 
-| Usage | COBOL type |
-|-------|-----------|
-| 32-bit customer/account ID | `PIC S9(9) COMP-5` |
-| 64-bit transaction ID | `PIC S9(18) COMP-5` |
-| Balance (packed) | `PIC S9(13)V9(2) COMP-3` |
-| Account type | `PIC X(01)` |
-| Timestamp | `PIC X(23)` |
-
----
-
-## JCL Dataset Naming Conventions
-
-Observed pattern for Bank of Z datasets:
-
-```
-<USER_HLQ>.BANK.<PURPOSE>.<QUALIFIER>
-```
-
-Examples:
-- `RAFAELT.BANK.LSTCUST.REPORT` — report output
-- `BANKZ.V0R1M0.LOAD` — application load library
-- `BANKZ.V0R1M0.DBRMLIB` — DBRM library
-- `<HLQ>.BANKZ.OBJ` — object library
-
-DB2 system libraries pattern: `DB2V13.SDSNEXIT`, `DB2V13.SDSNLOAD`
-
----
-
-## DB2 Table Name Mapping
-
-COBOL column names map to DB2 table names with underscores replacing hyphens:
-
-| COBOL copybook field | DB2 column name |
-|---------------------|----------------|
-| `CUSTOMER-EYECATCHER` | `CUSTOMER_EYECATCHER` |
-| `CUSTOMER-SORTCODE` | `CUSTOMER_SORTCODE` |
-| `CUSTOMER-NUMBER` | `CUSTOMER_NUMBER` |
-| `ACCOUNT-AVAIL-BAL` | `ACCOUNT_AVAILABLE_BALANCE` |
-| `HV-CUSTOMER-CS-REVIEW-DATE` | `CUSTOMER_CS_REVIEW_DATE` |
-
-Always check the `EXEC SQL INCLUDE <TABLE>DB2 END-EXEC` copybook for the actual column names before writing SQL.
-
----
-
-## CICS Transaction IDs (observed in codebase)
-
-| Transaction | Program |
-|-------------|---------|
-| `OMEN` | BNKMENU (main menu) |
-| `ODCS` | Customer display |
-| `ODAC` | Account display |
-
----
-
-## Program Communication Patterns
-
-### CICS LINK (synchronous sub-program call)
-
+### Eyecatcher Pattern
 ```cobol
-       EXEC CICS LINK PROGRAM(WS-ABEND-PGM)
-                 COMMAREA(ABNDINFO-REC)
-       END-EXEC
+05 ACCOUNT-EYE-CATCHER    PIC X(4).
+88 ACCOUNT-EYECATCHER-VALUE   VALUE 'ACCT'.
 ```
+Every DB2 row structure in this codebase has a 4-byte eyecatcher as the first field. Valid values: `'ACCT'`, `'CUST'`, `'PRTR'` (PROCTRAN).
 
-### CICS RETURN with TRANSID (pseudo-conversational)
-
+### Named Counter (NCS) Pattern
+Used in CREACC and CRECUST for generating unique account/customer numbers via CICS Named Counter Service:
 ```cobol
-       EXEC CICS
-          RETURN TRANSID('OMEN')
-          COMMAREA(COMMUNICATION-AREA)
-          LENGTH(1)
-          RESP(WS-CICS-RESP)
-          RESP2(WS-CICS-RESP2)
-       END-EXEC.
+01 NCS-CUST-NO-STUFF.
+   03 NCS-CUST-NO-NAME.
+      05 FILLER   PIC X(16) VALUE 'CUST_NO         '.
+   03 NCS-CUST-NO-INC   PIC 9(16) COMP VALUE 0.
+   03 NCS-CUST-NO-VALUE PIC 9(16) COMP VALUE 0.
+   03 NCS-CUST-NO-RESP  PIC XX VALUE '00'.
 ```
+Operations: `EXEC CICS ENQ` → `EXEC CICS GET COUNTER` → increment → `EXEC CICS DEQ`.
 
-### CICS Async (child task) — used in CRECUST for credit agency calls
+### Storm Drain Pattern
+VSAM RLS abends (AFCR, AFCS, AFCT) are intercepted and handled as "storm drain" conditions — the program issues SYNCPOINT ROLLBACK and returns gracefully instead of hard-abending. Indicates CPSM WLM integration.
 
-CRECUST.cbl uses `EXEC CICS RUN ACQACTIVITY` and channel-based communication for async credit scoring. See CRECUST.cbl for the full pattern using `WS-CHILD-ARRAY` and `WS-CHILD-TOKENS`.
+### COMM-SUCCESS / COMM-FAIL-CODE Pattern
+Every CICS program that can be called via COMMAREA returns results through:
+```cobol
+MOVE 'Y' TO COMM-SUCCESS    (or 'N' on failure)
+MOVE '0' TO COMM-FAIL-CODE  (or specific code on failure)
+```
+Failure codes: `'0'`=success, `'1'`=data error, `'2'`=datastore error, `'S'`=security denied, `'X'`=security unavailable.
+
+### SORTCODE Copybook
+`COPY SORTCODE.` provides the bank sort code as a numeric constant used throughout the application for all DB2 queries and IMS lookups. First statement in WORKING-STORAGE of every CICS program.
+
+### PROCTRAN (Processed Transaction) Table
+Every financial operation (debit, credit, transfer, account create) writes a record to PROCTRAN. Host variable structure: `01 HOST-PROCTRAN-ROW.` with `HV-PROCTRAN-*` fields. The `COPY PROCTRAN.` copybook provides the data structure for VSAM-based PROCTRAN access; `EXEC SQL INCLUDE PROCDB2` for DB2 access.
 
 ---
 
-## Abend Handler: ABNDPROC
+## Code Era Indicators
 
-`ABNDPROC` is the centralized abend handler for the entire CICS application:
-- All CICS programs that encounter an error LINK to `ABNDPROC` via `EXEC CICS LINK PROGRAM(WS-ABEND-PGM) COMMAREA(ABNDINFO-REC)`
-- The ABNDINFO-REC copybook (`src/base/cics/copy/ABNDINFO.cpy`) defines the structure
-- Fields populated before LINK: ABND-RESPCODE, ABND-RESP2CODE, ABND-APPLID, ABND-TASKNO-KEY, ABND-TRANID, ABND-DATE, ABND-TIME, ABND-UTIME-KEY, ABND-CODE ('HBNK'), ABND-PROGRAM, ABND-SQLCODE, ABND-FREEFORM (free-text diagnostic)
+### Enterprise COBOL (modern — use for new code)
+- `END-IF`, `END-EXEC`, `END-STRING`, `END-EVALUATE` scope terminators
+- `EVALUATE TRUE WHEN ... END-EVALUATE`
+- `FUNCTION` built-ins: `FUNCTION NUMVAL(...)`, `FUNCTION CURRENT-DATE`
+- `LENGTH OF <data-name>` (not numeric literal)
+- `PERFORM ... VARYING ... UNTIL ...` with in-line body
+- `LOCAL-STORAGE SECTION`
+- `EXEC CICS CHANNELS` (CRECUST uses async child tasks)
 
----
-
-## PL/I Type Quick Reference
-
-| Usage | PL/I type |
-|-------|----------|
-| 32-bit integer | `FIXED BIN(31)` |
-| Null indicator | `FIXED BIN(15)` |
-| Packed decimal money | `FIXED DEC(10,2)` |
-| Interest rate | `FIXED DEC(4,2)` |
-| Character | `CHAR(n)` |
-| Pointer to PCB | `POINTER` |
+### Legacy indicators (do not replicate)
+- `PROCESS CICS,NODYNAM,NSYMBOL(NATIONAL),TRUNC(STD)` on line 1
+- `SOURCE-COMPUTER. IBM-370.` (use `IBM-Z` instead)
+- `AUTHOR. Jon Collett.` (original developer, replaced by `IBM Bank-of-Z.`)
+- `77` level items in WORKING-STORAGE (use `01` instead for new work)
+- `GO TO` in main logic (acceptable only for `GO TO SC999` / `GO TO AH999` exit jumps)
 
 ---
 
-## Common COBOL Idioms in this Project
+## IMS DL/I Function Codes Reference
 
-### "Storm Drain" — re-entry guard (INQCUST only)
+| Variable | Value | Operation |
+|----------|-------|-----------|
+| `GU` | `"GU  "` | Get Unique (exact key) |
+| `GHU` | `"GHU "` | Get Hold Unique (for update) |
+| `GN` | `"GN  "` | Get Next (sequential) |
+| `GHN` | `"GHN "` | Get Hold Next (for update) |
+| `ISRT` | `"ISRT"` | Insert |
+| `REPL` | `"REPL"` | Replace (update held segment) |
 
-```cobol
-       01 WS-STORM-DRAIN               PIC X VALUE 'N'.
-       01 STORM-DRAIN-CONDITION        PIC X(20).
+| Status | Value | Meaning |
+|--------|-------|---------|
+| `GE` | `"GE"` | Get End — not found |
+| `GB` | `"GB"` | Get Next reached end of database |
+| Spaces | `"  "` | Success |
+
+---
+
+## DB2 SQLCODE Reference (used in this codebase)
+
+| SQLCODE | Meaning in context |
+|---------|--------------------|
+| `0` | Success |
+| `+100` | End of result set (FETCH) / Row not found |
+| `-811` | More than one row returned by singleton SELECT |
+| `-803` | Duplicate key on INSERT |
+| `-904` | Resource unavailable (lock timeout) |
+| `-911` / `-913` | Deadlock / timeout → triggers `AD2Z` abend in CICS |
+
+---
+
+## CICS ABEND Codes Reference (specific to Bank of Z)
+
+| Code | Issued by | Meaning |
+|------|-----------|---------|
+| `HBNK` | BNKMENU | EXEC CICS RETURN failed |
+| `HROL` | DBCRFUN, XFRFUN | SYNCPOINT ROLLBACK failed after VSAM RLS abend |
+| `AD2Z` | DB2 | DB2 deadlock — intercepted in ABEND-HANDLING |
+| `AFCR`/`AFCS`/`AFCT` | VSAM RLS | VSAM RLS abend — storm drain candidate |
+
+---
+
+## Copybook Naming Conventions
+
+| Copybook | Purpose | Used in |
+|----------|---------|---------|
+| `SORTCODE` | Bank sort code constant | All CICS programs (WS) |
+| `BNKSEC` | Security COMMAREA for BNKSECCK | All CICS data programs |
+| `ABNDINFO` | Abend info record for ABNDPROC | All CICS programs |
+| `ACCOUNT` | ACCOUNT data structure | INQACC, UPDACC, DELACC, etc. |
+| `CUSTOMER` | CUSTOMER data structure | INQCUST, CRECUST, UPDCUST, etc. |
+| `PROCTRAN` | PROCTRAN record for VSAM access | Transaction programs |
+| `ACCDB2` | ACCOUNT DB2 include | CICS programs with DB2 |
+| `PROCDB2` | PROCTRAN DB2 include | CICS programs with DB2 |
+| `CUSTDB2` | CUSTOMER DB2 include | LSTCUST, INQCUST |
+| `DFHAID` | CICS AID key constants | BMS programs (BNK1*, BNKMENU) |
+| `CEEIGZCT` | LE condition token | CRECUST (CEEDAYS date conversion) |
+| `CUSTCTRL` | Customer control copybook | CRECUST |
+
+---
+
+## BMS Programs (CICS Screen Programs)
+
+Programs that interact with BMS maps follow an additional pattern:
+1. Line 1: `PROCESS CICS,NODYNAM,NSYMBOL(NATIONAL),TRUNC(STD)` (legacy, keep as-is)
+2. `COPY DFHAID.` in WORKING-STORAGE for PF key constants
+3. `COPY BNK1Mxx.` for map field definitions (generated by BMS compiler)
+4. `EIBAID` checked against `DFHENTER`, `DFHPF3`, `DFHPF12`, `DFHCLEAR`, `DFHPA1/2/3`
+5. `EIBCALEN = ZERO` checked to detect first invocation
+6. `SET SEND-ERASE/SEND-DATAONLY/SEND-DATAONLY-ALARM TO TRUE` before `PERFORM SEND-MAP`
+
+BMS programs in this codebase: `BNKMENU`, `BNK1CAC`, `BNK1CCA`, `BNK1CCS`, `BNK1CRA`, `BNK1DAC`, `BNK1DCS`, `BNK1TFN`, `BNK1UAC`.
+
+---
+
+## CICS Transaction Flow
+
 ```
-Used to prevent recursive abend handling. Not in all programs — only copy if you understand the pattern.
-
-### Named Counter Server (NCS) — Customer number generation
-
-```cobol
-       01 NCS-CUST-NO-STUFF.
-          03 NCS-CUST-NO-NAME.
-             05 NCS-CUST-NO-ACT-NAME   PIC X(9) VALUE 'BANKZCUST'.
-             05 NCS-CUST-NO-TEST-SORT  PIC X(6) VALUE '      '.
-             05 NCS-CUST-NO-FILL       PIC XX VALUE '  '.
-          03 NCS-CUST-NO-INC           PIC 9(16) COMP VALUE 0.
-          03 NCS-CUST-NO-VALUE         PIC 9(16) COMP VALUE 0.
-          03 NCS-CUST-NO-RESP          PIC XX VALUE '00'.
+OMEN → BNKMENU → (user selects option)
+         ↓
+  BNK1xxx (BMS screen program)
+         ↓
+  CRECUSt / INQCUST / UPDCUST / DELCUS  (customer operations)
+  CREACC / INQACC / UPDACC / DELACC     (account operations)
+  DBCRFUN / XFRFUN                       (financial transactions)
+         ↓
+  BNKSECCK (security check, called via LINK by every data program)
+         ↓
+  ABNDPROC (abend processor, called on CICS error or ABEND)
 ```
-Used in INQCUST and CRECUST to get the last-used customer number from a CICS Named Counter.
-
-### SORTCODE — Bank sort code
-
-```cobol
-       LOCAL-STORAGE SECTION.
-       COPY SORTCODE.
-```
-The sort code is a constant defined in the `SORTCODE` copybook (`src/base/cics/copy/SORTCODE.cpy`). Copy it into LOCAL-STORAGE (not WORKING-STORAGE) in CICS programs that need it, to ensure thread safety.
-
-### DATA-STORE-TYPE — Multi-backend dispatcher
-
-```cobol
-       01 DATA-STORE-TYPE               PIC X.
-          88 DATASTORE-TYPE-DLI                       VALUE '1'.
-          88 DATASTORE-TYPE-DB2                       VALUE '2'.
-          88 DATASTORE-TYPE-VSAM                      VALUE 'V'.
-```
-Used in DBCRFUN, ABNDPROC, and other programs to dispatch to the correct backend datastore (IMS DL/I, DB2, or VSAM).

@@ -41,6 +41,7 @@ This file provides guidance to agents when working with code in this repository.
 | `zcodeformat.yaml` | Z Open Editor formatter config (COBOL indentation = 1, copybook case = upper) |
 | `zcodescan/` | ZCodeScan configuration (`zcodescan-config.yml`, `zcodescan-rules.yaml`) |
 | `.bobz/specs/` | Technical specifications for individual programs (Markdown, in Portuguese) |
+| `docs/program/` | Auto-generated per-program documentation (Markdown mirroring source path, e.g. `docs/program/src/base/cics/cobol/BNKMENU.md`) |
 
 ---
 
@@ -65,13 +66,16 @@ Tests are **integration tests** that hit a live z/OS Connect API and Liberty fro
 
 ## COBOL Coding Conventions (discovered from source)
 
-- CICS programs begin with `PROCESS CICS,NODYNAM,NSYMBOL(NATIONAL),TRUNC(STD)` on line 1.
+- **CICS programs with BMS interaction** use two header lines: `PROCESS CICS,NODYNAM,NSYMBOL(NATIONAL),TRUNC(STD)` on line 1, then `CBL CICS('SP,EDF')` on line 2. Programs without BMS (subprograms, utilities) use only `CBL CICS('SP,EDF')` on line 1.
+- Programs that use both CICS and DB2 add `CBL SQL` as an additional line (e.g., `CREACC`, `XFRFUN`, `UPDCUST`).
+- Programs that use DLI (IMS) add `CBL CICS('SP,EDF,DLI')` instead of `CBL CICS('SP,EDF')`.
 - Formatter enforces: Data Division indent = 1, Procedure Division indent = 1; copybook code always uppercase (`zcodeformat.yaml`).
 - CICS RESP/RESP2 always captured in `WS-CICS-WORK-AREA` (PIC S9(8) COMP), checked after every CICS command.
 - 88-level condition names are used for all boolean switches and flags (pattern: `SWITCHES`, `FLAGS` groups in WORKING-STORAGE).
-- Compiler options: `LIB,MAP,NODYN` for COBOL; `PP(INCLUDE(...))` for PL/I (see `build.properties`).
+- Compiler options: `LIB,MAP,NODYN` for COBOL; `PP(INCLUDE('ID(++INCLUDE)'))` for PL/I (see `build.properties`).
 - Max acceptable return code from compilation: **4** (both COBOL and PL/I).
 - ZCodeScan scans COBOL and PL/I with encoding `IBM-1047`; `maxReturnCode: 4` (`zcodescan/zcodescan-config.yml`).
+- **`dbb-app.yaml` task `Cobol`** covers only `**/cics/cobol/*.cbl` and `**/ims/cobol/*.cbl`. Batch COBOL programs in `src/base/batch/cobol/` are **not** in a DBB task — they are built via EDT/User Build only.
 
 ---
 
@@ -94,6 +98,7 @@ Tests are **integration tests** that hit a live z/OS Connect API and Liberty fro
 ## Technical Specifications
 
 - Per-program technical specs are stored as Markdown in `.bobz/specs/` (in Portuguese). Example: `.bobz/specs/LSTCUST-technical-spec.md`.
+- RACF security group specs (`RACF-*.md`) are also in `.bobz/specs/` and serve as cross-cutting references for CICS programs implementing security checks.
 - When modifying a COBOL program that has a spec file, update (or flag for update) the corresponding spec.
 - `DEVOPSPL.cbl` and `BANKTRX.cbl` are standalone batch programs with no file I/O; their specs live in `.bobz/specs/`.
 
@@ -105,10 +110,22 @@ Tests are **integration tests** that hit a live z/OS Connect API and Liberty fro
 |---------|----------------------|
 | `src/base/batch/cobol/LSTCUST.cbl` | `.bobz/specs/LSTCUST-technical-spec.md` |
 | `src/base/cics/cobol/BANKDATA.cbl` | `docs/docs/architecture/application-components.md` |
+| `src/base/cics/cobol/BNKMENU.cbl` | `docs/program/src/base/cics/cobol/BNKMENU.md` |
+| `src/base/cics/cobol/CRDTAGY2.cbl` | `docs/program/src/base/cics/cobol/CRDTAGY2.md` |
+| `src/base/cics/cobol/DELACC.cbl` | `docs/program/src/base/cics/cobol/DELACC.md` |
+| `src/base/cics/cobol/BNKSECCK.cbl` | `.bobz/specs/BNKSECCK-technical-spec.md`, `.bobz/specs/RACF-security-technical-index.md` |
+| `src/base/cics/cobol/CREACC.cbl` | `.bobz/specs/CREACC-technical-spec.md` |
+| `src/base/cics/cobol/CRECUST.cbl` | `.bobz/specs/CRECUST-technical-spec.md` |
+| `src/base/cics/cobol/DBCRFUN.cbl` | `.bobz/specs/DBCRFUN-technical-spec.md` |
+| `src/base/cics/cobol/UPDACC.cbl` | `.bobz/specs/UPDACC-technical-spec.md` |
+| `src/base/cics/cobol/UPDCUST.cbl` | `.bobz/specs/UPDCUST-technical-spec.md` |
+| `src/base/cics/cobol/XFRFUN.cbl` | `.bobz/specs/XFRFUN-technical-spec.md` |
+| `src/base/cics/cobol/DELACC.cbl` | `.bobz/specs/DELACC-technical-spec.md`, `docs/program/src/base/cics/cobol/DELACC.md` |
+| `src/base/cics/cobol/DELCUS.cbl` | `.bobz/specs/DELCUS-technical-spec.md` |
 | All CICS programs | `docs/docs/architecture/application-components.md`, `docs/docs/architecture/application-flow.md` |
 | All IMS programs | `docs/docs/architecture/application-components.md` |
 
-**Auto-update rules:** When a COBOL program is modified, check whether a spec exists in `.bobz/specs/` and prompt to sync it. When new programs are added, create a spec in `.bobz/specs/<PROGNAME>-technical-spec.md` following the existing structure.
+**Auto-update rules:** When a COBOL program is modified, check whether a spec exists in `.bobz/specs/` and prompt to sync it. When new programs are added, create a spec in `.bobz/specs/<PROGNAME>-technical-spec.md` following the existing structure. The `docs/program/` tree mirrors the source path — when generating per-program docs, place them at `docs/program/<relative-source-path>/<PROGNAME>.md`.
 
 ---
 

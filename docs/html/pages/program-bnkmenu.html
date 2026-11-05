@@ -1,0 +1,1709 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNKMENU – Main Menu Program - Bank of Z – IBM Z Banking Application</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/mermaid.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: { useMaxWidth: true }
+        });
+    </script>
+
+    <!-- Prism.js for syntax highlighting (bundled — no CDN required) -->
+    <link rel="stylesheet" href="../assets/prism-tomorrow.css">
+    <script src="../assets/prism-core.js"></script>
+    <script src="../assets/prism-languages.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <span class="header-app-name"><a href="../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – IBM Z Banking Application</a></span>
+        </div>
+        <div class="header-right">
+        </div>
+    </header>
+    <div class="shell">
+        <aside class="sidebar" id="wiki-sidebar">
+            <nav>
+                
+        <div class="nav-home-wrap">
+            <a href="../../index.html" class="nav-home">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                Home
+            </a>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Application Documentation</div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">About Bank of Z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="about-overview.html" class="nav-link" data-page-id="about-overview">Project Overview</a>
+                <a href="about-capabilities.html" class="nav-link" data-page-id="about-capabilities">Key Capabilities</a>
+                <a href="about-architecture-overview.html" class="nav-link" data-page-id="about-architecture-overview">Architecture Overview</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Getting Started</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="prerequisites.html" class="nav-link" data-page-id="prerequisites">Prerequisites</a>
+                <a href="installation-setup.html" class="nav-link" data-page-id="installation-setup">Installation &amp; Setup</a>
+                <a href="environment-configuration.html" class="nav-link" data-page-id="environment-configuration">Environment Configuration</a>
+                <a href="verification.html" class="nav-link" data-page-id="verification">Verification &amp; Smoke Testing</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Architecture</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="architecture-components.html" class="nav-link" data-page-id="architecture-components">Application Components</a>
+                <a href="architecture-flow.html" class="nav-link" data-page-id="architecture-flow">Application Flow</a>
+                <a href="architecture-build-deployment.html" class="nav-link" data-page-id="architecture-build-deployment">Build &amp; Deployment Architecture</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle open" type="button">
+                <span class="nav-toggle-text">Program Reference</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items open">
+                <a href="program-bnkmenu.html" class="nav-link active" data-page-id="program-bnkmenu">BNKMENU – Main Menu Program</a>
+                <a href="program-crdtagy2.html" class="nav-link" data-page-id="program-crdtagy2">CRDTAGY2 – Credit Agency Simulator</a>
+                <a href="program-delacc.html" class="nav-link" data-page-id="program-delacc">DELACC – Delete Account Program</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Development Workflows</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="workflow-overview.html" class="nav-link" data-page-id="workflow-overview">Development Workflows Overview</a>
+                <a href="workflow-zowe-cli.html" class="nav-link" data-page-id="workflow-zowe-cli">Zowe CLI Workflow</a>
+                <a href="workflow-grub.html" class="nav-link" data-page-id="workflow-grub">GRUB Workflow</a>
+                <a href="workflow-best-practices.html" class="nav-link" data-page-id="workflow-best-practices">Development Best Practices</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Tutorials</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="tutorial-deploy.html" class="nav-link" data-page-id="tutorial-deploy">Tutorial: Deploy Bank of Z</a>
+                <a href="tutorial-cics-enhancement.html" class="nav-link" data-page-id="tutorial-cics-enhancement">Tutorial: CICS Enhancement Scenario</a>
+                <a href="tutorial-incremental-build.html" class="nav-link" data-page-id="tutorial-incremental-build">Tutorial: Incremental Build</a>
+                <a href="tutorial-debug-cics.html" class="nav-link" data-page-id="tutorial-debug-cics">Tutorial: Debug a CICS Transaction</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Reference</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="ref-configuration.html" class="nav-link" data-page-id="ref-configuration">Configuration Reference</a>
+                <a href="ref-commands.html" class="nav-link" data-page-id="ref-commands">Commands Reference</a>
+                <a href="ref-repository-structure.html" class="nav-link" data-page-id="ref-repository-structure">Repository Structure</a>
+                <a href="ref-glossary.html" class="nav-link" data-page-id="ref-glossary">Glossary</a>
+            </div>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Program Documentation</div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">program</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">src</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+            <div class="nav-section">
+                <button class="nav-section-toggle" type="button">
+                    <span class="nav-toggle-text">base</span>
+                    <span class="nav-section-chevron">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="nav-section-items">
+                <div class="nav-section">
+                    <button class="nav-section-toggle" type="button">
+                        <span class="nav-toggle-text">cics</span>
+                        <span class="nav-section-chevron">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="nav-section-items">
+                    <div class="nav-section">
+                        <button class="nav-section-toggle" type="button">
+                            <span class="nav-toggle-text">cobol</span>
+                            <span class="nav-section-chevron">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="nav-section-items">
+                            <a href="../sources/program/src/base/cics/cobol/BNKMENU.html" class="nav-link">BNKMENU</a>
+                            <a href="../sources/program/src/base/cics/cobol/CRDTAGY2.html" class="nav-link">CRDTAGY2</a>
+                            <a href="../sources/program/src/base/cics/cobol/DELACC.html" class="nav-link">DELACC</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">docs</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">about-bank-of-z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
+            </div>
+        </div>
+        </div>
+    </div>
+            </nav>
+        </aside>
+        <main class="main">
+            <div class="page-container">
+                <div class="content-layout">
+                    <div class="prose">
+                        <details class="source-files-disclosure">
+            <summary>
+                <svg class="sf-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Source Files
+                <span style="margin-left:4px;font-size:11px;color:var(--fg-subtle)">(1)</span>
+            </summary>
+            <div class="source-files-body">
+                <ul class="source-files-list">
+            <li><a href="../sources/program/src/base/cics/cobol/BNKMENU.html">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+                    <path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M10 2v4h4" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                BNKMENU
+            </a></li>
+                </ul>
+            </div>
+        </details>
+                        <h1 id="bnkmenu--main-menu-program" tabindex="-1">BNKMENU – Main Menu Program</h1>
+<p>BNKMENU is the primary navigation hub of the Bank of Z online banking application. Written in CICS COBOL, it runs under transaction ID <code>OMEN</code> and presents a BMS-driven menu screen to 3270 terminal operators. On each invocation it reads the operator’s single-character selection, validates it, and immediately routes the terminal session to one of eight downstream banking transactions — or re-displays the menu with an error message and audible alarm if the input is invalid. The program is fully pseudo-conversational: it releases CICS resources between every user interaction and re-arms itself via <code>EXEC CICS RETURN TRANSID('OMEN')</code>. All unrecoverable CICS failures are captured, timestamped, and forwarded to the centralised abend handler <code>ABNDPROC</code> before the task is terminated with abend code <code>HBNK</code>.</p>
+<hr>
+<h2 id="1-system-architecture" tabindex="-1">1. System Architecture</h2>
+<p>The diagram below shows how BNKMENU sits at the centre of the Bank of Z application, connecting the 3270 terminal layer to eight specialist banking transactions through the CICS dispatcher.</p>
+<div class="mermaid">
+graph TD
+    T([3270 Terminal<br/>Operator]) -->|Transaction OMEN| BNKMENU
+
+    subgraph CICS Region
+        BNKMENU[BNKMENU<br/>Main Menu Program]
+        BMS[BMS Mapset BNK1MAI<br/>Map BNK1ME]
+        ABNDPROC[ABNDPROC<br/>Centralised Abend Handler]
+
+        BNKMENU -->|SEND / RECEIVE MAP| BMS
+        BMS -->|Screen I/O| T
+        BNKMENU -->|EXEC CICS LINK on error| ABNDPROC
+    end
+
+    subgraph Banking Transactions
+        ODCS[ODCS – Display Customer Details]
+        ODAC[ODAC – Display Account Details]
+        OCCS[OCCS – Create Customer]
+        OCAC[OCAC – Create Account]
+        OUAC[OUAC – Update Account]
+        OCRA[OCRA – Credit / Debit Funds]
+        OTFN[OTFN – Transfer Funds]
+        OCCA[OCCA – Look Up Customer Accounts]
+    end
+
+    BNKMENU -->|RETURN TRANSID IMMEDIATE – Option 1| ODCS
+    BNKMENU -->|RETURN TRANSID IMMEDIATE – Option 2| ODAC
+    BNKMENU -->|RETURN TRANSID IMMEDIATE – Option 3| OCCS
+    BNKMENU -->|RETURN TRANSID IMMEDIATE – Option 4| OCAC
+    BNKMENU -->|RETURN TRANSID IMMEDIATE – Option 5| OUAC
+    BNKMENU -->|RETURN TRANSID IMMEDIATE – Option 6| OCRA
+    BNKMENU -->|RETURN TRANSID IMMEDIATE – Option 7| OTFN
+    BNKMENU -->|RETURN TRANSID IMMEDIATE – Option A| OCCA
+</div>
+<p>BNKMENU does not access any database (DB2, VSAM, or IMS). All state is carried purely through the CICS pseudo-conversational mechanism — a 1-byte <code>COMMAREA</code> whose presence (non-zero <code>EIBCALEN</code>) signals a returning session rather than a first-time entry.</p>
+<hr>
+<h2 id="2-overview" tabindex="-1">2. Overview</h2>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Program name</strong></td>
+<td><code>BNKMENU</code></td>
+</tr>
+<tr>
+<td><strong>Transaction ID</strong></td>
+<td><code>OMEN</code></td>
+</tr>
+<tr>
+<td><strong>Language</strong></td>
+<td>COBOL (CICS)</td>
+</tr>
+<tr>
+<td><strong>BMS Mapset</strong></td>
+<td><code>BNK1MAI</code></td>
+</tr>
+<tr>
+<td><strong>BMS Map</strong></td>
+<td><code>BNK1ME</code></td>
+</tr>
+<tr>
+<td><strong>Abend code</strong></td>
+<td><code>HBNK</code></td>
+</tr>
+<tr>
+<td><strong>External programs called</strong></td>
+<td><code>ABNDPROC</code></td>
+</tr>
+<tr>
+<td><strong>Database access</strong></td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p>BNKMENU is the “front door” of the Bank of Z application. When an operator types <code>OMEN</code> on a 3270 terminal, CICS loads this program. On the very first call (<code>EIBCALEN = 0</code>) the program clears the screen and paints the full menu. On every subsequent call it inspects the AID key and, when <code>ENTER</code> is pressed, reads and validates the single-character action field from the BMS map. A valid selection causes an immediate transfer to the corresponding banking transaction; an invalid selection re-displays the menu with an error message and an audible alarm. PF3 / PF12 displays <code>Session Ended</code> and closes the session cleanly. Any CICS command that does not return <code>DFHRESP(NORMAL)</code> triggers a structured abend sequence that logs diagnostic data via <code>ABNDPROC</code> and terminates the task with code <code>HBNK</code>.</p>
+<hr>
+<h2 id="3-inputs" tabindex="-1">3. Inputs</h2>
+<h3 id="31-terminal-input--bms-map-field" tabindex="-1">3.1 Terminal Input — BMS Map Field</h3>
+<p>The sole data field received from the terminal is <code>ACTIONI</code>, part of the symbolic map <code>BNK1MEI</code> (mapset <code>BNK1MAI</code>, map <code>BNK1ME</code>). It carries the single character the operator typed at the menu prompt:</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Routed Transaction</th>
+<th>Banking Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>1</code></td>
+<td><code>ODCS</code></td>
+<td>Display Customer Details</td>
+</tr>
+<tr>
+<td><code>2</code></td>
+<td><code>ODAC</code></td>
+<td>Display Account Details</td>
+</tr>
+<tr>
+<td><code>3</code></td>
+<td><code>OCCS</code></td>
+<td>Create a Customer</td>
+</tr>
+<tr>
+<td><code>4</code></td>
+<td><code>OCAC</code></td>
+<td>Create an Account</td>
+</tr>
+<tr>
+<td><code>5</code></td>
+<td><code>OUAC</code></td>
+<td>Update an Account</td>
+</tr>
+<tr>
+<td><code>6</code></td>
+<td><code>OCRA</code></td>
+<td>Credit / Debit Funds</td>
+</tr>
+<tr>
+<td><code>7</code></td>
+<td><code>OTFN</code></td>
+<td>Transfer Funds</td>
+</tr>
+<tr>
+<td><code>A</code></td>
+<td><code>OCCA</code></td>
+<td>Look Up Customer Accounts</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-cics-execute-interface-block-eib-fields" tabindex="-1">3.2 CICS Execute Interface Block (EIB) Fields</h3>
+<p>These values are injected automatically by CICS at every program entry:</p>
+<table>
+<thead>
+<tr>
+<th>EIB Field</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EIBCALEN</code></td>
+<td><code>0</code> on first entry (no prior <code>COMMAREA</code>) → triggers full-screen ERASE</td>
+</tr>
+<tr>
+<td><code>EIBAID</code></td>
+<td>AID key pressed — drives the main <code>EVALUATE TRUE</code> dispatch</td>
+</tr>
+<tr>
+<td><code>EIBRESP</code> / <code>EIBRESP2</code></td>
+<td>Response codes from every CICS command; checked after each call</td>
+</tr>
+<tr>
+<td><code>EIBTASKN</code></td>
+<td>Current task number — stored in <code>ABND-TASKNO-KEY</code> for diagnostics</td>
+</tr>
+<tr>
+<td><code>EIBTRNID</code></td>
+<td>Current transaction ID — stored in <code>ABND-TRANID</code> for diagnostics</td>
+</tr>
+</tbody>
+</table>
+<h3 id="33-cics-assign-values" tabindex="-1">3.3 CICS ASSIGN Values</h3>
+<ul>
+<li><strong><code>ABND-APPLID</code></strong> — populated via <code>EXEC CICS ASSIGN APPLID</code>; identifies the running CICS region in every abend record.</li>
+<li><strong><code>ABND-PROGRAM</code></strong> — populated via <code>EXEC CICS ASSIGN PROGRAM</code>; records the executing program name in every abend record.</li>
+</ul>
+<h3 id="34-cics-runtime-services" tabindex="-1">3.4 CICS Runtime Services</h3>
+<ul>
+<li><strong><code>EXEC CICS ASKTIME</code></strong> → <code>WS-U-TIME</code> — absolute timestamp used as a unique abend-record key.</li>
+<li><strong><code>EXEC CICS FORMATTIME</code></strong> → <code>WS-ORIG-DATE</code>, <code>WS-TIME-NOW</code> — human-readable date (<code>DD/MM/YYYY</code>) and time (<code>HHMMSS</code>) stored in the abend record.</li>
+</ul>
+<h3 id="35-commarea-linkage-section" tabindex="-1">3.5 COMMAREA (Linkage Section)</h3>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">LINKAGE SECTION.
+01  DFHCOMMAREA           PIC X.</code></pre>
+</div>
+<p>A single-byte area passed by CICS on every pseudo-conversational re-entry. Its <strong>content is never read</strong>; only its existence (<code>EIBCALEN &gt; ZERO</code>) matters — it tells the program this is a returning session, not a first-time entry.</p>
+<hr>
+<h2 id="4-outputs" tabindex="-1">4. Outputs</h2>
+<h3 id="41-terminal-screen-outputs" tabindex="-1">4.1 Terminal Screen Outputs</h3>
+<p>The program writes to the terminal exclusively through BMS map <code>BNK1ME</code> (mapset <code>BNK1MAI</code>). Three send modes are used:</p>
+<table>
+<thead>
+<tr>
+<th>Send Mode</th>
+<th>Flag Value</th>
+<th>CICS Options</th>
+<th>When Used</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ERASE</td>
+<td><code>SEND-ERASE = '1'</code></td>
+<td><code>ERASE FREEKB</code></td>
+<td>First entry; MAPFAIL recovery</td>
+</tr>
+<tr>
+<td>DATAONLY</td>
+<td><code>SEND-DATAONLY = '2'</code></td>
+<td><code>DATAONLY FREEKB</code></td>
+<td>Refresh variable fields only</td>
+</tr>
+<tr>
+<td>DATAONLY + ALARM</td>
+<td><code>SEND-DATAONLY-ALARM = '3'</code></td>
+<td><code>DATAONLY ALARM FREEKB</code></td>
+<td>Invalid key / validation error</td>
+</tr>
+</tbody>
+</table>
+<p>Key output fields within <code>BNK1MEO</code>:</p>
+<ul>
+<li><strong><code>MESSAGEO</code></strong> — feedback line visible to the operator (<code>'Invalid key pressed.'</code> or <code>'You must enter a valid value (1-7 or A).'</code>)</li>
+<li><strong><code>ACTIONL</code></strong> — set to <code>-1</code> to position the cursor on the action input field</li>
+</ul>
+<p>A session-end text message is also sent when the operator presses PF3 or PF12:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">EXEC CICS SEND TEXT
+    FROM(END-OF-SESSION-MESSAGE)
+    ERASE
+    FREEKB
+END-EXEC</code></pre>
+</div>
+<p><code>END-OF-SESSION-MESSAGE</code> contains the literal <code>'Session Ended'</code>.</p>
+<h3 id="42-cics-transaction-control-outputs" tabindex="-1">4.2 CICS Transaction Control Outputs</h3>
+<ul>
+<li>
+<p><strong>Pseudo-conversational re-arm:</strong></p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">EXEC CICS RETURN
+      TRANSID(&#039;OMEN&#039;)
+      COMMAREA(COMMUNICATION-AREA)
+      LENGTH(1)
+  END-EXEC</code></pre>
+</div>
+<p>Re-queues the menu transaction for the next terminal input event.</p>
+</li>
+<li>
+<p><strong>Immediate routing to a banking transaction (example — option 1):</strong></p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">EXEC CICS RETURN
+      TRANSID(&#039;ODCS&#039;)
+      IMMEDIATE
+  END-EXEC</code></pre>
+</div>
+</li>
+<li>
+<p><strong>Screen clear (CLEAR key):</strong></p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">EXEC CICS SEND CONTROL
+      ERASE
+      FREEKB
+  END-EXEC</code></pre>
+</div>
+</li>
+</ul>
+<h3 id="43-error-and-abend-outputs" tabindex="-1">4.3 Error and Abend Outputs</h3>
+<p>When any CICS command returns a non-normal response, the program:</p>
+<ol>
+<li>Populates <code>ABNDINFO-REC</code> with full diagnostic context.</li>
+<li>Links to <code>ABNDPROC</code> to log the record.</li>
+<li>Displays <code>WS-FAIL-INFO</code> to the CICS job log.</li>
+<li>Issues <code>EXEC CICS ABEND ABCODE('HBNK') NODUMP</code>.</li>
+</ol>
+<hr>
+<h2 id="5-processing-logic" tabindex="-1">5. Processing Logic</h2>
+<h3 id="51-high-level-processing-flow" tabindex="-1">5.1 High-Level Processing Flow</h3>
+<p>The diagram below captures every decision point and action from program entry to CICS RETURN.</p>
+<div class="mermaid">
+graph TD
+    classDef startEnd fill:#b5ead7,stroke:#6bbf9d,color:#000
+    classDef process fill:#c7ceea,stroke:#8892d6,color:#000
+    classDef decision fill:#ffdac1,stroke:#f4a87c,color:#000
+    classDef error fill:#ffb7b2,stroke:#e87c7c,color:#000
+    classDef send fill:#e2f0cb,stroke:#a0c878,color:#000
+
+    A([Start – Transaction OMEN invoked]):::startEnd
+    B{{EIBCALEN = ZERO\nFirst invocation?}}:::decision
+    C[Init BNK1MEO with LOW-VALUE\nSet cursor on ACTION\nSet SEND-ERASE flag]:::process
+    D[PERFORM SEND-MAP\nERASE – full screen repaint]:::send
+    E[EXEC CICS RETURN TRANSID OMEN\nCOMMUNICATION-AREA LENGTH 1]:::process
+    F{{AID key pressed?}}:::decision
+    G[PA1 / PA2 / PA3\nCONTINUE – no action]:::process
+    H[PF3 or PF12\nSEND-TERMINATION-MSG]:::process
+    H2[EXEC CICS SEND TEXT\nSession Ended ERASE]:::send
+    H3([EXEC CICS RETURN – End task]):::startEnd
+    I[CLEAR\nEXEC CICS SEND CONTROL ERASE FREEKB]:::process
+    I2([EXEC CICS RETURN – End task]):::startEnd
+    J[ENTER\nPERFORM PROCESS-MENU-MAP]:::process
+    K[Other key\nSet Invalid key message\nSEND-DATAONLY-ALARM]:::process
+    L[RECEIVE-MENU-MAP\nEXEC CICS RECEIVE MAP BNK1ME]:::process
+    M{{CICS RESP = NORMAL?}}:::decision
+    N{{RESP = MAPFAIL?}}:::decision
+    O[Re-display map ERASE\nRecover empty screen]:::send
+    P[Build ABNDINFO-REC\nLINK to ABNDPROC\nEXEC CICS ABEND HBNK]:::error
+    Q[EDIT-MENU-DATA\nValidate ACTIONI]:::process
+    R{{ACTIONI = 1–7 or A?}}:::decision
+    S[VALID-DATA-SW = Y\nMove ACTIONI to ACTION-ALPHA]:::process
+    T[VALID-DATA-SW = N\nSet error message in MESSAGEO]:::process
+    U{{VALID-DATA = TRUE?}}:::decision
+    V[INVOKE-OTHER-TXNS]:::process
+    W{{ACTIONI value}}:::decision
+    X1[RETURN TRANSID ODCS IMMEDIATE]:::process
+    X2[RETURN TRANSID ODAC IMMEDIATE]:::process
+    X3[RETURN TRANSID OCCS IMMEDIATE]:::process
+    X4[RETURN TRANSID OCAC IMMEDIATE]:::process
+    X5[RETURN TRANSID OUAC IMMEDIATE]:::process
+    X6[RETURN TRANSID OCRA IMMEDIATE]:::process
+    X7[RETURN TRANSID OTFN IMMEDIATE]:::process
+    X8[RETURN TRANSID OCCA IMMEDIATE]:::process
+    Y[Set SEND-DATAONLY-ALARM\nPERFORM SEND-MAP]:::send
+
+    A --> B
+    B -- Yes --> C --> D --> E
+    B -- No --> F
+    F -- PA1/PA2/PA3 --> G --> E
+    F -- PF3/PF12 --> H --> H2 --> H3
+    F -- CLEAR --> I --> I2
+    F -- ENTER --> J --> L
+    F -- Other --> K --> Y
+    L --> M
+    M -- No --> N
+    N -- MAPFAIL --> O --> E
+    N -- Other error --> P
+    M -- Yes --> Q --> R
+    R -- Invalid --> T --> U
+    R -- Valid --> S --> U
+    U -- Yes --> V --> W
+    W -- 1 --> X1
+    W -- 2 --> X2
+    W -- 3 --> X3
+    W -- 4 --> X4
+    W -- 5 --> X5
+    W -- 6 --> X6
+    W -- 7 --> X7
+    W -- A --> X8
+    U -- No --> Y
+    Y --> E
+</div>
+<h3 id="52-pseudo-conversational-cycle" tabindex="-1">5.2 Pseudo-Conversational Cycle</h3>
+<p>BNKMENU follows the classic CICS pseudo-conversational pattern. Rather than holding a long-running conversational task open, the program releases all CICS resources after every user interaction and instructs CICS to re-invoke the same transaction (<code>OMEN</code>) the next time the operator presses a key.</p>
+<div class="mermaid">
+sequenceDiagram
+    participant Op as Operator (3270)
+    participant CICS
+    participant BNKMENU
+    participant BankTxn as Banking Transaction
+
+    Op->>CICS: Type OMEN + ENTER (first time)
+    CICS->>BNKMENU: Invoke (EIBCALEN = 0)
+    BNKMENU->>CICS: SEND MAP BNK1ME (ERASE)
+    CICS-->>Op: Display blank menu
+    BNKMENU->>CICS: RETURN TRANSID(OMEN) COMMAREA(1 byte)
+    note over CICS: Task ends – resources released
+
+    Op->>CICS: Type '3' + ENTER
+    CICS->>BNKMENU: Invoke (EIBCALEN = 1)
+    BNKMENU->>CICS: RECEIVE MAP BNK1ME → ACTIONI='3'
+    BNKMENU->>BNKMENU: EDIT-MENU-DATA → VALID-DATA = Y
+    BNKMENU->>CICS: RETURN TRANSID(OCCS) IMMEDIATE
+    CICS->>BankTxn: Start OCCS (Create Customer)
+    BankTxn-->>Op: Display Create Customer screen
+</div>
+<p>The key characteristic is the <code>RETURN TRANSID('OMEN') COMMAREA(COMMUNICATION-AREA) LENGTH(1)</code> statement that closes every cycle. The one-byte <code>COMMAREA</code> ensures <code>EIBCALEN</code> is non-zero on re-entry, distinguishing a returning session from a brand-new one.</p>
+<h3 id="53-step-by-step-execution" tabindex="-1">5.3 Step-by-Step Execution</h3>
+<p><strong>Step 1 — Entry and first-time detection (<code>PREMIERE</code> / <code>A010</code>)</strong></p>
+<p>The program opens with an <code>EVALUATE TRUE</code> block that inspects <code>EIBCALEN</code> and <code>EIBAID</code>:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">EVALUATE TRUE
+    WHEN EIBCALEN = ZERO
+        INITIALIZE BNK1MEO
+        MOVE -1       TO ACTIONL
+        SET SEND-ERASE TO TRUE
+        PERFORM SEND-MAP
+
+    WHEN EIBAID = DFHPA1 OR DFHPA2 OR DFHPA3
+        CONTINUE
+
+    WHEN EIBAID = DFHPF3 OR DFHPF12
+        PERFORM SEND-TERMINATION-MSG
+        EXEC CICS RETURN END-EXEC
+
+    WHEN EIBAID = DFHCLEAR
+        EXEC CICS SEND CONTROL ERASE FREEKB END-EXEC
+        EXEC CICS RETURN END-EXEC
+
+    WHEN EIBAID = DFHENTER
+        PERFORM PROCESS-MENU-MAP
+
+    WHEN OTHER
+        MOVE &#039;Invalid key pressed.&#039; TO MESSAGEO
+        SET SEND-DATAONLY-ALARM TO TRUE
+        PERFORM SEND-MAP
+END-EVALUATE</code></pre>
+</div>
+<p><strong>Step 2 — Pseudo-conversational re-arm</strong></p>
+<p>After the <code>EVALUATE</code>, the program always reaches:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">EXEC CICS RETURN
+    TRANSID(&#039;OMEN&#039;)
+    COMMAREA(COMMUNICATION-AREA)
+    LENGTH(1)
+    RESP(WS-CICS-RESP)
+    RESP2(WS-CICS-RESP2)
+END-EXEC</code></pre>
+</div>
+<p>If this command itself fails, the full abend diagnostic sequence is triggered.</p>
+<p><strong>Step 3 — Map receive and validation (<code>RECEIVE-MENU-MAP</code> / <code>EDIT-MENU-DATA</code>)</strong></p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">EXEC CICS RECEIVE MAP(&#039;BNK1ME&#039;)
+    MAPSET(&#039;BNK1MAI&#039;)
+    INTO(BNK1MEI)
+    RESP(WS-CICS-RESP)
+    RESP2(WS-CICS-RESP2)
+END-EXEC</code></pre>
+</div>
+<p><code>EDIT-MENU-DATA</code> then validates <code>ACTIONI</code>:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">IF ACTIONI NOT = &#039;1&#039; AND
+   ACTIONI NOT = &#039;2&#039; AND
+   ACTIONI NOT = &#039;3&#039; AND
+   ACTIONI NOT = &#039;4&#039; AND
+   ACTIONI NOT = &#039;5&#039; AND
+   ACTIONI NOT = &#039;6&#039; AND
+   ACTIONI NOT = &#039;7&#039; AND
+   ACTIONI NOT = &#039;A&#039;
+    MOVE &#039;You must enter a valid value (1-7 or A).&#039;
+        TO MESSAGEO
+    MOVE &#039;N&#039; TO VALID-DATA-SW
+ELSE
+    MOVE ACTIONI TO ACTION-ALPHA
+END-IF</code></pre>
+</div>
+<p><strong>Step 4 — Transaction routing (<code>INVOKE-OTHER-TXNS</code> / <code>IOT010</code>)</strong></p>
+<p>For each valid selection, an immediate CICS RETURN transfers the terminal to the corresponding transaction:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">IF ACTIONI = &#039;1&#039;
+    EXEC CICS RETURN
+        TRANSID(&#039;ODCS&#039;)
+        IMMEDIATE
+        RESP(WS-CICS-RESP)
+        RESP2(WS-CICS-RESP2)
+    END-EXEC
+    *&gt; error handling follows ...
+END-IF
+
+IF ACTIONI = &#039;2&#039;
+    EXEC CICS RETURN
+        TRANSID(&#039;ODAC&#039;)
+        IMMEDIATE
+        RESP(WS-CICS-RESP)
+        RESP2(WS-CICS-RESP2)
+    END-EXEC
+END-IF
+*&gt; ... and so on for options 3–7 and A</code></pre>
+</div>
+<p><strong>Step 5 — Map send (<code>SEND-MAP</code> / <code>SMM010</code>)</strong></p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">IF SEND-ERASE
+    EXEC CICS SEND MAP(&#039;BNK1ME&#039;)
+        MAPSET(&#039;BNK1MAI&#039;)
+        FROM(BNK1MEO)
+        ERASE
+        FREEKB
+        RESP(WS-CICS-RESP)
+        RESP2(WS-CICS-RESP2)
+    END-EXEC
+    GO TO SMM999
+END-IF
+
+IF SEND-DATAONLY
+    EXEC CICS SEND MAP(&#039;BNK1ME&#039;)
+        MAPSET(&#039;BNK1MAI&#039;)
+        FROM(BNK1MEO)
+        DATAONLY
+        FREEKB
+        RESP(WS-CICS-RESP)
+        RESP2(WS-CICS-RESP2)
+    END-EXEC
+    GO TO SMM999
+END-IF
+
+IF SEND-DATAONLY-ALARM
+    EXEC CICS SEND MAP(&#039;BNK1ME&#039;)
+        MAPSET(&#039;BNK1MAI&#039;)
+        FROM(BNK1MEO)
+        DATAONLY
+        ALARM
+        FREEKB
+        RESP(WS-CICS-RESP)
+        RESP2(WS-CICS-RESP2)
+    END-EXEC
+END-IF</code></pre>
+</div>
+<p><strong>Step 6 — Time/date population for diagnostics (<code>POPULATE-TIME-DATE</code> / <code>PTD010</code>)</strong></p>
+<p>Called exclusively from error paths to stamp the abend record:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">EXEC CICS ASKTIME
+    ABSTIME(WS-U-TIME)
+END-EXEC
+
+EXEC CICS FORMATTIME
+    ABSTIME(WS-U-TIME)
+    DDMMYYYY(WS-ORIG-DATE)
+    TIME(WS-TIME-NOW)
+    DATESEP
+END-EXEC</code></pre>
+</div>
+<hr>
+<h2 id="6-paragraphs" tabindex="-1">6. Paragraphs</h2>
+<p>The table below documents every paragraph / section in the program’s <code>PROCEDURE DIVISION</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Paragraph</th>
+<th>Section</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>A010</code></td>
+<td><code>PREMIERE</code></td>
+<td>Main entry point; <code>EVALUATE TRUE</code> dispatch on <code>EIBCALEN</code> / <code>EIBAID</code>; issues pseudo-conversational <code>RETURN TRANSID('OMEN')</code></td>
+</tr>
+<tr>
+<td><code>A999</code></td>
+<td><code>PREMIERE</code></td>
+<td>Section exit marker — <code>EXIT</code> only</td>
+</tr>
+<tr>
+<td><code>PMM010</code></td>
+<td><code>PROCESS-MENU-MAP</code></td>
+<td>Sequences RECEIVE → EDIT → conditional INVOKE; always ends with <code>SEND-DATAONLY-ALARM</code> + <code>SEND-MAP</code></td>
+</tr>
+<tr>
+<td><code>PMM999</code></td>
+<td><code>PROCESS-MENU-MAP</code></td>
+<td>Section exit marker — <code>EXIT</code> only</td>
+</tr>
+<tr>
+<td><code>RMM010</code></td>
+<td><code>RECEIVE-MENU-MAP</code></td>
+<td><code>EXEC CICS RECEIVE MAP</code>; handles <code>MAPFAIL</code> as recoverable; all other non-normal responses trigger abend path</td>
+</tr>
+<tr>
+<td><code>RMM999</code></td>
+<td><code>RECEIVE-MENU-MAP</code></td>
+<td>Section exit marker — <code>EXIT</code> only</td>
+</tr>
+<tr>
+<td><code>EMD010</code></td>
+<td><code>EDIT-MENU-DATA</code></td>
+<td>Validates <code>ACTIONI</code> against the eight accepted values; sets <code>VALID-DATA-SW</code> and <code>MESSAGEO</code></td>
+</tr>
+<tr>
+<td><code>EMD999</code></td>
+<td><code>EDIT-MENU-DATA</code></td>
+<td>Section exit marker — <code>EXIT</code> only</td>
+</tr>
+<tr>
+<td><code>IOT010</code></td>
+<td><code>INVOKE-OTHER-TXNS</code></td>
+<td>Eight <code>IF</code> blocks, each issuing <code>EXEC CICS RETURN TRANSID(...) IMMEDIATE</code> for a valid menu option</td>
+</tr>
+<tr>
+<td><code>IOT999</code></td>
+<td><code>INVOKE-OTHER-TXNS</code></td>
+<td>Section exit marker — <code>EXIT</code> only</td>
+</tr>
+<tr>
+<td><code>SMM010</code></td>
+<td><code>SEND-MAP</code></td>
+<td>Sends <code>BNK1ME</code> in ERASE, DATAONLY, or DATAONLY+ALARM mode; <code>GO TO SMM999</code> after ERASE and DATAONLY branches</td>
+</tr>
+<tr>
+<td><code>SMM999</code></td>
+<td><code>SEND-MAP</code></td>
+<td>Section exit marker and <code>GO TO</code> target — <code>EXIT</code> only</td>
+</tr>
+<tr>
+<td><code>STM010</code></td>
+<td><code>SEND-TERMINATION-MSG</code></td>
+<td><code>EXEC CICS SEND TEXT</code> with <code>'Session Ended'</code>; abend path on failure</td>
+</tr>
+<tr>
+<td><code>STM999</code></td>
+<td><code>SEND-TERMINATION-MSG</code></td>
+<td>Section exit marker — <code>EXIT</code> only</td>
+</tr>
+<tr>
+<td><code>ATT010</code></td>
+<td><code>ABEND-THIS-TASK</code></td>
+<td><code>DISPLAY WS-FAIL-INFO</code> to job log; <code>EXEC CICS ABEND ABCODE('HBNK') NODUMP</code></td>
+</tr>
+<tr>
+<td><code>ATT999</code></td>
+<td><code>ABEND-THIS-TASK</code></td>
+<td>Section exit marker — <code>EXIT</code> only</td>
+</tr>
+<tr>
+<td><code>PTD010</code></td>
+<td><code>POPULATE-TIME-DATE</code></td>
+<td><code>ASKTIME</code> + <code>FORMATTIME</code> to populate <code>WS-ORIG-DATE</code> and <code>WS-TIME-NOW</code> for abend records</td>
+</tr>
+<tr>
+<td><code>PTD999</code></td>
+<td><code>POPULATE-TIME-DATE</code></td>
+<td>Section exit marker — <code>EXIT</code> only</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="7-dependencies" tabindex="-1">7. Dependencies</h2>
+<h3 id="71-bms-resources" tabindex="-1">7.1 BMS Resources</h3>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Type</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BNK1ME</code></td>
+<td>BMS Map</td>
+<td>Interactive menu screen — sent and received by the program</td>
+</tr>
+<tr>
+<td><code>BNK1MAI</code></td>
+<td>BMS Mapset</td>
+<td>Contains <code>BNK1ME</code>; referenced in all <code>SEND MAP</code> / <code>RECEIVE MAP</code> commands</td>
+</tr>
+</tbody>
+</table>
+<h3 id="72-cics-transactions-invoked" tabindex="-1">7.2 CICS Transactions Invoked</h3>
+<table>
+<thead>
+<tr>
+<th>Transaction ID</th>
+<th>Trigger</th>
+<th>Banking Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OMEN</code></td>
+<td><code>RETURN TRANSID('OMEN')</code></td>
+<td>Self-reference — pseudo-conversational re-arm</td>
+</tr>
+<tr>
+<td><code>ODCS</code></td>
+<td>Option <code>1</code></td>
+<td>Display Customer Details</td>
+</tr>
+<tr>
+<td><code>ODAC</code></td>
+<td>Option <code>2</code></td>
+<td>Display Account Details</td>
+</tr>
+<tr>
+<td><code>OCCS</code></td>
+<td>Option <code>3</code></td>
+<td>Create a Customer</td>
+</tr>
+<tr>
+<td><code>OCAC</code></td>
+<td>Option <code>4</code></td>
+<td>Create an Account</td>
+</tr>
+<tr>
+<td><code>OUAC</code></td>
+<td>Option <code>5</code></td>
+<td>Update an Account</td>
+</tr>
+<tr>
+<td><code>OCRA</code></td>
+<td>Option <code>6</code></td>
+<td>Credit / Debit Funds</td>
+</tr>
+<tr>
+<td><code>OTFN</code></td>
+<td>Option <code>7</code></td>
+<td>Transfer Funds</td>
+</tr>
+<tr>
+<td><code>OCCA</code></td>
+<td>Option <code>A</code></td>
+<td>Look Up Customer Accounts</td>
+</tr>
+</tbody>
+</table>
+<h3 id="73-external-programs" tabindex="-1">7.3 External Programs</h3>
+<table>
+<thead>
+<tr>
+<th>Program</th>
+<th>Call Mechanism</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ABNDPROC</code></td>
+<td><code>EXEC CICS LINK PROGRAM(WS-ABEND-PGM) COMMAREA(ABNDINFO-REC)</code></td>
+<td>Centralised abend handler — receives full diagnostic record on any CICS command failure</td>
+</tr>
+</tbody>
+</table>
+<h3 id="74-copybooks" tabindex="-1">7.4 Copybooks</h3>
+<table>
+<thead>
+<tr>
+<th>Copybook</th>
+<th>Usage</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BNK1MAI</code></td>
+<td><code>COPY BNK1MAI</code></td>
+<td>Symbolic map structures <code>BNK1MEI</code> (input) and <code>BNK1MEO</code> (output), including <code>ACTIONI</code>, <code>ACTIONL</code>, and <code>MESSAGEO</code></td>
+</tr>
+<tr>
+<td><code>DFHAID</code></td>
+<td><code>COPY DFHAID</code></td>
+<td>Standard AID key constants (<code>DFHENTER</code>, <code>DFHPF3</code>, <code>DFHPF12</code>, <code>DFHCLEAR</code>, <code>DFHPA1–PA3</code>)</td>
+</tr>
+<tr>
+<td><code>ABNDINFO</code></td>
+<td>Expanded inline</td>
+<td><code>ABNDINFO-REC</code> structure passed to <code>ABNDPROC</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="75-cics-runtime-services" tabindex="-1">7.5 CICS Runtime Services</h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EXEC CICS RETURN TRANSID</code></td>
+<td>Pseudo-conversational re-arm and immediate transaction routing</td>
+</tr>
+<tr>
+<td><code>EXEC CICS RECEIVE MAP</code></td>
+<td>Read BMS map input from the terminal</td>
+</tr>
+<tr>
+<td><code>EXEC CICS SEND MAP</code></td>
+<td>Write BMS map to the terminal (ERASE / DATAONLY / DATAONLY+ALARM)</td>
+</tr>
+<tr>
+<td><code>EXEC CICS SEND TEXT</code></td>
+<td>Send plain-text session-end message</td>
+</tr>
+<tr>
+<td><code>EXEC CICS SEND CONTROL</code></td>
+<td>Erase terminal on CLEAR key</td>
+</tr>
+<tr>
+<td><code>EXEC CICS ASSIGN</code></td>
+<td>Retrieve <code>APPLID</code> and current <code>PROGRAM</code> name</td>
+</tr>
+<tr>
+<td><code>EXEC CICS ASKTIME</code></td>
+<td>Obtain absolute timestamp for abend records</td>
+</tr>
+<tr>
+<td><code>EXEC CICS FORMATTIME</code></td>
+<td>Format timestamp to human-readable date and time</td>
+</tr>
+<tr>
+<td><code>EXEC CICS ABEND</code></td>
+<td>Abnormally terminate the task with code <code>HBNK</code></td>
+</tr>
+<tr>
+<td><code>EXEC CICS LINK</code></td>
+<td>Call <code>ABNDPROC</code> with the diagnostic <code>COMMAREA</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="76-eib-fields-used" tabindex="-1">7.6 EIB Fields Used</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>How Used</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EIBCALEN</code></td>
+<td>Zero on first entry → triggers ERASE send; non-zero on returning session</td>
+</tr>
+<tr>
+<td><code>EIBAID</code></td>
+<td>Identifies the AID key to drive the main <code>EVALUATE</code> dispatch</td>
+</tr>
+<tr>
+<td><code>EIBRESP</code> / <code>EIBRESP2</code></td>
+<td>Checked after every CICS command; copied to <code>ABNDINFO-REC</code> on failure</td>
+</tr>
+<tr>
+<td><code>EIBTASKN</code></td>
+<td>Stored as <code>ABND-TASKNO-KEY</code> in the abend record</td>
+</tr>
+<tr>
+<td><code>EIBTRNID</code></td>
+<td>Stored as <code>ABND-TRANID</code> in the abend record</td>
+</tr>
+</tbody>
+</table>
+<h3 id="77-cics-transaction-definition" tabindex="-1">7.7 CICS Transaction Definition</h3>
+<p>Transaction <code>OMEN</code> must be defined in the CICS CSD and mapped to program <code>BNKMENU</code>. Without this definition the pseudo-conversational <code>RETURN TRANSID('OMEN')</code> loop cannot function.</p>
+<hr>
+<h2 id="8-constraints" tabindex="-1">8. Constraints</h2>
+<h3 id="81-input-validation-constraints" tabindex="-1">8.1 Input Validation Constraints</h3>
+<ul>
+<li><code>ACTIONI</code> must be exactly one character from the set <code>{ '1', '2', '3', '4', '5', '6', '7', 'A' }</code>. Any other value sets <code>VALID-DATA-SW = 'N'</code> and blocks transaction dispatch.</li>
+<li>The <code>EXEC CICS RECEIVE MAP</code> must succeed before validation can proceed. A <code>MAPFAIL</code> response causes an ERASE re-send; any other non-normal response causes an immediate abend.</li>
+<li>Validation (<code>EDIT-MENU-DATA</code>) must complete before <code>INVOKE-OTHER-TXNS</code> is ever reached — enforced by the <code>IF VALID-DATA</code> guard in <code>PMM010</code>.</li>
+</ul>
+<h3 id="82-aid-key-constraints" tabindex="-1">8.2 AID Key Constraints</h3>
+<ul>
+<li>Only <code>DFHENTER</code> triggers map processing.</li>
+<li><code>DFHPF3</code> / <code>DFHPF12</code> unconditionally end the session.</li>
+<li><code>DFHCLEAR</code> clears the screen and ends the task without re-arming <code>OMEN</code>.</li>
+<li>PA keys (<code>DFHPA1–PA3</code>) are silently ignored (<code>CONTINUE</code>).</li>
+<li>Any unrecognised AID key produces an <code>'Invalid key pressed.'</code> alarm message.</li>
+</ul>
+<h3 id="83-flow-sequencing-constraints" tabindex="-1">8.3 Flow Sequencing Constraints</h3>
+<ul>
+<li>The three steps in <code>PROCESS-MENU-MAP</code> (RECEIVE → EDIT → INVOKE) are fixed in order and cannot be rearranged.</li>
+<li>A <code>SEND-MAP</code> call must <strong>always</strong> execute at the end of <code>PROCESS-MENU-MAP</code>, regardless of validation outcome, to guarantee the terminal always receives a response.</li>
+<li><code>EXEC CICS RETURN TRANSID('OMEN')</code> is always the final statement of the main flow path.</li>
+<li>Each <code>EXEC CICS RETURN TRANSID(...) IMMEDIATE</code> in <code>INVOKE-OTHER-TXNS</code> transfers control out of the task immediately, so only one downstream transaction can be started per cycle.</li>
+</ul>
+<h3 id="84-commarea-constraints" tabindex="-1">8.4 COMMAREA Constraints</h3>
+<ul>
+<li>The <code>COMMAREA</code> passed on the pseudo-conversational return is exactly <strong>1 byte</strong> (<code>LENGTH(1)</code> is hard-coded).</li>
+<li>Its content is never read; only its presence (non-zero <code>EIBCALEN</code>) is tested.</li>
+</ul>
+<h3 id="85-screen-send-mode-constraints" tabindex="-1">8.5 Screen Send Mode Constraints</h3>
+<ul>
+<li>Exactly one of <code>SEND-ERASE</code>, <code>SEND-DATAONLY</code>, or <code>SEND-DATAONLY-ALARM</code> must be set before <code>SEND-MAP</code> is called. If none is set, <code>SEND-MAP</code> exits silently without sending anything.</li>
+<li><code>GO TO SMM999</code> ensures that once the ERASE or DATAONLY branch executes, the remaining branches are skipped.</li>
+</ul>
+<h3 id="86-error-and-abend-constraints" tabindex="-1">8.6 Error and Abend Constraints</h3>
+<ul>
+<li>Every CICS command is individually guarded by a <code>RESP</code>/<code>RESP2</code> check. Any non-normal response is fatal, with the single exception of <code>MAPFAIL</code> on <code>RECEIVE MAP</code>.</li>
+<li>The abend code is always <code>'HBNK'</code>; <code>NODUMP</code> suppresses a storage dump.</li>
+<li><code>ABNDINFO-REC</code> must be fully populated (including <code>POPULATE-TIME-DATE</code>) before <code>EXEC CICS LINK</code> to <code>ABNDPROC</code> is issued.</li>
+<li><code>ABND-FREEFORM</code> is capped at 600 characters; overflow is silently truncated.</li>
+</ul>
+<h3 id="87-known-coding-anomaly" tabindex="-1">8.7 Known Coding Anomaly</h3>
+<p>The <code>STRING</code> statement that builds <code>ABND-TIME</code> references <code>WS-TIME-NOW-GRP-MM</code> (minutes) twice instead of using <code>WS-TIME-NOW-GRP-SS</code> (seconds) in the seconds slot. As a result, all abend timestamps are recorded as <code>HH:MM:MM</code> rather than <code>HH:MM:SS</code>. This is a defect that reduces diagnostic timestamp precision but does not affect program operation.</p>
+<hr>
+<h2 id="9-error-handling" tabindex="-1">9. Error Handling</h2>
+<h3 id="91-input-validation-errors" tabindex="-1">9.1 Input Validation Errors</h3>
+<p>Two classes of user-input error are handled gracefully (no abend):</p>
+<p><strong>Invalid menu selection:</strong></p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">CODE</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code>ACTIONI = &#039;X&#039;  →  VALID-DATA-SW = &#039;N&#039;
+                   MESSAGEO = &#039;You must enter a valid value (1-7 or A).&#039;
+                   SEND-DATAONLY-ALARM → audible alarm + data refresh</code></pre>
+</div>
+<p><strong>Unrecognised AID key:</strong></p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">CODE</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code>EIBAID ≠ any handled key  →  MESSAGEO = &#039;Invalid key pressed.&#039;
+                               SEND-DATAONLY-ALARM → audible alarm + data refresh</code></pre>
+</div>
+<p>In both cases the menu remains on screen, the cursor returns to the <code>ACTION</code> field, and the operator can correct their input.</p>
+<h3 id="92-terminal-io-errors" tabindex="-1">9.2 Terminal I/O Errors</h3>
+<table>
+<thead>
+<tr>
+<th>Failing Command</th>
+<th>RESP Condition</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EXEC CICS RECEIVE MAP</code></td>
+<td><code>MAPFAIL</code></td>
+<td>Recoverable — re-send map with ERASE; no abend</td>
+</tr>
+<tr>
+<td><code>EXEC CICS RECEIVE MAP</code></td>
+<td>Any other non-normal</td>
+<td>Fatal — full abend sequence (<code>'RMM010 - RECEIVE MAP FAIL'</code>)</td>
+</tr>
+<tr>
+<td><code>EXEC CICS SEND MAP</code> (ERASE)</td>
+<td>Non-normal</td>
+<td>Fatal — <code>'SMM010 - SEND MAP ERASE FAIL'</code></td>
+</tr>
+<tr>
+<td><code>EXEC CICS SEND MAP</code> (DATAONLY)</td>
+<td>Non-normal</td>
+<td>Fatal — <code>'SMM010 - SEND MAP DATAONLY FAIL'</code></td>
+</tr>
+<tr>
+<td><code>EXEC CICS SEND MAP</code> (DATAONLY ALARM)</td>
+<td>Non-normal</td>
+<td>Fatal — <code>'SMM010 - SEND MAP DATAONLY ALARM FAIL'</code></td>
+</tr>
+<tr>
+<td><code>EXEC CICS SEND TEXT</code></td>
+<td>Non-normal</td>
+<td>Fatal — <code>'STM010 - SEND TEXT FAIL'</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="93-transaction-dispatch-errors" tabindex="-1">9.3 Transaction Dispatch Errors</h3>
+<p>Each of the eight <code>EXEC CICS RETURN TRANSID(...) IMMEDIATE</code> commands is individually guarded. A failure on, for example, routing to <code>ODCS</code> produces a free-form diagnostic string:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">CODE</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code>&#039;IOT010 - RETURN TRANSID(ODCS) FAIL. EIBRESP=nnn RESP2=nnn&#039;</code></pre>
+</div>
+<p>The same pattern applies to all eight routing options.</p>
+<h3 id="94-pseudo-conversational-return-error" tabindex="-1">9.4 Pseudo-Conversational Return Error</h3>
+<p>If the <code>EXEC CICS RETURN TRANSID('OMEN')</code> at the end of the main flow fails:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">CODE</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code>&#039;A010 - RETURN TRANSID(MENU) FAIL. EIBRESP=nnn RESP2=nnn&#039;</code></pre>
+</div>
+<h3 id="95-centralised-abend-sequence" tabindex="-1">9.5 Centralised Abend Sequence</h3>
+<p>Every fatal error path follows this exact multi-step sequence:</p>
+<div class="mermaid">
+sequenceDiagram
+    participant BNKMENU
+    participant CICS
+    participant ABNDPROC
+    participant Log as CICS Job Log
+
+    BNKMENU->>BNKMENU: INITIALIZE ABNDINFO-REC
+    BNKMENU->>CICS: EXEC CICS ASSIGN APPLID / PROGRAM
+    CICS-->>BNKMENU: APPLID, PROGRAM name
+    BNKMENU->>CICS: EXEC CICS ASKTIME + FORMATTIME
+    CICS-->>BNKMENU: WS-ORIG-DATE, WS-TIME-NOW
+    BNKMENU->>BNKMENU: STRING → ABND-FREEFORM (diagnostic text)
+    BNKMENU->>ABNDPROC: EXEC CICS LINK COMMAREA(ABNDINFO-REC)
+    ABNDPROC-->>BNKMENU: Return (diagnostic logged)
+    BNKMENU->>Log: DISPLAY WS-FAIL-INFO
+    BNKMENU->>CICS: EXEC CICS ABEND ABCODE('HBNK') NODUMP
+</div>
+<p>The <code>ABNDINFO-REC</code> structure carries:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ABND-RESPCODE</code></td>
+<td><code>EIBRESP</code> from failing command</td>
+</tr>
+<tr>
+<td><code>ABND-RESP2CODE</code></td>
+<td><code>EIBRESP2</code> from failing command</td>
+</tr>
+<tr>
+<td><code>ABND-APPLID</code></td>
+<td>CICS region application ID</td>
+</tr>
+<tr>
+<td><code>ABND-TASKNO-KEY</code></td>
+<td><code>EIBTASKN</code></td>
+</tr>
+<tr>
+<td><code>ABND-TRANID</code></td>
+<td><code>EIBTRNID</code></td>
+</tr>
+<tr>
+<td><code>ABND-DATE</code></td>
+<td><code>WS-ORIG-DATE</code> (DD/MM/YYYY)</td>
+</tr>
+<tr>
+<td><code>ABND-TIME</code></td>
+<td><code>HH:MM:MM</code> <em>(see §8.7 — known anomaly)</em></td>
+</tr>
+<tr>
+<td><code>ABND-UTIME-KEY</code></td>
+<td>Absolute CICS time (<code>WS-U-TIME</code>)</td>
+</tr>
+<tr>
+<td><code>ABND-CODE</code></td>
+<td><code>'HBNK'</code> (fixed)</td>
+</tr>
+<tr>
+<td><code>ABND-PROGRAM</code></td>
+<td>Program name from <code>EXEC CICS ASSIGN PROGRAM</code></td>
+</tr>
+<tr>
+<td><code>ABND-SQLCODE</code></td>
+<td>Zeros (no DB2 in this program)</td>
+</tr>
+<tr>
+<td><code>ABND-FREEFORM</code></td>
+<td>Free-text description (max 600 chars)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="10-worked-examples" tabindex="-1">10. Worked Examples</h2>
+<h3 id="101-example-1--first-entry-no-commarea-menu-displayed-for-the-first-time" tabindex="-1">10.1 Example 1 — First Entry (No COMMAREA): Menu Displayed for the First Time</h3>
+<p><strong>Input state:</strong></p>
+<ul>
+<li><code>EIBCALEN = 0</code> (no prior session)</li>
+<li>No key pressed yet</li>
+</ul>
+<p><strong>Expected output:</strong></p>
+<ul>
+<li>Map <code>BNK1ME</code> sent with <code>ERASE</code> — full blank menu drawn on terminal</li>
+<li>Cursor positioned on the <code>ACTION</code> field (<code>ACTIONL = -1</code>)</li>
+<li><code>EXEC CICS RETURN TRANSID('OMEN') COMMAREA(...) LENGTH(1)</code> re-arms the session</li>
+</ul>
+<p><strong>How it works:</strong>
+<code>EIBCALEN = ZERO</code> matches the first <code>WHEN</code> clause. <code>BNK1MEO</code> is initialised with <code>LOW-VALUE</code>, <code>SEND-ERASE</code> is set to <code>TRUE</code>, and <code>SEND-MAP</code> issues <code>EXEC CICS SEND MAP … ERASE FREEKB</code>. The terminal receives a completely cleared screen with the menu layout. CICS is then instructed to re-invoke <code>OMEN</code> on the next keypress.</p>
+<hr>
+<h3 id="102-example-2--valid-selection-1-display-customer-details" tabindex="-1">10.2 Example 2 — Valid Selection <code>'1'</code> (Display Customer Details)</h3>
+<p><strong>Input state:</strong></p>
+<ul>
+<li><code>EIBCALEN = 1</code> (returning pseudo-conversational cycle)</li>
+<li><code>EIBAID = DFHENTER</code></li>
+<li><code>ACTIONI = '1'</code></li>
+</ul>
+<p><strong>Expected output:</strong></p>
+<ul>
+<li>CICS immediately routes the terminal session to transaction <code>ODCS</code></li>
+<li><code>OMEN</code> is no longer active; <code>ODCS</code> takes over the terminal</li>
+</ul>
+<p><strong>How it works:</strong>
+<code>DFHENTER</code> routes execution into <code>PROCESS-MENU-MAP</code>. After a successful <code>RECEIVE MAP</code>, <code>EDIT-MENU-DATA</code> confirms <code>'1'</code> is valid, sets <code>VALID-DATA-SW = 'Y'</code>, and <code>INVOKE-OTHER-TXNS</code> fires <code>EXEC CICS RETURN TRANSID('ODCS') IMMEDIATE</code>.</p>
+<hr>
+<h3 id="103-example-3--invalid-selection-validation-failure" tabindex="-1">10.3 Example 3 — Invalid Selection (Validation Failure)</h3>
+<p><strong>Input state:</strong></p>
+<ul>
+<li><code>EIBCALEN = 1</code></li>
+<li><code>EIBAID = DFHENTER</code></li>
+<li><code>ACTIONI = 'X'</code></li>
+</ul>
+<p><strong>Expected output:</strong></p>
+<ul>
+<li>Screen updated with: <code>You must enter a valid value (1-7 or A).</code></li>
+<li>Audible alarm triggered at the terminal</li>
+<li>Cursor repositioned on the <code>ACTION</code> field</li>
+<li><code>EXEC CICS RETURN TRANSID('OMEN')</code> re-arms — operator must try again</li>
+</ul>
+<p><strong>How it works:</strong>
+In <code>EDIT-MENU-DATA</code>, <code>'X'</code> matches none of the accepted values, so <code>VALID-DATA-SW = 'N'</code> and the error message is placed in <code>MESSAGEO</code>. <code>IF VALID-DATA</code> is false so <code>INVOKE-OTHER-TXNS</code> is skipped. Back in <code>PMM010</code>, <code>SEND-DATAONLY-ALARM</code> is set and <code>SEND-MAP</code> issues <code>EXEC CICS SEND MAP … DATAONLY ALARM FREEKB</code>.</p>
+<hr>
+<h3 id="104-example-4--operator-presses-pf3-session-termination" tabindex="-1">10.4 Example 4 — Operator Presses PF3 (Session Termination)</h3>
+<p><strong>Input state:</strong></p>
+<ul>
+<li><code>EIBCALEN = 1</code></li>
+<li><code>EIBAID = DFHPF3</code></li>
+</ul>
+<p><strong>Expected output:</strong></p>
+<ul>
+<li>Terminal displays <code>Session Ended</code> on a cleared screen</li>
+<li>CICS task ends unconditionally (<code>EXEC CICS RETURN</code> with no <code>TRANSID</code>)</li>
+</ul>
+<p><strong>How it works:</strong>
+The <code>WHEN EIBAID = DFHPF3 OR DFHPF12</code> branch calls <code>SEND-TERMINATION-MSG</code>, which issues <code>EXEC CICS SEND TEXT FROM(END-OF-SESSION-MESSAGE) ERASE FREEKB</code>. The literal <code>'Session Ended'</code> is written to the cleared terminal screen. A bare <code>EXEC CICS RETURN</code> (no <code>TRANSID</code>) then terminates the task — no further transaction is queued.</p>
+<hr>
+<p><em>Generated by IBM Bob Premium Package for Z</em></p>
+
+                        <div class="related-pages">
+                            <p class="related-pages-title">Related Pages</p>
+                            <div class="card-grid">
+                                
+            <a href="architecture-flow.html" class="card">
+                <span class="card-title">Application Flow</span>
+                <span class="card-description">End-to-end walkthrough of transaction flows within Bank of Z, from menu navigation through account management, credit scoring, and fund transfers.</span>
+            </a>
+            <a href="architecture-components.html" class="card">
+                <span class="card-title">Application Components</span>
+                <span class="card-description">Detailed breakdown of all Bank of Z application components, including CICS programs, DB2 tables, BMS maps, copybooks, and supporting utilities.</span>
+            </a>
+            <a href="program-crdtagy2.html" class="card">
+                <span class="card-title">CRDTAGY2 – Credit Agency Simulator</span>
+                <span class="card-description">Reference documentation for the CRDTAGY2 CICS COBOL program. Covers asynchronous credit scoring via CICS channels and containers, random score generation, deliberate latency simulation, and timeout behavior.</span>
+            </a>
+            <a href="program-delacc.html" class="card">
+                <span class="card-title">DELACC – Delete Account Program</span>
+                <span class="card-description">Reference documentation for the DELACC CICS COBOL program. Covers RACF security checks, DB2 account record deletion, audit trail writing to PROCTRAN, communication area conventions, and abend handling.</span>
+            </a>
+                            </div>
+                        </div>
+                    </div>
+                    <nav class="toc-panel" aria-label="On this page">
+  <span class="toc-panel-label">On this page</span>
+  <ul class="toc-list">
+<li class="toc-level-2"><a href="#1-system-architecture">1. System Architecture</a></li>
+<li class="toc-level-2"><a href="#2-overview">2. Overview</a></li>
+<li class="toc-level-2"><a href="#3-inputs">3. Inputs</a>
+<ul>
+<li class="toc-level-3"><a href="#31-terminal-input--bms-map-field">3.1 Terminal Input — BMS Map Field</a></li>
+<li class="toc-level-3"><a href="#32-cics-execute-interface-block-eib-fields">3.2 CICS Execute Interface Block (EIB) Fields</a></li>
+<li class="toc-level-3"><a href="#33-cics-assign-values">3.3 CICS ASSIGN Values</a></li>
+<li class="toc-level-3"><a href="#34-cics-runtime-services">3.4 CICS Runtime Services</a></li>
+<li class="toc-level-3"><a href="#35-commarea-linkage-section">3.5 COMMAREA (Linkage Section)</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#4-outputs">4. Outputs</a>
+<ul>
+<li class="toc-level-3"><a href="#41-terminal-screen-outputs">4.1 Terminal Screen Outputs</a></li>
+<li class="toc-level-3"><a href="#42-cics-transaction-control-outputs">4.2 CICS Transaction Control Outputs</a></li>
+<li class="toc-level-3"><a href="#43-error-and-abend-outputs">4.3 Error and Abend Outputs</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#5-processing-logic">5. Processing Logic</a>
+<ul>
+<li class="toc-level-3"><a href="#51-high-level-processing-flow">5.1 High-Level Processing Flow</a></li>
+<li class="toc-level-3"><a href="#52-pseudo-conversational-cycle">5.2 Pseudo-Conversational Cycle</a></li>
+<li class="toc-level-3"><a href="#53-step-by-step-execution">5.3 Step-by-Step Execution</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#6-paragraphs">6. Paragraphs</a></li>
+<li class="toc-level-2"><a href="#7-dependencies">7. Dependencies</a>
+<ul>
+<li class="toc-level-3"><a href="#71-bms-resources">7.1 BMS Resources</a></li>
+<li class="toc-level-3"><a href="#72-cics-transactions-invoked">7.2 CICS Transactions Invoked</a></li>
+<li class="toc-level-3"><a href="#73-external-programs">7.3 External Programs</a></li>
+<li class="toc-level-3"><a href="#74-copybooks">7.4 Copybooks</a></li>
+<li class="toc-level-3"><a href="#75-cics-runtime-services">7.5 CICS Runtime Services</a></li>
+<li class="toc-level-3"><a href="#76-eib-fields-used">7.6 EIB Fields Used</a></li>
+<li class="toc-level-3"><a href="#77-cics-transaction-definition">7.7 CICS Transaction Definition</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#8-constraints">8. Constraints</a>
+<ul>
+<li class="toc-level-3"><a href="#81-input-validation-constraints">8.1 Input Validation Constraints</a></li>
+<li class="toc-level-3"><a href="#82-aid-key-constraints">8.2 AID Key Constraints</a></li>
+<li class="toc-level-3"><a href="#83-flow-sequencing-constraints">8.3 Flow Sequencing Constraints</a></li>
+<li class="toc-level-3"><a href="#84-commarea-constraints">8.4 COMMAREA Constraints</a></li>
+<li class="toc-level-3"><a href="#85-screen-send-mode-constraints">8.5 Screen Send Mode Constraints</a></li>
+<li class="toc-level-3"><a href="#86-error-and-abend-constraints">8.6 Error and Abend Constraints</a></li>
+<li class="toc-level-3"><a href="#87-known-coding-anomaly">8.7 Known Coding Anomaly</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#9-error-handling">9. Error Handling</a>
+<ul>
+<li class="toc-level-3"><a href="#91-input-validation-errors">9.1 Input Validation Errors</a></li>
+<li class="toc-level-3"><a href="#92-terminal-io-errors">9.2 Terminal I/O Errors</a></li>
+<li class="toc-level-3"><a href="#93-transaction-dispatch-errors">9.3 Transaction Dispatch Errors</a></li>
+<li class="toc-level-3"><a href="#94-pseudo-conversational-return-error">9.4 Pseudo-Conversational Return Error</a></li>
+<li class="toc-level-3"><a href="#95-centralised-abend-sequence">9.5 Centralised Abend Sequence</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#10-worked-examples">10. Worked Examples</a>
+<ul>
+<li class="toc-level-3"><a href="#101-example-1--first-entry-no-commarea-menu-displayed-for-the-first-time">10.1 Example 1 — First Entry (No COMMAREA): Menu Displayed for the First Time</a></li>
+<li class="toc-level-3"><a href="#102-example-2--valid-selection-1-display-customer-details">10.2 Example 2 — Valid Selection &#039;1&#039; (Display Customer Details)</a></li>
+<li class="toc-level-3"><a href="#103-example-3--invalid-selection-validation-failure">10.3 Example 3 — Invalid Selection (Validation Failure)</a></li>
+<li class="toc-level-3"><a href="#104-example-4--operator-presses-pf3-session-termination">10.4 Example 4 — Operator Presses PF3 (Session Termination)</a></li>
+</ul>
+</li>
+</ul>
+
+</nav>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+    /* toc-spy.js — highlights the active heading in the TOC panel on scroll */
+    (function () {
+      function init() {
+        var panel = document.querySelector('.toc-panel');
+        if (!panel) return;
+        var links = Array.prototype.slice.call(panel.querySelectorAll('a[href^="#"]'));
+        if (!links.length) return;
+
+        var headingIds = links.map(function (a) { return a.getAttribute('href').slice(1); });
+        var headings = headingIds.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+
+        function clearActive() {
+          panel.querySelectorAll('.toc-active').forEach(function (el) { el.classList.remove('toc-active'); });
+          panel.querySelectorAll('.toc-parent-active').forEach(function (el) { el.classList.remove('toc-parent-active'); });
+        }
+
+        function setActive(id) {
+          clearActive();
+          var link = panel.querySelector('a[href="#' + id + '"]');
+          if (!link) return;
+          link.classList.add('toc-active');
+          var li = link.closest('li');
+          if (li) {
+            var parentLi = li.parentElement && li.parentElement.closest('li');
+            if (parentLi) parentLi.classList.add('toc-parent-active');
+          }
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              setActive(entry.target.id);
+            }
+          });
+        }, { rootMargin: '0px 0px -70% 0px', threshold: 0 });
+
+        headings.forEach(function (h) { observer.observe(h); });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+    </script>
+    <script>
+    /* sidebar-toggle.js — persists open/closed state across navigation */
+    (function () {
+
+      var STORAGE_KEY = 'sb_open';
+
+      function getOpenSet() {
+        try {
+          var raw = sessionStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (e) { return null; }
+      }
+
+      function saveOpenSet(set) {
+        try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(set)); } catch (e) {}
+      }
+
+      function findItems(toggle) {
+        var node = toggle.nextSibling;
+        while (node) {
+          if (node.nodeType === 1 && node.classList.contains('nav-section-items'))
+            return node;
+          node = node.nextSibling;
+        }
+        return null;
+      }
+
+      function toggleKey(toggle, index) {
+        var label = (toggle.querySelector('.nav-toggle-text') || toggle).textContent.trim().replace(/\s+/g, ' ');
+        return index + ':' + label;
+      }
+
+      function openSection(toggle, items, key, set) {
+        toggle.classList.add('open');
+        items.classList.add('open');
+        if (set) set[key] = true;
+      }
+
+      function closeSection(toggle, items, key, set) {
+        toggle.classList.remove('open');
+        items.classList.remove('open');
+        if (set) set[key] = false;
+      }
+
+      function init() {
+        var sidebar = document.getElementById('wiki-sidebar');
+        var toggles = Array.prototype.slice.call(
+          document.querySelectorAll('.nav-section-toggle')
+        );
+
+        var activeIdx = -1;
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+          if (items.querySelector('.nav-link.active')) {
+            activeIdx = idx;
+          }
+        });
+
+        var savedSet = getOpenSet();
+        var openSet = savedSet || {};
+
+        if (activeIdx !== -1) {
+          openSet[toggleKey(toggles[activeIdx], activeIdx)] = true;
+        }
+
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+
+          var key = toggleKey(toggle, idx);
+          var shouldOpen = openSet[key] === true;
+
+          if (shouldOpen) {
+            toggle.classList.add('open');
+            items.classList.add('open');
+          }
+
+          toggle.addEventListener('click', function () {
+            var nowOpen = toggle.classList.contains('open');
+            if (nowOpen) {
+              closeSection(toggle, items, key, openSet);
+            } else {
+              openSection(toggle, items, key, openSet);
+            }
+            saveOpenSet(openSet);
+          });
+        });
+
+        saveOpenSet(openSet);
+
+        /* Restore sidebar scroll position after sections are expanded so the
+           scroll height is correct when we apply scrollTop. */
+        if (sidebar) {
+          try {
+            var savedScroll = sessionStorage.getItem('sb_scroll');
+            if (savedScroll !== null) { sidebar.scrollTop = parseInt(savedScroll, 10) || 0; }
+          } catch (_e) {}
+        }
+
+        window.addEventListener('pagehide', function () {
+          saveOpenSet(openSet);
+          if (sidebar) {
+            try { sessionStorage.setItem('sb_scroll', String(sidebar.scrollTop)); } catch (_e) {}
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+
+    })();
+    </script>
+    <script>
+    /* nav-tracking.js — only stamps sessionStorage when clicking a source-file link
+       that lives inside the "Source Files" disclosure section, not from sidebar or cards. */
+    (function () {
+      document.addEventListener('click', function (e) {
+        var link = e.target.closest('a[href]');
+        if (!link) return;
+        var href = link.getAttribute('href');
+        if (!href || href.indexOf('sources/') === -1) return;
+        /* Only set referrer when the click originates from inside the Source Files
+           disclosure (.source-files-disclosure). Any other path — sidebar, cards,
+           direct navigation — must not set a referrer. */
+        if (!link.closest('.source-files-disclosure')) return;
+        try {
+          sessionStorage.setItem('wiki_referrer', JSON.stringify({
+            href: location.href,
+            title: document.title,
+            file: location.pathname.split('/').pop()
+          }));
+        } catch (_e) {}
+      });
+    })();
+    </script>
+    <footer class="wiki-footer">Made by IBM Bob Premium Package for Z</footer>
+</body>
+</html>

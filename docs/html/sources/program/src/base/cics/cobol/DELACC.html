@@ -1,0 +1,1539 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DELACC</title>
+    <link rel="stylesheet" href="../../../../../../assets/style.css">
+    <script src="../../../../../../assets/mermaid.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: { useMaxWidth: true }
+        });
+    </script>
+
+    <!-- Prism.js for syntax highlighting (bundled — no CDN required) -->
+    <link rel="stylesheet" href="../../../../../../assets/prism-tomorrow.css">
+    <script src="../../../../../../assets/prism-core.js"></script>
+    <script src="../../../../../../assets/prism-languages.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <span class="header-app-name"><a href="../../../../../../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – IBM Z Banking Application</a></span>
+        </div>
+        <div class="header-right">
+        </div>
+    </header>
+    <div class="shell">
+        <aside class="sidebar" id="wiki-sidebar">
+            <nav>
+                
+        <div class="nav-home-wrap">
+            <a href="../../../../../../../index.html" class="nav-home">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                Home
+            </a>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Application Documentation</div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">About Bank of Z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../../../../../../pages/about-overview.html" class="nav-link" data-page-id="about-overview">Project Overview</a>
+                <a href="../../../../../../pages/about-capabilities.html" class="nav-link" data-page-id="about-capabilities">Key Capabilities</a>
+                <a href="../../../../../../pages/about-architecture-overview.html" class="nav-link" data-page-id="about-architecture-overview">Architecture Overview</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Getting Started</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../../../../../../pages/prerequisites.html" class="nav-link" data-page-id="prerequisites">Prerequisites</a>
+                <a href="../../../../../../pages/installation-setup.html" class="nav-link" data-page-id="installation-setup">Installation &amp; Setup</a>
+                <a href="../../../../../../pages/environment-configuration.html" class="nav-link" data-page-id="environment-configuration">Environment Configuration</a>
+                <a href="../../../../../../pages/verification.html" class="nav-link" data-page-id="verification">Verification &amp; Smoke Testing</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Architecture</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../../../../../../pages/architecture-components.html" class="nav-link" data-page-id="architecture-components">Application Components</a>
+                <a href="../../../../../../pages/architecture-flow.html" class="nav-link" data-page-id="architecture-flow">Application Flow</a>
+                <a href="../../../../../../pages/architecture-build-deployment.html" class="nav-link" data-page-id="architecture-build-deployment">Build &amp; Deployment Architecture</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Program Reference</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../../../../../../pages/program-bnkmenu.html" class="nav-link" data-page-id="program-bnkmenu">BNKMENU – Main Menu Program</a>
+                <a href="../../../../../../pages/program-crdtagy2.html" class="nav-link" data-page-id="program-crdtagy2">CRDTAGY2 – Credit Agency Simulator</a>
+                <a href="../../../../../../pages/program-delacc.html" class="nav-link" data-page-id="program-delacc">DELACC – Delete Account Program</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Development Workflows</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../../../../../../pages/workflow-overview.html" class="nav-link" data-page-id="workflow-overview">Development Workflows Overview</a>
+                <a href="../../../../../../pages/workflow-zowe-cli.html" class="nav-link" data-page-id="workflow-zowe-cli">Zowe CLI Workflow</a>
+                <a href="../../../../../../pages/workflow-grub.html" class="nav-link" data-page-id="workflow-grub">GRUB Workflow</a>
+                <a href="../../../../../../pages/workflow-best-practices.html" class="nav-link" data-page-id="workflow-best-practices">Development Best Practices</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Tutorials</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../../../../../../pages/tutorial-deploy.html" class="nav-link" data-page-id="tutorial-deploy">Tutorial: Deploy Bank of Z</a>
+                <a href="../../../../../../pages/tutorial-cics-enhancement.html" class="nav-link" data-page-id="tutorial-cics-enhancement">Tutorial: CICS Enhancement Scenario</a>
+                <a href="../../../../../../pages/tutorial-incremental-build.html" class="nav-link" data-page-id="tutorial-incremental-build">Tutorial: Incremental Build</a>
+                <a href="../../../../../../pages/tutorial-debug-cics.html" class="nav-link" data-page-id="tutorial-debug-cics">Tutorial: Debug a CICS Transaction</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Reference</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../../../../../../pages/ref-configuration.html" class="nav-link" data-page-id="ref-configuration">Configuration Reference</a>
+                <a href="../../../../../../pages/ref-commands.html" class="nav-link" data-page-id="ref-commands">Commands Reference</a>
+                <a href="../../../../../../pages/ref-repository-structure.html" class="nav-link" data-page-id="ref-repository-structure">Repository Structure</a>
+                <a href="../../../../../../pages/ref-glossary.html" class="nav-link" data-page-id="ref-glossary">Glossary</a>
+            </div>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Program Documentation</div>
+    <div class="nav-section">
+        <button class="nav-section-toggle open" type="button">
+            <span class="nav-toggle-text">program</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items open">
+        <div class="nav-section">
+            <button class="nav-section-toggle open" type="button">
+                <span class="nav-toggle-text">src</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items open">
+            <div class="nav-section">
+                <button class="nav-section-toggle open" type="button">
+                    <span class="nav-toggle-text">base</span>
+                    <span class="nav-section-chevron">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="nav-section-items open">
+                <div class="nav-section">
+                    <button class="nav-section-toggle open" type="button">
+                        <span class="nav-toggle-text">cics</span>
+                        <span class="nav-section-chevron">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="nav-section-items open">
+                    <div class="nav-section">
+                        <button class="nav-section-toggle open" type="button">
+                            <span class="nav-toggle-text">cobol</span>
+                            <span class="nav-section-chevron">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="nav-section-items open">
+                            <a href="../../../../../../sources/program/src/base/cics/cobol/BNKMENU.html" class="nav-link">BNKMENU</a>
+                            <a href="../../../../../../sources/program/src/base/cics/cobol/CRDTAGY2.html" class="nav-link">CRDTAGY2</a>
+                            <a href="../../../../../../sources/program/src/base/cics/cobol/DELACC.html" class="nav-link active">DELACC</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">docs</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">about-bank-of-z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../../../../../../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
+            </div>
+        </div>
+        </div>
+    </div>
+            </nav>
+        </aside>
+        <main class="main">
+            <div class="prog-container">
+                <div id="wiki-breadcrumb"></div>
+                <div class="content-layout">
+                    <article class="prose">
+                        <h2 id="1-purpose" tabindex="-1">1. Purpose</h2>
+<p>DELACC é um programa CICS COBOL responsável por excluir com segurança um registro de conta bancária da tabela DB2 ACCOUNT em nome de uma aplicação chamadora. Ao ser invocado, ele primeiro realiza uma verificação de segurança RACF vinculando-se ao programa BNKSECCK; somente se o chamador estiver explicitamente autorizado é que ele prossegue para recuperar o registro completo da conta no DB2 utilizando o número da conta e o código de agência fornecidos na área de comunicação. Se a conta for encontrada, ela é permanentemente removida da tabela ACCOUNT, e o perfil completo da conta — incluindo número do cliente, tipo de conta, saldos, taxa de juros, limite de cheque especial e datas de extrato — é retornado ao chamador por meio da área de comunicação. Uma exclusão bem-sucedida é então registrada de forma durável como uma entrada de auditoria na tabela PROCTRAN, capturando o tipo de transação, carimbo de data/hora, referência e o saldo real da conta no momento da exclusão. Ao longo do processo, qualquer falha — seja uma negação de segurança, uma conta inexistente ou um erro de DB2 — é comunicada de volta ao chamador por meio de campos dedicados de sucesso e código de falha na área de comunicação, e erros irrecuperáveis de DB2 acionam um abend do CICS por meio do programa padrão de tratamento de abend.</p>
+<h2 id="2-inputs" tabindex="-1">2. Inputs</h2>
+<h3 id="21-rea-de-comunicao-dfhcommarea--copybook-delacc" tabindex="-1">2.1 Área de Comunicação (DFHCOMMAREA — Copybook DELACC)</h3>
+<p>Estes são os campos passados pelo programa chamador via CICS COMMAREA ao invocar DELACC. Eles representam o contrato de entrada principal do programa.</p>
+<ul>
+<li><strong><code>DELACC-ACCNO</code></strong> — O número de conta de 8 dígitos que identifica a conta bancária a ser exc### Área de Comunicação (DFHCOMMAREA — Copybook DELACC)</li>
+</ul>
+<p>Estes são os campos passados pelo programa chamador via CICS COMMAREA ao invocar <code>DELACC</code>. Eles representam o contrato de entrada principal do programa.</p>
+<ul>
+<li><strong><code>DELACC-ACCNO</code></strong> — O número de conta de 8 dígitos que identifica a conta bancária a ser excluída. Utilizado como campo de chave primária nas instruções SQL <code>SELECT</code> e <code>DELETE</code> contra a tabela <code>ACCOUNT</code> no DB2.</li>
+<li><strong><code>DELACC-DEL-SUCCESS</code></strong> — Flag lida no início do fluxo principal para determinar se a etapa de leitura da conta foi bem-sucedida antes de prosseguir com a exclusão. Também gravada de volta ao chamador como o resultado geral da operação (<code>Y</code>/<code>N</code>).</li>
+<li><strong><code>DELACC-DEL-FAIL-CD</code></strong> — Código de falha de um único caractere gravado de volta para indicar o motivo de uma exclusão malsucedida (<code>1</code> = não encontrado, <code>3</code> = erro de exclusão no DB2, <code>S</code> = acesso negado pela segurança, <code>X</code> = falha no sistema de segurança).</li>
+</ul>
+<hr>
+<h3 id="22-subsistema-de-segurana--bnksecck" tabindex="-1">2.2 Subsistema de Segurança — BNKSECCK</h3>
+<p>O programa realiza um CICS <code>LINK</code> para o programa de verificação de segurança <code>BNKSECCK</code> antes de qualquer acesso a dados. O resultado dessa chamada direciona todo o processamento subsequente.</p>
+<ul>
+<li><strong><code>BNKSEC-COMMAREA</code></strong> — A área de comunicação trocada com <code>BNKSECCK</code> (definida via copybook <code>BNKSEC</code>):
+<ul>
+<li><strong><code>BNKSEC-OPERATION</code></strong> — Definido como <code>'DELACC  '</code>; informa ao programa de segurança qual operação está sendo autorizada.</li>
+<li><strong><code>BNKSEC-FOR-USERID</code></strong> / <strong><code>BNKSEC-USERID</code></strong> — Campos de identidade do usuário preenchidos e avaliados por <code>BNKSECCK</code> para determinar a autorização.</li>
+<li><strong><code>BNKSEC-RESULT</code></strong> — Retornado por <code>BNKSECCK</code>; <code>A</code> (permitido), <code>D</code> (negado) ou <code>E</code> (erro). Controla se <code>WS-SEC-SW</code> é definido como <code>SEC-OK</code> ou <code>SEC-NOT-OK</code>.</li>
+<li><strong><code>BNKSEC-RESP</code></strong> / <strong><code>BNKSEC-RESP2</code></strong> — Códigos de resposta CICS retornados pelo <code>LINK</code>; uma resposta diferente de <code>NORMAL</code> causa o retorno imediato do código de falha <code>X</code> ao chamador.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="23-banco-de-dados-db2--tabela-account" tabindex="-1">2.3 Banco de Dados DB2 — Tabela ACCOUNT</h3>
+<p>O programa lê e exclui uma linha da tabela DB2 <code>ACCOUNT</code>. As variáveis de host a seguir são as chaves utilizadas para localizar a linha e os dados recuperados dela.</p>
+<ul>
+<li><strong><code>HV-ACCOUNT-SORTCODE</code></strong> — Preenchido a partir da constante interna <code>SORTCODE</code> (<code>987654</code>); forma parte da chave composta nas instruções SQL <code>SELECT</code> e <code>DELETE</code>.</li>
+<li><strong><code>HV-ACCOUNT-ACC-NO</code></strong> — Preenchido a partir de <code>DELACC-ACCNO</code>; a metade do número de conta na chave composta. Direciona tanto a operação de <code>SELECT</code> (leitura) quanto a de <code>DELETE</code>.</li>
+<li><strong><code>HV-ACCOUNT-CUST-NO</code></strong> — Recuperado da linha da tabela <code>ACCOUNT</code>; representa o cliente proprietário da conta. Retornado ao chamador via COMMAREA.</li>
+<li><strong><code>HV-ACCOUNT-ACC-TYPE</code></strong> — Classificação da conta (por exemplo, corrente, poupança) recuperada da tabela <code>ACCOUNT</code> e retornada ao chamador.</li>
+<li><strong><code>HV-ACCOUNT-ACTUAL-BAL</code></strong> — Saldo monetário real recuperado da tabela <code>ACCOUNT</code>. Preservado em <code>ACCOUNT-ACT-BAL-STORE</code> e gravado como o valor da transação no registro de auditoria <code>PROCTRAN</code>.</li>
+<li><strong><code>HV-ACCOUNT-AVAIL-BAL</code></strong> — Saldo disponível recuperado da tabela <code>ACCOUNT</code> e retornado ao chamador.</li>
+<li><strong><code>HV-ACCOUNT-OVERDRAFT-LIM</code></strong> — Limite de cheque especial autorizado recuperado da tabela <code>ACCOUNT</code> e retornado ao chamador.</li>
+<li><strong><code>HV-ACCOUNT-INT-RATE</code></strong> — Taxa de juros recuperada da tabela <code>ACCOUNT</code> e retornada ao chamador.</li>
+</ul>
+<hr>
+<h3 id="24-banco-de-dados-db2--tabela-proctran" tabindex="-1">2.4 Banco de Dados DB2 — Tabela PROCTRAN</h3>
+<p>Após uma exclusão bem-sucedida, o programa insere um registro de auditoria na tabela <code>PROCTRAN</code>. Os dados alimentados nessa inserção são derivados da linha de conta recuperada acima e de campos do sistema CICS.</p>
+<ul>
+<li><strong><code>EIBTASKN</code></strong> — Campo do CICS Executive Interface Block que fornece o número da tarefa atual; utilizado para preencher <code>HV-PROCTRAN-REF</code> (a referência da transação no registro de auditoria).</li>
+<li><strong><code>EIBTRNID</code></strong> — Campo do EIB CICS que fornece o identificador da transação; utilizado em registros de diagnóstico de abend.</li>
+</ul>
+<hr>
+<h3 id="25-sistema-cics-eib--entradas" tabindex="-1">2.5 Sistema CICS (EIB) — Entradas</h3>
+<p>Estes valores são lidos diretamente do CICS Executive Interface Block em tempo de execução.</p>
+<ul>
+<li><strong><code>EIBTASKN</code></strong> — Número da tarefa CICS atual; utilizado como referência da transação gravada na linha de auditoria <code>PROCTRAN</code>.</li>
+<li><strong><code>EIBTRNID</code></strong> — ID da transação CICS atual; utilizado em registros do tratador de abend.</li>
+<li><strong><code>EIBRESP</code></strong> / <strong><code>EIBRESP2</code></strong> — Códigos de resposta CICS examinados após o <code>LINK</code> para <code>BNKSECCK</code>; uma resposta diferente do normal aciona o fluxo imediato de falha de segurança.</li>
+</ul>
+<hr>
+<h3 id="26-configurao-esttica" tabindex="-1">2.6 Configuração Estática</h3>
+<ul>
+<li><strong><code>SORTCODE</code></strong> (valor <code>987654</code>, proveniente do copybook <code>SORTCODE</code>) — O código de classificação (sort code) do próprio banco. Definido como constante e utilizado para restringir todas as leituras e exclusões no DB2 à agência correta.</li>
+</ul>
+<h2 id="3-outputs" tabindex="-1">3. Outputs</h2>
+<h3 id="31-rea-de-comunicao-dfhcommarea--valores-de-retorno-para-o-programa-chamador" tabindex="-1">3.1 Área de Comunicação (DFHCOMMAREA) — Valores de Retorno para o Programa Chamador</h3>
+<ul>
+<li>
+<p><strong><code>DELACC-DEL-SUCCESS</code></strong> — Indicador primário de sucesso/falha retornado ao programa chamador. Definido como <code>'Y'</code> quando a conta é encontrada e excluída com sucesso; definido como <code>'N'</code> em caso de negação de segurança, conta não encontrada ou falha no DELETE do DB2.</p>
+</li>
+<li>
+<p><strong><code>DELACC-DEL-FAIL-CD</code></strong> — Código de motivo que acompanha uma exclusão com falha. Valores: <code>'1'</code> (conta não encontrada), <code>'3'</code> (erro no DELETE do DB2), `‘S’### Área de Comunicação (DFHCOMMAREA) — Valores de Retorno para o Programa Chamador</p>
+</li>
+<li>
+<p><strong><code>DELACC-DEL-SUCCESS</code></strong> — Indicador primário de sucesso/falha retornado ao programa chamador. Definido como <code>'Y'</code> quando a conta é encontrada e excluída com sucesso; definido como <code>'N'</code> em caso de negação de segurança, conta não encontrada ou falha no DELETE do DB2.</p>
+</li>
+<li>
+<p><strong><code>DELACC-DEL-FAIL-CD</code></strong> — Código de motivo que acompanha uma exclusão com falha. Valores: <code>'1'</code> (conta não encontrada), <code>'3'</code> (erro no DELETE do DB2), <code>'S'</code> (segurança negada pelo BNKSECCK), <code>'X'</code> (programa de verificação de segurança indisponível ou resposta anormal).</p>
+</li>
+<li>
+<p><strong><code>DELACC-DEL-APPLID</code></strong> — ID da aplicação da região CICS; preenchido como parte da área de comunicação retornada ao chamador.</p>
+</li>
+<li>
+<p><strong>Campos do perfil da conta</strong> — O registro completo da conta recuperado do DB2 antes da exclusão é devolvido ao chamador para que o programa chamador possa exibir ou auditar os dados que foram removidos:</p>
+<ul>
+<li><strong><code>DELACC-EYE</code></strong> — Valor de identificação visual (<code>ACCT</code>) da conta excluída.</li>
+<li><strong><code>DELACC-CUSTNO</code></strong> — Número do cliente que era titular da conta excluída.</li>
+<li><strong><code>DELACC-SCODE</code></strong> — Código de ordenação da conta excluída.</li>
+<li><strong><code>DELACC-ACCNO</code></strong> — Número da conta excluída.</li>
+<li><strong><code>DELACC-ACC-TYPE</code></strong> — Classificação da conta (ex.: corrente, poupança, empréstimo).</li>
+<li><strong><code>DELACC-INT-RATE</code></strong> — Taxa de juros da conta excluída.</li>
+<li><strong><code>DELACC-OPENED</code></strong> — Data de abertura da conta (formato DDMMAAAA).</li>
+<li><strong><code>DELACC-OVERDRAFT</code></strong> — Limite de cheque especial da conta excluída.</li>
+<li><strong><code>DELACC-LAST-STMT-DT</code></strong> — Data do último extrato da conta excluída.</li>
+<li><strong><code>DELACC-NEXT-STMT-DT</code></strong> — Data do próximo extrato da conta excluída.</li>
+<li><strong><code>DELACC-AVAIL-BAL</code></strong> — Saldo disponível no momento da exclusão.</li>
+<li><strong><code>DELACC-ACTUAL-BAL</code></strong> — Saldo real no momento da exclusão.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="32-gravaes-no-banco-de-dados-db2" tabindex="-1">3.2 Gravações no Banco de Dados DB2</h3>
+<ul>
+<li><strong>Tabela <code>ACCOUNT</code> — DELETE</strong> (seção <code>DEL-ACCOUNT-DB2</code>) — A linha na tabela <code>ACCOUNT</code> que corresponde à chave composta <code>ACCOUNT_SORTCODE</code> + <code>ACCOUNT_NUMBER</code> é removida permanentemente. Em caso de falha, define <code>DELACC-DEL-SUCCESS = 'N'</code> e <code>DELACC-DEL-FAIL-CD = '3'</code>.</li>
+<li><strong>Tabela <code>PROCTRAN</code> — INSERT</strong> (seção <code>WRITE-PROCTRAN-DB2</code>) — Uma linha de auditoria/histórico de transações é gravada na <code>PROCTRAN</code> somente quando o DELETE é bem-sucedido. O registro inserido contém:
+<ul>
+<li>Identificador visual <code>'PRTR'</code>; código de ordenação e número da conta excluída.</li>
+<li>Carimbo de data/hora (data obtida via <code>CICS FORMATTIME</code>, hora via <code>CICS ASKTIME</code>).</li>
+<li>Número da tarefa (obtido de <code>EIBTASKN</code>) como referência da transação.</li>
+<li>Código de tipo <code>'ODA'</code> (Exclusão de Conta em Agência, via <code>PROC-TY-BRANCH-DELETE-ACCOUNT</code>).</li>
+<li>Descrição (<code>PROC-TRAN-DESC-DELACC</code>) contendo: número do cliente, tipo de conta, data do último extrato, data do próximo extrato e o rodapé literal <code>'DELETE'</code>.</li>
+<li>Valor (<code>HV-PROCTRAN-AMOUNT</code>) definido como <code>ACCOUNT-ACT-BAL-STORE</code> — o saldo real da conta no momento da exclusão.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="33-efeitos-colaterais-de-abend--erro-no-cics" tabindex="-1">3.3 Efeitos Colaterais de Abend / Erro no CICS</h3>
+<ul>
+<li><strong><code>CICS ABEND ABCODE('HRAC')</code></strong> — Emitido quando o SELECT do DB2 na tabela <code>ACCOUNT</code> retorna um SQLCODE inesperado (diferente de 0 ou +100). Encerra a transação de forma anormal e impede o processamento subsequente.</li>
+<li><strong><code>CICS ABEND ABCODE('HWPT')</code></strong> — Emitido quando o INSERT do DB2 na tabela <code>PROCTRAN</code> falha. Antes do abend, o programa realiza um LINK para o programa de tratamento de abend <code>ABNDPROC</code> (<code>WS-ABEND-PGM</code>), passando <code>ABNDINFO-REC</code> com informações de diagnóstico detalhadas (APPLID, TRANID, número da tarefa, data/hora, SQLCODE e uma mensagem em texto livre).</li>
+<li><strong>CICS LINK para <code>ABNDPROC</code></strong> — Invocado antes do abend <code>HWPT</code> para transferir informações de diagnóstico estruturadas (<code>ABNDINFO-REC</code>) ao tratador centralizado de abends para registro e arquivamento.</li>
+</ul>
+<hr>
+<h3 id="34-mensagens-no-console--sysout-display" tabindex="-1">3.4 Mensagens no Console / Sysout (<code>DISPLAY</code>)</h3>
+<ul>
+<li><strong><code>DISPLAY 'Issue with ACCOUNT row select...'</code></strong> — Gravado no log de job do CICS quando o SELECT do DB2 na tabela <code>ACCOUNT</code> retorna um SQLCODE inesperado. Inclui <code>SQLCODE-DISPLAY</code>, <code>HV-ACCOUNT-ACC-NO</code> e <code>HV-ACCOUNT-SORTCODE</code>.</li>
+<li><strong><code>DISPLAY 'In DELACC (WPD010) UNABLE TO WRITE TO PROCTRAN ROW DATASTORE...'</code></strong> — Gravado no log de job do CICS quando o INSERT na tabela <code>PROCTRAN</code> falha. Inclui <code>SQLCODE-DISPLAY</code> e o conteúdo de <code>HOST-PROCTRAN-ROW</code>.</li>
+</ul>
+<h2 id="4-processing-logic" tabindex="-1">4. Processing Logic</h2>
+<h3 id="41-diagrama-de-fluxo-mermaid" tabindex="-1">4.1 Diagrama de Fluxo Mermaid</h3>
+<div class="mermaid">
+graph TD
+    classDef startEnd fill:#d5e8d4,stroke:#82b366,color:#000
+    classDef process fill:#dae8fc,stroke:#6c8ebf,color:#000
+    classDef decision fill:#fff2cc,stroke:#d6b656,color:#000
+    classDef error fill:#f8cecc,stroke:#b85450,color:#000
+    classDef audit fill:#e1d5e7,stroke:#9673a6,color:#000
+
+    A([Início - DELACC chamado via CICS LINK]):::startEnd
+    B[Executar SECURITY-CHECK<br>CICS LINK para BNKSECCK]:::process
+    C{{CICS RESP = NORMAL}}:::decision
+    D[Definir DEL-FAIL-CD = X<br>DEL-SUCCESS = N]:::error
+    E{{BNKSEC-RESULT}}:::decision
+    F[Definir SEC-OK = Y]:::process
+    G[Definir DEL-SUCCESS = N<br>DEL-FAIL-CD = S - Negado]:::error
+    H[Definir DEL-SUCCESS = N<br>DEL-FAIL-CD = X - Erro]:::error
+    I{{SEC-OK = Y}}:::decision
+    J[Mover SORTCODE para chave<br>Executar READ-ACCOUNT-DB2]:::process
+    K[DB2 SELECT na tabela ACCOUNT<br>WHERE ACCOUNT-NUMBER e SORTCODE]:::process
+    L{{SQLCODE}}:::decision
+    M[Preencher ABNDINFO-REC<br>CICS ABEND HRAC]:::error
+    N[Definir DEL-SUCCESS = N<br>DEL-FAIL-CD = 1 - Não Encontrado]:::error
+    O[Definir DEL-SUCCESS = Y<br>Mapear todos os campos para COMMAREA]:::process
+    P{{DEL-SUCCESS = Y após READ}}:::decision
+    Q[Executar DEL-ACCOUNT-DB2<br>DB2 DELETE FROM ACCOUNT]:::process
+    R{{SQLCODE após DELETE}}:::decision
+    S[Definir DEL-SUCCESS = N<br>DEL-FAIL-CD = 3 - Erro na Exclusão]:::error
+    T{{DEL-SUCCESS = Y após DELETE}}:::decision
+    U[Executar WRITE-PROCTRAN]:::audit
+    V[CICS ASKTIME e FORMATTIME<br>Construir linha de host PROCTRAN]:::audit
+    W[DB2 INSERT INTO PROCTRAN<br>Tipo ODA - Exclusão de Conta]:::audit
+    X{{SQLCODE após INSERT}}:::decision
+    Y[CICS LINK para ABNDPROC<br>CICS ABEND HWPT]:::error
+    Z[Executar GET-ME-OUT-OF-HERE<br>GOBACK]:::startEnd
+
+    A --> B
+    B --> C
+    C -- Não --> D
+    D --> Z
+    C -- Sim --> E
+    E -- Permitido --> F
+    E -- Negado --> G
+    E -- Outro --> H
+    G --> I
+    H --> I
+    F --> I
+    I -- Não --> Z
+    I -- Sim --> J
+    J --> K
+    K --> L
+    L -- Diferente de 0 e diferente de 100 --> M
+    L -- 100 Linha Não Encontrada --> N
+    N --> Z
+    L -- 0 Encontrado --> O
+    O --> P
+    P -- Não --> Z
+    P -- Sim --> Q
+    Q --> R
+    R -- Diferente de 0 --> S
+    S --> T
+    R -- 0 --> T
+    T -- Não --> Z
+    T -- Sim --> U
+    U --> V
+    V --> W
+    W --> X
+    X -- Diferente de 0 --> Y
+    X -- 0 --> Z
+</div>
+<hr>
+<h3 id="42-descrio-da-lgica-de-processamento" tabindex="-1">4.2 Descrição da Lógica de Processamento</h3>
+<h4 id="421-resumo-de-alto-nvel" tabindex="-1">4.2.1 Resumo de Alto Nível</h4>
+<p>DELACC é um programa CICS COBOL que exclui um registro de conta bancária da tabela DB2 <code>ACCOUNT</code>. Ele opera em modo de segurança fail-closed: primeiro verifica se o chamador está autorizado a excluir contas por meio do sub-programa de segurança <code>BNKSECCK</code>, em seguida lê a linha da conta-alvo, a exclui fisicamente e registra uma entrada permanente de trilha de auditoria na tabela <code>PROCTRAN</code>. Todos os resultados e o perfil completo da conta excluída são retornados ao chamador por meio da área de comunicação CICS (<code>DFHCOMMAREA</code>).</p>
+<hr>
+<h4 id="422-fluxo-de-execuo" tabindex="-1">4.2.2 Fluxo de Execução</h4>
+<p><strong>Passo 1 — Entrada e Verificação de Segurança (<code>SECURITY-CHECK</code>)</strong></p>
+<p>O programa é invocado por um CICS LINK com uma <code>DFHCOMMAREA</code> contendo o número da conta a ser excluída (<code>DELACC-ACCNO</code>). A primeira ação — antes de qualquer dado ser lido ou modificado — é uma verificação de segurança. <code>WS-SEC-SW</code> é inicializado como <code>N</code> (SEC-NOT-OK), e <code>BNKSEC-COMMAREA</code> é preenchida com o código de operação <code>DELACC  </code>. Um <code>CICS LINK</code> é feito para o sub-programa <code>BNKSECCK</code>.</p>
+<ul>
+<li>Se a resposta do CICS não for <code>NORMAL</code> (falha no link): <code>DELACC-DEL-SUCCESS = 'N'</code>, <code>DELACC-DEL-FAIL-CD = 'X'</code>, e o programa encerra imediatamente.</li>
+<li>Se <code>BNKSEC-RESULT = 'A'</code> (Permitido): <code>SEC-OK</code> é definido como <code>TRUE</code> e o processamento continua.</li>
+<li>Se <code>BNKSEC-RESULT = 'D'</code> (Negado): <code>DELACC-DEL-SUCCESS = 'N'</code>, <code>DELACC-DEL-FAIL-CD = 'S'</code>, e o programa encerra.</li>
+<li>Se qualquer outro resultado: <code>DELACC-DEL-SUCCESS = 'N'</code>, <code>DELACC-DEL-FAIL-CD = 'X'</code>, e o programa encerra.</li>
+</ul>
+<p><strong>Passo 2 — Leitura do Registro de Conta (<code>READ-ACCOUNT-DB2</code>)</strong></p>
+<p>Somente alcançado quando <code>SEC-OK</code> é <code>TRUE</code>. O próprio <code>SORTCODE</code> constante do banco (987654) é movido para a variável de chave, e <code>DELACC-ACCNO</code> é movido para <code>HV-ACCOUNT-ACC-NO</code>. Um DB2 <code>SELECT</code> recupera todas as doze colunas da linha <code>ACCOUNT</code> correspondente usando a chave composta <code>ACCOUNT_NUMBER + ACCOUNT_SORTCODE</code>.</p>
+<ul>
+<li>Se <code>SQLCODE ≠ 0</code> e <code>SQLCODE ≠ +100</code> (erro DB2 inesperado): O programa coleta diagnósticos (APPLID, número da tarefa, ID da transação, hora/data, SQLCODE), preenche <code>ABNDINFO-REC</code>, exibe uma mensagem de erro e emite um <code>CICS ABEND</code> com código <code>HRAC</code>.</li>
+<li>Se <code>SQLCODE = +100</code> (linha não encontrada): <code>DELACC-DEL-SUCCESS = 'N'</code>, <code>DELACC-DEL-FAIL-CD = '1'</code>, a área de comunicação é parcialmente inicializada, e o processamento encerra.</li>
+<li>Se <code>SQLCODE = 0</code> (encontrado): Todos os campos recuperados são mapeados das variáveis de host DB2 por meio da área de trabalho <code>OUTPUT-DATA</code> para os campos de saída do <code>DFHCOMMAREA</code>. Datas armazenadas no DB2 no formato <code>YYYY-MM-DD</code> são analisadas por meio do grupo <code>DB2-DATE-REFORMAT</code> em sub-campos separados de dia/mês/ano. O saldo real é preservado em <code>ACCOUNT-ACT-BAL-STORE</code> para uso posterior no registro de auditoria. <code>DELACC-DEL-SUCCESS</code> é definido como <code>'Y'</code>.</li>
+</ul>
+<p><strong>Passo 3 — Exclusão da Linha da Conta (<code>DEL-ACCOUNT-DB2</code>)</strong></p>
+<p>Somente alcançado quando <code>DELACC-DEL-SUCCESS = 'Y'</code> após a leitura. Um <code>DELETE FROM ACCOUNT</code> DB2 é emitido usando os mesmos valores de variáveis de host de chave composta (<code>ACCOUNT_SORTCODE + ACCOUNT_NUMBER</code>) usados no SELECT. Se <code>SQLCODE ≠ 0</code>, <code>DELACC-DEL-SUCCESS</code> é definido como <code>'N'</code> e <code>DELACC-DEL-FAIL-CD</code> como <code>'3'</code>; nenhum abend é gerado para esta condição, o controle simplesmente retorna.</p>
+<p><strong>Passo 4 — Gravação do Registro de Auditoria (<code>WRITE-PROCTRAN</code> / <code>WRITE-PROCTRAN-DB2</code>)</strong></p>
+<p>Somente alcançado quando <code>DELACC-DEL-SUCCESS = 'Y'</code> após a exclusão. Uma linha de auditoria <code>PROCTRAN</code> é construída:</p>
+<ul>
+<li>Identificador: <code>PRTR</code></li>
+<li>Código de agência e número de conta a partir das variáveis de host</li>
+<li>Número da tarefa CICS (<code>EIBTASKN</code>) como referência de transação</li>
+<li><code>CICS ASKTIME</code> e <code>CICS FORMATTIME</code> para obter hora/data atuais formatadas como data <code>DDMMYYYY</code> e hora <code>HHMMSS</code></li>
+<li>Campo de descrição (<code>PROC-TRAN-DESC-DELACC</code>) preenchido com número do cliente, tipo de conta e datas dos últimos/próximos extratos</li>
+<li>Tipo de transação definido como <code>'ODA'</code> (Exclusão de Conta na Agência) via <code>SET PROC-TY-BRANCH-DELETE-ACCOUNT TO TRUE</code></li>
+<li>Indicador de rodapé <code>'DELETE'</code> via <code>SET PROC-DESC-DELACC-FLAG TO TRUE</code></li>
+<li><code>ACCOUNT-ACT-BAL-STORE</code> (saldo no momento da exclusão) movido para <code>HV-PROCTRAN-AMOUNT</code></li>
+<li><code>INSERT INTO PROCTRAN</code> executado</li>
+</ul>
+<p>Se o <code>INSERT</code> falhar (<code>SQLCODE ≠ 0</code>), o programa preenche <code>ABNDINFO-REC</code>, faz link para o programa manipulador de abend <strong>ABNDPROC</strong> e então emite <code>CICS ABEND HWPT</code> — um abend fatal, pois a integridade da trilha de auditoria é obrigatória.</p>
+<p><strong>Passo 5 — Retorno (<code>GET-ME-OUT-OF-HERE</code>)</strong></p>
+<p>Emite <code>GOBACK</code> para devolver o controle ao CICS, que retorna a <code>DFHCOMMAREA</code> preenchida ao programa chamador.</p>
+<hr>
+<h4 id="423-interaes-externas" tabindex="-1">4.2.3 Interações Externas</h4>
+<table>
+<thead>
+<tr>
+<th>Sistema</th>
+<th>Comando / SQL</th>
+<th>Finalidade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>BNKSECCK</strong> (programa CICS)</td>
+<td><code>CICS LINK</code></td>
+<td>Verificação de autorização com suporte RACF — confirma se o usuário solicitante pode realizar exclusão de contas</td>
+</tr>
+<tr>
+<td><strong>DB2 — tabela ACCOUNT</strong></td>
+<td><code>SELECT</code></td>
+<td>Recuperar a linha completa da conta pela chave composta antes da exclusão</td>
+</tr>
+<tr>
+<td><strong>DB2 — tabela ACCOUNT</strong></td>
+<td><code>DELETE</code></td>
+<td>Remover a linha da conta permanentemente</td>
+</tr>
+<tr>
+<td><strong>DB2 — tabela PROCTRAN</strong></td>
+<td><code>INSERT</code></td>
+<td>Gravar um registro imutável de auditoria/transação do evento de exclusão</td>
+</tr>
+<tr>
+<td><strong>ABNDPROC</strong> (programa CICS)</td>
+<td><code>CICS LINK</code></td>
+<td>Manipulador centralizado de abend — chamado em caso de falha no INSERT no PROCTRAN antes de emitir ABEND</td>
+</tr>
+<tr>
+<td><strong>CICS EIB</strong></td>
+<td><code>ASKTIME</code>, <code>FORMATTIME</code>, <code>ASSIGN</code></td>
+<td>Obter hora/data atuais, ID da aplicação, número da tarefa, ID da transação para registros de auditoria e abend</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="424-resumo-em-linguagem-simples" tabindex="-1">4.2.4 Resumo em Linguagem Simples</h4>
+<p>Quando um operador bancário solicita a exclusão de uma conta, este programa atua como o mecanismo de back-end. Ele primeiro consulta um serviço de segurança para verificar se o usuário tem permissão para excluir contas. Se não tiver, ele reporta falha imediatamente sem tocar em nenhum dado.</p>
+<p>Se autorizado, ele busca a conta no banco de dados usando o número da conta e o código de agência do próprio banco. Se a conta não existir, informa ao chamador “não encontrado”. Se existir, recupera todos os detalhes da conta, os copia de volta ao chamador e então exclui o registro do banco de dados.</p>
+<p>Após uma exclusão bem-sucedida, o programa registra uma entrada de trilha de auditoria capturando a conta, o saldo no momento da exclusão, a data e hora e o tipo de operação — garantindo um log permanente e à prova de adulteração do que foi excluído e quando. Qualquer erro inesperado de banco de dados durante a gravação da auditoria é tratado como uma condição fatal e causa um abend para evitar perda silenciosa de dados.</p>
+<hr>
+<h3 id="43-tabelas-do-banco-de-dados" tabindex="-1">4.3 Tabelas do Banco de Dados</h3>
+<div class="mermaid">
+erDiagram
+    ACCOUNT {
+        string ACCOUNT_EYECATCHER "CHAR 4"
+        string ACCOUNT_CUSTOMER_NUMBER "CHAR 10"
+        string ACCOUNT_SORTCODE "CHAR 6 NOT NULL"
+        string ACCOUNT_NUMBER "CHAR 8 NOT NULL"
+        string ACCOUNT_TYPE "CHAR 8"
+        decimal ACCOUNT_INTEREST_RATE "DECIMAL 4_2"
+        date ACCOUNT_OPENED "DATE"
+        int ACCOUNT_OVERDRAFT_LIMIT "INTEGER"
+        date ACCOUNT_LAST_STATEMENT "DATE"
+        date ACCOUNT_NEXT_STATEMENT "DATE"
+        decimal ACCOUNT_AVAILABLE_BALANCE "DECIMAL 10_2"
+        decimal ACCOUNT_ACTUAL_BALANCE "DECIMAL 10_2"
+    }
+
+    PROCTRAN {
+        string PROCTRAN_EYECATCHER "CHAR 4"
+        string PROCTRAN_SORTCODE "CHAR 6 NOT NULL"
+        string PROCTRAN_NUMBER "CHAR 8 NOT NULL"
+        date PROCTRAN_DATE "DATE"
+        string PROCTRAN_TIME "CHAR 6"
+        string PROCTRAN_REF "CHAR 12"
+        string PROCTRAN_TYPE "CHAR 3"
+        string PROCTRAN_DESC "CHAR 40"
+        decimal PROCTRAN_AMOUNT "DECIMAL 12_2"
+    }
+
+    ACCOUNT ||--o{ PROCTRAN : "exclusão auditada em"
+</div>
+<h2 id="5-paragraphs" tabindex="-1">5. Paragraphs</h2>
+<ul>
+<li>
+<p><strong>A010</strong> — Ponto de entrada principal e controlador primário do fluxo lógico do programa.</p>
+<ul>
+<li>Inicia a execução chamando <code>PERFORM SECURITY-CHECK</code> para verificar se o usuário está autorizado a excluir contas.</li>
+<li>Contém uma guarda condicional de nível superior <code>IF SEC-OK</code>: somente quando a chave de segurança (<code>WS-SEC-SW</code>) está definida como <code>'Y'</code> o processamento continua.</li>
+<li>Dentro da guarda de segurança, preenche <code>REQUIRED-SORT-CODE</code> a partir da constante <code>SORTCODE</code> e chama <code>PERFORM READ-ACCOUNT-DB2</code> para recuperar a conta-alvo.</li>
+<li>Um condicional aninhado <code>IF DELACC-DEL-SUCCESS = 'Y'</code> controla a exclusão: se a leitura for bem-sucedida, <code>PERFORM DEL-ACCOUNT-DB2</code> é chamado; se isso também for bem-sucedido (um segundo <code>IF DELACC-DEL-SUCCESS = 'Y'</code>), <code>PERFORM WRITE-PROCTRAN</code> registra a trilha de auditoria.</li>
+<li>Conclui chamando <code>PERFORM GET-ME-OUT-OF-HERE</code> incondicionalmente para encerrar o programa.</li>
+<li>O parágrafo <code>A999</code> serve como rótulo de saída da seção (<code>EXIT</code>).</li>
+</ul>
+</li>
+<li>
+<p><strong>SECURITY-CHECK (SC010)</strong> — Impõe uma barreira de segurança RACF fail-closed antes que qualquer dado de conta seja acessado.</p>
+<ul>
+<li>Inicializa <code>WS-SEC-SW</code> com <code>'N'</code> (SEC-NOT-OK) como padrão seguro e limpa <code>BNKSEC-COMMAREA</code>.</li>
+<li>Move o nome da operação <code>'DELACC  '</code> para <code>BNKSEC-OPERATION</code> e emite um <code>CICS LINK</code> para o subprograma de verificação de segurança <code>BNKSECCK</code>, passando <code>BNKSEC-COMMAREA</code>.</li>
+<li>Verifica <code>WS-CICS-RESP</code>: se a própria chamada CICS não retornar <code>DFHRESP(NORMAL)</code>, define <code>DELACC-DEL-SUCCESS = 'N'</code>, <code>DELACC-DEL-FAIL-CD = 'X'</code> e desvia para <code>SC999</code>, contornando todo o processamento da conta.</li>
+<li>Usa um bloco <code>EVALUATE TRUE</code> para interpretar <code>BNKSEC-RESULT</code>:
+<ul>
+<li><code>BNKSEC-ALLOWED</code> → define <code>WS-SEC-SW</code> como <code>'Y'</code> (SEC-OK), permitindo que o processamento prossiga.</li>
+<li><code>BNKSEC-DENIED</code> → define os indicadores de falha <code>'N'</code> / <code>'S'</code>.</li>
+<li><code>WHEN OTHER</code> → define os indicadores de falha <code>'N'</code> / <code>'X'</code> para uma resposta de segurança inesperada.</li>
+</ul>
+</li>
+<li>O parágrafo <code>SC999</code> é o rótulo de saída da seção (<code>EXIT</code>).</li>
+</ul>
+</li>
+<li>
+<p><strong>READ-ACCOUNT-DB2 (RAD010)</strong> — Recupera a linha completa da conta da tabela DB2 <code>ACCOUNT</code> usando a chave composta fornecida na área de comunicação.</p>
+<ul>
+<li>Move <code>DELACC-ACCNO</code> para <code>HV-ACCOUNT-ACC-NO</code> e <code>SORTCODE</code> para <code>HV-ACCOUNT-SORTCODE</code> para preencher as variáveis hospedeiras do DB2.</li>
+<li>Executa um <code>SELECT</code> DB2 buscando todas as doze colunas de <code>ACCOUNT</code> (eye-catcher, número do cliente, código de classificação, número da conta, tipo, taxa de juros, data de abertura, limite de cheque especial, data do último extrato, data do próximo extrato, saldo disponível, saldo real) em <code>HOST-ACCOUNT-ROW</code>, filtrado por <code>ACCOUNT_NUMBER</code> e <code>ACCOUNT_SORTCODE</code>.</li>
+<li>Lógica condicional pós-<code>SELECT</code>:
+<ul>
+<li>Se <code>SQLCODE</code> não for <code>0</code> nem <code>+100</code> (erro inesperado): monta um registro completo <code>ABNDINFO-REC</code>, atribui o <code>APPLID</code> e <code>PROGRAM</code> do CICS, chama <code>PERFORM POPULATE-TIME-DATE</code>, formata uma string de diagnóstico <code>ABND-FREEFORM</code> e emite <code>CICS ABEND</code> com o código <code>'HRAC'</code>.</li>
+<li>Se <code>SQLCODE = +100</code> (linha não encontrada): limpa <code>OUTPUT-DATA</code>, define <code>DELACC-DEL-SUCCESS = 'N'</code> e <code>DELACC-DEL-FAIL-CD = '1'</code>, então desvia para <code>RAD999</code> para retornar sem excluir.</li>
+<li>Se <code>SQLCODE = 0</code> (sucesso): define <code>DELACC-DEL-SUCCESS = 'Y'</code> e limpa o código de falha.</li>
+</ul>
+</li>
+<li>Reformata os três campos de data do DB2 (<code>ACCOUNT_OPENED</code>, <code>ACCOUNT_LAST_STATEMENT</code>, <code>ACCOUNT_NEXT_STATEMENT</code>) do formato de string <code>YYYY-MM-DD</code> por meio de <code>DB2-DATE-REFORMAT</code> para os subcampos <code>DD/MM/YYYY</code> de <code>OUTPUT-DATA</code>.</li>
+<li>Copia todos os campos da conta de <code>OUTPUT-DATA</code> de volta para os campos da área de comunicação (<code>DFHCOMMAREA</code>) (<code>DELACC-EYE</code> até <code>DELACC-ACTUAL-BAL</code>).</li>
+<li>Salva <code>HV-ACCOUNT-ACTUAL-BAL</code> em <code>ACCOUNT-ACT-BAL-STORE</code> para uso posterior no registro de auditoria <code>PROCTRAN</code>.</li>
+<li>O parágrafo <code>RAD999</code> é o rótulo de saída da seção (<code>EXIT</code>).</li>
+</ul>
+</li>
+<li>
+<p><strong>DEL-ACCOUNT-DB2 (DADB010)</strong> — Exclui a linha da conta da tabela DB2 <code>ACCOUNT</code>.</p>
+<ul>
+<li>Executa uma instrução DB2 <code>DELETE FROM ACCOUNT</code> usando as variáveis hospedeiras <code>HV-ACCOUNT-SORTCODE</code> e <code>HV-ACCOUNT-ACC-NO</code> como predicado de chave composta (<code>WHERE ACCOUNT_SORTCODE = :HV-ACCOUNT-SORTCODE AND ACCOUNT_NUMBER = :HV-ACCOUNT-ACC-NO</code>).</li>
+<li>Após a exclusão, verifica <code>SQLCODE</code>: se não for <code>0</code>, define <code>DELACC-SUCCESS</code> como <code>' '</code>, <code>DELACC-DEL-SUCCESS</code> como <code>'N'</code> e <code>DELACC-DEL-FAIL-CD</code> como <code>'3'</code> para sinalizar uma falha na exclusão ao chamador. Nenhum abend é disparado aqui; a falha é comunicada de volta por meio dos sinalizadores da área de comunicação.</li>
+<li>O parágrafo <code>DADB999</code> é o rótulo de saída da seção (<code>EXIT</code>).</li>
+</ul>
+</li>
+<li>
+<p><strong>WRITE-PROCTRAN (WP010)</strong> — Parágrafo despachante enxuto que delega a gravação do registro de auditoria à subseção específica de DB2.</p>
+<ul>
+<li>Contém uma única chamada <code>PERFORM WRITE-PROCTRAN-DB2</code>.</li>
+<li>O parágrafo <code>WP999</code> é o rótulo de saída da seção (<code>EXIT</code>).</li>
+</ul>
+</li>
+<li>
+<p><strong>WRITE-PROCTRAN-DB2 (WPD010)</strong> — Constrói e insere um registro de auditoria de transação de processo na tabela DB2 <code>PROCTRAN</code> para registrar permanentemente o evento de exclusão da conta.</p>
+<ul>
+<li>Inicializa <code>HOST-PROCTRAN-ROW</code> e <code>WS-EIBTASKN12</code>, então preenche os campos de cabeçalho da auditoria: eye-catcher <code>'- **A010** — Ponto de entrada principal da </code>PREMIERE SECTION`. Atua como controlador de nível superior do programa, orquestrando todas as etapas principais de processamento em sequência.</li>
+<li>Chama <code>SECURITY-CHECK</code> para determinar se o usuário solicitante está autorizado a excluir contas.</li>
+<li>Se a chave <code>SEC-OK</code> for verdadeira, move <code>SORTCODE</code> para o campo de trabalho de código de classificação requerido, então chama <code>READ-ACCOUNT-DB2</code> para recuperar a linha da conta-alvo.</li>
+<li>Chama condicionalmente <code>DEL-ACCOUNT-DB2</code> somente quando <code>DELACC-DEL-SUCCESS</code> é <code>'Y'</code> após a leitura.</li>
+<li>Se a exclusão também for bem-sucedida (<code>DELACC-DEL-SUCCESS</code> permanecer <code>'Y'</code>), chama <code>WRITE-PROCTRAN</code> para gravar a entrada de trilha de auditoria.</li>
+<li>Finaliza chamando <code>GET-ME-OUT-OF-HERE</code> incondicionalmente.</li>
+<li>O fluxo de controle é governado por testes <code>IF</code> aninhados em <code>SEC-OK</code> e <code>DELACC-DEL-SUCCESS</code>; não há repetição.</li>
+</ul>
+</li>
+<li>
+<p><strong>A999</strong> — Terminador de parágrafo para <code>PREMIERE SECTION</code>; contém apenas <code>EXIT</code>.</p>
+</li>
+<li>
+<p><strong>SECURITY-CHECK (SC010)</strong> — Impõe uma barreira de autorização RACF fail-closed antes que qualquer dado seja acessado.</p>
+<ul>
+<li>Inicializa <code>WS-SEC-SW</code> com <code>'N'</code> (SEC-NOT-OK) e limpa <code>BNKSEC-COMMAREA</code>.</li>
+<li>Emite um <code>CICS LINK</code> para o programa de verificação de segurança <code>BNKSECCK</code>, passando o nome da operação <code>'DELACC  '</code>.</li>
+<li>Se a resposta do CICS não for <code>DFHRESP(NORMAL)</code>, define <code>DELACC-DEL-SUCCESS</code> como <code>'N'</code>, código de falha <code>'X'</code>, e desvia imediatamente para <code>SC999</code>.</li>
+<li>Se a chamada for bem-sucedida, avalia <code>BNKSEC-RESULT</code> por meio de um bloco <code>EVALUATE TRUE</code>:
+<ul>
+<li><code>BNKSEC-ALLOWED</code> → define <code>SEC-OK</code> como <code>'Y'</code> (o processamento pode prosseguir).</li>
+<li><code>BNKSEC-DENIED</code> → define <code>DELACC-DEL-SUCCESS</code> como <code>'N'</code> e código de falha <code>'S'</code>.</li>
+<li><code>WHEN OTHER</code> → define <code>DELACC-DEL-SUCCESS</code> como <code>'N'</code> e código de falha <code>'X'</code>.</li>
+</ul>
+</li>
+<li>Interage com sistema externo: <code>CICS LINK</code> para <code>BNKSECCK</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>SC999</strong> — Terminador de parágrafo para <code>SECURITY-CHECK SECTION</code>; contém apenas <code>EXIT</code>.</p>
+</li>
+<li>
+<p><strong>READ-ACCOUNT-DB2 (RAD010)</strong> — Recupera a linha completa da conta da tabela DB2 <code>ACCOUNT</code> usando o número da conta recebido como chave de pesquisa.</p>
+<ul>
+<li>Move <code>DELACC-ACCNO</code> para a variável hospedeira <code>HV-ACCOUNT-ACC-NO</code> e <code>SORTCODE</code> para <code>HV-ACCOUNT-SORTCODE</code>.</li>
+<li>Executa um <code>SELECT</code> DB2 de todas as doze colunas de <code>ACCOUNT</code> para o grupo de variáveis hospedeiras <code>HOST-ACCOUNT-ROW</code>, filtrando por <code>ACCOUNT_NUMBER</code> e <code>ACCOUNT_SORTCODE</code>.</li>
+<li><strong>Caminho de erro de <code>SQLCODE</code></strong> (<code>SQLCODE NOT = 0 AND NOT = +100</code>): preenche <code>ABNDINFO-REC</code> com número da tarefa, ID da transação, timestamp, nome do programa e uma mensagem descritiva, então emite <code>CICS ABEND</code> com código <code>'HRAC'</code>. A chamada de abend é uma terminação forçada; ela chama <code>POPULATE-TIME-DATE</code> antes para obter os dados de timestamp.</li>
+<li><strong>Caminho de linha não encontrada</strong> (<code>SQLCODE = +100</code>): inicializa <code>OUTPUT-DATA</code>, define <code>DELACC-DEL-SUCCESS</code> como <code>'N'</code> e código de falha <code>'1'</code>, então desvia para <code>RAD999</code> com <code>GO TO</code>.</li>
+<li><strong>Caminho de sucesso</strong> (<code>SQLCODE = 0</code>): define <code>DELACC-DEL-SUCCESS</code> como <code>'Y'</code> e move todos os campos recuperados das variáveis hospedeiras tanto para <code>OUTPUT-DATA</code> quanto para os campos de <code>DFHCOMMAREA</code>. Os campos de data do DB2 (<code>ACCOUNT_OPENED</code>, <code>ACCOUNT_LAST_STATEMENT</code>, <code>ACCOUNT_NEXT_STATEMENT</code>) são analisados por meio do grupo <code>DB2-DATE-REFORMAT</code> para separar <code>YYYY-MM-DD</code> em subcampos de dia, mês e ano. Preserva <code>HV-ACCOUNT-ACTUAL-BAL</code> em <code>ACCOUNT-ACT-BAL-STORE</code> para uso posterior na auditoria.</li>
+<li>Interage com sistema externo: DB2 <code>SELECT</code> na tabela <code>ACCOUNT</code>; <code>CICS ABEND</code> em erro SQL fatal.</li>
+</ul>
+</li>
+<li>
+<p><strong>RAD999</strong> — Terminador de parágrafo para <code>READ-ACCOUNT-DB2 SECTION</code>; contém apenas <code>EXIT</code>.</p>
+</li>
+<li>
+<p><strong>DEL-ACCOUNT-DB2 (DADB010)</strong> — Exclui a linha da conta da tabela DB2 <code>ACCOUNT</code>.</p>
+<ul>
+<li>Executa um DB2 <code>DELETE FROM ACCOUNT</code> usando a chave composta <code>ACCOUNT_SORTCODE</code> e <code>ACCOUNT_NUMBER</code> já carregada em <code>HV-ACCOUNT-SORTCODE</code> e <code>HV-ACCOUNT-ACC-NO</code> a partir da leitura anterior.</li>
+<li>Se <code>SQLCODE NOT = 0</code>, define <code>DELACC-DEL-SUCCESS</code> como <code>'N'</code> e código de falha <code>'3'</code>, impedindo a gravação de auditoria subsequente.</li>
+<li>Não há lógica de abend presente; a falha é sinalizada exclusivamente por meio dos sinalizadores da área de comunicação.</li>
+<li>Interage com sistema externo: DB2 <code>DELETE</code> na tabela <code>ACCOUNT</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>DADB999</strong> — Terminador de parágrafo para <code>DEL-ACCOUNT-DB2 SECTION</code>; contém apenas <code>EXIT</code>.</p>
+</li>
+<li>
+<p><strong>WRITE-PROCTRAN (WP010)</strong> — Parágrafo despachante enxuto para a etapa de gravação da auditoria da transação.</p>
+<ul>
+<li>Simplesmente chama <code>WRITE-PROCTRAN-DB2</code> via <code>PERFORM</code> e sai.</li>
+<li>Não contém lógica própria; fornece uma camada de indireção que permite substituir ou estender a etapa de auditoria sem alterar o parágrafo chamador.</li>
+</ul>
+</li>
+<li>
+<p><strong>WP999</strong> — Terminador de parágrafo para <code>WRITE-PROCTRAN SECTION</code>; contém apenas <code>EXIT</code>.</p>
+</li>
+<li>
+<p><strong>WRITE-PROCTRAN-DB2 (WPD010)</strong> — Grava um registro de auditoria na tabela DB2 <code>PROCTRAN</code> documentando a exclusão bem-sucedida da conta.</p>
+<ul>
+<li>Inicializa <code>HOST-PROCTRAN-ROW</code> e <code>WS-EIBTASKN12</code>, então preenche as variáveis hospedeiras: eyecatcher <code>'PRTR'</code>, código de classificação e número da conta a partir de <code>OUTPUT-DATA</code>, número da tarefa a partir de <code>EIBTASKN</code> preenchido à esquerda até 12 dígitos como a referência da transação.</li>
+<li>Emite <code>CICS ASKTIME</code> para obter o timestamp absoluto e <code>CICS FORMATTIME</code> para produzir uma data formatada <code>DDMMYYYY</code> e hora <code>HHMMSS</code>; mapeia a data formatada por meio de <code>WS-ORIG-DATE-GRP-X</code> para <code>HV-PROCTRAN-DATE</code>.</li>
+<li>Preenche o redefine <code>PROC-TRAN-DESC-DELACC</code> de <code>PROCTRAN-AREA</code> com número do cliente, tipo de conta e componentes das datas do último/próximo extrato; define o sinalizador de rodapé da descrição como <code>'DELETE'</code> e o tipo de transação como <code>'ODA'</code> (exclusão de conta na agência) usando instruções <code>SET</code> de nível 88.</li>
+<li>Move o saldo real armazenado <code>ACCOUNT-ACT-BAL-STORE</code> para <code>HV-PROCTRAN-AMOUNT</code> para registrar o saldo da conta no momento da exclusão.</li>
+<li>Executa um DB2 <code>INSERT INTO PROCTRAN</code> para todas as nove colunas.</li>
+<li><strong>Caminho de erro</strong> (<code>SQLCODE NOT = 0</code>): preenche <code>ABNDINFO-REC</code> com <code>EIBRESP</code>, <code>EIBRESP2</code>, identificadores de tarefa/transação e uma string de mensagem em formato livre; emite <code>CICS LINK</code> para o programa de tratamento de abend <code>ABNDPROC</code> e depois <code>CICS ABEND</code> com código <code>'HWPT'</code>.</li>
+<li>Interage com sistemas externos: <code>CICS ASKTIME</code>, <code>CICS FORMATTIME</code>, <code>CICS LINK</code> para <code>ABNDPROC</code> (caminho de erro), <code>CICS ABEND</code> (caminho de erro), DB2 <code>INSERT</code> na tabela <code>PROCTRAN</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>WPD999</strong> — Terminador de parágrafo para <code>WRITE-PROCTRAN-DB2 SECTION</code>; contém apenas <code>EXIT</code>.</p>
+</li>
+<li>
+<p><strong>GET-ME-OUT-OF-HERE (GMOFH010)</strong> — Encerra o programa executando <code>GOBACK</code>, retornando o controle ao CICS.</p>
+<ul>
+<li>Nenhuma lógica além da única instrução <code>GOBACK</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>GMOFH999</strong> — Terminador de parágrafo para <code>GET-ME-OUT-OF-HERE SECTION</code>; contém apenas <code>EXIT</code>.</p>
+</li>
+<li>
+<p><strong>POPULATE-TIME-DATE (PTD010)</strong> — Parágrafo utilitário que obtém e formata a data e hora atuais do CICS para uso em registros de abend.</p>
+<ul>
+<li>Emite <code>CICS ASKTIME</code> para capturar a hora absoluta atual em <code>WS-U-TIME</code>.</li>
+<li>Emite <code>CICS FORMATTIME</code> para formatar <code>WS-U-TIME</code> em formato <code>DDMMYYYY</code> em <code>WS-ORIG-DATE</code> e hora <code>HHMMSS</code> em <code>WS-TIME-NOW</code>, usando o separador de data padrão.</li>
+<li>Chamado por <code>READ-ACCOUNT-DB2</code> e <code>WRITE-PROCTRAN-DB2</code> antes de preencher <code>ABNDINFO-REC</code> em condições de erro.</li>
+<li>Interage com sistema externo: <code>CICS ASKTIME</code> e <code>CICS FORMATTIME</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>PTD999</strong> — Terminador de parágrafo para <code>POPULATE-TIME-DATE SECTION</code>; contém apenas <code>EXIT</code>.</p>
+</li>
+</ul>
+<hr>
+<pre><code>    **INSTRUÇÕES DE TRADUÇÃO**
+
+    Traduza o conteúdo acima para o idioma identificado pelo código de localidade `pt-br`.
+
+    Siga estas regras sem exceção:
+
+    1. **Traduza todo o texto em linguagem natural** (explicações, descrições, resumos, títulos, marcadores) para o idioma de destino.
+    2. **NÃO traduza nem altere** nenhum dos itens a seguir — reproduza-os caractere por caractere:
+    - Código-fonte, trechos de código e blocos de código (conteúdo dentro de blocos delimitados por ``` ou spans inline com crases)
+    - Palavras-chave de linguagens de programação (por exemplo, `PERFORM`, `CALL`, `PROCEDURE`, `if`, `while`)
+    - Nomes de variáveis, nomes de parágrafos, nomes de procedimentos, nomes de rótulos e identificadores
+    - Nomes de arquivos, nomes de datasets, nomes DD, nomes de programas
+    - Sintaxe de comandos SQL, JCL, CICS, MQ, IMS e outros comandos de mainframe
+    - Nomes de APIs, nomes de ferramentas, nomes de comandos e chaves de configuração
+    - Literais numéricos, literais hexadecimais e valores constantes
+    - URLs, caminhos e placeholders técnicos
+    3. **Preserve toda a formatação Markdown** (títulos, negrito, itálico, listas, tabelas, blocos de código) exatamente como estruturada no original.
+    4. **Não adicione, remova nem reordene seções** — a resposta traduzida deve ter a mesma estrutura da original.
+
+    &gt; ⚠️ **CRÍTICO**: Sob nenhuma circunstância o texto original em `en` deve aparecer em qualquer lugar da sua resposta. Produza SOMENTE a versão traduzida em `pt-br`.
+</code></pre>
+<h2 id="6-dependencies" tabindex="-1">6. Dependencies</h2>
+<h3 id="61-copybooks" tabindex="-1">6.1 Copybooks</h3>
+<ul>
+<li><strong>SORTCODE</strong> (<code>src/base/cics/copy/SORTCODE.cpy</code>)
+<ul>
+<li>Fornece a constante de código de classificação bancária codificada (<code>987654</code>) usada para delimitar todas as leituras e exclusões de contas no DB2 à agência correta</li>
+</ul>
+</li>
+<li><strong>BNKSEC</strong> (<code>src/base/cics/copy/BNKSEC.cpy</code>)
+<ul>
+<li>Define o layout da área de comunicação (<code>BNKSEC-COMMAREA</code>) passada ao programa de verificação de segurança <code>BNKSECCK</code>; carrega o nome da operação, IDs de usuário e o resultado da autorização</li>
+</ul>
+</li>
+<li><strong>ACCDB2</strong> (<code>src/base/cics/copy/ACCDB2.cpy</code>)
+<ul>
+<li>Declara a estrutura da tabela DB2 <code>ACCOUNT</code> (via <code>EXEC SQL DECLARE</code>) e fornece o grupo de variáveis de host COBOL <code>HOST-ACCOUNT-ROW</code> utilizado em todas as instruções SQL contra essa tabela</li>
+</ul>
+</li>
+<li><strong>PROCDB2</strong> (<code>src/base/cics/copy/PROCDB2.cpy</code>)
+<ul>
+<li>Declara a estrutura da tabela DB2 <code>PROCTRAN</code> e fornece o grupo de variáveis de host <code>HOST-PROCTRAN-ROW</code> utilizado na inserção do registro de trilha de auditoria</li>
+</ul>
+</li>
+<li><strong>ACCOUNT</strong> (<code>src/base/cics/copy/ACCOUNT.cpy</code>)
+<ul>
+<li>Define o layout do registro de conta na working storage (<code>OUTPUT-DATA / ACCOUNT-DATA</code>) utilizado para receber e reformatar os dados recuperados do DB2 antes de propagá-los para a área de comunicação</li>
+</ul>
+</li>
+<li><strong>PROCTRAN</strong> (<code>src/base/cics/copy/PROCTRAN.cpy</code>)
+<ul>
+<li>Define o layout do registro de transação de processo (<code>PROCTRAN-AREA</code>), incluindo todos os valores de nível 88 para tipo de transação; utilizado para construir a linha de auditoria gravada em <code>PROCTRAN</code></li>
+</ul>
+</li>
+<li><strong>ACCTCTRL</strong> (<code>src/base/cics/copy/ACCTCTRL.cpy</code>)
+<ul>
+<li>Define o layout do registro de controle de conta (<code>ACCOUNT-CONTROL</code>) referenciado na working storage; descreve a estrutura do registro de controle (marcador de identificação, código de classificação, contagem de contas, último número, indicadores de sucesso/falha)</li>
+</ul>
+</li>
+<li><strong>ABNDINFO</strong> (<code>src/base/cics/copy/ABNDINFO.cpy</code>)
+<ul>
+<li>Define o registro de informações de abend (<code>ABNDINFO-REC</code>) preenchido em caso de erros e passado ao programa de tratamento de abend <code>ABNDPROC</code></li>
+</ul>
+</li>
+<li><strong>DELACC</strong> (<code>src/base/cics/copy/DELACC.cpy</code>)
+<ul>
+<li>Define o layout da área de comunicação voltada ao chamador (<code>DFHCOMMAREA</code>); carrega o número da conta de entrada e o código de classificação na entrada, e retorna o perfil completo da conta excluída mais os indicadores de sucesso/falha na saída</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="62-tabelas-db2" tabindex="-1">6.2 Tabelas DB2</h3>
+<ul>
+<li><strong>ACCOUNT</strong>
+<ul>
+<li>Lida via <code>SELECT</code> (chaveada em <code>ACCOUNT_NUMBER</code> + <code>ACCOUNT_SORTCODE</code>) para recuperar a linha completa da conta antes da exclusão; em seguida, alvo de <code>DELETE</code> usando a mesma chave composta para remover o registro</li>
+</ul>
+</li>
+<li><strong>PROCTRAN</strong>
+<ul>
+<li>Recebe um <code>INSERT</code> após a exclusão bem-sucedida de uma conta; registra o tipo de transação, código de classificação, número da conta, data/hora, referência, descrição e saldo como entrada permanente de trilha de auditoria</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="63-rea-de-sistema-db2" tabindex="-1">6.3 Área de Sistema DB2</h3>
+<ul>
+<li><strong>SQLCA</strong> (Área de Comunicação SQL — <code>INCLUDE SQLCA</code>)
+<ul>
+<li>Incluída no momento da pré-compilação; fornece <code>SQLCODE</code> e campos relacionados que o programa inspeciona após cada instrução SQL para detectar sucesso, linha não encontrada (<code>+100</code>) ou erros fatais</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="64-programas-externos-cics-link" tabindex="-1">6.4 Programas Externos (CICS LINK)</h3>
+<ul>
+<li><strong>BNKSECCK</strong>
+<ul>
+<li>Sub-programa de verificação de segurança invocado via <code>EXEC CICS LINK</code> antes de qualquer acesso a dados; avalia se o usuário solicitante está autorizado a realizar exclusões de contas; retorna <code>BNKSEC-ALLOWED</code>, <code>BNKSEC-DENIED</code> ou <code>BNKSEC-ERROR</code> em <code>BNKSEC-COMMAREA</code></li>
+</ul>
+</li>
+<li><strong>ABNDPROC</strong> (valor de <code>WS-ABEND-PGM</code>)
+<ul>
+<li>Programa de tratamento de abend invocado via <code>EXEC CICS LINK</code> quando ocorre um erro fatal (por exemplo, falha no INSERT em <code>PROCTRAN</code>); recebe a área de comunicação <code>ABNDINFO-REC</code> preenchida contendo APPLID, ID de transação, número de tarefa, SQLCODE, códigos RESP e uma mensagem de diagnóstico em formato livre</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="65-servios-cics" tabindex="-1">6.5 Serviços CICS</h3>
+<ul>
+<li><strong>EXEC CICS LINK</strong> — utilizado para chamar <code>BNKSECCK</code> e <code>ABNDPROC</code></li>
+<li><strong>EXEC CICS ASKTIME</strong> — recupera o horário absoluto atual (<code>WS-U-TIME</code>) para carimbar o registro <code>PROCTRAN</code> e para diagnósticos de abend</li>
+<li><strong>EXEC CICS FORMATTIME</strong> — converte o horário absoluto para strings legíveis de data (<code>WS-ORIG-DATE</code>, formato <code>DDMMYYYY</code>) e hora (<code>HV-PROCTRAN-TIME</code> / <code>WS-TIME-NOW</code>)</li>
+<li><strong>EXEC CICS ASSIGN APPLID</strong> — recupera o identificador de aplicação CICS (<code>ABND-APPLID</code> / <code>WS-APPLID</code>) para registros de abend</li>
+<li><strong>EXEC CICS ASSIGN PROGRAM</strong> — recupera o nome do programa em execução (<code>ABND-PROGRAM</code>) para registros de abend</li>
+<li><strong>EXEC CICS ABEND</strong> — força um abend controlado de transação com os códigos <code>HRAC</code> (erro no SELECT de conta) ou <code>HWPT</code> (erro no INSERT em PROCTRAN)</li>
+<li><strong>DFHRESP(NORMAL)</strong> — constante de sistema CICS comparada com <code>WS-CICS-RESP</code> após <code>CICS LINK</code> para detectar erros de comunicação com <code>BNKSECCK</code></li>
+</ul>
+<hr>
+<h3 id="66-parmetros-de-entrada" tabindex="-1">6.6 Parâmetros de Entrada</h3>
+<ul>
+<li><strong>DFHCOMMAREA</strong> (mapeado pelo copybook <code>DELACC.cpy</code>)
+<ul>
+<li>Passado pelo programa chamador na invocação da transação; deve conter <code>DELACC-ACCNO</code> (o número de conta de 8 dígitos a ser excluído) e implicitamente o código de classificação; todos os demais campos são preenchidos por <code>DELACC</code> e retornados ao chamador</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="67-campos-do-eib-cics-bloco-de-interface-de-execuo" tabindex="-1">6.7 Campos do EIB CICS (Bloco de Interface de Execução)</h3>
+<ul>
+<li><strong>EIBTASKN</strong> — número da tarefa atual; utilizado como campo de referência em <code>PROCTRAN</code> e em registros de abend</li>
+<li><strong>EIBTRNID</strong> — identificador da transação atual; registrado nas informações de abend</li>
+<li><strong>EIBRESP / EIBRESP2</strong> — códigos de resposta CICS capturados em <code>ABND-RESPCODE</code> / <code>ABND-RESP2CODE</code> em caso de falha na gravação em <code>PROCTRAN</code></li>
+</ul>
+<hr>
+<h3 id="68-valores-de-configurao--ambiente" tabindex="-1">6.8 Valores de Configuração / Ambiente</h3>
+<ul>
+<li><strong>Constante de código de classificação (<code>987654</code>)</strong> — fornecida pelo copybook <code>SORTCODE</code>; delimita todas as operações DB2 à agência proprietária; precisaria ser alterada (ou tornada dinâmica) para suportar uma instituição diferente</li>
+<li><strong>Opções de compilador</strong> — diretivas <code>CBL CICS('SP,EDF')</code> e <code>CBL SQL</code> no topo do arquivo-fonte; exigem que os pré-processadores CICS e DB2 estejam ativos durante a compilação</li>
+</ul>
+<h2 id="7-constraints" tabindex="-1">7. Constraints</h2>
+<h3 id="71-restries-de-segurana" tabindex="-1">7.1 Restrições de Segurança</h3>
+<ul>
+<li><strong>Portão de segurança fail-closed</strong>: <code>WS-SEC-SW</code> é inicializado como <code>'N'</code> (SEC-NOT-OK) antes da chamada LINK para BNKSECCK; o switch de segurança só é promovido para SEC-OK (<code>'Y'</code>) quando <code>BNKSEC-RESULT</code> é igual a <code>'A'</code> (BNKSEC-ALLOWED). Qualquer outro resultado — incluindo uma falha no CICS link — mantém o portão fechado, e nenhum dado de conta é lido ou excluído.</li>
+<li><strong>A resposta CICS LINK deve ser NORMAL</strong>: Se o <code>EXEC CICS LINK PROGRAM('BNKSECCK')</code> retornar uma resposta diferente de <code>DFHRESP(NORMAL)</code>, o processamento é encerrado imediatamente com <code>DELACC-DEL-SUCCESS = 'N'</code> e <code>DELACC-DEL-FAIL-CD = 'X'</code> (segurança indisponível). A verificação de segurança é, portanto, um pré-requisito obrigatório para todas as operações subsequentes.</li>
+<li><strong>Negação de autorização</strong>: Quando BNKSECCK retorna <code>BNKSEC-DENIED</code> (<code>'D'</code>), <code>DELACC-DEL-SUCCESS</code> é definido como <code>'N'</code> e <code>DELACC-DEL-FAIL-CD</code> é definido como <code>'S'</code>; nenhuma leitura ou exclusão de conta é tentada.</li>
+<li><strong>Qualquer resultado de segurança diferente de permitido/negado</strong> (BNKSEC-ERROR ou qualquer outro valor) é tratado como falha de sistema e igualmente define o código de falha <code>'X'</code> e o sinalizador de sucesso <code>'N'</code>.</li>
+</ul>
+<hr>
+<h3 id="72-restries-de-entrada--chave" tabindex="-1">7.2 Restrições de Entrada / Chave</h3>
+<ul>
+<li><strong>O número da conta é a entrada principal obrigatória</strong>: <code>DELACC-ACCNO</code> (PIC 9(8)) deve ser fornecido no DFHCOMMAREA antes da invocação. O programa não valida o número da conta quanto a conteúdo não nulo ou não espaço; ele é passado diretamente para a variável hospedeira DB2 <code>HV-ACCOUNT-ACC-NO</code> e usado como chave no SELECT.</li>
+<li><strong>O código de classificação é implicitamente fixo</strong>: A linha ACCOUNT é chaveada pelo composto <code>(ACCOUNT_SORTCODE, ACCOUNT_NUMBER)</code>. O componente do código de classificação é sempre proveniente da constante hard-coded <code>SORTCODE</code> (VALUE 987654). O chamador não pode substituir o código de classificação — qualquer valor de código de classificação em <code>DELACC-SCODE</code> no COMMAREA é ignorado na entrada e apenas gravado de volta na saída.</li>
+<li><strong>Unicidade da chave composta</strong>: O SELECT DB2 usa <code>WHERE ACCOUNT_NUMBER = :HV-ACCOUNT-ACC-NO AND ACCOUNT_SORTCODE = :HV-ACCOUNT-SORTCODE</code>. Apenas uma única linha é esperada; não há cursor ou loop, portanto o esquema da tabela deve impor uma restrição de unicidade nessa chave composta para que o programa se comporte corretamente.</li>
+</ul>
+<hr>
+<h3 id="73-restries-de-ordem-de-processamento--sequenciamento" tabindex="-1">7.3 Restrições de Ordem de Processamento / Sequenciamento</h3>
+<ul>
+<li><strong>A segurança deve ser concluída antes do acesso aos dados</strong>: <code>PERFORM SECURITY-CHECK</code> é a primeira ação na seção PREMIERE. A leitura e exclusão de contas são incondicionalmente ignoradas se o portão de segurança não estiver aberto.</li>
+<li><strong>A conta deve ser lida com sucesso antes da exclusão</strong>: <code>PERFORM DEL-ACCOUNT-DB2</code> é invocado apenas dentro do bloco protegido por <code>IF DELACC-DEL-SUCCESS = 'Y'</code> após <code>PERFORM READ-ACCOUNT-DB2</code>. Se o SELECT retornar SQLCODE +100 (não encontrado), o programa define o sinalizador como <code>'N'</code> e ramifica para <code>RAD999</code>, impedindo qualquer tentativa de exclusão.</li>
+<li><strong>O registro de auditoria PROCTRAN só é gravado após uma exclusão bem-sucedida</strong>: <code>PERFORM WRITE-PROCTRAN</code> é aninhado dentro de um segundo teste <code>IF DELACC-DEL-SUCCESS = 'Y'</code> que segue <code>PERFORM DEL-ACCOUNT-DB2</code>. Uma falha no DB2 DELETE (SQLCODE ≠ 0, definindo o código de falha <code>'3'</code>) impede a execução do INSERT de auditoria.</li>
+<li><strong>O saldo deve ser capturado antes de o registro ser excluído</strong>: <code>ACCOUNT-ACT-BAL-STORE</code> é populado a partir de <code>HV-ACCOUNT-ACTUAL-BAL</code> durante a fase SELECT (READ-ACCOUNT-DB2). Esse valor armazenado é posteriormente gravado como <code>PROCTRAN_AMOUNT</code> em WRITE-PROCTRAN-DB2, garantindo que o saldo no momento da exclusão seja preservado mesmo após a remoção da linha de origem.</li>
+</ul>
+<hr>
+<h3 id="74-restries-de-db2--armazenamento-de-dados" tabindex="-1">7.4 Restrições de DB2 / Armazenamento de Dados</h3>
+<ul>
+<li><strong>SQLCODE = 0 é o único resultado bem-sucedido do SELECT</strong>: Qualquer SQLCODE diferente de <code>0</code> (sucesso) ou <code>+100</code> (não encontrado) durante o SELECT causa um CICS ABEND imediato com código <code>'HRAC'</code>. O programa trata erros SQL inesperados como irrecuperáveis.</li>
+<li><strong>Conta não encontrada é um erro definido e não fatal</strong>: SQLCODE <code>+100</code> define <code>DELACC-DEL-SUCCESS = 'N'</code> e <code>DELACC-DEL-FAIL-CD = '1'</code>, e o controle retorna ao chamador sem abend.</li>
+<li><strong>Falha no DB2 DELETE é um erro suave para o chamador, mas sem abend</strong>: Quando o DELETE retorna SQLCODE ≠ 0, <code>DELACC-DEL-SUCCESS</code> é definido como <code>'N'</code> e <code>DELACC-DEL-FAIL-CD</code> é definido como <code>'3'</code>; o programa não executa abend. A gravação de auditoria é ignorada porque o sinalizador de sucesso a impede.</li>
+<li><strong>Falha no PROCTRAN INSERT é fatal (abend)</strong>: Se o <code>INSERT INTO PROCTRAN</code> retornar SQLCODE ≠ 0, o programa faz link para <code>ABNDPROC</code> e então emite <code>EXEC CICS ABEND ABCODE('HWPT')</code>. Não há caminho de erro recuperável para uma gravação de trilha de auditoria com falha.</li>
+<li><strong>Os tamanhos das variáveis hospedeiras restringem os dados aceitáveis</strong>: <code>HV-ACCOUNT-ACC-NO</code> é PIC X(8) e <code>HV-ACCOUNT-SORTCODE</code> é PIC X(6), correspondendo às declarações de coluna DB2 de <code>CHAR(8)</code> e <code>CHAR(6)</code> respectivamente. Números de conta ou códigos de classificação que excedam esses campos serão truncados silenciosamente.</li>
+</ul>
+<hr>
+<h3 id="75-restries-de-segurana-detalhadas" tabindex="-1">7.5 Restrições de Segurança (detalhadas)</h3>
+<ul>
+<li><strong>Portão de segurança fail-closed</strong>: <code>WS-SEC-SW</code> é inicializado como <code>'N'</code> (SEC-NOT-OK) no início do programa. O subprograma BNKSECCK é invocado via <code>EXEC CICS LINK</code> antes que qualquer dado de conta seja lido ou excluído. Somente um resultado explícito <code>BNKSEC-ALLOWED</code> (‘A’) do BNKSECCK com uma resposta CICS <code>NORMAL</code> faz com que <code>WS-SEC-SW</code> seja definido como <code>'Y'</code> (SEC-OK); todos os outros resultados o mantêm como <code>'N'</code>, bloqueando todo o processamento subsequente. Isso garante que nenhuma conta possa ser excluída a menos que a autorização seja positivamente confirmada.
+<ul>
+<li>Se o próprio CICS LINK para BNKSECCK falhar (RESP ≠ NORMAL), <code>DELACC-DEL-SUCCESS</code> é definido como <code>'N'</code> e <code>DELACC-DEL-FAIL-CD</code> é definido como <code>'X'</code>, e o programa sai sem tocar nos dados da conta.</li>
+<li>Se BNKSECCK retornar <code>BNKSEC-DENIED</code> (‘D’), <code>DELACC-DEL-SUCCESS</code> é definido como <code>'N'</code> e <code>DELACC-DEL-FAIL-CD</code> é definido como <code>'S'</code>.</li>
+<li>Qualquer resultado de BNKSECCK diferente de ALLOWED ou DENIED (BNKSEC-ERROR ou qualquer valor inesperado) é tratado de forma idêntica a uma falha de sistema: <code>DELACC-DEL-FAIL-CD</code> = <code>'X'</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="76-restries-de-sequenciamento-e-ordem-de-processamento" tabindex="-1">7.6 Restrições de Sequenciamento e Ordem de Processamento</h3>
+<ul>
+<li><strong>A verificação de segurança deve preceder todo acesso a dados</strong>: O parágrafo <code>SECURITY-CHECK</code> é a primeira operação executada na seção <code>PREMIERE</code>. <code>READ-ACCOUNT-DB2</code> e <code>DEL-ACCOUNT-DB2</code> só são acessados dentro do bloco <code>IF SEC-OK</code>; eles não podem ser alcançados se a verificação de segurança não tiver sido concluída e definido <code>SEC-OK</code>.</li>
+<li><strong>A leitura da conta deve preceder a exclusão</strong>: <code>PERFORM READ-ACCOUNT-DB2</code> é invocado primeiro. <code>DEL-ACCOUNT-DB2</code> só é invocado quando <code>DELACC-DEL-SUCCESS = 'Y'</code> após a leitura, garantindo que o registro da conta exista e tenha sido recuperado antes de qualquer tentativa de exclusão.</li>
+<li><strong>A gravação do registro de auditoria deve seguir uma exclusão bem-sucedida</strong>: <code>WRITE-PROCTRAN</code> só é invocado após <code>READ-ACCOUNT-DB2</code> e <code>DEL-ACCOUNT-DB2</code> terem retornado <code>DELACC-DEL-SUCCESS = 'Y'</code>. Nenhuma entrada PROCTRAN é gravada se qualquer etapa falhar.</li>
+<li><strong>O saldo deve ser capturado antes da exclusão</strong>: <code>ACCOUNT-ACT-BAL-STORE</code> é populado a partir de <code>HV-ACCOUNT-ACTUAL-BAL</code> durante <code>READ-ACCOUNT-DB2</code>, antes de o DELETE ser emitido. Isso preserva o saldo para o registro de auditoria mesmo que a linha seja subsequentemente removida.</li>
+</ul>
+<hr>
+<h3 id="77-restries-de-validao-de-entrada" tabindex="-1">7.7 Restrições de Validação de Entrada</h3>
+<ul>
+<li><strong>O número da conta é a única chave de entrada</strong>: O programa aceita <code>DELACC-ACCNO</code> (PIC 9(8)) do <code>DFHCOMMAREA</code> como identificador da conta. Nenhuma validação de entrada adicional (por exemplo, verificação de não nulo, verificação de formato) é realizada no código COBOL; o comentário do programa afirma que “é assumido que o número de cliente recebido será válido.”</li>
+<li><strong>O código de classificação é internamente fixo</strong>: O código de classificação usado em todas as operações DB2 é proveniente exclusivamente da constante de working-storage <code>SORTCODE</code> (VALUE 987654 hard-coded do copybook SORTCODE). O campo <code>DELACC-SCODE</code> fornecido pelo chamador não é usado como entrada de chave; o programa sempre limita as operações aos dados de uma única filial representada por essa constante.</li>
+<li><strong>Requisito de chave composta</strong>: As instruções DB2 SELECT e DELETE exigem correspondência na chave composta <code>(ACCOUNT_NUMBER, ACCOUNT_SORTCODE)</code>. Uma linha que corresponda apenas a uma coluna não será selecionada ou excluída.</li>
+</ul>
+<hr>
+<h3 id="78-restries-de-sqlcode-db2" tabindex="-1">7.8 Restrições de SQLCODE DB2</h3>
+<ul>
+<li><strong>SELECT: SQLCODE não nulo e diferente de 100 causa abend</strong>: Em <code>READ-ACCOUNT-DB2</code>, se <code>SQLCODE NOT = 0 AND SQLCODE NOT = +100</code>, o programa emite <code>EXEC CICS ABEND ABCODE('HRAC') NODUMP</code>. Isso significa que qualquer erro DB2 inesperado no SELECT é tratado como fatal e irrecuperável.</li>
+<li><strong>Tratamento de conta não encontrada</strong>: Se <code>SQLCODE = +100</code> (linha não encontrada) do SELECT, <code>DELACC-DEL-SUCCESS</code> é definido como <code>'N'</code> e <code>DELACC-DEL-FAIL-CD</code> é definido como <code>'1'</code>; o processamento retorna ao chamador sem tentar a exclusão.</li>
+<li><strong>DELETE: SQLCODE não nulo define sinalizador de falha</strong>: Em <code>DEL-ACCOUNT-DB2</code>, se <code>SQLCODE NOT = 0</code> após o DELETE, <code>DELACC-DEL-SUCCESS</code> é definido como <code>'N'</code> e <code>DELACC-DEL-FAIL-CD</code> é definido como <code>'3'</code>. O programa não executa abend em uma falha de DELETE; ele sinaliza o erro ao chamador e ignora a gravação de PROCTRAN.</li>
+<li><strong>PROCTRAN INSERT: SQLCODE não nulo causa abend</strong>: Em <code>WRITE-PROCTRAN-DB2</code>, se <code>SQLCODE NOT = 0</code> após o INSERT, o programa faz link para <code>ABNDPROC</code> e então emite <code>EXEC CICS ABEND ABCODE('HWPT')</code>. A falha em registrar a trilha de auditoria é tratada como um erro fatal e irrecuperável.</li>
+</ul>
+<hr>
+<h3 id="79-restries-de-sada-e-cdigo-de-resultado" tabindex="-1">7.9 Restrições de Saída e Código de Resultado</h3>
+<ul>
+<li><strong><code>DELACC-DEL-SUCCESS</code> é o sinalizador de resultado definitivo</strong>: Todos os chamadores devem inspecionar este campo (<code>'Y'</code> = sucesso, <code>'N'</code> = falha). O campo complementar <code>DELACC-DEL-FAIL-CD</code> contém um código de motivo de um único caractere:
+<ul>
+<li><code>'1'</code> — conta não encontrada (SELECT retornou +100)</li>
+<li><code>'3'</code> — falha no DB2 DELETE (SQLCODE ≠ 0 no DELETE)</li>
+<li><code>'S'</code> — segurança negada por BNKSECCK</li>
+<li><code>'X'</code> — verificação de segurança indisponível (falha no CICS LINK ou resultado de erro do BNKSECCK)</li>
+</ul>
+</li>
+<li><strong>Os dados da conta são populados no commarea mesmo quando não encontrada</strong>: Quando a conta não é encontrada (SQLCODE +100), <code>OUTPUT-DATA</code> é parcialmente inicializado com o código de classificação e número da conta antes do retorno de falha, de modo que o commarea reflete a chave tentada.</li>
+</ul>
+<hr>
+<h3 id="710-restries-de-formato-de-dados-e-tamanho-de-campo" tabindex="-1">7.10 Restrições de Formato de Dados e Tamanho de Campo</h3>
+<ul>
+<li><strong>O formato de data DB2 deve ser YYYY-MM-DD</strong>: Todas as três colunas DATE (<code>ACCOUNT_OPENED</code>, <code>ACCOUNT_LAST_STATEMENT</code>, <code>ACCOUNT_NEXT_STATEMENT</code>) são recuperadas em variáveis hospedeiras de 10 caracteres e analisadas por meio de <code>DB2-DATE-REFORMAT</code> (layout YYYY-MM-DD). O programa assume exatamente esse formato; qualquer desvio produziria valores incorretos de dia/mês/ano na saída do commarea.</li>
+<li><strong>O eyecatcher do PROCTRAN deve ser ‘PRTR’</strong>: O literal <code>'PRTR'</code> é hard-coded em <code>HV-PROCTRAN-EYECATCHER</code> antes de cada INSERT. A linha PROCTRAN será rejeitada ou identificada incorretamente por consumidores downstream se esse valor não estiver presente.</li>
+<li><strong>O tipo do PROCTRAN deve ser ‘ODA’ (PROC-TY-BRANCH-DELETE-ACCOUNT)</strong>: O tipo de transação é definido usando <code>SET PROC-TY-BRANCH-DELETE-ACCOUNT TO TRUE</code>, que equivale ao valor <code>'ODA'</code>. Este é o único código de tipo válido gravado para uma exclusão de conta no caminho de filial.</li>
+<li><strong>O rodapé de descrição do PROCTRAN deve ser ‘DELETE’</strong>: <code>SET PROC-DESC-DELACC-FLAG TO TRUE</code> popula o campo de rodapé de 6 caracteres com o literal <code>'DELETE'</code>, conforme exigido pela condição de nível 88 <code>PROC-DESC-DELACC-FOOTER</code>.</li>
+<li><strong>O valor do PROCTRAN é o saldo real no momento da exclusão</strong>: <code>ACCOUNT-ACT-BAL-STORE</code> (PIC S9(10)V99) carrega o saldo capturado durante o SELECT e é gravado diretamente em <code>PROCTRAN_AMOUNT</code>. O saldo disponível não é registrado na trilha de auditoria.</li>
+</ul>
+<hr>
+<h3 id="711-restries-de-recurso-e-escopo" tabindex="-1">7.11 Restrições de Recurso e Escopo</h3>
+<ul>
+<li><strong>Operação de linha única apenas</strong>: O SELECT recupera exatamente uma linha (sem cursor, sem loop FETCH). Se a chave composta <code>(ACCOUNT_NUMBER, ACCOUNT_SORTCODE)</code> não for única na tabela ACCOUNT, o DB2 levantará um erro; o programa não tem tratamento para múltiplas linhas retornadas.</li>
+<li><strong>Sem lógica de repetição para operações DB2</strong>: Ao contrário de alguns programas complementares que implementam loops de repetição (<code>SYSIDERR-RETRY</code>, <code>FILE-RETRY</code>), as operações DELETE e INSERT não têm mecanismo de repetição; uma única falha é imediatamente terminal ou reportada como código de falha.</li>
+<li><strong>O escopo do código de classificação é fixo em tempo de compilação/implantação</strong>: A constante VALUE 987654 no copybook SORTCODE significa que o programa só pode operar contra os dados de uma única instituição. Nenhuma substituição em tempo de execução é possível.</li>
+</ul>
+<h2 id="8-error-handling" tabindex="-1">8. Error Handling</h2>
+<h3 id="81-verificaes-de-segurana-security-gating-checks" tabindex="-1">8.1 Verificações de Segurança (Security-Gating Checks)</h3>
+<ul>
+<li>
+<p><strong>Portão de segurança pré-processamento via seção <code>SECURITY-CHECK</code>:</strong> Antes de qualquer acesso a dados, o programa vincula ao subprograma de segurança externo <code>BNKSECCK</code> via comando <code>CICS LINK</code>, passando uma área de comunicação que identifica a operação <code>DELACC</code> e o usuário solicitante. O programa implementa uma política estritamente restritiva (<em>fail-closed</em>): <code>WS-SEC-SW</code> é inicializado como <code>'N'</code> (SEC-NOT-OK) antes da chamada, e <code>SEC-OK</code> só é definido como <code>'Y'</code> se a chamada for bem-sucedida e o resultado for explicitamente <code>BNKSEC-ALLOWED</code>. Todo o processamento subsequente — leitura da conta no DB2, exclusão e gravação de auditoria — está aninhado dentro da condição <code>IF SEC-OK</code>, portanto nenhum dado é acessado se a segurança não for confirmada.</p>
+</li>
+<li>
+<p><strong>Verificação de resposta CICS LINK para a chamada de segurança:</strong> Após o <code>CICS LINK</code> para <code>BNKSECCK</code>, o valor de CICS RESP capturado em <code>WS-CICS-RESP</code> é comparado a <code>DFHRESP(NORMAL)</code>. Se a própria chamada falhar no nível CICS (ou seja, o programa de segurança não puder ser invocado), o programa imediatamente define <code>DELACC-DEL-SUCCESS</code> como <code>'N'</code> e <code>DELACC-DEL-FAIL-CD</code> como <code>'X'</code>, e então desvia para encerrar a seção de segurança sem habilitar o switch de segurança.</p>
+</li>
+<li>
+<p><strong>Avaliação do resultado de segurança via <code>EVALUATE</code>:</strong> O campo <code>BNKSEC-RESULT</code> retornado por <code>BNKSECCK</code> é avaliado em relação às condições de nível 88:</p>
+<ul>
+<li><code>BNKSEC-ALLOWED</code> — habilita <code>SEC-OK</code>, permitindo que o processamento prossiga.</li>
+<li><code>BNKSEC-DENIED</code> — define <code>DELACC-DEL-SUCCESS</code> como <code>'N'</code> e <code>DELACC-DEL-FAIL-CD</code> como <code>'S'</code>, sinalizando uma negação deliberada de segurança ao chamador.</li>
+<li><code>WHEN OTHER</code> — trata qualquer resultado inesperado como erro de sistema, definindo <code>DELACC-DEL-SUCCESS</code> como <code>'N'</code> e <code>DELACC-DEL-FAIL-CD</code> como <code>'X'</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="82-tratamento-de-erros-sql-no-db2" tabindex="-1">8.2 Tratamento de Erros SQL no DB2</h3>
+<ul>
+<li>
+<p><strong>Verificação de SQLCODE no SELECT da conta — erro DB2 fatal (caminho de abend):</strong> Após o <code>SELECT</code> no DB2 na tabela <code>ACCOUNT</code> em <code>READ-ACCOUNT-DB2</code>, o SQLCODE é inspecionado. Se não for nem <code>0</code> (sucesso) nem <code>+100</code> (linha não encontrada), o programa trata o resultado como um erro DB2 fatal e irrecuperável. Ele monta um registro completo <code>ABNDINFO-REC</code> preenchido com número de tarefa, ID de transação, ID de aplicação, data e hora atuais, código de abend <code>'HRAC'</code>, valor de exibição do SQLCODE e uma mensagem de texto livre identificando o código de agência e número de conta envolvidos. Um comando <code>DISPLAY</code> grava uma mensagem no operador/log. O programa então emite <code>EXEC CICS ABEND ABCODE('HRAC') NODUMP</code>, forçando um abend CICS imediato sem produzir dump.</p>
+</li>
+<li>
+<p><strong>Verificação de SQLCODE no SELECT da conta — linha não encontrada (caminho gracioso):</strong> Quando o SQLCODE é igual a <code>+100</code>, o registro da conta não existe. O programa inicializa a área de saída, define <code>DELACC-DEL-SUCCESS</code> como <code>'N'</code>, define <code>DELACC-DEL-FAIL-CD</code> como <code>'1'</code> e desvia diretamente para o final da seção via <code>GO TO RAD999</code>. Nenhuma exclusão ou gravação de auditoria é tentada.</p>
+</li>
+<li>
+<p><strong>Verificação de SQLCODE no SELECT da conta — flag de sucesso:</strong> Quando o SQLCODE é igual a <code>0</code>, <code>DELACC-DEL-SUCCESS</code> é definido como <code>'Y'</code> e <code>DELACC-DEL-FAIL-CD</code> é limpo, permitindo que a lógica chamadora em <code>PREMIERE</code> prossiga para a etapa de exclusão.</p>
+</li>
+<li>
+<p><strong>Verificação de SQLCODE no DELETE da conta — erro DB2 não fatal:</strong> Após o <code>DELETE</code> no DB2 em <code>DEL-ACCOUNT-DB2</code>, o SQLCODE é verificado. Qualquer valor diferente de zero faz com que <code>DELACC-DEL-SUCCESS</code> seja definido como <code>'N'</code> e <code>DELACC-DEL-FAIL-CD</code> como <code>'3'</code>. Esse erro é retornado ao chamador via área de comunicação; nenhum abend é emitido pela própria falha de exclusão. Como a gravação de auditoria (<code>WRITE-PROCTRAN</code>) é condicional a <code>DELACC-DEL-SUCCESS = 'Y'</code> na lógica principal de <code>PREMIERE</code>, uma falha na exclusão impede automaticamente a criação de qualquer registro de auditoria.</p>
+</li>
+<li>
+<p><strong>Verificação de SQLCODE no INSERT em PROCTRAN — erro DB2 fatal (caminho de abend):</strong> Após o <code>INSERT</code> no DB2 na tabela de auditoria <code>PROCTRAN</code> em <code>WRITE-PROCTRAN-DB2</code>, o SQLCODE é verificado novamente. Um valor diferente de zero aciona o caminho completo de abend: <code>ABNDINFO-REC</code> é preenchido com número de tarefa, ID de transação, ID de aplicação, <code>EIBRESP</code> e <code>EIBRESP2</code>, SQLCODE e uma mensagem de texto livre citando a linha completa da variável de host do <code>PROCTRAN</code>. O programa vincula ao programa manipulador de abend externo <code>ABNDPROC</code> (identificado por <code>WS-ABEND-PGM</code>) via <code>CICS LINK</code>, passando <code>ABNDINFO-REC</code> como commarea. Um comando <code>DISPLAY</code> também registra o detalhe da falha. Por fim, <code>EXEC CICS ABEND ABCODE('HWPT')</code> é emitido para forçar um abend CICS.</p>
+</li>
+</ul>
+<hr>
+<h3 id="83-sinalizao-de-flags-na-rea-de-comunicao-notificao-ao-chamador" tabindex="-1">8.3 Sinalização de Flags na Área de Comunicação (Notificação ao Chamador)</h3>
+<ul>
+<li><strong>Flag <code>DELACC-DEL-SUCCESS</code>:</strong> Campo de um único caractere na área de comunicação usado para comunicar o resultado final da exclusão ao chamador. É definido como <code>'Y'</code> em uma leitura de conta bem-sucedida, e substituído por <code>'N'</code> em qualquer condição de falha.</li>
+</ul>
+<hr>
+<h3 id="84-imposio-de-segurana" tabindex="-1">8.4 Imposição de Segurança</h3>
+<ul>
+<li><strong>Portão de segurança restritivo (<em>fail-closed</em>):</strong> Antes de qualquer dado de conta ser lido ou excluído, o programa chama o subprograma de segurança externo <code>BNKSECCK</code> via comando <code>CICS LINK</code>. O switch de armazenamento de trabalho <code>WS-SEC-SW</code> é inicializado como <code>'N'</code> (SEC-NOT-OK) antes da chamada, de modo que, se algo der errado, o padrão é o estado negado.</li>
+<li><strong>Verificação de CICS RESP na chamada de segurança:</strong> Após o <code>LINK</code> para <code>BNKSECCK</code>, o código de resposta CICS armazenado em <code>WS-CICS-RESP</code> é verificado em relação a <code>DFHRESP(NORMAL)</code>. Se a resposta for diferente de normal, o programa imediatamente define <code>DELACC-DEL-SUCCESS</code> como <code>'N'</code>, define <code>DELACC-DEL-FAIL-CD</code> como <code>'X'</code> (falha no sistema de segurança) e desvia para o final da seção de segurança, ignorando todo o processamento posterior.</li>
+<li><strong>Avaliação do resultado de segurança:</strong> Se a própria chamada CICS for bem-sucedida, o resultado retornado em <code>BNKSEC-RESULT</code> é avaliado usando condições de nível 88:
+<ul>
+<li><code>BNKSEC-ALLOWED</code> — define <code>WS-SEC-SW</code> como <code>'Y'</code> (SEC-OK), permitindo a execução do restante da lógica.</li>
+<li><code>BNKSEC-DENIED</code> — define <code>DELACC-DEL-SUCCESS</code> como <code>'N'</code> e <code>DELACC-DEL-FAIL-CD</code> como <code>'S'</code> (negação de segurança), interrompendo o processamento posterior.</li>
+<li><code>WHEN OTHER</code> (qualquer resultado inesperado) — define <code>DELACC-DEL-SUCCESS</code> como <code>'N'</code> e <code>DELACC-DEL-FAIL-CD</code> como <code>'X'</code>, tratando um estado desconhecido como falha.</li>
+</ul>
+</li>
+<li><strong>Fluxo principal bloqueado:</strong> Na seção principal <code>PREMIERE</code>, todo o caminho de leitura, exclusão e gravação de auditoria da conta está aninhado dentro de <code>IF SEC-OK</code>, garantindo que nenhuma das operações DB2 possa ser alcançada a menos que a verificação de segurança conceda acesso explicitamente.</li>
+</ul>
+<hr>
+<h3 id="85-tratamento-de-erros-de-leitura-da-conta-no-db2-read-account-db2" tabindex="-1">8.5 Tratamento de Erros de Leitura da Conta no DB2 (<code>READ-ACCOUNT-DB2</code>)</h3>
+<ul>
+<li><strong>Erro SQL fatal — caminho de ABEND:</strong> Após o <code>SELECT</code> na tabela <code>ACCOUNT</code>, o SQLCODE é testado. Se não for nem <code>0</code> (sucesso) nem <code>+100</code> (linha não encontrada), um erro irrecuperável é assumido. O programa:
+<ul>
+<li>Move o SQLCODE para um campo exibível.</li>
+<li>Inicializa a estrutura <code>ABNDINFO-REC</code> e a preenche com ID de aplicação (de <code>EXEC CICS ASSIGN APPLID</code>), número de tarefa, ID de transação, data/hora, código de abend <code>'HRAC'</code>, nome do programa e uma mensagem de diagnóstico de texto livre identificando o número de conta e o código de agência envolvidos.</li>
+<li>Emite um comando <code>DISPLAY</code> para gravar uma mensagem de diagnóstico no log do sistema.</li>
+<li>Executa <code>EXEC CICS ABEND ABCODE('HRAC') NODUMP</code>, encerrando a tarefa com um código de abend nomeado e suprimindo a geração de dump.</li>
+</ul>
+</li>
+<li><strong>Conta não encontrada — retorno gracioso:</strong> Se o SQLCODE for igual a <code>+100</code>, indicando que a linha de conta solicitada não existe:
+<ul>
+<li>Os dados de saída são inicializados e parcialmente preenchidos com o código de agência e o número de conta para contexto.</li>
+<li><code>DELACC-DEL-SUCCESS</code> é definido como <code>'N'</code> e <code>DELACC-DEL-FAIL-CD</code> como <code>'1'</code> (conta não encontrada).</li>
+<li>Um <code>GO TO RAD999</code> desvia para a saída da seção, retornando o controle ao chamador sem que nenhuma exclusão ou gravação de auditoria seja tentada.</li>
+</ul>
+</li>
+<li><strong>Leitura bem-sucedida — flags de sucesso:</strong> Se o SQLCODE for igual a <code>0</code>, <code>DELACC-DEL-SUCCESS</code> é definido como <code>'Y'</code> e <code>DELACC-DEL-FAIL-CD</code> é limpo, habilitando a fase de exclusão para prosseguir.</li>
+</ul>
+<hr>
+<h3 id="86-tratamento-de-erros-de-excluso-da-conta-no-db2-del-account-db2" tabindex="-1">8.6 Tratamento de Erros de Exclusão da Conta no DB2 (<code>DEL-ACCOUNT-DB2</code>)</h3>
+<ul>
+<li><strong>SQLCODE diferente de zero após DELETE:</strong> Após a instrução <code>DELETE FROM ACCOUNT</code>, o SQLCODE é verificado. Se não for <code>0</code>, o programa define <code>DELACC-DEL-SUCCESS</code> como <code>'N'</code> e <code>DELACC-DEL-FAIL-CD</code> como <code>'3'</code> (erro de DELETE no DB2). Nenhum abend é emitido; a falha é comunicada de volta ao chamador por meio dos flags da área de comunicação.</li>
+<li><strong>Proteção condicional subsequente:</strong> Na seção principal <code>PREMIERE</code>, <code>WRITE-PROCTRAN</code> só é executado se <code>DELACC-DEL-SUCCESS</code> ainda for <code>'Y'</code> após a tentativa de exclusão, impedindo que um registro de auditoria seja gravado para uma exclusão fracassada.</li>
+</ul>
+<hr>
+<h3 id="87-tratamento-de-erros-de-gravao-em-proctran-no-db2-write-proctran-db2" tabindex="-1">8.7 Tratamento de Erros de Gravação em PROCTRAN no DB2 (<code>WRITE-PROCTRAN-DB2</code>)</h3>
+<ul>
+<li><strong>Erro SQL fatal — caminho de ABEND:</strong> Após a instrução <code>INSERT INTO PROCTRAN</code>, o SQLCODE é testado. Se não for <code>0</code>:
+<ul>
+<li>O SQLCODE é movido para um campo exibível.</li>
+<li><code>ABNDINFO-REC</code> é inicializado e preenchido com <code>EIBRESP</code>, <code>EIBRESP2</code>, ID de aplicação, número de tarefa, ID de transação, data/hora, código de abend <code>'HWPT'</code>, nome do programa, SQLCODE e uma mensagem de texto livre contendo a linha completa de dados da variável de host do <code>PROCTRAN</code>.</li>
+<li>O programa vincula ao programa manipulador de abend externo <code>ABNDPROC</code> (referenciado por <code>WS-ABEND-PGM</code>) via <code>EXEC CICS LINK</code>, passando <code>ABNDINFO-REC</code> como área de comunicação. Isso permite que um manipulador centralizado registre e processe os detalhes do abend.</li>
+<li>Um comando <code>DISPLAY</code> grava uma mensagem de diagnóstico incluindo o SQLCODE e os dados da linha no log do sistema.</li>
+<li><code>EXEC CICS ABEND ABCODE('HWPT')</code> é emitido (sem <code>NODUMP</code>), encerrando a tarefa com um código de abend nomeado e permitindo a captura de um dump.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="88-flags-de-falha-na-rea-de-comunicao" tabindex="-1">8.8 Flags de Falha na Área de Comunicação</h3>
+<ul>
+<li><strong><code>DELACC-DEL-SUCCESS</code></strong> — flag de um único caractere na área de comunicação que é retornado ao programa chamador. É definido como <code>'Y'</code> somente quando a conta é encontrada e excluída com sucesso; é definido como <code>'N'</code> em todas as condições de erro (falha de segurança, conta não encontrada, falha de exclusão, indisponibilidade do sistema de segurança).</li>
+<li><strong><code>DELACC-DEL-FAIL-CD</code></strong> — código de motivo de falha complementar também retornado ao chamador, carregando um discriminador específico:
+<ul>
+<li><code>'1'</code> — conta não encontrada na tabela DB2.</li>
+<li><code>'3'</code> — instrução DB2 DELETE retornou um SQLCODE diferente de zero.</li>
+<li><code>'S'</code> — acesso negado pelo subprograma de segurança.</li>
+<li><code>'X'</code> — a própria verificação de segurança falhou (erro de CICS LINK ou resultado inesperado de <code>BNKSECCK</code>).</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="89-infraestrutura-de-abend-e-preenchimento-de-diagnsticos" tabindex="-1">8.9 Infraestrutura de Abend e Preenchimento de Diagnósticos</h3>
+<ul>
+<li><strong>Estrutura <code>ABNDINFO-REC</code>:</strong> Registro padronizado de armazenamento de trabalho usado de forma consistente em ambos os caminhos de acionamento de abend (<code>HRAC</code> e <code>HWPT</code>). Ele agrega ID de aplicação, identificadores de tarefa e transação, uma chave de timestamp em microssegundos, data, hora, código de abend, nome do programa, códigos RESP/RESP2, SQLCODE e uma mensagem de texto livre de 600 bytes, fornecendo um instantâneo de diagnóstico completo no ponto de falha.</li>
+<li><strong>Seção utilitária <code>POPULATE-TIME-DATE</code>:</strong> Chamada a partir de ambos os caminhos de abend para obter o tempo absoluto atual via <code>EXEC CICS ASKTIME</code> e formatá-lo com <code>EXEC CICS FORMATTIME</code>, garantindo que os registros de abend carreguem um timestamp preciso.</li>
+<li><strong>Padrão de notificação dupla:</strong> Ambos os caminhos de abend combinam um <code>DISPLAY</code> (para visibilidade imediata no operador/log) com um <code>CICS ABEND</code> estruturado (para a infraestrutura de exceções do CICS), e o caminho de gravação em <code>PROCTRAN</code> adicionalmente invoca o manipulador centralizado <code>ABNDPROC</code> antes de emitir o abend, proporcionando notificação em camadas.</li>
+</ul>
+<h2 id="9-examples" tabindex="-1">9. Examples</h2>
+<h3 id="91-exemplo-1--excluso-de-conta-bem-sucedida" tabindex="-1">9.1 Exemplo 1 — Exclusão de conta bem-sucedida</h3>
+<p><strong>Entrada (DFHCOMMAREA):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DELACC-ACCNO</code></td>
+<td><code>00000042</code></td>
+</tr>
+<tr>
+<td><code>DELACC-DEL-SUCCESS</code></td>
+<td><em>(ainda não definido — preenchido pelo programa)</em></td>
+</tr>
+</tbody>
+</table>
+<p>O código da agência bancária é fixado internamente como <code>987654</code> (obtido da constante do copybook <code>SORTCODE</code>).</p>
+<p><strong>Fluxo do programa:</strong></p>
+<ol>
+<li><code>SECURITY-CHECK</code> chama <code>BNKSECCK</code> via <code>EXEC CICS LINK</code>. <code>BNKSECCK</code> retorna <code>BNKSEC-RESULT = 'A'</code> (permitido) com <code>DFHRESP(NORMAL)</code>, então <code>WS-SEC-SW</code> é definido como <code>'Y'</code> (<code>SEC-OK</code>).</li>
+<li><code>READ-ACCOUNT-DB2</code> emite um <code>SELECT</code> do DB2 na tabela <code>ACCOUNT</code> com chave em <code>ACCOUNT_NUMBER = '00000042'</code> e <code>ACCOUNT_SORTCODE = '987654'</code>. SQLCODE = 0; a linha completa da conta é recuperada e copiada de volta para os campos de <code>DFHCOMMAREA</code> (<code>DELACC-CUSTNO</code>, <code>DELACC-ACC-TYPE</code>, <code>DELACC-AVAIL-BAL</code>, etc.). <code>DELACC-DEL-SUCCESS</code> é definido como <code>'Y'</code>.</li>
+<li><code>DEL-ACCOUNT-DB2</code> emite um <code>DELETE</code> para a mesma chave composta. SQLCODE = 0 → <code>DELACC-DEL-SUCCESS</code> permanece <code>'Y'</code>.</li>
+<li><code>WRITE-PROCTRAN</code> insere uma linha em <code>PROCTRAN</code> com o eyecatcher <code>'PRTR'</code>, tipo <code>'ODA'</code> (exclusão de conta da agência), o saldo real da conta como valor da transação e o número da tarefa CICS como### Exemplo 1 — Exclusão de Conta Bem-Sucedida</li>
+</ol>
+<p><strong>Entrada (DFHCOMMAREA):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DELACC-ACCNO</code></td>
+<td><code>00000042</code></td>
+</tr>
+<tr>
+<td><code>DELACC-DEL-SUCCESS</code></td>
+<td><em>(ainda não definido — preenchido pelo programa)</em></td>
+</tr>
+</tbody>
+</table>
+<p>O código da agência bancária é fixado internamente como <code>987654</code> (proveniente da constante do copybook <code>SORTCODE</code>).</p>
+<p><strong>Fluxo do programa:</strong></p>
+<ol>
+<li><code>SECURITY-CHECK</code> chama <code>BNKSECCK</code> via <code>EXEC CICS LINK</code>. <code>BNKSECCK</code> retorna <code>BNKSEC-RESULT = 'A'</code> (permitido) com <code>DFHRESP(NORMAL)</code>, então <code>WS-SEC-SW</code> é definido como <code>'Y'</code> (<code>SEC-OK</code>).</li>
+<li><code>READ-ACCOUNT-DB2</code> emite um <code>SELECT</code> do DB2 na tabela <code>ACCOUNT</code>, com chave em <code>ACCOUNT_NUMBER = '00000042'</code> e <code>ACCOUNT_SORTCODE = '987654'</code>. SQLCODE = 0; a linha completa da conta é recuperada e copiada de volta para os campos de <code>DFHCOMMAREA</code> (<code>DELACC-CUSTNO</code>, <code>DELACC-ACC-TYPE</code>, <code>DELACC-AVAIL-BAL</code>, etc.). <code>DELACC-DEL-SUCCESS</code> é definido como <code>'Y'</code>.</li>
+<li><code>DEL-ACCOUNT-DB2</code> emite um <code>DELETE</code> para a mesma chave composta. SQLCODE = 0 → <code>DELACC-DEL-SUCCESS</code> permanece <code>'Y'</code>.</li>
+<li><code>WRITE-PROCTRAN</code> insere uma linha em <code>PROCTRAN</code> com eyecatcher <code>'PRTR'</code>, tipo <code>'ODA'</code> (exclusão de conta pela agência), o saldo real da conta como valor da transação e o número da tarefa CICS como referência.</li>
+</ol>
+<p><strong>Saída (DFHCOMMAREA):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DELACC-CUSTNO</code></td>
+<td><code>0000000123</code> <em>(o número do cliente proprietário da conta, vindo do DB2)</em></td>
+</tr>
+<tr>
+<td><code>DELACC-ACC-TYPE</code></td>
+<td><code>CURRENT </code></td>
+</tr>
+<tr>
+<td><code>DELACC-ACTUAL-BAL</code></td>
+<td><code>+0000001500.00</code></td>
+</tr>
+<tr>
+<td><code>DELACC-AVAIL-BAL</code></td>
+<td><code>+0000001500.00</code></td>
+</tr>
+<tr>
+<td><code>DELACC-DEL-SUCCESS</code></td>
+<td><code>Y</code></td>
+</tr>
+<tr>
+<td><code>DELACC-DEL-FAIL-CD</code></td>
+<td><em>(espaço)</em></td>
+</tr>
+</tbody>
+</table>
+<p>Um registro de auditoria <code>PROCTRAN</code> é gravado, capturando o evento de exclusão, o saldo no momento da exclusão e o timestamp.</p>
+<hr>
+<h3 id="92-exemplo-2--conta-no-encontrada" tabindex="-1">9.2 Exemplo 2 — Conta Não Encontrada</h3>
+<p><strong>Entrada (DFHCOMMAREA):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DELACC-ACCNO</code></td>
+<td><code>99999999</code> <em>(um número de conta inexistente)</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fluxo do programa:</strong></p>
+<ol>
+<li><code>SECURITY-CHECK</code> é bem-sucedido como acima (<code>SEC-OK = 'Y'</code>).</li>
+<li><code>READ-ACCOUNT-DB2</code> emite o <code>SELECT</code> com <code>ACCOUNT_NUMBER = '99999999'</code>. O DB2 retorna SQLCODE <code>+100</code> (linha não encontrada).</li>
+<li>O programa inicializa <code>OUTPUT-DATA</code>, preenche <code>DELACC-ACCNO</code> com o número solicitado, define <code>DELACC-DEL-SUCCESS = 'N'</code> e <code>DELACC-DEL-FAIL-CD = '1'</code>, e então sai imediatamente de <code>READ-ACCOUNT-DB2</code> via <code>GO TO RAD999</code>.</li>
+<li>Como <code>DELACC-DEL-SUCCESS ≠ 'Y'</code>, nem <code>DEL-ACCOUNT-DB2</code> nem <code>WRITE-PROCTRAN</code> são executados. Nenhuma linha do DB2 é excluída e nenhum registro <code>PROCTRAN</code> é gravado.</li>
+</ol>
+<p><strong>Saída (DFHCOMMAREA):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DELACC-DEL-SUCCESS</code></td>
+<td><code>N</code></td>
+</tr>
+<tr>
+<td><code>DELACC-DEL-FAIL-CD</code></td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td>Todos os outros campos da conta</td>
+<td>Espaços / zeros (inicializado em <code>OUTPUT-DATA</code>)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="93-exemplo-3--negao-de-segurana" tabindex="-1">9.3 Exemplo 3 — Negação de Segurança</h3>
+<p><strong>Entrada (DFHCOMMAREA):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DELACC-ACCNO</code></td>
+<td><code>00000042</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Fluxo do programa:</strong></p>
+<ol>
+<li><code>SECURITY-CHECK</code> chama <code>BNKSECCK</code>. <code>BNKSECCK</code> retorna <code>BNKSEC-RESULT = 'D'</code> (negado).</li>
+<li>O <code>EVALUATE</code> define <code>DELACC-DEL-SUCCESS = 'N'</code> e <code>DELACC-DEL-FAIL-CD = 'S'</code>. <code>WS-SEC-SW</code> permanece <code>'N'</code> (<code>SEC-NOT-OK</code>).</li>
+<li>A guarda <code>IF SEC-OK</code> na seção principal é falsa, então <code>READ-ACCOUNT-DB2</code>, <code>DEL-ACCOUNT-DB2</code> e <code>WRITE-PROCTRAN</code> são todos totalmente ignorados.</li>
+</ol>
+<p><strong>Saída (DFHCOMMAREA):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DELACC-DEL-SUCCESS</code></td>
+<td><code>N</code></td>
+</tr>
+<tr>
+<td><code>DELACC-DEL-FAIL-CD</code></td>
+<td><code>S</code></td>
+</tr>
+<tr>
+<td>Todos os campos de dados da conta</td>
+<td>Inalterados / não inicializados</td>
+</tr>
+</tbody>
+</table>
+
+                    </article>
+                    <nav class="toc-panel" aria-label="On this page">
+  <span class="toc-panel-label">On this page</span>
+  <ul class="toc-list">
+<li class="toc-level-2"><a href="#1-purpose">1. Purpose</a></li>
+<li class="toc-level-2"><a href="#2-inputs">2. Inputs</a>
+<ul>
+<li class="toc-level-3"><a href="#21-rea-de-comunicao-dfhcommarea--copybook-delacc">2.1 Área de Comunicação (DFHCOMMAREA — Copybook DELACC)</a></li>
+<li class="toc-level-3"><a href="#22-subsistema-de-segurana--bnksecck">2.2 Subsistema de Segurança — BNKSECCK</a></li>
+<li class="toc-level-3"><a href="#23-banco-de-dados-db2--tabela-account">2.3 Banco de Dados DB2 — Tabela ACCOUNT</a></li>
+<li class="toc-level-3"><a href="#24-banco-de-dados-db2--tabela-proctran">2.4 Banco de Dados DB2 — Tabela PROCTRAN</a></li>
+<li class="toc-level-3"><a href="#25-sistema-cics-eib--entradas">2.5 Sistema CICS (EIB) — Entradas</a></li>
+<li class="toc-level-3"><a href="#26-configurao-esttica">2.6 Configuração Estática</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#3-outputs">3. Outputs</a>
+<ul>
+<li class="toc-level-3"><a href="#31-rea-de-comunicao-dfhcommarea--valores-de-retorno-para-o-programa-chamador">3.1 Área de Comunicação (DFHCOMMAREA) — Valores de Retorno para o Programa Chamador</a></li>
+<li class="toc-level-3"><a href="#32-gravaes-no-banco-de-dados-db2">3.2 Gravações no Banco de Dados DB2</a></li>
+<li class="toc-level-3"><a href="#33-efeitos-colaterais-de-abend--erro-no-cics">3.3 Efeitos Colaterais de Abend / Erro no CICS</a></li>
+<li class="toc-level-3"><a href="#34-mensagens-no-console--sysout-display">3.4 Mensagens no Console / Sysout (DISPLAY)</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#4-processing-logic">4. Processing Logic</a>
+<ul>
+<li class="toc-level-3"><a href="#41-diagrama-de-fluxo-mermaid">4.1 Diagrama de Fluxo Mermaid</a></li>
+<li class="toc-level-3"><a href="#42-descrio-da-lgica-de-processamento">4.2 Descrição da Lógica de Processamento</a>
+<ul>
+<li class="toc-level-4"><a href="#421-resumo-de-alto-nvel">4.2.1 Resumo de Alto Nível</a></li>
+<li class="toc-level-4"><a href="#422-fluxo-de-execuo">4.2.2 Fluxo de Execução</a></li>
+<li class="toc-level-4"><a href="#423-interaes-externas">4.2.3 Interações Externas</a></li>
+<li class="toc-level-4"><a href="#424-resumo-em-linguagem-simples">4.2.4 Resumo em Linguagem Simples</a></li>
+</ul>
+</li>
+<li class="toc-level-3"><a href="#43-tabelas-do-banco-de-dados">4.3 Tabelas do Banco de Dados</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#5-paragraphs">5. Paragraphs</a></li>
+<li class="toc-level-2"><a href="#6-dependencies">6. Dependencies</a>
+<ul>
+<li class="toc-level-3"><a href="#61-copybooks">6.1 Copybooks</a></li>
+<li class="toc-level-3"><a href="#62-tabelas-db2">6.2 Tabelas DB2</a></li>
+<li class="toc-level-3"><a href="#63-rea-de-sistema-db2">6.3 Área de Sistema DB2</a></li>
+<li class="toc-level-3"><a href="#64-programas-externos-cics-link">6.4 Programas Externos (CICS LINK)</a></li>
+<li class="toc-level-3"><a href="#65-servios-cics">6.5 Serviços CICS</a></li>
+<li class="toc-level-3"><a href="#66-parmetros-de-entrada">6.6 Parâmetros de Entrada</a></li>
+<li class="toc-level-3"><a href="#67-campos-do-eib-cics-bloco-de-interface-de-execuo">6.7 Campos do EIB CICS (Bloco de Interface de Execução)</a></li>
+<li class="toc-level-3"><a href="#68-valores-de-configurao--ambiente">6.8 Valores de Configuração / Ambiente</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#7-constraints">7. Constraints</a>
+<ul>
+<li class="toc-level-3"><a href="#71-restries-de-segurana">7.1 Restrições de Segurança</a></li>
+<li class="toc-level-3"><a href="#72-restries-de-entrada--chave">7.2 Restrições de Entrada / Chave</a></li>
+<li class="toc-level-3"><a href="#73-restries-de-ordem-de-processamento--sequenciamento">7.3 Restrições de Ordem de Processamento / Sequenciamento</a></li>
+<li class="toc-level-3"><a href="#74-restries-de-db2--armazenamento-de-dados">7.4 Restrições de DB2 / Armazenamento de Dados</a></li>
+<li class="toc-level-3"><a href="#75-restries-de-segurana-detalhadas">7.5 Restrições de Segurança (detalhadas)</a></li>
+<li class="toc-level-3"><a href="#76-restries-de-sequenciamento-e-ordem-de-processamento">7.6 Restrições de Sequenciamento e Ordem de Processamento</a></li>
+<li class="toc-level-3"><a href="#77-restries-de-validao-de-entrada">7.7 Restrições de Validação de Entrada</a></li>
+<li class="toc-level-3"><a href="#78-restries-de-sqlcode-db2">7.8 Restrições de SQLCODE DB2</a></li>
+<li class="toc-level-3"><a href="#79-restries-de-sada-e-cdigo-de-resultado">7.9 Restrições de Saída e Código de Resultado</a></li>
+<li class="toc-level-3"><a href="#710-restries-de-formato-de-dados-e-tamanho-de-campo">7.10 Restrições de Formato de Dados e Tamanho de Campo</a></li>
+<li class="toc-level-3"><a href="#711-restries-de-recurso-e-escopo">7.11 Restrições de Recurso e Escopo</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#8-error-handling">8. Error Handling</a>
+<ul>
+<li class="toc-level-3"><a href="#81-verificaes-de-segurana-security-gating-checks">8.1 Verificações de Segurança (Security-Gating Checks)</a></li>
+<li class="toc-level-3"><a href="#82-tratamento-de-erros-sql-no-db2">8.2 Tratamento de Erros SQL no DB2</a></li>
+<li class="toc-level-3"><a href="#83-sinalizao-de-flags-na-rea-de-comunicao-notificao-ao-chamador">8.3 Sinalização de Flags na Área de Comunicação (Notificação ao Chamador)</a></li>
+<li class="toc-level-3"><a href="#84-imposio-de-segurana">8.4 Imposição de Segurança</a></li>
+<li class="toc-level-3"><a href="#85-tratamento-de-erros-de-leitura-da-conta-no-db2-read-account-db2">8.5 Tratamento de Erros de Leitura da Conta no DB2 (READ-ACCOUNT-DB2)</a></li>
+<li class="toc-level-3"><a href="#86-tratamento-de-erros-de-excluso-da-conta-no-db2-del-account-db2">8.6 Tratamento de Erros de Exclusão da Conta no DB2 (DEL-ACCOUNT-DB2)</a></li>
+<li class="toc-level-3"><a href="#87-tratamento-de-erros-de-gravao-em-proctran-no-db2-write-proctran-db2">8.7 Tratamento de Erros de Gravação em PROCTRAN no DB2 (WRITE-PROCTRAN-DB2)</a></li>
+<li class="toc-level-3"><a href="#88-flags-de-falha-na-rea-de-comunicao">8.8 Flags de Falha na Área de Comunicação</a></li>
+<li class="toc-level-3"><a href="#89-infraestrutura-de-abend-e-preenchimento-de-diagnsticos">8.9 Infraestrutura de Abend e Preenchimento de Diagnósticos</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#9-examples">9. Examples</a>
+<ul>
+<li class="toc-level-3"><a href="#91-exemplo-1--excluso-de-conta-bem-sucedida">9.1 Exemplo 1 — Exclusão de conta bem-sucedida</a></li>
+<li class="toc-level-3"><a href="#92-exemplo-2--conta-no-encontrada">9.2 Exemplo 2 — Conta Não Encontrada</a></li>
+<li class="toc-level-3"><a href="#93-exemplo-3--negao-de-segurana">9.3 Exemplo 3 — Negação de Segurança</a></li>
+</ul>
+</li>
+</ul>
+
+</nav>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="wiki-footer">Made by IBM Bob Premium Package for Z</footer>
+    <script>
+    /* toc-spy.js — highlights the active heading in the TOC panel on scroll */
+    (function () {
+      function init() {
+        var panel = document.querySelector('.toc-panel');
+        if (!panel) return;
+        var links = Array.prototype.slice.call(panel.querySelectorAll('a[href^="#"]'));
+        if (!links.length) return;
+
+        var headingIds = links.map(function (a) { return a.getAttribute('href').slice(1); });
+        var headings = headingIds.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+
+        function clearActive() {
+          panel.querySelectorAll('.toc-active').forEach(function (el) { el.classList.remove('toc-active'); });
+          panel.querySelectorAll('.toc-parent-active').forEach(function (el) { el.classList.remove('toc-parent-active'); });
+        }
+
+        function setActive(id) {
+          clearActive();
+          var link = panel.querySelector('a[href="#' + id + '"]');
+          if (!link) return;
+          link.classList.add('toc-active');
+          var li = link.closest('li');
+          if (li) {
+            var parentLi = li.parentElement && li.parentElement.closest('li');
+            if (parentLi) parentLi.classList.add('toc-parent-active');
+          }
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              setActive(entry.target.id);
+            }
+          });
+        }, { rootMargin: '0px 0px -70% 0px', threshold: 0 });
+
+        headings.forEach(function (h) { observer.observe(h); });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+    </script>
+    <script>
+    /* breadcrumb.js — reads sessionStorage['wiki_referrer'] and renders breadcrumb.
+       Only fires when the referrer was set by clicking a link inside the Source Files
+       disclosure on a wiki page; clears after rendering so stale state never lingers. */
+    (function () {
+      var raw;
+      try { raw = sessionStorage.getItem('wiki_referrer'); } catch (_e) {}
+      if (!raw) return;
+      /* Consume immediately — prevents the breadcrumb re-appearing on the next visit. */
+      try { sessionStorage.removeItem('wiki_referrer'); } catch (_e) {}
+      var ref;
+      try { ref = JSON.parse(raw); } catch (_e) { return; }
+      if (!ref || !ref.href) return;
+      var bc = document.getElementById('wiki-breadcrumb');
+      if (!bc) return;
+      bc.className = 'wiki-breadcrumb';
+      bc.innerHTML =
+        '<a href="' + ref.href + '">' + (ref.title || 'Back') + '</a>' +
+        '<span class="wiki-breadcrumb-sep"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>' +
+        '<span class="wiki-breadcrumb-current">DELACC</span>';
+    })();
+    </script>
+    <script>
+    /* sidebar toggle — same as main wiki pages */
+    (function () {
+
+      var STORAGE_KEY = 'sb_open';
+
+      function getOpenSet() {
+        try {
+          var raw = sessionStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (e) { return null; }
+      }
+
+      function saveOpenSet(set) {
+        try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(set)); } catch (e) {}
+      }
+
+      function findItems(toggle) {
+        var node = toggle.nextSibling;
+        while (node) {
+          if (node.nodeType === 1 && node.classList.contains('nav-section-items'))
+            return node;
+          node = node.nextSibling;
+        }
+        return null;
+      }
+
+      function toggleKey(toggle, index) {
+        var label = (toggle.querySelector('.nav-toggle-text') || toggle).textContent.trim().replace(/\s+/g, ' ');
+        return index + ':' + label;
+      }
+
+      function openSection(toggle, items, key, set) {
+        toggle.classList.add('open');
+        items.classList.add('open');
+        if (set) set[key] = true;
+      }
+
+      function closeSection(toggle, items, key, set) {
+        toggle.classList.remove('open');
+        items.classList.remove('open');
+        if (set) set[key] = false;
+      }
+
+      function init() {
+        var sidebar = document.getElementById('wiki-sidebar');
+        var toggles = Array.prototype.slice.call(
+          document.querySelectorAll('.nav-section-toggle')
+        );
+
+        var savedSet = getOpenSet();
+        var openSet = savedSet || {};
+
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+
+          var key = toggleKey(toggle, idx);
+          var shouldOpen = openSet[key] === true;
+
+          if (shouldOpen) {
+            toggle.classList.add('open');
+            items.classList.add('open');
+          }
+
+          toggle.addEventListener('click', function () {
+            var nowOpen = toggle.classList.contains('open');
+            if (nowOpen) {
+              closeSection(toggle, items, key, openSet);
+            } else {
+              openSection(toggle, items, key, openSet);
+            }
+            saveOpenSet(openSet);
+          });
+        });
+
+        saveOpenSet(openSet);
+
+        /* Restore sidebar scroll position after sections are expanded so the
+           scroll height is correct when we apply scrollTop. */
+        if (sidebar) {
+          try {
+            var savedScroll = sessionStorage.getItem('sb_scroll');
+            if (savedScroll !== null) { sidebar.scrollTop = parseInt(savedScroll, 10) || 0; }
+          } catch (_e) {}
+        }
+
+        window.addEventListener('pagehide', function () {
+          saveOpenSet(openSet);
+          if (sidebar) {
+            try { sessionStorage.setItem('sb_scroll', String(sidebar.scrollTop)); } catch (_e) {}
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+
+    })();
+    </script>
+</body>
+</html>

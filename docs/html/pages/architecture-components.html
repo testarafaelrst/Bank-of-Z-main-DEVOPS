@@ -1,0 +1,869 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Components - Bank of Z – IBM Z Banking Application</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/mermaid.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: { useMaxWidth: true }
+        });
+    </script>
+
+    <!-- Prism.js for syntax highlighting (bundled — no CDN required) -->
+    <link rel="stylesheet" href="../assets/prism-tomorrow.css">
+    <script src="../assets/prism-core.js"></script>
+    <script src="../assets/prism-languages.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <span class="header-app-name"><a href="../../index.html" style="color: inherit; text-decoration: none;">Bank of Z – IBM Z Banking Application</a></span>
+        </div>
+        <div class="header-right">
+        </div>
+    </header>
+    <div class="shell">
+        <aside class="sidebar" id="wiki-sidebar">
+            <nav>
+                
+        <div class="nav-home-wrap">
+            <a href="../../index.html" class="nav-home">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 6.5L8 2l6 4.5V14a1 1 0 01-1 1H3a1 1 0 01-1-1V6.5z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M6 15V9h4v6" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                Home
+            </a>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Application Documentation</div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">About Bank of Z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="about-overview.html" class="nav-link" data-page-id="about-overview">Project Overview</a>
+                <a href="about-capabilities.html" class="nav-link" data-page-id="about-capabilities">Key Capabilities</a>
+                <a href="about-architecture-overview.html" class="nav-link" data-page-id="about-architecture-overview">Architecture Overview</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Getting Started</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="prerequisites.html" class="nav-link" data-page-id="prerequisites">Prerequisites</a>
+                <a href="installation-setup.html" class="nav-link" data-page-id="installation-setup">Installation &amp; Setup</a>
+                <a href="environment-configuration.html" class="nav-link" data-page-id="environment-configuration">Environment Configuration</a>
+                <a href="verification.html" class="nav-link" data-page-id="verification">Verification &amp; Smoke Testing</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle open" type="button">
+                <span class="nav-toggle-text">Architecture</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items open">
+                <a href="architecture-components.html" class="nav-link active" data-page-id="architecture-components">Application Components</a>
+                <a href="architecture-flow.html" class="nav-link" data-page-id="architecture-flow">Application Flow</a>
+                <a href="architecture-build-deployment.html" class="nav-link" data-page-id="architecture-build-deployment">Build &amp; Deployment Architecture</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Program Reference</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="program-bnkmenu.html" class="nav-link" data-page-id="program-bnkmenu">BNKMENU – Main Menu Program</a>
+                <a href="program-crdtagy2.html" class="nav-link" data-page-id="program-crdtagy2">CRDTAGY2 – Credit Agency Simulator</a>
+                <a href="program-delacc.html" class="nav-link" data-page-id="program-delacc">DELACC – Delete Account Program</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Development Workflows</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="workflow-overview.html" class="nav-link" data-page-id="workflow-overview">Development Workflows Overview</a>
+                <a href="workflow-zowe-cli.html" class="nav-link" data-page-id="workflow-zowe-cli">Zowe CLI Workflow</a>
+                <a href="workflow-grub.html" class="nav-link" data-page-id="workflow-grub">GRUB Workflow</a>
+                <a href="workflow-best-practices.html" class="nav-link" data-page-id="workflow-best-practices">Development Best Practices</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Tutorials</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="tutorial-deploy.html" class="nav-link" data-page-id="tutorial-deploy">Tutorial: Deploy Bank of Z</a>
+                <a href="tutorial-cics-enhancement.html" class="nav-link" data-page-id="tutorial-cics-enhancement">Tutorial: CICS Enhancement Scenario</a>
+                <a href="tutorial-incremental-build.html" class="nav-link" data-page-id="tutorial-incremental-build">Tutorial: Incremental Build</a>
+                <a href="tutorial-debug-cics.html" class="nav-link" data-page-id="tutorial-debug-cics">Tutorial: Debug a CICS Transaction</a>
+            </div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">Reference</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="ref-configuration.html" class="nav-link" data-page-id="ref-configuration">Configuration Reference</a>
+                <a href="ref-commands.html" class="nav-link" data-page-id="ref-commands">Commands Reference</a>
+                <a href="ref-repository-structure.html" class="nav-link" data-page-id="ref-repository-structure">Repository Structure</a>
+                <a href="ref-glossary.html" class="nav-link" data-page-id="ref-glossary">Glossary</a>
+            </div>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group-label">Program Documentation</div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">program</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">src</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+            <div class="nav-section">
+                <button class="nav-section-toggle" type="button">
+                    <span class="nav-toggle-text">base</span>
+                    <span class="nav-section-chevron">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="nav-section-items">
+                <div class="nav-section">
+                    <button class="nav-section-toggle" type="button">
+                        <span class="nav-toggle-text">cics</span>
+                        <span class="nav-section-chevron">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="nav-section-items">
+                    <div class="nav-section">
+                        <button class="nav-section-toggle" type="button">
+                            <span class="nav-toggle-text">cobol</span>
+                            <span class="nav-section-chevron">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="nav-section-items">
+                            <a href="../sources/program/src/base/cics/cobol/BNKMENU.html" class="nav-link">BNKMENU</a>
+                            <a href="../sources/program/src/base/cics/cobol/CRDTAGY2.html" class="nav-link">CRDTAGY2</a>
+                            <a href="../sources/program/src/base/cics/cobol/DELACC.html" class="nav-link">DELACC</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="nav-section">
+        <button class="nav-section-toggle" type="button">
+            <span class="nav-toggle-text">docs</span>
+            <span class="nav-section-chevron">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </button>
+        <div class="nav-section-items">
+        <div class="nav-section">
+            <button class="nav-section-toggle" type="button">
+                <span class="nav-toggle-text">about-bank-of-z</span>
+                <span class="nav-section-chevron">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </button>
+            <div class="nav-section-items">
+                <a href="../sources/docs/about-bank-of-z/index.html" class="nav-link">index</a>
+            </div>
+        </div>
+        </div>
+    </div>
+            </nav>
+        </aside>
+        <main class="main">
+            <div class="page-container">
+                <div class="content-layout">
+                    <div class="prose">
+                        <details class="source-files-disclosure">
+            <summary>
+                <svg class="sf-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Source Files
+                <span style="margin-left:4px;font-size:11px;color:var(--fg-subtle)">(1)</span>
+            </summary>
+            <div class="source-files-body">
+                <ul class="source-files-list">
+            <li><a href="../sources/docs/about-bank-of-z/index.html">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+                    <path d="M4 2h6l4 4v8a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M10 2v4h4" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                </svg>
+                index
+            </a></li>
+                </ul>
+            </div>
+        </details>
+                        <h1 id="application-components" tabindex="-1">Application Components</h1>
+<p>Bank of Z is a hybrid IBM Z banking application that integrates modern web technologies with enterprise transaction-processing systems. This page provides a detailed breakdown of every component in the Bank of Z application — from the browser-based user interface through to the backend databases, messaging infrastructure, and external systems — explaining what each component does, how it fits into the overall architecture, and how components relate to one another.</p>
+<hr>
+<h2 id="1-overview" tabindex="-1">1. Overview</h2>
+<p>Bank of Z delivers a unified banking experience by combining a browser-based front end with IBM Z transaction-processing technologies. Users interact with a single web application to manage customers, accounts, and transactions, while all heavy lifting is performed by CICS or IMS TM on the backend. Data is persisted in Db2 for z/OS and IMS databases, asynchronous integration is handled by IBM MQ, and the entire stack is exposed through z/OS Connect REST APIs.</p>
+<p>The architecture is intentionally hybrid: it demonstrates how a single modern banking application can simultaneously leverage CICS transaction processing, IMS Transaction Manager, relational and hierarchical databases, and message-based integration — all within an IBM Z environment and all presented to the end user through a single, consistent interface.</p>
+<p>Key capabilities delivered by the application:</p>
+<ul>
+<li><strong>Customer management</strong> — create, update, and retrieve customer records</li>
+<li><strong>Account management</strong> — open, manage, and close bank accounts</li>
+<li><strong>Transaction processing</strong> — post debits, credits, and transfers</li>
+<li><strong>Account history</strong> — query historical transaction data</li>
+<li><strong>Inter-bank messaging</strong> — exchange payment messages with external systems via IBM MQ</li>
+</ul>
+<hr>
+<h2 id="2-system-architecture" tabindex="-1">2. System Architecture</h2>
+<p>The diagram below illustrates the high-level system architecture of Bank of Z, showing how every component fits together and the direction in which requests and data flow.</p>
+<div class="mermaid">
+graph TD
+    UI["🖥️ Bank of Z UI\n(Browser-based)"]
+    ZC["z/OS Connect\n(REST API Layer)"]
+    CICS["CICS\n(Transaction Processing)"]
+    IMS_TM["IMS TM\n(Transaction Processing)"]
+    DB2_MAM["Db2 Database\n(Money & Account Mgmt)"]
+    DB2_HIST["Db2 Database\n(Account History)"]
+    IMS_DB["IMS Database\n(Money & Account Mgmt)"]
+    MQ["IBM MQ\n(Messaging)"]
+    BANKQ["Bank of Q\n(External System)"]
+
+    UI -->|"REST API calls"| ZC
+    ZC -->|"CICS path"| CICS
+    ZC -->|"IMS path"| IMS_TM
+    CICS -->|"reads/writes"| DB2_MAM
+    CICS -->|"reads/writes"| DB2_HIST
+    IMS_TM -->|"reads/writes"| IMS_DB
+    IMS_TM -->|"reads/writes"| DB2_MAM
+    CICS -->|"publishes/consumes"| MQ
+    MQ -->|"message exchange"| BANKQ
+</div>
+<p>The front end communicates exclusively with z/OS Connect, which acts as the API gateway. z/OS Connect routes each request to either the CICS or IMS TM processing path. Both paths share access to the Money and Account Management Db2 database, while CICS additionally owns the Account History Db2 database. The IMS path uses an IMS hierarchical database for its primary data store. IBM MQ decouples Bank of Z from the external Bank of Q system.</p>
+<hr>
+<h2 id="3-application-components" tabindex="-1">3. Application Components</h2>
+<h3 id="31-bank-of-z-ui" tabindex="-1">3.1 Bank of Z UI</h3>
+<p>The Bank of Z user interface is a browser-based single-page application (SPA) that provides the primary entry point for all banking operations. It allows bank operators and customers to:</p>
+<ul>
+<li>Search and manage customer records</li>
+<li>Open, view, and close accounts</li>
+<li>Post and review transactions</li>
+<li>Initiate inter-bank money transfers</li>
+</ul>
+<p>The UI communicates exclusively through REST APIs exposed by z/OS Connect, making it completely decoupled from the backend transaction-processing technologies. This means the same UI can target either the CICS or IMS processing path without any change in the user experience.</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">CODE</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code>Bank of Z UI  ──REST──▶  z/OS Connect  ──▶  CICS / IMS TM</code></pre>
+</div>
+<hr>
+<h3 id="32-zos-connect" tabindex="-1">3.2 z/OS Connect</h3>
+<p>z/OS Connect is the API integration layer that bridges the browser-based UI with the IBM Z backend systems. It exposes RESTful endpoints that the UI calls, and it translates those API calls into native CICS or IMS TM transactions.</p>
+<p>Responsibilities:</p>
+<ul>
+<li>Hosting and versioning REST API definitions</li>
+<li>Routing requests to the correct backend transaction-processing system</li>
+<li>Handling authentication and authorization at the API boundary</li>
+<li>Transforming JSON payloads to and from CICS/IMS data formats</li>
+</ul>
+<p>z/OS Connect is central to the hybrid architecture — it is the single point through which all front-end traffic enters the IBM Z environment, and it provides the clean separation between the modern API layer and the enterprise transaction-processing layer.</p>
+<hr>
+<h3 id="33-cics-transaction-processing" tabindex="-1">3.3 CICS Transaction Processing</h3>
+<p>CICS (Customer Information Control System) is one of the two primary transaction-processing engines in Bank of Z. It handles the CICS processing path for all core banking functions.</p>
+<h4 id="331-role-in-the-architecture" tabindex="-1">3.3.1 Role in the Architecture</h4>
+<p>When z/OS Connect routes a request down the CICS path, CICS executes the corresponding COBOL or PL/I program, which reads and writes data in Db2 for z/OS. CICS manages:</p>
+<ul>
+<li>Transaction lifecycle (begin, commit, rollback)</li>
+<li>Program-to-program linking</li>
+<li>Terminal and API communication sessions</li>
+<li>Resource recovery and error handling</li>
+</ul>
+<h4 id="332-banking-functions-handled-by-cics" tabindex="-1">3.3.2 Banking Functions Handled by CICS</h4>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Customer management</td>
+<td>Create, read, update, and delete customer records</td>
+</tr>
+<tr>
+<td>Account management</td>
+<td>Open, modify, and close bank accounts</td>
+</tr>
+<tr>
+<td>Transaction posting</td>
+<td>Debit and credit operations against accounts</td>
+</tr>
+<tr>
+<td>Balance enquiry</td>
+<td>Real-time balance lookups</td>
+</tr>
+<tr>
+<td>Account history</td>
+<td>Retrieval of historical transaction data</td>
+</tr>
+<tr>
+<td>Inter-bank transfer</td>
+<td>Initiation of MQ-based transfer messages</td>
+</tr>
+</tbody>
+</table>
+<h4 id="333-cics-processing-flow" tabindex="-1">3.3.3 CICS Processing Flow</h4>
+<div class="mermaid">
+sequenceDiagram
+    participant UI as Bank of Z UI
+    participant ZC as z/OS Connect
+    participant CICS as CICS
+    participant DB2M as Db2 (Money & Accts)
+    participant DB2H as Db2 (Account History)
+
+    UI->>ZC: REST API Request
+    ZC->>CICS: Invoke CICS Transaction
+    CICS->>DB2M: Read / Write Account Data
+    DB2M-->>CICS: Result Set / Confirmation
+    CICS->>DB2H: Write Transaction History
+    DB2H-->>CICS: Confirmation
+    CICS-->>ZC: Transaction Response
+    ZC-->>UI: JSON Response
+</div>
+<hr>
+<h3 id="34-ims-transaction-manager-ims-tm" tabindex="-1">3.4 IMS Transaction Manager (IMS TM)</h3>
+<p>IMS Transaction Manager is the second transaction-processing engine. It provides an alternative processing path for banking operations, demonstrating how IBM Z applications can support multiple transaction-processing technologies within a single solution.</p>
+<h4 id="341-role-in-the-architecture" tabindex="-1">3.4.1 Role in the Architecture</h4>
+<p>When z/OS Connect routes a request down the IMS path, IMS TM schedules and executes the corresponding application program. IMS TM manages:</p>
+<ul>
+<li>Message queuing and scheduling for transactions</li>
+<li>Application program execution</li>
+<li>Access to IMS hierarchical databases</li>
+<li>Shared access to the Db2 Money and Account Management database</li>
+</ul>
+<h4 id="342-ims-tm-processing-flow" tabindex="-1">3.4.2 IMS TM Processing Flow</h4>
+<div class="mermaid">
+sequenceDiagram
+    participant UI as Bank of Z UI
+    participant ZC as z/OS Connect
+    participant IMSTM as IMS TM
+    participant IMSDB as IMS Database
+    participant DB2M as Db2 (Money & Accts)
+
+    UI->>ZC: REST API Request
+    ZC->>IMSTM: Invoke IMS Transaction
+    IMSTM->>IMSDB: DL/I Call (Read/Write)
+    IMSDB-->>IMSTM: Segment Data
+    IMSTM->>DB2M: SQL Read / Write
+    DB2M-->>IMSTM: Result
+    IMSTM-->>ZC: Transaction Response
+    ZC-->>UI: JSON Response
+</div>
+<hr>
+<h3 id="35-databases" tabindex="-1">3.5 Databases</h3>
+<p>Bank of Z uses three distinct databases, each serving a specific purpose within the application.</p>
+<h4 id="351-money-and-account-management-db2-database" tabindex="-1">3.5.1 Money and Account Management Db2 Database</h4>
+<p>This is the primary relational database for the CICS processing path and is also shared by IMS-based transactions. It stores:</p>
+<ul>
+<li>Customer master records</li>
+<li>Account records (current accounts, savings accounts)</li>
+<li>Pending and posted transaction records</li>
+</ul>
+<p>Both CICS and IMS TM programs access this database, making it the central shared data store across both processing paths. Db2 for z/OS provides full ACID transaction semantics, ensuring data consistency regardless of which path posted the change.</p>
+<p>Example embedded SQL used by CICS programs to query account data:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">EXEC SQL
+    SELECT ACCT_ID, ACCT_BALANCE, ACCT_TYPE
+    INTO  :WS-ACCT-ID, :WS-BALANCE, :WS-TYPE
+    FROM   ACCOUNT
+    WHERE  ACCT_ID = :WS-INPUT-ACCT-ID
+END-EXEC.</code></pre>
+</div>
+<h4 id="352-account-history-db2-database" tabindex="-1">3.5.2 Account History Db2 Database</h4>
+<p>This Db2 database stores historical account and transaction records for inquiry and reporting purposes. It is written to by CICS programs every time a transaction is posted, capturing a full audit trail. Functions supported include:</p>
+<ul>
+<li>Transaction history retrieval by account</li>
+<li>Date-range filtering of posted transactions</li>
+<li>Balance history snapshots</li>
+</ul>
+<h4 id="353-money-and-account-management-ims-database" tabindex="-1">3.5.3 Money and Account Management IMS Database</h4>
+<p>The IMS database is the primary data store for the IMS TM processing path. It is a hierarchical database accessed using DL/I calls. Application programs issue <code>GU</code> (Get Unique) and <code>GN</code> (Get Next) calls to traverse the hierarchy and retrieve or update account and customer data.</p>
+<p>Example DL/I call structure used in IMS application programs:</p>
+<div class="code-block">
+  <div class="code-block-header">
+    <span class="code-block-lang">COBOL</span>
+    <button class="code-block-copy" type="button" onclick="(function(btn){var pre=btn.closest('.code-block').querySelector('pre');navigator.clipboard.writeText(pre.innerText).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},2000)});})(this)">Copy</button>
+  </div>
+  <pre><code class="language-cobol">CALL &#039;CBLTDLI&#039; USING DLI-GU
+                     PCB-MASK
+                     IO-AREA
+                     UNQUAL-SSA.</code></pre>
+</div>
+<hr>
+<h3 id="36-ibm-mq" tabindex="-1">3.6 IBM MQ</h3>
+<p>IBM MQ provides reliable, asynchronous messaging capabilities for Bank of Z. It decouples the Bank of Z application from external systems, ensuring that messages are delivered even if the receiving system is temporarily unavailable.</p>
+<h4 id="361-role-in-the-architecture" tabindex="-1">3.6.1 Role in the Architecture</h4>
+<p>IBM MQ is used primarily for inter-bank communication scenarios, such as money transfers between Bank of Z and the external Bank of Q system. CICS programs put messages onto MQ queues, and those messages are consumed by Bank of Q (and vice versa).</p>
+<h4 id="362-mq-message-flow" tabindex="-1">3.6.2 MQ Message Flow</h4>
+<div class="mermaid">
+sequenceDiagram
+    participant CICS as CICS Program
+    participant MQ as IBM MQ
+    participant BANKQ as Bank of Q
+
+    CICS->>MQ: MQPUT (Transfer Request)
+    MQ-->>BANKQ: Message Delivered
+    BANKQ->>MQ: MQPUT (Transfer Confirmation)
+    MQ-->>CICS: Message Available
+    CICS->>MQ: MQGET (Read Confirmation)
+</div>
+<p>Key MQ capabilities used by Bank of Z:</p>
+<ul>
+<li><strong>Persistent messaging</strong> — messages survive MQ restarts</li>
+<li><strong>Queue-based decoupling</strong> — sender and receiver operate independently</li>
+<li><strong>Transactional PUT/GET</strong> — MQ operations participate in CICS unit-of-work</li>
+</ul>
+<hr>
+<h3 id="37-bank-of-q" tabindex="-1">3.7 Bank of Q</h3>
+<p>Bank of Q is an external banking system that communicates with Bank of Z through IBM MQ. It represents a peer institution and is used to demonstrate inter-application communication scenarios, specifically cross-bank money transfers.</p>
+<p>Bank of Q:</p>
+<ul>
+<li>Receives transfer requests placed by Bank of Z onto an MQ queue</li>
+<li>Processes the transfer and posts a confirmation message back to a reply queue</li>
+<li>May also initiate inbound transfer requests that Bank of Z processes</li>
+</ul>
+<p>This component illustrates how IBM MQ enables loosely coupled, reliable communication between independent banking applications, a pattern common in real-world financial services integrations.</p>
+<hr>
+<h2 id="4-component-relationships" tabindex="-1">4. Component Relationships</h2>
+<p>The following diagram summarises the relationships between all Bank of Z components, highlighting the two distinct transaction-processing paths and the shared data and messaging infrastructure.</p>
+<div class="mermaid">
+graph LR
+    subgraph "Front End"
+        UI["Bank of Z UI"]
+    end
+
+    subgraph "API Layer"
+        ZC["z/OS Connect"]
+    end
+
+    subgraph "CICS Path"
+        CICS["CICS TXN Processing"]
+        DB2M["Db2 — Money & Accts"]
+        DB2H["Db2 — Account History"]
+    end
+
+    subgraph "IMS Path"
+        IMSTM["IMS TM"]
+        IMSDB["IMS Database"]
+    end
+
+    subgraph "Messaging"
+        MQ["IBM MQ"]
+        BANKQ["Bank of Q"]
+    end
+
+    UI --> ZC
+    ZC --> CICS
+    ZC --> IMSTM
+    CICS --> DB2M
+    CICS --> DB2H
+    IMSTM --> IMSDB
+    IMSTM --> DB2M
+    CICS --> MQ
+    MQ --> BANKQ
+</div>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Type</th>
+<th>Primary Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bank of Z UI</td>
+<td>Web front end</td>
+<td>User interaction and REST API client</td>
+</tr>
+<tr>
+<td>z/OS Connect</td>
+<td>API gateway</td>
+<td>REST-to-CICS/IMS translation and routing</td>
+</tr>
+<tr>
+<td>CICS</td>
+<td>Transaction processor</td>
+<td>CICS-path business logic execution</td>
+</tr>
+<tr>
+<td>IMS TM</td>
+<td>Transaction processor</td>
+<td>IMS-path business logic execution</td>
+</tr>
+<tr>
+<td>Db2 — Money &amp; Accts</td>
+<td>Relational database</td>
+<td>Shared customer and account data store</td>
+</tr>
+<tr>
+<td>Db2 — Account History</td>
+<td>Relational database</td>
+<td>Historical transaction audit trail</td>
+</tr>
+<tr>
+<td>IMS Database</td>
+<td>Hierarchical database</td>
+<td>IMS-path customer and account data</td>
+</tr>
+<tr>
+<td>IBM MQ</td>
+<td>Messaging middleware</td>
+<td>Asynchronous inter-system communication</td>
+</tr>
+<tr>
+<td>Bank of Q</td>
+<td>External system</td>
+<td>Peer bank for MQ-based transfer scenarios</td>
+</tr>
+</tbody>
+</table>
+<p>Together, these components form a cohesive hybrid IBM Z application that pairs modern web interfaces and API-driven integration with the reliability, scalability, and security of IBM Z transaction-processing infrastructure.</p>
+
+                        <div class="related-pages">
+                            <p class="related-pages-title">Related Pages</p>
+                            <div class="card-grid">
+                                
+            <a href="architecture-flow.html" class="card">
+                <span class="card-title">Application Flow</span>
+                <span class="card-description">End-to-end walkthrough of transaction flows within Bank of Z, from menu navigation through account management, credit scoring, and fund transfers.</span>
+            </a>
+            <a href="architecture-build-deployment.html" class="card">
+                <span class="card-title">Build &amp; Deployment Architecture</span>
+                <span class="card-description">Overview of the build pipeline and deployment architecture, including DBB (Dependency Based Build), packaging, and pipeline automation for IBM Z.</span>
+            </a>
+            <a href="program-bnkmenu.html" class="card">
+                <span class="card-title">BNKMENU – Main Menu Program</span>
+                <span class="card-description">Reference documentation for the BNKMENU CICS COBOL program, the primary navigation hub of Bank of Z. Covers BMS screen handling, pseudo-conversational logic, option routing, and error/abend handling.</span>
+            </a>
+            <a href="program-crdtagy2.html" class="card">
+                <span class="card-title">CRDTAGY2 – Credit Agency Simulator</span>
+                <span class="card-description">Reference documentation for the CRDTAGY2 CICS COBOL program. Covers asynchronous credit scoring via CICS channels and containers, random score generation, deliberate latency simulation, and timeout behavior.</span>
+            </a>
+            <a href="program-delacc.html" class="card">
+                <span class="card-title">DELACC – Delete Account Program</span>
+                <span class="card-description">Reference documentation for the DELACC CICS COBOL program. Covers RACF security checks, DB2 account record deletion, audit trail writing to PROCTRAN, communication area conventions, and abend handling.</span>
+            </a>
+                            </div>
+                        </div>
+                    </div>
+                    <nav class="toc-panel" aria-label="On this page">
+  <span class="toc-panel-label">On this page</span>
+  <ul class="toc-list">
+<li class="toc-level-2"><a href="#1-overview">1. Overview</a></li>
+<li class="toc-level-2"><a href="#2-system-architecture">2. System Architecture</a></li>
+<li class="toc-level-2"><a href="#3-application-components">3. Application Components</a>
+<ul>
+<li class="toc-level-3"><a href="#31-bank-of-z-ui">3.1 Bank of Z UI</a></li>
+<li class="toc-level-3"><a href="#32-zos-connect">3.2 z/OS Connect</a></li>
+<li class="toc-level-3"><a href="#33-cics-transaction-processing">3.3 CICS Transaction Processing</a>
+<ul>
+<li class="toc-level-4"><a href="#331-role-in-the-architecture">3.3.1 Role in the Architecture</a></li>
+<li class="toc-level-4"><a href="#332-banking-functions-handled-by-cics">3.3.2 Banking Functions Handled by CICS</a></li>
+<li class="toc-level-4"><a href="#333-cics-processing-flow">3.3.3 CICS Processing Flow</a></li>
+</ul>
+</li>
+<li class="toc-level-3"><a href="#34-ims-transaction-manager-ims-tm">3.4 IMS Transaction Manager (IMS TM)</a>
+<ul>
+<li class="toc-level-4"><a href="#341-role-in-the-architecture">3.4.1 Role in the Architecture</a></li>
+<li class="toc-level-4"><a href="#342-ims-tm-processing-flow">3.4.2 IMS TM Processing Flow</a></li>
+</ul>
+</li>
+<li class="toc-level-3"><a href="#35-databases">3.5 Databases</a>
+<ul>
+<li class="toc-level-4"><a href="#351-money-and-account-management-db2-database">3.5.1 Money and Account Management Db2 Database</a></li>
+<li class="toc-level-4"><a href="#352-account-history-db2-database">3.5.2 Account History Db2 Database</a></li>
+<li class="toc-level-4"><a href="#353-money-and-account-management-ims-database">3.5.3 Money and Account Management IMS Database</a></li>
+</ul>
+</li>
+<li class="toc-level-3"><a href="#36-ibm-mq">3.6 IBM MQ</a>
+<ul>
+<li class="toc-level-4"><a href="#361-role-in-the-architecture">3.6.1 Role in the Architecture</a></li>
+<li class="toc-level-4"><a href="#362-mq-message-flow">3.6.2 MQ Message Flow</a></li>
+</ul>
+</li>
+<li class="toc-level-3"><a href="#37-bank-of-q">3.7 Bank of Q</a></li>
+</ul>
+</li>
+<li class="toc-level-2"><a href="#4-component-relationships">4. Component Relationships</a></li>
+</ul>
+
+</nav>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+    /* toc-spy.js — highlights the active heading in the TOC panel on scroll */
+    (function () {
+      function init() {
+        var panel = document.querySelector('.toc-panel');
+        if (!panel) return;
+        var links = Array.prototype.slice.call(panel.querySelectorAll('a[href^="#"]'));
+        if (!links.length) return;
+
+        var headingIds = links.map(function (a) { return a.getAttribute('href').slice(1); });
+        var headings = headingIds.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+
+        function clearActive() {
+          panel.querySelectorAll('.toc-active').forEach(function (el) { el.classList.remove('toc-active'); });
+          panel.querySelectorAll('.toc-parent-active').forEach(function (el) { el.classList.remove('toc-parent-active'); });
+        }
+
+        function setActive(id) {
+          clearActive();
+          var link = panel.querySelector('a[href="#' + id + '"]');
+          if (!link) return;
+          link.classList.add('toc-active');
+          var li = link.closest('li');
+          if (li) {
+            var parentLi = li.parentElement && li.parentElement.closest('li');
+            if (parentLi) parentLi.classList.add('toc-parent-active');
+          }
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              setActive(entry.target.id);
+            }
+          });
+        }, { rootMargin: '0px 0px -70% 0px', threshold: 0 });
+
+        headings.forEach(function (h) { observer.observe(h); });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+    </script>
+    <script>
+    /* sidebar-toggle.js — persists open/closed state across navigation */
+    (function () {
+
+      var STORAGE_KEY = 'sb_open';
+
+      function getOpenSet() {
+        try {
+          var raw = sessionStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (e) { return null; }
+      }
+
+      function saveOpenSet(set) {
+        try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(set)); } catch (e) {}
+      }
+
+      function findItems(toggle) {
+        var node = toggle.nextSibling;
+        while (node) {
+          if (node.nodeType === 1 && node.classList.contains('nav-section-items'))
+            return node;
+          node = node.nextSibling;
+        }
+        return null;
+      }
+
+      function toggleKey(toggle, index) {
+        var label = (toggle.querySelector('.nav-toggle-text') || toggle).textContent.trim().replace(/\s+/g, ' ');
+        return index + ':' + label;
+      }
+
+      function openSection(toggle, items, key, set) {
+        toggle.classList.add('open');
+        items.classList.add('open');
+        if (set) set[key] = true;
+      }
+
+      function closeSection(toggle, items, key, set) {
+        toggle.classList.remove('open');
+        items.classList.remove('open');
+        if (set) set[key] = false;
+      }
+
+      function init() {
+        var sidebar = document.getElementById('wiki-sidebar');
+        var toggles = Array.prototype.slice.call(
+          document.querySelectorAll('.nav-section-toggle')
+        );
+
+        var activeIdx = -1;
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+          if (items.querySelector('.nav-link.active')) {
+            activeIdx = idx;
+          }
+        });
+
+        var savedSet = getOpenSet();
+        var openSet = savedSet || {};
+
+        if (activeIdx !== -1) {
+          openSet[toggleKey(toggles[activeIdx], activeIdx)] = true;
+        }
+
+        toggles.forEach(function (toggle, idx) {
+          var items = findItems(toggle);
+          if (!items) return;
+
+          var key = toggleKey(toggle, idx);
+          var shouldOpen = openSet[key] === true;
+
+          if (shouldOpen) {
+            toggle.classList.add('open');
+            items.classList.add('open');
+          }
+
+          toggle.addEventListener('click', function () {
+            var nowOpen = toggle.classList.contains('open');
+            if (nowOpen) {
+              closeSection(toggle, items, key, openSet);
+            } else {
+              openSection(toggle, items, key, openSet);
+            }
+            saveOpenSet(openSet);
+          });
+        });
+
+        saveOpenSet(openSet);
+
+        /* Restore sidebar scroll position after sections are expanded so the
+           scroll height is correct when we apply scrollTop. */
+        if (sidebar) {
+          try {
+            var savedScroll = sessionStorage.getItem('sb_scroll');
+            if (savedScroll !== null) { sidebar.scrollTop = parseInt(savedScroll, 10) || 0; }
+          } catch (_e) {}
+        }
+
+        window.addEventListener('pagehide', function () {
+          saveOpenSet(openSet);
+          if (sidebar) {
+            try { sessionStorage.setItem('sb_scroll', String(sidebar.scrollTop)); } catch (_e) {}
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+
+    })();
+    </script>
+    <script>
+    /* nav-tracking.js — only stamps sessionStorage when clicking a source-file link
+       that lives inside the "Source Files" disclosure section, not from sidebar or cards. */
+    (function () {
+      document.addEventListener('click', function (e) {
+        var link = e.target.closest('a[href]');
+        if (!link) return;
+        var href = link.getAttribute('href');
+        if (!href || href.indexOf('sources/') === -1) return;
+        /* Only set referrer when the click originates from inside the Source Files
+           disclosure (.source-files-disclosure). Any other path — sidebar, cards,
+           direct navigation — must not set a referrer. */
+        if (!link.closest('.source-files-disclosure')) return;
+        try {
+          sessionStorage.setItem('wiki_referrer', JSON.stringify({
+            href: location.href,
+            title: document.title,
+            file: location.pathname.split('/').pop()
+          }));
+        } catch (_e) {}
+      });
+    })();
+    </script>
+    <footer class="wiki-footer">Made by IBM Bob Premium Package for Z</footer>
+</body>
+</html>
