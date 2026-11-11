@@ -115,7 +115,7 @@ jobs:
                   ssh -i "$KEY_FILE" -o StrictHostKeyChecking=no \
                     ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
                     ". ~/.profile &&
-                    REPO_DIR=${{ env.uniqueWorkspaceId }}/${{ env.application }} &&
+                    REPO_DIR=${{ env.uniqueWorkspaceId }}/Bank-of-Z &&
                     cd \$REPO_DIR &&
                     export BANK_OF_Z_WORK_DIR=${{ env.uniqueWorkspaceId }} &&
                     bash .setup/pipeline-common.sh scan"
