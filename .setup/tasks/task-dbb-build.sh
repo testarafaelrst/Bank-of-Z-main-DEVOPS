@@ -147,8 +147,11 @@ done
 # =========================
 # Validate build status
 # =========================
-grep -E "Build Status : CLEAN|Build Status : PREVIEW|Build Status : WARNING" "$TMP_LOG" >/dev/null 2>&1
-if [ $? -ne 0 ]; then
+# Nota: "grep ... || true" evita que 'set -e' termine o script quando o padrao
+# nao e encontrado (grep retorna RC=1 quando nao ha match).
+BUILD_CLEAN=0
+grep -E "Build Status : CLEAN|Build Status : PREVIEW|Build Status : WARNING" "$TMP_LOG" >/dev/null 2>&1 || BUILD_CLEAN=1
+if [ "$BUILD_CLEAN" -ne 0 ]; then
     # Em modo preview (scan), o task Transfer falha com BGZZB0008E ao tentar
     # copiar para datasets que nao existem -- isso gera Build Status : ERROR,
     # mas e um comportamento esperado. Se for o unico erro, continua.
