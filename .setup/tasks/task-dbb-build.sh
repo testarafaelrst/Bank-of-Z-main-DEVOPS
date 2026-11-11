@@ -126,7 +126,13 @@ _BPXK_AUTOCVT=OFF python3 "$SCRIPTS_DIR/../lib/render_template.py" --configFile 
     --outputEncoding ISO8859-1
 chtag -tc ISO8859-1 "$SCRIPTS_DIR/../build/datasets.yaml"
 
-dbb build "$BUILD_TYPE" --debug --hlq "${APP_HLQ}.DBB" --log-encoding ISO8859-1 $BUILD_OPTIONS --config "$DBB_APP_CONF" 2>&1 | tee "$TMP_LOG" | while read -r line
+# Nota: --debug e uma opcao CLI declarada nos lifecycles 'pipeline', 'full', 'impact', 'user'.
+# O lifecycle 'scan' nao declara essa opcao, entao --debug nao e passado para ele.
+DBB_DEBUG_OPT=""
+if [ "$BUILD_TYPE" != "scan" ]; then
+    DBB_DEBUG_OPT="--debug"
+fi
+dbb build "$BUILD_TYPE" $DBB_DEBUG_OPT --hlq "${APP_HLQ}.DBB" --log-encoding ISO8859-1 $BUILD_OPTIONS --config "$DBB_APP_CONF" 2>&1 | tee "$TMP_LOG" | while read -r line
 do
     case "$line" in
         ">"*)
