@@ -140,7 +140,7 @@ jobs:
                       -o StrictHostKeyChecking=no \
                       ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
                       ". ~/.profile &&
-                      REPO_DIR=${{ env.uniqueWorkspaceId }}/Bank-of-Z &&
+                      REPO_DIR=${{ env.uniqueWorkspaceId }}/${{ env.application }} &&
                       cd \$REPO_DIR &&
                       export BANK_OF_Z_WORK_DIR=${{ env.uniqueWorkspaceId }} &&
                       bash .setup/pipeline-common.sh scan"
@@ -195,7 +195,7 @@ jobs:
                       -o StrictHostKeyChecking=no \
                       ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
                       ". ~/.profile &&
-                      REPO_DIR=${{ env.uniqueWorkspaceId }}/Bank-of-Z &&
+                      REPO_DIR=${{ env.uniqueWorkspaceId }}/${{ env.application }} &&
                       cd \$REPO_DIR &&
                       export BANK_OF_Z_WORK_DIR=${{ env.uniqueWorkspaceId }} &&
                       export TAZ_TARGET_PROGRAM=${{ env.targetProgram }} &&
@@ -221,7 +221,7 @@ jobs:
                       -o StrictHostKeyChecking=no \
                       ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
                       ". ~/.profile &&
-                      REPO_DIR=${{ env.uniqueWorkspaceId }}/Bank-of-Z &&
+                      REPO_DIR=${{ env.uniqueWorkspaceId }}/${{ env.application }} &&
                       cd \$REPO_DIR &&
                       export BANK_OF_Z_WORK_DIR=${{ env.uniqueWorkspaceId }} &&
                       bash .setup/pipeline-common.sh deploy"
@@ -248,7 +248,7 @@ jobs:
                       -o StrictHostKeyChecking=no \
                       ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
                       ". ~/.profile &&
-                      REPO_DIR=${{ env.uniqueWorkspaceId }}/Bank-of-Z &&
+                      REPO_DIR=${{ env.uniqueWorkspaceId }}/${{ env.application }} &&
                       cd \$REPO_DIR &&
                       export BANK_OF_Z_WORK_DIR=${{ env.uniqueWorkspaceId }} &&
                       bash .setup/pipeline-common.sh verify"
