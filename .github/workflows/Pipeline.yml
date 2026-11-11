@@ -91,11 +91,15 @@ jobs:
         steps:
             - name: clone-repository-to-uss
               run: |
-                  ssh ${{ env.zosHost }} \
-                    ". ./.profile && gitClone.sh \
+                  KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
+                  echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
+                  ssh -i "$KEY_FILE" -o StrictHostKeyChecking=no \
+                    ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
+                    ". ~/.profile && gitClone.sh \
                       -w ${{ env.uniqueWorkspaceId }} \
                       -r https://${{ secrets.GH_ACTIONS_PAT }}@github.com/${{ github.repository }}.git \
                       -b ${{ env.branch }}"
+                  rm -f "$KEY_FILE"
 
     # -------------------------------------------------------------------------
     # 3. ZCodeScan — static analysis (TAZ)
@@ -106,12 +110,15 @@ jobs:
         steps:
             - name: run-zcodescan
               run: |
-                  ssh ${{ env.zosHost }} "
-                    . ./.profile &&
+                  KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
+                  echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
+                  ssh -i "$KEY_FILE" -o StrictHostKeyChecking=no \
+                    ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
+                    ". ~/.profile &&
                     cd ${{ env.uniqueWorkspaceId }} &&
                     if [ -d ${{ env.application }} ]; then cd ${{ env.application }}; fi &&
-                    bash .setup/pipeline-common.sh scan
-                  "
+                    bash .setup/pipeline-common.sh scan"
+                  rm -f "$KEY_FILE"
 
     # -------------------------------------------------------------------------
     # 4. DBB Build — composite action
@@ -149,12 +156,15 @@ jobs:
         steps:
             - name: run-wazi-deploy
               run: |
-                  ssh ${{ env.zosHost }} "
-                    . ./.profile &&
+                  KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
+                  echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
+                  ssh -i "$KEY_FILE" -o StrictHostKeyChecking=no \
+                    ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
+                    ". ~/.profile &&
                     cd ${{ env.uniqueWorkspaceId }} &&
                     if [ -d ${{ env.application }} ]; then cd ${{ env.application }}; fi &&
-                    bash .setup/pipeline-common.sh deploy
-                  "
+                    bash .setup/pipeline-common.sh deploy"
+                  rm -f "$KEY_FILE"
 
     # -------------------------------------------------------------------------
     # 6. Post-install verification tests
@@ -169,9 +179,12 @@ jobs:
         steps:
             - name: run-verification-tests
               run: |
-                  ssh ${{ env.zosHost }} "
-                    . ./.profile &&
+                  KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
+                  echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
+                  ssh -i "$KEY_FILE" -o StrictHostKeyChecking=no \
+                    ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
+                    ". ~/.profile &&
                     cd ${{ env.uniqueWorkspaceId }} &&
                     if [ -d ${{ env.application }} ]; then cd ${{ env.application }}; fi &&
-                    bash .setup/pipeline-common.sh verify
-                  "
+                    bash .setup/pipeline-common.sh verify"
+                  rm -f "$KEY_FILE"
