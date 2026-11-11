@@ -96,12 +96,14 @@ find "$TARGET_DIR" -name "*.groovy" -type f | while read gf; do
 done
 echo "[INFO] Taggeamento e conversao concluidos"
 
-# Garantir permissoes de execucao para scripts shell e Python
-echo "[INFO] Definindo permissoes de execucao..."
-find "$TARGET_DIR" -name "*.sh" -type f -exec chmod +x {} \; 2>/dev/null
-find "$TARGET_DIR" -name "*.py" -type f -exec chmod +r {} \; 2>/dev/null
-# Garantir que diretorios sao legíveis e navegaveis
-find "$TARGET_DIR" -type d -exec chmod +rx {} \; 2>/dev/null
+# Garantir permissoes corretas apos extracao do ZIP:
+#   - Todos os arquivos: leitura para todos (a+r)
+#   - Scripts shell: execucao para todos (a+x)
+#   - Diretorios: leitura e navegacao (a+rx)
+echo "[INFO] Definindo permissoes..."
+chmod -R a+r "$TARGET_DIR" 2>/dev/null
+find "$TARGET_DIR" -name "*.sh" -type f -exec chmod a+x {} \; 2>/dev/null
+find "$TARGET_DIR" -type d -exec chmod a+rx {} \; 2>/dev/null
 echo "[INFO] Permissoes definidas"
 
 echo "[OK] Clone concluido em $WORKSPACE/$REPO_NAME"
