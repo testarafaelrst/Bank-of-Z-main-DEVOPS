@@ -147,11 +147,38 @@ jobs:
                   include-logs: "*.log,*.lst"
 
     # -------------------------------------------------------------------------
-    # 5. Wazi Deploy — generate + deploy (WASI)
+    # 5. TAZ — testes automatizados pós-build
+    #    Valida DEVOPSPL (RC=0 happy path) e cenários de falha controlada.
+    #    Executa em PRs e em push — é pré-requisito do deploy.
+    # -------------------------------------------------------------------------
+    taz-test:
+        name: "5/7 — TAZ: Testes Automatizados"
+        needs: build
+        runs-on: [self-hosted, macOS, ARM64]
+        steps:
+            - name: run-taz-tests
+              run: |
+                  KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
+                  echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
+                  ssh -i "$KEY_FILE" \
+                      -p ${{ env.zosPort }} \
+                      -o StrictHostKeyChecking=no \
+                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} << 'ENDSSH'
+                    set -e
+                    . ~/.profile
+                    REPO_DIR="${{ env.uniqueWorkspaceId }}/${{ env.application }}"
+                    cd "$REPO_DIR"
+                    export BANK_OF_Z_WORK_DIR="${{ env.uniqueWorkspaceId }}"
+                    bash .setup/pipeline-common.sh test
+                  ENDSSH
+                  rm -f "$KEY_FILE"
+
+    # -------------------------------------------------------------------------
+    # 6. Wazi Deploy — generate + deploy (WASI)
     #    Skipped on Pull Requests (deploy only to main/release)
     # -------------------------------------------------------------------------
     deploy:
-        needs: build
+        needs: taz-test
         runs-on: [self-hosted, macOS, ARM64]
         if: ${{ github.event_name != 'pull_request' }}
         steps:
@@ -169,15 +196,15 @@ jobs:
                   rm -f "$KEY_FILE"
 
     # -------------------------------------------------------------------------
-    # 6. Post-install verification tests
-    #    Runs after deploy (main/release) or after build (PR)
+    # 7. Post-install verification tests
+    #    Runs after deploy (main/release) or after taz-test (PR, deploy skipped)
     # -------------------------------------------------------------------------
     verify:
         needs:
-            - build
+            - taz-test
             - deploy
         runs-on: [self-hosted, macOS, ARM64]
-        if: ${{ always() && needs.build.result == 'success' && (needs.deploy.result == 'success' || needs.deploy.result == 'skipped') }}
+        if: ${{ always() && needs.taz-test.result == 'success' && (needs.deploy.result == 'success' || needs.deploy.result == 'skipped') }}
         steps:
             - name: run-verification-tests
               run: |

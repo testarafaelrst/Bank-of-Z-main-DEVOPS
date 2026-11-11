@@ -1,0 +1,279 @@
+name: boz-batch-pipeline
+
+# =============================================================================
+# Bank of Z — Batch COBOL Pipeline
+#
+# Esteira dedicada para programas batch (src/base/batch/cobol/):
+#   1. controller   — imprime parâmetros da execução
+#   2. clone        — clona o repositório no z/OS USS
+#   3. static-scan  — ZCodeScan (análise estática, maxRC=4)
+#   4. build        — DBB compilação + link-edit via composite action dbb-build
+#   5. taz-test     — TAZ: executa DEVOPSPL com WS-FALHA-SIMULADA=0 e valida RC
+#   6. deploy       — Wazi Deploy (somente push para main/release, não em PRs)
+#   7. verify       — testes pós-deploy via pipeline-common.sh
+#
+# Triggers:
+#   - Push para main ou release/* com alterações em src/base/batch/cobol/
+#   - Pull Request para main com alterações em batch/cobol (scan + build, sem deploy)
+#   - Manual via workflow_dispatch — escolha do tipo de build
+#
+# Required repository variables (Settings > Variables):
+#   ZOS_HOST          — hostname do z/OS
+#   ZOS_SSH_USER      — usuário SSH no z/OS
+#   ZOS_SSH_PORT      — porta SSH (default: 22)
+#   ZOS_SANDBOX_DIR   — diretório base do workspace no z/OS USS
+#   BOZ_BUILD_HLQ     — HLQ destino dos artefatos compilados (ex: BANKZ)
+#   BOZ_FRONTEND_URL  — URL do frontend Bank of Z
+#
+# Required repository secrets (Settings > Secrets):
+#   ZOS_SSH_KEY       — chave privada SSH (PEM completo)
+#   GH_ACTIONS_PAT    — GitHub PAT para git clone no z/OS
+# =============================================================================
+
+on:
+    push:
+        branches:
+            - main
+            - "release/**"
+        paths:
+            - "src/base/batch/cobol/**"
+            - "src/base/batch/jcl/**"
+            - "src/base/batch/pli/**"
+    pull_request:
+        types:
+            - opened
+            - reopened
+            - synchronize
+        paths:
+            - "src/base/batch/cobol/**"
+            - "src/base/batch/pli/**"
+    workflow_dispatch:
+        inputs:
+            buildType:
+                description: "DBB build type (pipeline = impacto, full = recompila tudo)"
+                required: false
+                default: "pipeline"
+                type: choice
+                options:
+                    - pipeline
+                    - full
+            targetProgram:
+                description: "Programa alvo para TAZ (ex: DEVOPSPL). Deixe vazio para todos."
+                required: false
+                default: "DEVOPSPL"
+
+env:
+    uniqueWorkspaceId: ${{ vars.ZOS_SANDBOX_DIR }}/batch-pipeline/${{ github.repository }}/${{ github.ref_name }}/run_${{ github.run_number }}
+    branch: ${{ github.ref_name }}
+    application: ${{ github.event.repository.name }}
+    zosHost: ${{ vars.ZOS_HOST }}
+    zosPort: ${{ vars.ZOS_SSH_PORT || '22' }}
+    bozFrontendUrl: ${{ vars.BOZ_FRONTEND_URL }}
+    buildHlq: ${{ vars.BOZ_BUILD_HLQ }}
+    # PRs sempre usam impact build; push/dispatch respeita o input (default: pipeline)
+    buildType: ${{ github.event_name == 'pull_request' && 'pipeline' || (github.event.inputs.buildType || 'pipeline') }}
+    # Deploy somente em push para main/release — nunca em PRs
+    runDeploy: ${{ github.event_name != 'pull_request' }}
+    targetProgram: ${{ github.event.inputs.targetProgram || 'DEVOPSPL' }}
+
+jobs:
+    # -------------------------------------------------------------------------
+    # 1. Imprime parâmetros da execução
+    # -------------------------------------------------------------------------
+    controller:
+        name: "1/7 — Parâmetros do Pipeline"
+        runs-on: [self-hosted, macOS, ARM64]
+        steps:
+            - name: print-pipeline-parameters
+              run: |
+                  echo " "
+                  echo "Bank of Z — Batch COBOL Pipeline"
+                  echo "=============================================="
+                  echo "Run ID          = ${{ github.run_number }}"
+                  echo "Trigger         = ${{ github.event_name }}"
+                  echo "Branch          = ${{ env.branch }}"
+                  echo "Application     = ${{ env.application }}"
+                  echo "z/OS Host       = ${{ env.zosHost }}"
+                  echo "Workspace       = ${{ env.uniqueWorkspaceId }}"
+                  echo "Build type      = ${{ env.buildType }}"
+                  echo "Deploy enabled  = ${{ env.runDeploy }}"
+                  echo "Programa TAZ    = ${{ env.targetProgram }}"
+                  echo "=============================================="
+
+    # -------------------------------------------------------------------------
+    # 2. Clona o repositório no z/OS USS
+    # -------------------------------------------------------------------------
+    clone:
+        name: "2/7 — Clone no z/OS USS"
+        needs: controller
+        runs-on: [self-hosted, macOS, ARM64]
+        steps:
+            - name: clone-repository-to-uss
+              run: |
+                  KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
+                  echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
+                  ssh -i "$KEY_FILE" \
+                      -p ${{ env.zosPort }} \
+                      -o StrictHostKeyChecking=no \
+                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
+                      ". ~/.profile && gitClone.sh \
+                        -w ${{ env.uniqueWorkspaceId }} \
+                        -r https://${{ secrets.GH_ACTIONS_PAT }}@github.com/${{ github.repository }}.git \
+                        -b ${{ env.branch }}"
+                  rm -f "$KEY_FILE"
+
+    # -------------------------------------------------------------------------
+    # 3. ZCodeScan — análise estática (COBOL + PL/I batch)
+    #    Config: zcodescan/zcodescan-config.yml (maxReturnCode: 4, IBM-1047)
+    # -------------------------------------------------------------------------
+    static-scan:
+        name: "3/7 — ZCodeScan: Análise Estática"
+        needs: clone
+        runs-on: [self-hosted, macOS, ARM64]
+        steps:
+            - name: run-zcodescan-batch
+              run: |
+                  KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
+                  echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
+                  ssh -i "$KEY_FILE" \
+                      -p ${{ env.zosPort }} \
+                      -o StrictHostKeyChecking=no \
+                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} << 'ENDSSH'
+                    set -e
+                    . ~/.profile
+
+                    REPO_DIR="${{ env.uniqueWorkspaceId }}/${{ env.application }}"
+                    cd "$REPO_DIR"
+
+                    export BANK_OF_Z_WORK_DIR="${{ env.uniqueWorkspaceId }}"
+
+                    # Executa ZCodeScan via script de pipeline para batch
+                    # Parâmetro "scan" invoca zcodescan-config.yml + zcodescan-rules.yaml
+                    bash .setup/pipeline-common.sh scan
+                  ENDSSH
+                  rm -f "$KEY_FILE"
+
+    # -------------------------------------------------------------------------
+    # 4. DBB Build — compilação COBOL batch + link-edit
+    #    Usa a composite action dbb-build (IGYCRCTL + IEWBLINK)
+    #    deployType: LOAD  | compileParms: LIB (sem CICS/SQL)
+    # -------------------------------------------------------------------------
+    build:
+        name: "4/7 — Build: DBB (IGYCRCTL + IEWBLINK)"
+        needs: static-scan
+        runs-on: [self-hosted, macOS, ARM64]
+        outputs:
+            build-artifact-path: ${{ steps.dbb.outputs.build-artifact-path }}
+            logs-artifact-path: ${{ steps.dbb.outputs.logs-artifact-path }}
+        steps:
+            - name: run-dbb-build
+              id: dbb
+              uses: ./.github/actions/dbb-build
+              with:
+                  ssh-host: ${{ env.zosHost }}
+                  ssh-port: ${{ env.zosPort }}
+                  ssh-user: ${{ vars.ZOS_SSH_USER }}
+                  ssh-private-key: ${{ secrets.ZOS_SSH_KEY }}
+                  unique-workspace-id: ${{ env.uniqueWorkspaceId }}
+                  build-hlq: ${{ env.buildHlq }}
+                  gh-token: ${{ secrets.GH_ACTIONS_PAT }}
+                  pipeline-type: build
+                  dbb-build-type: ${{ env.buildType }}
+                  include-logs: "*.log,*.lst"
+
+    # -------------------------------------------------------------------------
+    # 5. TAZ — testes automatizados para DEVOPSPL
+    #    Cenários:
+    #      a) happy_path:      WS-FALHA-SIMULADA=0  → RC esperado = 0
+    #      b) falha_etapa_3:   WS-FALHA-SIMULADA=3  → RC esperado = 8 (ZCodeScan)
+    #      c) falha_etapa_4:   WS-FALHA-SIMULADA=4  → RC esperado = 8 (Build)
+    # -------------------------------------------------------------------------
+    taz-test:
+        name: "5/7 — TAZ: Testes Automatizados"
+        needs: build
+        runs-on: [self-hosted, macOS, ARM64]
+        steps:
+            - name: run-taz-devopspl
+              run: |
+                  KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
+                  echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
+                  ssh -i "$KEY_FILE" \
+                      -p ${{ env.zosPort }} \
+                      -o StrictHostKeyChecking=no \
+                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} << 'ENDSSH'
+                    set -e
+                    . ~/.profile
+
+                    REPO_DIR="${{ env.uniqueWorkspaceId }}/${{ env.application }}"
+                    cd "$REPO_DIR"
+
+                    export BANK_OF_Z_WORK_DIR="${{ env.uniqueWorkspaceId }}"
+                    export TAZ_TARGET_PROGRAM="${{ env.targetProgram }}"
+
+                    # Invoca os testes EDT/TAZ definidos em .edt-unit-test/
+                    # O script valida RC=0 (happy path) e RC=8 (cenários de falha)
+                    bash .setup/pipeline-common.sh test
+                  ENDSSH
+                  rm -f "$KEY_FILE"
+
+    # -------------------------------------------------------------------------
+    # 6. Wazi Deploy — empacota e implanta no ambiente-alvo
+    #    Somente em push para main/release — ignorado em Pull Requests
+    # -------------------------------------------------------------------------
+    deploy:
+        name: "6/7 — Deploy: Wazi Deploy"
+        needs: taz-test
+        runs-on: [self-hosted, macOS, ARM64]
+        if: ${{ github.event_name != 'pull_request' }}
+        steps:
+            - name: run-wazi-deploy
+              run: |
+                  KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
+                  echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
+                  ssh -i "$KEY_FILE" \
+                      -p ${{ env.zosPort }} \
+                      -o StrictHostKeyChecking=no \
+                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} << 'ENDSSH'
+                    set -e
+                    . ~/.profile
+
+                    REPO_DIR="${{ env.uniqueWorkspaceId }}/${{ env.application }}"
+                    cd "$REPO_DIR"
+
+                    export BANK_OF_Z_WORK_DIR="${{ env.uniqueWorkspaceId }}"
+
+                    bash .setup/pipeline-common.sh deploy
+                  ENDSSH
+                  rm -f "$KEY_FILE"
+
+    # -------------------------------------------------------------------------
+    # 7. Verify — testes de verificação pós-deploy
+    #    Executa após deploy (main/release) ou após build+taz (PR, deploy skipped)
+    # -------------------------------------------------------------------------
+    verify:
+        name: "7/7 — Verify: Testes Pós-Deploy"
+        needs:
+            - taz-test
+            - deploy
+        runs-on: [self-hosted, macOS, ARM64]
+        if: ${{ always() && needs.taz-test.result == 'success' && (needs.deploy.result == 'success' || needs.deploy.result == 'skipped') }}
+        steps:
+            - name: run-verification-tests
+              run: |
+                  KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
+                  echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
+                  ssh -i "$KEY_FILE" \
+                      -p ${{ env.zosPort }} \
+                      -o StrictHostKeyChecking=no \
+                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} << 'ENDSSH'
+                    set -e
+                    . ~/.profile
+
+                    REPO_DIR="${{ env.uniqueWorkspaceId }}/${{ env.application }}"
+                    cd "$REPO_DIR"
+
+                    export BANK_OF_Z_WORK_DIR="${{ env.uniqueWorkspaceId }}"
+
+                    bash .setup/pipeline-common.sh verify
+                  ENDSSH
+                  rm -f "$KEY_FILE"
