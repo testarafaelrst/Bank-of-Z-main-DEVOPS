@@ -117,7 +117,7 @@ jobs:
                     ". ~/.profile &&
                     cd ${{ env.uniqueWorkspaceId }} &&
                     if [ -d ${{ env.application }} ]; then cd ${{ env.application }}; fi &&
-                    bash .setup/pipeline-common.sh scan"
+                    /bin/sh .setup/pipeline-common.sh scan"
                   rm -f "$KEY_FILE"
 
     # -------------------------------------------------------------------------
@@ -163,7 +163,7 @@ jobs:
                     ". ~/.profile &&
                     cd ${{ env.uniqueWorkspaceId }} &&
                     if [ -d ${{ env.application }} ]; then cd ${{ env.application }}; fi &&
-                    bash .setup/pipeline-common.sh deploy"
+                    /bin/sh .setup/pipeline-common.sh deploy"
                   rm -f "$KEY_FILE"
 
     # -------------------------------------------------------------------------
@@ -186,5 +186,5 @@ jobs:
                     ". ~/.profile &&
                     cd ${{ env.uniqueWorkspaceId }} &&
                     if [ -d ${{ env.application }} ]; then cd ${{ env.application }}; fi &&
-                    bash .setup/pipeline-common.sh verify"
+                    /bin/sh .setup/pipeline-common.sh verify"
                   rm -f "$KEY_FILE"
