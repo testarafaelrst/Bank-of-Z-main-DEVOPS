@@ -138,19 +138,12 @@ jobs:
                   ssh -i "$KEY_FILE" \
                       -p ${{ env.zosPort }} \
                       -o StrictHostKeyChecking=no \
-                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} << 'ENDSSH'
-                    set -e
-                    . ~/.profile
-
-                    REPO_DIR="${{ env.uniqueWorkspaceId }}/${{ env.application }}"
-                    cd "$REPO_DIR"
-
-                    export BANK_OF_Z_WORK_DIR="${{ env.uniqueWorkspaceId }}"
-
-                    # Executa ZCodeScan via script de pipeline para batch
-                    # Parâmetro "scan" invoca zcodescan-config.yml + zcodescan-rules.yaml
-                    bash .setup/pipeline-common.sh scan
-                  ENDSSH
+                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
+                      ". ~/.profile &&
+                      REPO_DIR=${{ env.uniqueWorkspaceId }}/${{ env.application }} &&
+                      cd \$REPO_DIR &&
+                      export BANK_OF_Z_WORK_DIR=${{ env.uniqueWorkspaceId }} &&
+                      bash .setup/pipeline-common.sh scan"
                   rm -f "$KEY_FILE"
 
     # -------------------------------------------------------------------------
@@ -200,20 +193,13 @@ jobs:
                   ssh -i "$KEY_FILE" \
                       -p ${{ env.zosPort }} \
                       -o StrictHostKeyChecking=no \
-                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} << 'ENDSSH'
-                    set -e
-                    . ~/.profile
-
-                    REPO_DIR="${{ env.uniqueWorkspaceId }}/${{ env.application }}"
-                    cd "$REPO_DIR"
-
-                    export BANK_OF_Z_WORK_DIR="${{ env.uniqueWorkspaceId }}"
-                    export TAZ_TARGET_PROGRAM="${{ env.targetProgram }}"
-
-                    # Invoca os testes EDT/TAZ definidos em .edt-unit-test/
-                    # O script valida RC=0 (happy path) e RC=8 (cenários de falha)
-                    bash .setup/pipeline-common.sh test
-                  ENDSSH
+                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
+                      ". ~/.profile &&
+                      REPO_DIR=${{ env.uniqueWorkspaceId }}/${{ env.application }} &&
+                      cd \$REPO_DIR &&
+                      export BANK_OF_Z_WORK_DIR=${{ env.uniqueWorkspaceId }} &&
+                      export TAZ_TARGET_PROGRAM=${{ env.targetProgram }} &&
+                      bash .setup/pipeline-common.sh test"
                   rm -f "$KEY_FILE"
 
     # -------------------------------------------------------------------------
@@ -233,17 +219,12 @@ jobs:
                   ssh -i "$KEY_FILE" \
                       -p ${{ env.zosPort }} \
                       -o StrictHostKeyChecking=no \
-                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} << 'ENDSSH'
-                    set -e
-                    . ~/.profile
-
-                    REPO_DIR="${{ env.uniqueWorkspaceId }}/${{ env.application }}"
-                    cd "$REPO_DIR"
-
-                    export BANK_OF_Z_WORK_DIR="${{ env.uniqueWorkspaceId }}"
-
-                    bash .setup/pipeline-common.sh deploy
-                  ENDSSH
+                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
+                      ". ~/.profile &&
+                      REPO_DIR=${{ env.uniqueWorkspaceId }}/${{ env.application }} &&
+                      cd \$REPO_DIR &&
+                      export BANK_OF_Z_WORK_DIR=${{ env.uniqueWorkspaceId }} &&
+                      bash .setup/pipeline-common.sh deploy"
                   rm -f "$KEY_FILE"
 
     # -------------------------------------------------------------------------
@@ -265,15 +246,10 @@ jobs:
                   ssh -i "$KEY_FILE" \
                       -p ${{ env.zosPort }} \
                       -o StrictHostKeyChecking=no \
-                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} << 'ENDSSH'
-                    set -e
-                    . ~/.profile
-
-                    REPO_DIR="${{ env.uniqueWorkspaceId }}/${{ env.application }}"
-                    cd "$REPO_DIR"
-
-                    export BANK_OF_Z_WORK_DIR="${{ env.uniqueWorkspaceId }}"
-
-                    bash .setup/pipeline-common.sh verify
-                  ENDSSH
+                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
+                      ". ~/.profile &&
+                      REPO_DIR=${{ env.uniqueWorkspaceId }}/${{ env.application }} &&
+                      cd \$REPO_DIR &&
+                      export BANK_OF_Z_WORK_DIR=${{ env.uniqueWorkspaceId }} &&
+                      bash .setup/pipeline-common.sh verify"
                   rm -f "$KEY_FILE"

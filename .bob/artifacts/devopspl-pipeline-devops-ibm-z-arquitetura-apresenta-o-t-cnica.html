@@ -1,0 +1,722 @@
+
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<title>DEVOPSPL — Pipeline DevOps IBM Z</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "Segoe UI", system-ui, sans-serif; font-size: 14px; line-height: 1.6; background: #ffffff; color: #1f2328; max-width: 900px; margin: 0 auto; padding: 24px 20px 48px; }
+  h1 { font-size: 22px; font-weight: 700; color: #1f2328; margin-bottom: 4px; }
+  h2 { font-size: 16px; font-weight: 700; color: #1f2328; margin: 28px 0 10px; padding-bottom: 6px; border-bottom: 2px solid #3b82d4; }
+  h3 { font-size: 14px; font-weight: 600; color: #1f2328; margin: 16px 0 6px; }
+  p { margin-bottom: 10px; color: #1f2328; }
+  .subtitle { color: #57606a; font-size: 13px; margin-bottom: 24px; }
+
+  /* HERO BANNER */
+  .hero { background: #f7f8fa; border: 1px solid #e5e7eb; border-radius: 8px; padding: 18px 22px; margin-bottom: 28px; }
+  .hero .tag { display: inline-block; background: #3b82d4; color: #fff; font-size: 11px; font-weight: 600; border-radius: 4px; padding: 2px 8px; margin-right: 6px; letter-spacing: 0.5px; }
+  .hero .tag.green  { background: #1a7f4b; }
+  .hero .tag.purple { background: #7c5cd8; }
+  .hero .tag.orange { background: #b45309; }
+  .hero-meta { margin-top: 10px; display: flex; gap: 24px; flex-wrap: wrap; }
+  .hero-meta span { color: #57606a; font-size: 12px; }
+  .hero-meta strong { color: #1f2328; }
+
+  /* PIPELINE DIAGRAM */
+  .pipeline-wrap { overflow-x: auto; margin: 14px 0 24px; }
+  .pipeline { display: flex; align-items: stretch; gap: 0; min-width: 680px; }
+  .stage { flex: 1; border: 1.5px solid #e5e7eb; border-radius: 6px; padding: 12px 10px; background: #f7f8fa; position: relative; }
+  .stage + .stage::before { content: "▶"; position: absolute; left: -18px; top: 50%; transform: translateY(-50%); color: #57606a; font-size: 13px; z-index: 1; }
+  .stage .s-num { display: block; font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #57606a; text-transform: uppercase; }
+  .stage .s-name { font-size: 13px; font-weight: 700; margin: 2px 0 4px; }
+  .stage .s-tool { font-size: 11px; color: #57606a; }
+  .stage .s-rc { display: inline-block; margin-top: 6px; font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 3px; }
+  .stage.plan   { border-color: #93c5fd; }
+  .stage.plan   .s-name { color: #1e40af; }
+  .stage.code   { border-color: #6ee7b7; }
+  .stage.code   .s-name { color: #065f46; }
+  .stage.scan   { border-color: #fde68a; }
+  .stage.scan   .s-name { color: #92400e; }
+  .stage.build  { border-color: #a5b4fc; }
+  .stage.build  .s-name { color: #3730a3; }
+  .stage.test   { border-color: #f9a8d4; }
+  .stage.test   .s-name { color: #9d174d; }
+  .stage.deploy { border-color: #6ee7b7; }
+  .stage.deploy .s-name { color: #065f46; }
+  .stage.monitor{ border-color: #c4b5fd; }
+  .stage.monitor .s-name{ color: #4c1d95; }
+  .rc-ok   { background: #d1fae5; color: #065f46; }
+  .rc-warn { background: #fef3c7; color: #92400e; }
+  .rc-fail { background: #fee2e2; color: #991b1b; }
+
+  /* TABLES */
+  table { width: 100%; border-collapse: collapse; margin: 10px 0 18px; font-size: 13px; }
+  th { background: #f7f8fa; border: 1px solid #e5e7eb; padding: 7px 10px; text-align: left; font-weight: 600; color: #1f2328; }
+  td { border: 1px solid #e5e7eb; padding: 6px 10px; vertical-align: top; }
+  tr:nth-child(even) td { background: #fafafa; }
+
+  /* CODE BLOCKS */
+  pre { background: #f7f8fa; border: 1px solid #e5e7eb; border-radius: 6px; padding: 14px 16px; font-size: 12px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; overflow-x: auto; margin: 8px 0 18px; line-height: 1.5; }
+  code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 12px; background: #f0f2f4; padding: 1px 4px; border-radius: 3px; }
+
+  /* PHASE CARDS */
+  .phase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 10px 0 18px; }
+  .phase-card { border: 1.5px solid #e5e7eb; border-radius: 6px; padding: 14px; }
+  .phase-card h3 { margin-top: 0; font-size: 13px; }
+  .phase-card ul { padding-left: 16px; margin: 6px 0; font-size: 13px; }
+  .phase-card li { margin-bottom: 3px; }
+  .badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 1px 7px; border-radius: 3px; margin-left: 6px; }
+  .badge-rc4  { background: #fef3c7; color: #92400e; }
+  .badge-rc0  { background: #d1fae5; color: #065f46; }
+  .badge-rc8  { background: #fee2e2; color: #991b1b; }
+
+  /* PROGRAM ANATOMY */
+  .anatomy { background: #f7f8fa; border: 1px solid #e5e7eb; border-radius: 6px; padding: 14px 18px; margin: 10px 0 18px; }
+  .anatomy-row { display: flex; gap: 14px; margin-bottom: 8px; flex-wrap: wrap; }
+  .anatomy-item { flex: 1; min-width: 150px; }
+  .anatomy-item .label { font-size: 10px; font-weight: 700; letter-spacing: 0.8px; color: #57606a; text-transform: uppercase; }
+  .anatomy-item .value { font-size: 13px; margin-top: 2px; }
+
+  /* FLOW TABLE */
+  .flow-row { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f2f4; }
+  .flow-row:last-child { border-bottom: none; }
+  .flow-num { width: 24px; height: 24px; border-radius: 50%; background: #3b82d4; color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .flow-content .title { font-weight: 600; font-size: 13px; }
+  .flow-content .desc  { font-size: 12px; color: #57606a; }
+
+  /* SLIDE OUTLINE */
+  .slide { border: 1.5px solid #e5e7eb; border-radius: 6px; margin-bottom: 12px; overflow: hidden; }
+  .slide-header { background: #f7f8fa; padding: 8px 14px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #e5e7eb; }
+  .slide-num { font-size: 10px; font-weight: 700; color: #57606a; min-width: 60px; }
+  .slide-title { font-size: 13px; font-weight: 600; }
+  .slide-body { padding: 10px 14px; font-size: 12.5px; color: #57606a; }
+  .slide-body ul { padding-left: 16px; }
+  .slide-body li { margin-bottom: 4px; }
+
+  /* SECTION DIVIDER */
+  .section-divider { display: flex; align-items: center; gap: 10px; margin: 28px 0 14px; }
+  .section-divider .num { width: 28px; height: 28px; background: #3b82d4; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+  .section-divider h2 { margin: 0; border-bottom: none; padding-bottom: 0; }
+
+  /* FOOTER */
+  footer { margin-top: 48px; padding-top: 12px; border-top: 1px solid #e5e7eb; text-align: center; color: #57606a; font-size: 12px; }
+
+  @media (max-width: 620px) {
+    .phase-grid { grid-template-columns: 1fr; }
+    .pipeline { flex-direction: column; min-width: unset; }
+    .stage + .stage::before { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="tag">BATCH COBOL</span>
+  <span class="tag green">IBM Z DevOps</span>
+  <span class="tag purple">Pipeline</span>
+  <span class="tag orange">Bank of Z</span>
+  <h1 style="margin-top:10px">DEVOPSPL — Pipeline DevOps IBM Z</h1>
+  <p style="color:#57606a;font-size:13px;margin-top:4px">Esteira completa de CI/CD para programas COBOL no mainframe: análise estática, compilação dependente, testes automatizados e deploy controlado.</p>
+  <div class="hero-meta">
+    <span><strong>Programa:</strong> DEVOPSPL.cbl</span>
+    <span><strong>Caminho:</strong> src/base/batch/cobol/</span>
+    <span><strong>Linguagem:</strong> Enterprise COBOL 6.x</span>
+    <span><strong>Etapas simuladas:</strong> 7 (PLAN → MONITOR)</span>
+    <span><strong>RC Máximo:</strong> 4 (ZCodeScan) / 0 (Link-edit)</span>
+  </div>
+</div>
+
+
+
+
+<div class="section-divider">
+  <div class="num">1</div>
+  <h2>Anatomia do Programa DEVOPSPL.cbl</h2>
+</div>
+
+<div class="anatomy">
+  <div class="anatomy-row">
+    <div class="anatomy-item">
+      <div class="label">Program-ID</div>
+      <div class="value"><code>DEVOPSPL</code></div>
+    </div>
+    <div class="anatomy-item">
+      <div class="label">Tipo</div>
+      <div class="value">Batch COBOL — sem I/O de arquivo</div>
+    </div>
+    <div class="anatomy-item">
+      <div class="label">Entrada</div>
+      <div class="value">Constante em Working-Storage (<code>WS-FALHA-SIMULADA</code>)</div>
+    </div>
+    <div class="anatomy-item">
+      <div class="label">Saída</div>
+      <div class="value">DISPLAY (SYSOUT) + RETURN-CODE (0 ou 8)</div>
+    </div>
+  </div>
+  <div class="anatomy-row">
+    <div class="anatomy-item">
+      <div class="label">Dependências externas</div>
+      <div class="value">Nenhuma (sem COPY, sem CALL, sem DB2/CICS)</div>
+    </div>
+    <div class="anatomy-item">
+      <div class="label">Etapas modeladas</div>
+      <div class="value">7 registros em <code>WS-TABELA-ETAPAS</code> (OCCURS 7)</div>
+    </div>
+    <div class="anatomy-item">
+      <div class="label">Return-Code de falha</div>
+      <div class="value"><code>8</code> — parada controlada na etapa com falha</div>
+    </div>
+  </div>
+</div>
+
+<h3>Estrutura de Parágrafos</h3>
+<div>
+  <div class="flow-row">
+    <div class="flow-num">•</div>
+    <div class="flow-content">
+      <div class="title">000-MAIN</div>
+      <div class="desc">Ponto de entrada. Inicializa, itera sobre as 7 etapas, chama aborto se necessário, exibe resumo e executa GOBACK.</div>
+    </div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-num">•</div>
+    <div class="flow-content">
+      <div class="title">100-INICIALIZAR / 110-CARREGAR-TABELA</div>
+      <div class="desc">Captura data/hora (FUNCTION CURRENT-DATE), preenche <code>WS-TABELA-ETAPAS</code> com os 7 estágios DevOps e seus produtos IBM.</div>
+    </div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-num">•</div>
+    <div class="flow-content">
+      <div class="title">200-EXECUTAR-ETAPA / 240-AVALIAR-STATUS</div>
+      <div class="desc">Exibe nome, produto e atividade da etapa atual. Compara <code>WS-IDX</code> com <code>WS-FALHA-SIMULADA</code>: se iguais → FALHA + ESTEIRA-ABORTADA = 'S'.</div>
+    </div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-num">•</div>
+    <div class="flow-content">
+      <div class="title">800-ABORTAR-ESTEIRA</div>
+      <div class="desc">Exibe alerta com nome da etapa falha e define <code>RETURN-CODE = 8</code>.</div>
+    </div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-num">•</div>
+    <div class="flow-content">
+      <div class="title">900-RESUMO-FINAL</div>
+      <div class="desc">Exibe tabela de status de todas as etapas (SUCESSO / FALHA / NAO EXEC.), total de etapas concluídas e Return-Code final.</div>
+    </div>
+  </div>
+</div>
+
+<h3>Tabela de Etapas Modeladas</h3>
+<table>
+  <thead>
+    <tr><th>#</th><th>Nome</th><th>Produto IBM</th><th>Atividade</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td><strong>PLAN</strong></td><td>IBM Z Understand / IBM EWM</td><td>Análise de impacto e planejamento da mudança</td></tr>
+    <tr><td>2</td><td><strong>CODE</strong></td><td>IBM Z Open Editor / IDz</td><td>Desenvolvimento e edição do código COBOL</td></tr>
+    <tr><td>3</td><td><strong>Z CODE SCAN</strong></td><td>IBM Z Code Scan (ZCodeScan)</td><td>Análise estática de qualidade e padrões</td></tr>
+    <tr><td>4</td><td><strong>BUILD</strong></td><td>IBM Dependency Based Build (DBB)</td><td>Compilação e link-edit com dependências</td></tr>
+    <tr><td>5</td><td><strong>TEST (TAZ)</strong></td><td>IBM Test Accelerator for Z (TAZ)</td><td>Execução de testes automatizados</td></tr>
+    <tr><td>6</td><td><strong>DEPLOY</strong></td><td>IBM Wazi Deploy</td><td>Implantação do pacote no ambiente alvo</td></tr>
+    <tr><td>7</td><td><strong>MONITOR</strong></td><td>IBM Z Anomaly Analytics / OMEGAMON</td><td>Monitoramento de desempenho e anomalias</td></tr>
+  </tbody>
+</table>
+
+
+
+
+<div class="section-divider">
+  <div class="num">2</div>
+  <h2>Diagrama da Esteira (Pipeline)</h2>
+</div>
+
+<div class="pipeline-wrap">
+  <div class="pipeline">
+    <div class="stage plan">
+      <span class="s-num">Etapa 1</span>
+      <div class="s-name">PLAN</div>
+      <div class="s-tool">IBM Z Understand<br />IBM EWM</div>
+      <span class="s-rc rc-ok">RC=0</span>
+    </div>
+    <div class="stage code">
+      <span class="s-num">Etapa 2</span>
+      <div class="s-name">CODE</div>
+      <div class="s-tool">IBM Z Open Editor<br />IDz</div>
+      <span class="s-rc rc-ok">RC=0</span>
+    </div>
+    <div class="stage scan">
+      <span class="s-num">Etapa 3</span>
+      <div class="s-name">Z CODE SCAN</div>
+      <div class="s-tool">IBM ZCodeScan</div>
+      <span class="s-rc rc-warn">RC≤4</span>
+    </div>
+    <div class="stage build">
+      <span class="s-num">Etapa 4</span>
+      <div class="s-name">BUILD (DBB)</div>
+      <div class="s-tool">IGYCRCTL<br />IEWBLINK</div>
+      <span class="s-rc rc-warn">RC≤4 / RC=0</span>
+    </div>
+    <div class="stage test">
+      <span class="s-num">Etapa 5</span>
+      <div class="s-name">TEST (TAZ)</div>
+      <div class="s-tool">IBM TAZ</div>
+      <span class="s-rc rc-ok">RC=0</span>
+    </div>
+    <div class="stage deploy">
+      <span class="s-num">Etapa 6</span>
+      <div class="s-name">DEPLOY</div>
+      <div class="s-tool">IBM Wazi Deploy</div>
+      <span class="s-rc rc-ok">RC=0</span>
+    </div>
+    <div class="stage monitor">
+      <span class="s-num">Etapa 7</span>
+      <div class="s-name">MONITOR</div>
+      <div class="s-tool">OMEGAMON<br />Z Anomaly Analytics</div>
+      <span class="s-rc rc-ok">—</span>
+    </div>
+  </div>
+</div>
+
+<p style="font-size:12px;color:#57606a">▶ A esteira é <strong>sequencial e fail-fast</strong>: qualquer etapa com RC acima do limiar ou WS-FALHA-SIMULADA ≠ 0 interrompe o fluxo, seta RETURN-CODE = 8 e registra a etapa abortada.</p>
+
+
+
+
+<div class="section-divider">
+  <div class="num">3</div>
+  <h2>Detalhamento de Cada Fase</h2>
+</div>
+
+<div class="phase-grid">
+
+  <div class="phase-card">
+    <h3>🔍 ZCodeScan <span class="badge badge-rc4">maxRC = 4</span></h3>
+    <p style="font-size:12px;color:#57606a">Análise estática obrigatória antes da compilação.</p>
+    <ul>
+      <li>Linguagens: <strong>COBOL</strong> e <strong>PLI</strong></li>
+      <li>Encoding: <code>IBM-1047</code></li>
+      <li>RC ≤ 4: WARNING aceitável</li>
+      <li>RC &gt; 4: pipeline bloqueada</li>
+      <li>Regras ativas: +40 regras COBOL configuradas</li>
+      <li>Relatório: <code>zcodescan.log</code> + JUnit/SonarQube</li>
+      <li>Config: <code>zcodescan/zcodescan-config.yml</code></li>
+    </ul>
+  </div>
+
+  <div class="phase-card">
+    <h3>🔨 Build — IBM DBB <span class="badge badge-rc4">compile RC≤4</span> <span class="badge badge-rc0">link RC=0</span></h3>
+    <p style="font-size:12px;color:#57606a">Compilação dependente com gerenciamento automático de copybooks.</p>
+    <ul>
+      <li>Compilador: <code>IGYCRCTL</code> (COBOL V6.2)</li>
+      <li>Opções: <code>LIB</code> (batch sem CICS/SQL)</li>
+      <li>Link-edit: <code>IEWBLINK</code> (<code>MAP,RENT</code>)</li>
+      <li>Datasets: <code>HLQ.COBOL</code>, <code>HLQ.OBJ</code>, <code>HLQ.LOAD</code></li>
+      <li>deployType: <code>LOAD</code></li>
+      <li>Config: <code>dbb-app.yaml</code> + <code>Cobol.yaml</code></li>
+    </ul>
+  </div>
+
+  <div class="phase-card">
+    <h3>🧪 TAZ — Test Accelerator for Z <span class="badge badge-rc0">RC = 0</span></h3>
+    <p style="font-size:12px;color:#57606a">Execução de testes unitários automatizados no contexto z/OS.</p>
+    <ul>
+      <li>Casos de teste definidos via <code>zapp.yaml</code> (EDT profile)</li>
+      <li>Verifica RETURN-CODE do programa (0 = sucesso, 8 = falha)</li>
+      <li>Cenário de teste base: <code>WS-FALHA-SIMULADA = 0</code></li>
+      <li>Cenário de falha: <code>WS-FALHA-SIMULADA = N</code> (etapa N)</li>
+      <li>Valida saída SYSOUT via DISPLAY statements</li>
+      <li>Resultado: relatório JUnit integrado ao pipeline</li>
+    </ul>
+  </div>
+
+  <div class="phase-card">
+    <h3>🚀 Wazi Deploy <span class="badge badge-rc0">RC = 0</span></h3>
+    <p style="font-size:12px;color:#57606a">Empacotamento e implantação controlada do módulo de carga.</p>
+    <ul>
+      <li>Artefato: <code>HLQ.LOAD(DEVOPSPL)</code></li>
+      <li>deployType: <code>LOAD</code></li>
+      <li>Pacote gerado pelo DBB build result</li>
+      <li>Deploy para ambiente-alvo via API Wazi</li>
+      <li>Rollback automático em caso de falha</li>
+      <li>Auditoria completa de versão implantada</li>
+    </ul>
+  </div>
+
+</div>
+
+
+
+
+<div class="section-divider">
+  <div class="num">4</div>
+  <h2>Critérios de Sucesso e Falha por Fase</h2>
+</div>
+
+<table>
+  <thead>
+    <tr><th>Fase</th><th>Condição de Sucesso</th><th>Condição de Falha</th><th>Ação ao Falhar</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>PLAN</strong></td>
+      <td>Análise de impacto concluída, story aprovada no EWM</td>
+      <td>Conflito de dependência não resolvido</td>
+      <td>Bloqueio no repositório, revisão obrigatória</td>
+    </tr>
+    <tr>
+      <td><strong>CODE</strong></td>
+      <td>Código commitado sem conflito, sem erros sintáticos locais</td>
+      <td>Merge conflict, compilação local com erro</td>
+      <td>Rejeição do push, desenvolvedor corrige</td>
+    </tr>
+    <tr>
+      <td><strong>Z CODE SCAN</strong></td>
+      <td>RC ≤ 4 (sem violação de severidade ERROR)</td>
+      <td>RC &gt; 4 — violação HIGH/ERROR detectada</td>
+      <td>Pipeline interrompida; log publicado no SonarQube</td>
+    </tr>
+    <tr>
+      <td><strong>BUILD (DBB)</strong></td>
+      <td>Compile RC ≤ 4, Link-edit RC = 0</td>
+      <td>RC &gt; 4 no compile ou RC &gt; 0 no link</td>
+      <td>Pipeline interrompida; SYSPRINT disponível para diagnóstico</td>
+    </tr>
+    <tr>
+      <td><strong>TEST (TAZ)</strong></td>
+      <td>Todos os casos de teste com RC = 0</td>
+      <td>Qualquer caso de teste com RC ≠ 0</td>
+      <td>Pipeline interrompida; relatório JUnit gerado</td>
+    </tr>
+    <tr>
+      <td><strong>DEPLOY</strong></td>
+      <td>Módulo implantado com sucesso no ambiente-alvo</td>
+      <td>Falha na API do Wazi Deploy</td>
+      <td>Rollback automático para versão anterior</td>
+    </tr>
+    <tr>
+      <td><strong>MONITOR</strong></td>
+      <td>Sem anomalias detectadas no período pós-deploy</td>
+      <td>Threshold OMEGAMON excedido</td>
+      <td>Alerta gerado; rollback manual sob demanda</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+<div class="section-divider">
+  <div class="num">5</div>
+  <h2>Artefatos: Configuração da Pipeline</h2>
+</div>
+
+<h3>pipeline-devopspl.yaml — Orquestração Completa</h3>
+<pre>
+# pipeline-devopspl.yaml
+# Esteira DevOps IBM Z para DEVOPSPL (Batch COBOL)
+# Tecnologias: ZCodeScan → DBB → TAZ → Wazi Deploy → OMEGAMON
+
+pipeline:
+  name: Bank-of-Z DEVOPSPL Batch Pipeline
+  application: Bank-of-Z-main
+  trigger:
+    branches: [main, develop]
+    paths: ["src/base/batch/cobol/DEVOPSPL.cbl"]
+
+stages:
+
+  # ─────────────────────────────────────────
+  # ETAPA 1 — PLAN  (manual gate)
+  # ─────────────────────────────────────────
+  - name: plan
+    displayName: "1/7 — PLAN: Análise de Impacto"
+    type: manual-gate
+    tools: [IBM Z Understand, IBM EWM]
+    approval_required: true
+
+  # ─────────────────────────────────────────
+  # ETAPA 2 — CODE  (automatico: lint local)
+  # ─────────────────────────────────────────
+  - name: code
+    displayName: "2/7 — CODE: Validação do Commit"
+    type: automated
+    tools: [IBM Z Open Editor]
+    on_failure: block-push
+
+  # ─────────────────────────────────────────
+  # ETAPA 3 — Z CODE SCAN
+  # ─────────────────────────────────────────
+  - name: zcodescan
+    displayName: "3/7 — Z CODE SCAN: Análise Estática"
+    type: automated
+    tool: IBM ZCodeScan
+    config: zcodescan/zcodescan-config.yml
+    rules: zcodescan/zcodescan-rules.yaml
+    params:
+      encoding: IBM-1047
+      languages: [COBOL, PLI]
+      maxReturnCode: 4
+      export_formats: [junit, sonarqube]
+      log: zcodescan.log
+    on_failure: abort
+    publish_report: true
+
+  # ─────────────────────────────────────────
+  # ETAPA 4 — BUILD (IBM DBB)
+  # ─────────────────────────────────────────
+  - name: build
+    displayName: "4/7 — BUILD: Compilação DBB"
+    type: automated
+    tool: IBM Dependency Based Build
+    config: dbb-app.yaml
+    targets:
+      - source: "src/base/batch/cobol/DEVOPSPL.cbl"
+        language: Cobol
+        deployType: LOAD
+    steps:
+      - step: compile
+        pgm: IGYCRCTL
+        parm: LIB
+        maxRC: 4
+      - step: linkEdit
+        pgm: IEWBLINK
+        parm: "MAP,RENT"
+        maxRC: 0
+    on_failure: abort
+    publish_artifacts: ["${HLQ}.LOAD(DEVOPSPL)", "${HLQ}.OBJ(DEVOPSPL)"]
+
+  # ─────────────────────────────────────────
+  # ETAPA 5 — TEST (IBM TAZ)
+  # ─────────────────────────────────────────
+  - name: test
+    displayName: "5/7 — TEST: TAZ Automatizado"
+    type: automated
+    tool: IBM Test Accelerator for Z
+    test_scenarios:
+      - name: happy_path
+        ws_falha_simulada: 0
+        expected_rc: 0
+        expected_output: "ESTEIRA FINALIZADA COM SUCESSO"
+      - name: falha_etapa_3
+        ws_falha_simulada: 3
+        expected_rc: 8
+        expected_output: "ESTEIRA INTERROMPIDA NA ETAPA: Z CODE SCAN"
+      - name: falha_etapa_4
+        ws_falha_simulada: 4
+        expected_rc: 8
+        expected_output: "ESTEIRA INTERROMPIDA NA ETAPA: BUILD"
+    on_failure: abort
+    publish_report: junit
+
+  # ─────────────────────────────────────────
+  # ETAPA 6 — DEPLOY (IBM Wazi Deploy)
+  # ─────────────────────────────────────────
+  - name: deploy
+    displayName: "6/7 — DEPLOY: Wazi Deploy"
+    type: automated
+    tool: IBM Wazi Deploy
+    package:
+      artifact: "${HLQ}.LOAD(DEVOPSPL)"
+      deploy_type: LOAD
+      target_env: ${TARGET_ENV}
+    rollback_on_failure: true
+    on_failure: rollback-and-abort
+
+  # ─────────────────────────────────────────
+  # ETAPA 7 — MONITOR
+  # ─────────────────────────────────────────
+  - name: monitor
+    displayName: "7/7 — MONITOR: OMEGAMON"
+    type: continuous
+    tools: [IBM OMEGAMON, IBM Z Anomaly Analytics]
+    window_minutes: 30
+    alert_threshold: warning
+    on_alert: notify-and-hold
+</pre>
+
+
+
+
+<div class="section-divider">
+  <div class="num">6</div>
+  <h2>Pontos de Integração: DEVOPSPL.cbl ↔ Pipeline</h2>
+</div>
+
+<table>
+  <thead>
+    <tr><th>Elemento do Programa</th><th>Integração na Pipeline</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>WS-FALHA-SIMULADA PIC S9(04) VALUE 0</code></td>
+      <td>TAZ sobrescreve via LINKAGE ou JCL PARM para simular falha em qualquer etapa</td>
+    </tr>
+    <tr>
+      <td><code>RETURN-CODE = 8</code> (800-ABORTAR-ESTEIRA)</td>
+      <td>DBB e TAZ capturam o RC 8 para acionar abort e publicar falha no relatório</td>
+    </tr>
+    <tr>
+      <td><code>RETURN-CODE = 0</code> (fluxo normal)</td>
+      <td>Wazi Deploy só executa se esta condição for satisfeita pelo passo de test</td>
+    </tr>
+    <tr>
+      <td><code>DISPLAY '*** ESTEIRA FINALIZADA ***'</code></td>
+      <td>TAZ valida o conteúdo do SYSOUT para confirmar a saída esperada</td>
+    </tr>
+    <tr>
+      <td><code>WS-TABELA-ETAPAS OCCURS 7</code></td>
+      <td>Documenta exatamente as 7 fases da pipeline que o programa modela</td>
+    </tr>
+    <tr>
+      <td>Sem COPY/CALL/DB2/CICS</td>
+      <td>Build usa apenas opção <code>LIB</code>; não requer SDFHLOAD, SDSNLOAD ou copybooks externos</td>
+    </tr>
+    <tr>
+      <td><code>FUNCTION CURRENT-DATE</code></td>
+      <td>Saída de data/hora usada para timestamping no log de execução do job</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+<div class="section-divider">
+  <div class="num">7</div>
+  <h2>Plano de Apresentação Técnica</h2>
+</div>
+
+<div class="slide">
+  <div class="slide-header">
+    <span class="slide-num">Slide 1</span>
+    <span class="slide-title">Visão Geral — DevOps no IBM Z com Bank of Z</span>
+  </div>
+  <div class="slide-body">
+    <ul>
+      <li>O que é o Bank of Z e por que DevOps em mainframe importa</li>
+      <li>Desafio: qualidade, velocidade e conformidade em ambientes z/OS</li>
+      <li>Solução: esteira automatizada de 7 etapas com ferramentas IBM nativas</li>
+      <li>Demonstração ao vivo: DEVOPSPL.cbl como modelo executável da pipeline</li>
+    </ul>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="slide-header">
+    <span class="slide-num">Slide 2</span>
+    <span class="slide-title">O Programa DEVOPSPL — Código que Documenta a Própria Esteira</span>
+  </div>
+  <div class="slide-body">
+    <ul>
+      <li>Programa COBOL batch que simula e exibe cada etapa da pipeline via DISPLAY</li>
+      <li>Arquitetura: tabela interna com 7 etapas, loop com detecção de falha</li>
+      <li>Saída: SYSOUT com status de cada etapa + RETURN-CODE (0=sucesso, 8=falha)</li>
+      <li>Ponto-chave: <code>WS-FALHA-SIMULADA</code> permite injetar falha em qualquer etapa para testes</li>
+    </ul>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="slide-header">
+    <span class="slide-num">Slide 3</span>
+    <span class="slide-title">Fase ZCodeScan — Qualidade e Conformidade Antes do Build</span>
+  </div>
+  <div class="slide-body">
+    <ul>
+      <li>+40 regras COBOL ativas (segurança, desempenho, boas práticas)</li>
+      <li>Execução obrigatória antes da compilação; bloqueio automático se RC &gt; 4</li>
+      <li>Exportação para SonarQube e JUnit integrada à pipeline</li>
+      <li>Para DEVOPSPL: ausência de SQL, CICS, HANDLE CONDITION → baseline limpo esperado</li>
+    </ul>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="slide-header">
+    <span class="slide-num">Slide 4</span>
+    <span class="slide-title">Fase Build — IBM DBB: Compilação Dependente e Inteligente</span>
+  </div>
+  <div class="slide-body">
+    <ul>
+      <li>Detecta automaticamente alterações em fontes e copybooks</li>
+      <li>COBOL V6.2 (<code>IGYCRCTL</code>) + Link-edit (<code>IEWBLINK MAP,RENT</code>)</li>
+      <li>DEVOPSPL: compilado com opção <code>LIB</code> — sem CICS/SQL/IMS flags</li>
+      <li>Artefato gerado: <code>HLQ.LOAD(DEVOPSPL)</code> — deployType = LOAD</li>
+    </ul>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="slide-header">
+    <span class="slide-num">Slide 5</span>
+    <span class="slide-title">Fase TAZ — Testes Automatizados para COBOL Batch</span>
+  </div>
+  <div class="slide-body">
+    <ul>
+      <li>3 cenários de teste: happy path, falha na etapa 3 (ZCodeScan), falha na etapa 4 (BUILD)</li>
+      <li>Validação dupla: RETURN-CODE esperado + conteúdo do SYSOUT</li>
+      <li><code>WS-FALHA-SIMULADA</code> é o ponto de controle para injeção de cenários</li>
+      <li>Resultado exportado como JUnit XML para rastreabilidade no repositório</li>
+    </ul>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="slide-header">
+    <span class="slide-num">Slide 6</span>
+    <span class="slide-title">Fase Deploy + Monitor — Wazi Deploy e OMEGAMON</span>
+  </div>
+  <div class="slide-body">
+    <ul>
+      <li>Wazi Deploy empacota artefatos do DBB e os implanta no ambiente alvo de forma controlada</li>
+      <li>Rollback automático se deploy falhar — zero downtime para batch</li>
+      <li>OMEGAMON monitora por 30 minutos pós-deploy; anomalias disparam alerta</li>
+      <li>Z Anomaly Analytics detecta desvios de desempenho baseados em histórico</li>
+    </ul>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="slide-header">
+    <span class="slide-num">Slide 7</span>
+    <span class="slide-title">Benefícios e Métricas de Sucesso</span>
+  </div>
+  <div class="slide-body">
+    <ul>
+      <li><strong>Velocidade:</strong> redução do ciclo de entrega de dias para horas com DBB incremental</li>
+      <li><strong>Qualidade:</strong> violações detectadas antes do build; zero surpresas em produção</li>
+      <li><strong>Confiabilidade:</strong> testes automatizados (TAZ) eliminam regressões manuais</li>
+      <li><strong>Rastreabilidade:</strong> cada artefato vinculado ao commit, build, teste e deploy</li>
+      <li><strong>Conformidade:</strong> regras ZCodeScan aplicadas uniformemente em todos os commits</li>
+    </ul>
+  </div>
+</div>
+
+
+
+
+<div class="section-divider">
+  <div class="num">8</div>
+  <h2>Referência Rápida: Variáveis de Controle</h2>
+</div>
+
+<table>
+  <thead>
+    <tr><th>Variável</th><th>Tipo</th><th>Valor Default</th><th>Papel na Pipeline</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>WS-FALHA-SIMULADA</code></td><td>S9(04) BINARY</td><td>0</td><td>0 = execução normal; N = falha na etapa N (injetada pelo TAZ)</td></tr>
+    <tr><td><code>WS-QTD-ETAPAS</code></td><td>S9(04) BINARY</td><td>7</td><td>Total de etapas — alinhado com as 7 fases da pipeline</td></tr>
+    <tr><td><code>WS-FLAG-ABORTA</code></td><td>X(01)</td><td>'N'</td><td>88-level: ESTEIRA-ABORTADA='S' interrompe o loop</td></tr>
+    <tr><td><code>RETURN-CODE</code></td><td>Special Register</td><td>0</td><td>8 = falha detectada; capturado por DBB/TAZ/JCL COND</td></tr>
+    <tr><td><code>WS-DATA-HORA</code></td><td>X(21)</td><td>CURRENT-DATE</td><td>Timestamp da execução — registrado no log do job</td></tr>
+  </tbody>
+</table>
+
+<footer>
+  Made with IBM Bob
+</footer>
+</body>
+</html>
