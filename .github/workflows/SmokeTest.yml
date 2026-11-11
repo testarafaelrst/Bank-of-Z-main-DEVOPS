@@ -90,7 +90,7 @@ jobs:
                     git clone \
                       --depth 1 \
                       --branch "${{ github.ref_name }}" \
-                      "https://${{ secrets.GH_ACTIONS_PAT }}@github.ibm.com/rafael-testa/Bank-of-Z.git" \
+                      "https://${{ secrets.GH_ACTIONS_PAT }}@github.com/${{ github.repository }}.git" \
                       "${{ env.uniqueWorkspaceId }}/${{ env.application }}"
 
                     echo "✅ Clone OK"
