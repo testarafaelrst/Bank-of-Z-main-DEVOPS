@@ -5,7 +5,7 @@ name: boz-pipeline
 #
 # Executes the complete CI/CD pipeline on z/OS USS:
 #   1. ZCodeScan  — static analysis (TAZ)
-#   2. DBB Build  — impact/pipeline build (DBB/zBuilder)
+#   2. DBB Build  — impact/pipeline build via composite action dbb-build
 #   3. Wazi Deploy — generate + deploy (WASI)
 #   4. Verify     — post-install verification tests
 #
@@ -16,11 +16,14 @@ name: boz-pipeline
 #
 # Required repository variables (Settings > Variables):
 #   ZOS_HOST          — z/OS USS hostname for SSH
+#   ZOS_SSH_PORT      — porta SSH do z/OS (default: 22)
 #   ZOS_SANDBOX_DIR   — base sandbox directory on z/OS USS
 #   BOZ_FRONTEND_URL  — Bank of Z frontend URL (e.g. http://<host>:9081)
+#   BOZ_BUILD_HLQ     — HLQ destino dos artefatos compilados (ex: BANKZ)
 #
 # Required repository secrets (Settings > Secrets):
-#   GH_ACTIONS_PAT    — GitHub Personal Access Token for git clone on USS
+#   ZOS_SSH_KEY       — chave privada SSH para autenticação no z/OS
+#   GH_ACTIONS_PAT    — GitHub Personal Access Token para git clone no z/OS
 # =============================================================================
 
 on:
@@ -49,7 +52,9 @@ env:
     branch: ${{ github.ref_name }}
     application: ${{ github.event.repository.name }}
     zosHost: ${{ vars.ZOS_HOST }}
+    zosPort: ${{ vars.ZOS_SSH_PORT || '22' }}
     bozFrontendUrl: ${{ vars.BOZ_FRONTEND_URL }}
+    buildHlq: ${{ vars.BOZ_BUILD_HLQ }}
     # For PRs always use impact build; push/dispatch honours input (default: pipeline)
     buildType: ${{ github.event_name == 'pull_request' && 'pipeline' || (github.event.inputs.buildType || 'pipeline') }}
     # Deploy only on push to main/release — not on PRs
@@ -108,20 +113,29 @@ jobs:
                   "
 
     # -------------------------------------------------------------------------
-    # 4. DBB Build (zBuilder)
+    # 4. DBB Build — composite action
     # -------------------------------------------------------------------------
     build:
         needs: static-scan
         runs-on: self-hosted
+        outputs:
+            build-artifact-path: ${{ steps.dbb.outputs.build-artifact-path }}
+            logs-artifact-path: ${{ steps.dbb.outputs.logs-artifact-path }}
         steps:
             - name: run-dbb-build
-              run: |
-                  ssh ${{ env.zosHost }} "
-                    . ./.profile &&
-                    cd ${{ env.uniqueWorkspaceId }} &&
-                    if [ -d ${{ env.application }} ]; then cd ${{ env.application }}; fi &&
-                    bash .setup/pipeline-common.sh build ${{ env.buildType }}
-                  "
+              id: dbb
+              uses: ./.github/actions/dbb-build
+              with:
+                  ssh-host: ${{ env.zosHost }}
+                  ssh-port: ${{ env.zosPort }}
+                  ssh-user: ${{ vars.ZOS_SSH_USER }}
+                  ssh-private-key: ${{ secrets.ZOS_SSH_KEY }}
+                  unique-workspace-id: ${{ env.uniqueWorkspaceId }}
+                  build-hlq: ${{ env.buildHlq }}
+                  gh-token: ${{ secrets.GH_ACTIONS_PAT }}
+                  pipeline-type: build
+                  dbb-build-type: ${{ env.buildType }}
+                  include-logs: "*.log,*.lst"
 
     # -------------------------------------------------------------------------
     # 5. Wazi Deploy — generate + deploy (WASI)

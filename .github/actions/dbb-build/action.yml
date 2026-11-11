@@ -1,0 +1,342 @@
+name: Bank of Z — DBB Build
+description: Executa o build DBB/zBuilder no z/OS via SSH e empacota os artefatos gerados.
+
+# =============================================================================
+# Bank of Z — DBB Build Composite Action
+#
+# Conecta ao z/OS via SSH, executa o zBuilder e empacota os artefatos (.tar).
+#
+# Inputs obrigatórios:
+#   ssh-host            — hostname/IP do z/OS
+#   ssh-user            — usuário SSH no z/OS
+#   ssh-private-key     — chave privada SSH (conteúdo PEM completo)
+#   unique-workspace-id — caminho base do workspace remoto no z/OS USS
+#   build-hlq           — HLQ destino dos artefatos compilados
+#   gh-token            — token PAT para clonar o repo da action no z/OS
+#
+# Outputs:
+#   build-artifact-path — caminho do .tar de artefatos de build no z/OS
+#   logs-artifact-path  — caminho do .tar de logs (vazio se inexistente)
+# =============================================================================
+
+inputs:
+  ssh-host:
+    description: >
+      Endereço (hostname ou IP) do servidor z/OS de destino.
+      Exemplo: zos-server.empresa.com
+    required: true
+
+  ssh-port:
+    description: Porta SSH do z/OS.
+    required: false
+    default: '22'
+
+  ssh-user:
+    description: Usuário SSH no z/OS.
+    required: true
+
+  ssh-private-key:
+    description: >
+      Chave privada SSH (conteúdo PEM completo, incluindo cabeçalho/rodapé).
+      Utilize sempre uma secret do repositório para este valor.
+    required: true
+
+  unique-workspace-id:
+    description: >
+      Diretório raiz do workspace remoto no z/OS USS para esta execução.
+      Exemplo: /usr/local/sandboxes/pipeline/Bank-of-Z/main/run_42
+    required: true
+
+  build-hlq:
+    description: >
+      HLQ (High-Level Qualifier) destino para os artefatos compilados no z/OS.
+      Exemplo: BANKZ
+    required: true
+
+  gh-token:
+    description: >
+      GitHub Personal Access Token (PAT) para autenticar o git clone no z/OS USS.
+      Utilize sempre uma secret do repositório para este valor.
+    required: true
+
+  pipeline-type:
+    description: Tipo de pipeline (build ou deploy).
+    required: false
+    default: 'build'
+
+  dbb-build-type:
+    description: >
+      Tipo de build DBB.
+        full     — recompila todos os programas
+        pipeline — build impacto (somente alterados)
+    required: false
+    default: 'pipeline'
+
+  include-logs:
+    description: >
+      Extensões a empacotar no tar de logs, separadas por vírgula sem espaços.
+      Exemplo: *.log,*.lst
+    required: false
+    default: '*.log,*.lst'
+
+outputs:
+  build-artifact-path:
+    description: Caminho do artefato .tar de build gerado no z/OS.
+    value: ${{ steps.build_step.outputs.build-artifact-path }}
+
+  logs-artifact-path:
+    description: Caminho do artefato .tar de logs gerado no z/OS (vazio se não houver logs).
+    value: ${{ steps.build_step.outputs.logs-artifact-path }}
+
+runs:
+  using: "composite"
+  steps:
+
+    # -------------------------------------------------------------------------
+    # 1. Gerar variáveis de saída internas
+    # -------------------------------------------------------------------------
+    - name: Generate Output Variables
+      id: generate_outputs
+      shell: bash
+      env:
+        ACTION_REF: ${{ github.action_ref }}
+        ACTION_REPO: ${{ github.action_repository }}
+        ACTION_WORKSPACE: ${{ inputs.unique-workspace-id }}/action-build-src
+      run: |
+        echo '::group::📜 Variáveis internas da action'
+
+        echo "ref=${ACTION_REF}"                         >> $GITHUB_OUTPUT
+        echo "action_repository=${ACTION_REPO}"          >> $GITHUB_OUTPUT
+        echo "action_workspace=${ACTION_WORKSPACE}"      >> $GITHUB_OUTPUT
+        echo "action_owner=${ACTION_REPO%%/*}"           >> $GITHUB_OUTPUT
+
+        echo "🔁 Variáveis geradas:"
+        echo "  action_repository : $ACTION_REPO"
+        echo "  ref               : $ACTION_REF"
+        echo "  action_workspace  : $ACTION_WORKSPACE"
+        echo "  action_owner      : ${ACTION_REPO%%/*}"
+
+        echo '::endgroup::'
+        echo "✅ Variáveis de saída geradas"
+
+    # -------------------------------------------------------------------------
+    # 2. Clonar a action no z/OS USS (scripts auxiliares)
+    # -------------------------------------------------------------------------
+    - name: Clone action scripts to z/OS
+      shell: bash
+      env:
+        SSH_KEY: ${{ inputs.ssh-private-key }}
+        ZOS_HOST: ${{ inputs.ssh-host }}
+        ZOS_PORT: ${{ inputs.ssh-port }}
+        ZOS_USER: ${{ inputs.ssh-user }}
+        ACTION_REPO: ${{ steps.generate_outputs.outputs.action_repository }}
+        ACTION_REF: ${{ steps.generate_outputs.outputs.ref }}
+        ACTION_WORKSPACE: ${{ steps.generate_outputs.outputs.action_workspace }}
+        GH_TOKEN: ${{ inputs.gh-token }}
+      run: |
+        echo '::group::📥 Clonando scripts da action no z/OS USS'
+
+        # Salva a chave privada em arquivo temporário
+        KEY_FILE=$(mktemp)
+        chmod 600 "$KEY_FILE"
+        echo "$SSH_KEY" > "$KEY_FILE"
+
+        SSH_OPTS="-i $KEY_FILE -p $ZOS_PORT -o StrictHostKeyChecking=no -o BatchMode=yes"
+
+        ssh $SSH_OPTS "${ZOS_USER}@${ZOS_HOST}" << ENDSSH
+          set -e
+          . ~/.profile
+
+          mkdir -p "${ACTION_WORKSPACE}"
+
+          # Remove clone anterior se existir
+          rm -rf "${ACTION_WORKSPACE}" 2>/dev/null || true
+
+          git clone \
+            --depth 1 \
+            --branch "${ACTION_REF}" \
+            "https://${GH_TOKEN}@github.ibm.com/${ACTION_REPO}.git" \
+            "${ACTION_WORKSPACE}"
+
+          echo "[OK] ✅ Scripts clonados em ${ACTION_WORKSPACE}"
+        ENDSSH
+
+        rm -f "$KEY_FILE"
+        echo '::endgroup::'
+        echo "✅ Clone da action concluído"
+
+    # -------------------------------------------------------------------------
+    # 3. Executar build DBB + empacotamento
+    # -------------------------------------------------------------------------
+    - name: Build (${{ github.event.repository.name }})
+      id: build_step
+      shell: bash
+      env:
+        SSH_KEY: ${{ inputs.ssh-private-key }}
+        ZOS_HOST: ${{ inputs.ssh-host }}
+        ZOS_PORT: ${{ inputs.ssh-port }}
+        ZOS_USER: ${{ inputs.ssh-user }}
+        ACTION_WORKSPACE: ${{ steps.generate_outputs.outputs.action_workspace }}
+        UNIQUE_WS: ${{ inputs.unique-workspace-id }}
+        PIPELINE_TYPE: ${{ inputs.pipeline-type }}
+        BUILD_HLQ: ${{ inputs.build-hlq }}
+        DBB_BUILD_TYPE: ${{ inputs.dbb-build-type }}
+        INCLUDE_LOGS: ${{ inputs.include-logs }}
+        REPO_REF: ${{ github.event.pull_request.head.ref || github.ref_name }}
+        BUILD_IDENTIFIER: build_${{ github.run_number }}_attempt_${{ github.run_attempt }}
+        APP_NAME: ${{ github.event.repository.name }}
+      run: |
+        echo '::group::🔨 Preparando build no z/OS'
+
+        KEY_FILE=$(mktemp)
+        chmod 600 "$KEY_FILE"
+        echo "$SSH_KEY" > "$KEY_FILE"
+
+        SSH_OPTS="-i $KEY_FILE -p $ZOS_PORT -o StrictHostKeyChecking=no -o BatchMode=yes"
+
+        # --- Prepara permissões dos scripts ---
+        ssh $SSH_OPTS "${ZOS_USER}@${ZOS_HOST}" << ENDSSH
+          set -e
+          . ~/.profile || { echo "::error:: [ERR] ❌ Carregar profile"; exit 1; }
+          echo "[OK] ✅ Profile carregado"
+
+          chmod +x "${ACTION_WORKSPACE}/scripts/zBuilder.sh" \
+            || { echo "::error:: [ERR] ❌ chmod zBuilder.sh"; exit 1; }
+          echo "[OK] ✅ chmod zBuilder.sh"
+
+          chmod +x "${ACTION_WORKSPACE}/scripts/packageBuildOutputs.sh" \
+            || { echo "::error:: [ERR] ❌ chmod packageBuildOutputs.sh"; exit 1; }
+          echo "[OK] ✅ chmod packageBuildOutputs.sh"
+        ENDSSH
+
+        echo '::endgroup::'
+
+        echo '::group::🔨 Executando DBB Build'
+
+        ssh $SSH_OPTS "${ZOS_USER}@${ZOS_HOST}" << ENDSSH
+          set -e
+          . ~/.profile || { echo "::error:: [ERR] ❌ Carregar profile"; exit 1; }
+
+          export DBB_BUILD="${UNIQUE_WS}/dbb"
+
+          bash "${ACTION_WORKSPACE}/scripts/zBuilder.sh" \
+            -w "${UNIQUE_WS}" \
+            -a "${APP_NAME}" \
+            -b "${REPO_REF}" \
+            -p "${PIPELINE_TYPE}" \
+            -q "${BUILD_HLQ}" \
+            -t "${DBB_BUILD_TYPE}" \
+            || { echo "::error:: [ERR] ❌ zBuilder.sh"; exit 1; }
+
+          echo "[OK] ✅ DBB Build concluído"
+        ENDSSH
+
+        echo '::endgroup::'
+
+        echo '::group::📦 Empacotando artefatos de build'
+
+        BUILD_OUTPUT=$(ssh $SSH_OPTS "${ZOS_USER}@${ZOS_HOST}" << ENDSSH
+          set -e
+          . ~/.profile || { echo "::error:: [ERR] ❌ Carregar profile"; exit 1; }
+
+          bash "${ACTION_WORKSPACE}/scripts/packageBuildOutputs.sh" \
+            -w "${UNIQUE_WS}" \
+            -a "${APP_NAME}" \
+            -b "${REPO_REF}" \
+            -p "${PIPELINE_TYPE}" \
+            -i "${BUILD_IDENTIFIER}" \
+            -l "${INCLUDE_LOGS}" \
+            || { echo "::error:: [ERR] ❌ packageBuildOutputs.sh"; exit 1; }
+
+          echo "__GH_OUTPUT_START__"
+          ls "${UNIQUE_WS}/logs/build-"*.tar || { echo "::error:: [ERR] ❌ Listar artefatos"; exit 1; }
+          echo "__GH_OUTPUT_END__"
+
+          # Logs tar é opcional — não falha se ausente
+          ls "${UNIQUE_WS}/logs/logs-"*.tar 2>/dev/null | head -1 || true
+        ENDSSH
+        )
+
+        echo '::endgroup::'
+
+        echo '::group::📤 Exportando paths para GITHUB_OUTPUT'
+
+        GH_PATH=$(echo "$BUILD_OUTPUT" \
+          | sed -n '/__GH_OUTPUT_START__/,/__GH_OUTPUT_END__/p' \
+          | grep -v '__GH_OUTPUT' \
+          | xargs)
+
+        echo "Path do artefato: '$GH_PATH'"
+
+        if [ -z "$GH_PATH" ]; then
+          echo "::error:: [ERR] ❌ Artefato de build não encontrado"
+          rm -f "$KEY_FILE"
+          exit 1
+        fi
+
+        echo "build-artifact-path=$GH_PATH" >> $GITHUB_OUTPUT
+
+        GH_LOGS_PATH=$(echo "$BUILD_OUTPUT" \
+          | grep -v '__GH_OUTPUT' \
+          | tail -1 \
+          | xargs 2>/dev/null || true)
+
+        if [ -n "$GH_LOGS_PATH" ] && echo "$GH_LOGS_PATH" | grep -q 'logs-.*\.tar'; then
+          echo "Logs path: '$GH_LOGS_PATH'"
+          echo "logs-artifact-path=$GH_LOGS_PATH" >> $GITHUB_OUTPUT
+        fi
+
+        rm -f "$KEY_FILE"
+        echo '::endgroup::'
+        echo "[OK] ✅ Outputs exportados"
+
+    # -------------------------------------------------------------------------
+    # 4. Limpeza dos temporários da action no z/OS
+    # -------------------------------------------------------------------------
+    - name: Cleanup action temporaries on z/OS
+      if: always()
+      shell: bash
+      env:
+        SSH_KEY: ${{ inputs.ssh-private-key }}
+        ZOS_HOST: ${{ inputs.ssh-host }}
+        ZOS_PORT: ${{ inputs.ssh-port }}
+        ZOS_USER: ${{ inputs.ssh-user }}
+        ACTION_WORKSPACE: ${{ steps.generate_outputs.outputs.action_workspace }}
+      run: |
+        echo '::group::🧹 Limpeza no z/OS'
+
+        KEY_FILE=$(mktemp)
+        chmod 600 "$KEY_FILE"
+        echo "$SSH_KEY" > "$KEY_FILE"
+
+        SSH_OPTS="-i $KEY_FILE -p $ZOS_PORT -o StrictHostKeyChecking=no -o BatchMode=yes"
+
+        ssh $SSH_OPTS "${ZOS_USER}@${ZOS_HOST}" << ENDSSH || true
+          set +e
+          . ~/.profile
+
+          rm -rf "${ACTION_WORKSPACE}" \
+            && echo "[OK] ✅ Scripts da action removidos" \
+            || echo "[WARN] ⚠️  Falha ao remover ${ACTION_WORKSPACE}"
+
+          # Remove proxy global do git se configurado
+          git config --global --unset http.proxy  2>/dev/null && echo "[OK] ✅ http.proxy removido"  || true
+          git config --global --unset https.proxy 2>/dev/null && echo "[OK] ✅ https.proxy removido" || true
+        ENDSSH
+
+        rm -f "$KEY_FILE"
+        echo '::endgroup::'
+        echo "[OK] ✅ Limpeza concluída"
+
+    # -------------------------------------------------------------------------
+    # 5. Debug outputs
+    # -------------------------------------------------------------------------
+    - name: Debug Outputs
+      shell: bash
+      run: |
+        echo '::group::🐞 Debug — Outputs da action'
+        echo "build-artifact-path : ${{ steps.build_step.outputs.build-artifact-path }}"
+        echo "logs-artifact-path  : ${{ steps.build_step.outputs.logs-artifact-path }}"
+        echo "build-hlq           : ${{ inputs.build-hlq }}"
+        echo '::endgroup::'
+        echo "[OK] 🐞 Debug impresso"
