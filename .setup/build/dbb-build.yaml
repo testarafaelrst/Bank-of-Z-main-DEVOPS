@@ -115,6 +115,19 @@ lifecycles:
       - Package
       - Finish
 
+  # scan lifecycle: obtains the build list for static analysis (ZCodeScan).
+  # Use with --preview to get the list of source files without any z/OS I/O.
+  # The Transfer task is skipped via condition when STATUS == PREVIEW (2).
+  - lifecycle: scan
+
+    tasks:
+      - Start
+      - ScannerInit
+      - MetadataInit
+      - ImpactAnalysis
+      - Languages    # Defined in Languages.yaml
+      - Finish
+
   # build only changed programs on a topic branch which will be merged back into the main build branch
   # NOTE: This lifecycle intentionally does NOT include Package, zOSConnect,
   #       VanillaFrontend, ServerXmlPackager or ImsJavaBuilder.
@@ -131,7 +144,7 @@ lifecycles:
       - MetadataInit
       - MergeAnalysis
       - Languages    # Defined in Languages.yaml
-      #- zOSConnect  # Not executed in merge builds — no artifact produced
+      #- zOSConnect  # Not executed in merge builds - no artifact produced
       - Finish
 
   # user build for a single program 

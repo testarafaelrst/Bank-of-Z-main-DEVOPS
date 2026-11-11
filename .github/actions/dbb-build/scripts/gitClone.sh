@@ -45,7 +45,8 @@ if [ $RC -ne 0 ]; then
 fi
 
 echo "[INFO] Extraindo em $WORKSPACE..."
-python3 - "$ZIPFILE" "$WORKSPACE" "$REPO_NAME" << 'PYEOF'
+# Desativa conversao automatica durante extracao para preservar conteudo ASCII do ZIP
+_BPXK_AUTOCVT=OFF python3 - "$ZIPFILE" "$WORKSPACE" "$REPO_NAME" << 'PYEOF'
 import sys, zipfile, os, shutil
 zipf, dest, name = sys.argv[1], sys.argv[2], sys.argv[3]
 with zipfile.ZipFile(zipf) as z:
@@ -65,5 +66,29 @@ if [ $RC -ne 0 ]; then
   rm -f "$ZIPFILE"
   exit 1
 fi
+
+TARGET_DIR="$WORKSPACE/$REPO_NAME"
+
+# Tagger todos os arquivos texto como ISO8859-1 (ASCII-compativel).
+# O DBB 3.x le YAML, shell scripts e arquivos fonte em ISO8859-1.
+# Arquivos binarios (*.class, *.jar, *.war, *.zip) sao excluidos.
+echo "[INFO] Taggeando arquivos texto como ISO8859-1..."
+find "$TARGET_DIR" -type f \
+  ! -name "*.class" ! -name "*.jar" ! -name "*.war" \
+  ! -name "*.zip"   ! -name "*.tar" ! -name "*.gz"  \
+  ! -name "*.png"   ! -name "*.jpg" ! -name "*.gif"  \
+  ! -name "*.ico"   ! -name "*.pdf" ! -name "*.bin"  \
+  ! -name "*.groovy" \
+  -exec chtag -tc ISO8859-1 {} \; 2>/dev/null
+
+# Arquivos Groovy precisam ser convertidos para EBCDIC (IBM-1047) porque
+# o DBB 3.x carrega scripts Groovy como EBCDIC internamente via JVM z/OS.
+echo "[INFO] Convertendo arquivos Groovy para EBCDIC IBM-1047..."
+find "$TARGET_DIR" -name "*.groovy" -type f | while read gf; do
+  iconv -f ISO8859-1 -t IBM-1047 "$gf" > "$gf.ebcdic"
+  mv "$gf.ebcdic" "$gf"
+  chtag -tc IBM-1047 "$gf"
+done
+echo "[INFO] Taggeamento e conversao concluidos"
 
 echo "[OK] Clone concluido em $WORKSPACE/$REPO_NAME"

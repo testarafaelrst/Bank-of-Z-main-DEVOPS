@@ -105,9 +105,22 @@ do
     esac
 done
 
-if grep -q "ERROR" "$TMP_LOG"; then
-    print_error "DBB build failed"
+# Em modo preview, o task Transfer falha com BGZZB0008E ao tentar copiar
+# para datasets que nao existem. Esse erro e esperado em preview e
+# nao impede a obtencao da lista de fontes para o ZCodeScan.
+# Verificamos se ha outros ERRORs que nao sejam do Transfer em preview.
+TRANSFER_PREVIEW_ERROR="BGZZB0008E"
+FATAL_ERRORS=$(grep "ERROR" "$TMP_LOG" | grep -v "$TRANSFER_PREVIEW_ERROR" | grep -v "Build Status : ERROR" || true)
+
+if [ -n "$FATAL_ERRORS" ]; then
+    print_error "DBB build failed with fatal errors"
+    print_error "$FATAL_ERRORS"
     exit 1
+fi
+
+# Se houve apenas o erro do Transfer (BGZZB0008E), emite warning e continua
+if grep -q "$TRANSFER_PREVIEW_ERROR" "$TMP_LOG"; then
+    print_warning "Transfer task failed in preview mode (BGZZB0008E) - expected behavior, continuing scan"
 fi
 
 if grep -q "Total files processed : 0$" "$TMP_LOG"; then

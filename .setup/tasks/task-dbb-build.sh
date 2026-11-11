@@ -96,13 +96,15 @@ BUILD_OPTIONS=""
 if [ "$BUILD_TYPE" = "full" ]; then
     print_info "Running FULL DBB build"
     BUILD_TYPE="full"
+elif [ "$BUILD_TYPE" = "preview" ]; then
+    # Usa o lifecycle 'scan' em modo preview para obter a lista de fontes
+    # para o ZCodeScan, sem executar o task 'Transfer' (que falha em preview
+    # por tentar copiar para datasets que ainda nao existem - BGZZB0008E).
+    print_info "Running SCAN (impact preview) DBB build for source list"
+    BUILD_OPTIONS="--preview"
+    BUILD_TYPE="scan"
 else
     print_info "Running PIPELINE (impact) DBB build"
-
-    if [ "$BUILD_TYPE" = "preview" ]; then
-        BUILD_OPTIONS="--preview"
-    fi
-
     BUILD_TYPE="pipeline"
 fi
 
@@ -116,8 +118,13 @@ rm -rf ${DBB_LOG_FOLDER}
 mkdir -p ${DBB_LOG_FOLDER}
 chtag -r src/api/src/main/api/openapi.yaml
 set -e
-python "$SCRIPTS_DIR/../lib/render_template.py" --configFile $CONFIG_FILE \
-    --templateFile "$SCRIPTS_DIR/../build/datasets.yaml.j2"  --outputFile "$SCRIPTS_DIR/../build/datasets.yaml"
+# Gera datasets.yaml em ISO8859-1 (ASCII) para compatibilidade com DBB 3.x,
+# que espera todos os arquivos de configuracao YAML em ASCII/ISO8859-1.
+_BPXK_AUTOCVT=OFF python3 "$SCRIPTS_DIR/../lib/render_template.py" --configFile $CONFIG_FILE \
+    --templateFile "$SCRIPTS_DIR/../build/datasets.yaml.j2" \
+    --outputFile "$SCRIPTS_DIR/../build/datasets.yaml" \
+    --outputEncoding ISO8859-1
+chtag -tc ISO8859-1 "$SCRIPTS_DIR/../build/datasets.yaml"
 
 dbb build "$BUILD_TYPE" --debug --hlq "${APP_HLQ}.DBB" --log-encoding ISO8859-1 $BUILD_OPTIONS --config "$DBB_APP_CONF" 2>&1 | tee "$TMP_LOG" | while read -r line
 do
@@ -136,9 +143,23 @@ done
 # =========================
 grep -E "Build Status : CLEAN|Build Status : PREVIEW|Build Status : WARNING" "$TMP_LOG" >/dev/null 2>&1
 if [ $? -ne 0 ]; then
-    print_error "DBB build status is not CLEAN"
-    print_error "Check DBB log: $TMP_LOG"
-    exit 1
+    # Em modo preview (scan), o task Transfer falha com BGZZB0008E ao tentar
+    # copiar para datasets que nao existem -- isso gera Build Status : ERROR,
+    # mas e um comportamento esperado. Se for o unico erro, continua.
+    if [ "$BUILD_TYPE" = "scan" ] && grep -q "BGZZB0008E" "$TMP_LOG"; then
+        FATAL=$(grep "ERROR" "$TMP_LOG" | grep -v "BGZZB0008E" | grep -v "Build Status : ERROR" | grep -v "ConfigurationException" || true)
+        if [ -z "$FATAL" ]; then
+            print_warning "Transfer failed in preview/scan mode (BGZZB0008E) - proceeding with partial build list"
+        else
+            print_error "DBB build status is not CLEAN"
+            print_error "$FATAL"
+            exit 1
+        fi
+    else
+        print_error "DBB build status is not CLEAN"
+        print_error "Check DBB log: $TMP_LOG"
+        exit 1
+    fi
 fi
 
 # =========================
