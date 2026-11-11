@@ -96,4 +96,12 @@ find "$TARGET_DIR" -name "*.groovy" -type f | while read gf; do
 done
 echo "[INFO] Taggeamento e conversao concluidos"
 
+# Garantir permissoes de execucao para scripts shell e Python
+echo "[INFO] Definindo permissoes de execucao..."
+find "$TARGET_DIR" -name "*.sh" -type f -exec chmod +x {} \; 2>/dev/null
+find "$TARGET_DIR" -name "*.py" -type f -exec chmod +r {} \; 2>/dev/null
+# Garantir que diretorios sao legíveis e navegaveis
+find "$TARGET_DIR" -type d -exec chmod +rx {} \; 2>/dev/null
+echo "[INFO] Permissoes definidas"
+
 echo "[OK] Clone concluido em $WORKSPACE/$REPO_NAME"

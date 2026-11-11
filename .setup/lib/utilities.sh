@@ -276,15 +276,32 @@ detect_bank_of_z_location() {
     
     # If not in repo, use the cloned version in workspace
     if [ "$IN_REPO" = false ]; then
-        BANK_DIR="$BANK_OF_Z_WORK_DIR/Bank-of-Z"
-        print_info "Using cloned repository at: $BANK_DIR"
         EXECUTION_MODE="vscode"
-        if [ ! -d "$BANK_DIR" ]; then
-            print_error "Bank-of-Z not found at: $BANK_DIR"
-            print_info "Expected location: $BANK_DIR"
-            print_info "This should have been cloned by the orchestrator script"
-            return 1
+
+        # O diretorio pode ser "Bank-of-Z" (GRUB local) ou o nome do repositorio
+        # GitHub (ex: "Bank-of-Z-main-DEVOPS") quando clonado pelo pipeline CI/CD.
+        # Tenta primeiro o diretorio padrao e depois busca qualquer repo que contenha .setup
+        if [ -d "$BANK_OF_Z_WORK_DIR/Bank-of-Z" ]; then
+            BANK_DIR="$BANK_OF_Z_WORK_DIR/Bank-of-Z"
+        else
+            # Busca qualquer subdiretorio com .setup (repo clonado pelo gitClone.sh)
+            BANK_DIR=$(find "$BANK_OF_Z_WORK_DIR" -maxdepth 2 -name ".setup" -type d 2>/dev/null | head -1 | sed 's|/.setup$||')
         fi
+
+        if [ -z "$BANK_DIR" ] || [ ! -d "$BANK_DIR" ]; then
+            # Fallback: assume que o CWD ja e o diretorio do repositorio (pipeline mode)
+            if [ -d ".setup" ]; then
+                BANK_DIR="$(pwd)"
+                print_info "Using current directory as Bank-of-Z root: $BANK_DIR"
+            else
+                print_error "Bank-of-Z not found at: $BANK_OF_Z_WORK_DIR"
+                print_info "Expected location: $BANK_OF_Z_WORK_DIR/Bank-of-Z or any repo with .setup/"
+                print_info "This should have been cloned by the orchestrator script"
+                return 1
+            fi
+        fi
+
+        print_info "Using cloned repository at: $BANK_DIR"
         print_success "Found Bank-of-Z at workspace location (VSCode workflow detected)"
     fi
     BANK_OF_Z_WORK_DIR=$(dirname $BANK_DIR)
