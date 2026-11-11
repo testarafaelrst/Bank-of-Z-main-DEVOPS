@@ -153,12 +153,13 @@ if [ $? -ne 0 ]; then
     # copiar para datasets que nao existem -- isso gera Build Status : ERROR,
     # mas e um comportamento esperado. Se for o unico erro, continua.
     if [ "$BUILD_TYPE" = "scan" ] && grep -q "BGZZB0008E" "$TMP_LOG"; then
-        FATAL=$(grep "ERROR" "$TMP_LOG" | grep -v "BGZZB0008E" | grep -v "Build Status : ERROR" | grep -v "ConfigurationException" || true)
+        FATAL=$(grep "ERROR" "$TMP_LOG" | grep -v "BGZZB0008E" | grep -v "Build Status : ERROR" | grep -v "ConfigurationException" | grep -v "BGZZB0008E" || true)
+        print_info "SCAN preview: FATAL=[${FATAL}]"
         if [ -z "$FATAL" ]; then
             print_warning "Transfer failed in preview/scan mode (BGZZB0008E) - proceeding with partial build list"
         else
             print_error "DBB build status is not CLEAN"
-            print_error "$FATAL"
+            print_error "FATAL: $FATAL"
             exit 1
         fi
     else
