@@ -10,7 +10,7 @@
 version: 1.0.0
 
 application:
-  name: Bank-of-Z-main
+  name: BankofZ
 
   tasks:
     - task: Cobol
