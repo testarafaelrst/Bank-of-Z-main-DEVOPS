@@ -115,8 +115,9 @@ jobs:
                   ssh -i "$KEY_FILE" -o StrictHostKeyChecking=no \
                     ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
                     ". ~/.profile &&
-                    cd ${{ env.uniqueWorkspaceId }} &&
-                    if [ -d ${{ env.application }} ]; then cd ${{ env.application }}; fi &&
+                    REPO_DIR=${{ env.uniqueWorkspaceId }}/${{ env.application }} &&
+                    cd \$REPO_DIR &&
+                    export BANK_OF_Z_WORK_DIR=${{ env.uniqueWorkspaceId }} &&
                     bash .setup/pipeline-common.sh scan"
                   rm -f "$KEY_FILE"
 
@@ -161,8 +162,9 @@ jobs:
                   ssh -i "$KEY_FILE" -o StrictHostKeyChecking=no \
                     ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
                     ". ~/.profile &&
-                    cd ${{ env.uniqueWorkspaceId }} &&
-                    if [ -d ${{ env.application }} ]; then cd ${{ env.application }}; fi &&
+                    REPO_DIR=${{ env.uniqueWorkspaceId }}/${{ env.application }} &&
+                    cd \$REPO_DIR &&
+                    export BANK_OF_Z_WORK_DIR=${{ env.uniqueWorkspaceId }} &&
                     bash .setup/pipeline-common.sh deploy"
                   rm -f "$KEY_FILE"
 
@@ -184,7 +186,8 @@ jobs:
                   ssh -i "$KEY_FILE" -o StrictHostKeyChecking=no \
                     ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
                     ". ~/.profile &&
-                    cd ${{ env.uniqueWorkspaceId }} &&
-                    if [ -d ${{ env.application }} ]; then cd ${{ env.application }}; fi &&
+                    REPO_DIR=${{ env.uniqueWorkspaceId }}/${{ env.application }} &&
+                    cd \$REPO_DIR &&
+                    export BANK_OF_Z_WORK_DIR=${{ env.uniqueWorkspaceId }} &&
                     bash .setup/pipeline-common.sh verify"
                   rm -f "$KEY_FILE"
