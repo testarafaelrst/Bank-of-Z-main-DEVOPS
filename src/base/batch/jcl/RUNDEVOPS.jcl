@@ -22,7 +22,7 @@
 //*                         *
 //***************************
 //RUNDEVOP EXEC PGM=DEVOPSPL
-//STEPLIB  DD DISP=SHR,DSN=&HLQ..SAMPLE.LOAD
+//STEPLIB  DD DISP=SHR,DSN=RAFAELT.BOZ.UB.LOAD
 //SYSOUT   DD SYSOUT=*
 //SYSUDUMP DD SYSOUT=*
 //*

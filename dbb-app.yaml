@@ -17,6 +17,7 @@ application:
       sources:
         - "**/cics/cobol/*.cbl"
         - "**/ims/cobol/*.cbl"
+        - "**/batch/cobol/*.cbl"
 
       variables:
         - name: dependencySearchPath
