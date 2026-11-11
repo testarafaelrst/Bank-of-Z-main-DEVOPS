@@ -27,10 +27,11 @@ name: boz-pipeline
 # =============================================================================
 
 on:
-    push:
-        branches:
-            - main
-            - "release/**"
+    # push desabilitado temporariamente — habilitar quando z/OS estiver pronto para pipeline completo
+    # push:
+    #     branches:
+    #         - main
+    #         - "release/**"
     pull_request:
         types:
             - opened
