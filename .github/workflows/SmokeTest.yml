@@ -26,7 +26,7 @@ jobs:
     # 1. Parâmetros
     # -------------------------------------------------------------------------
     controller:
-        runs-on: [self-hosted, macOS, arm64]
+        runs-on: [self-hosted, macOS, ARM64]
         steps:
             - name: print-parameters
               run: |
@@ -42,7 +42,7 @@ jobs:
     # -------------------------------------------------------------------------
     ssh-check:
         needs: controller
-        runs-on: [self-hosted, macOS, arm64]
+        runs-on: [self-hosted, macOS, ARM64]
         steps:
             - name: test-ssh-connectivity
               run: |
@@ -68,7 +68,7 @@ jobs:
     # -------------------------------------------------------------------------
     clone:
         needs: ssh-check
-        runs-on: [self-hosted, macOS, arm64]
+        runs-on: [self-hosted, macOS, ARM64]
         steps:
             - name: clone-repo-to-uss
               run: |
