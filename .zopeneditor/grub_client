@@ -1,0 +1,1589 @@
+#!/bin/bash
+
+###############################################################################
+# grub_client: Git Remote User Build - client side script
+# Version: 2.1.1
+#
+# Licensed Materials - Property of IBM
+# (c) Copyright IBM Corporation 2026. All Rights Reserved.
+#
+# Note to U.S. Government Users Restricted Rights:
+# Use, duplication or disclosure restricted by GSA ADP Schedule
+# Contract with IBM Corp.
+#
+# The grub scripts and documentation provided with this product are licensed
+# under the IBM license terms and are licensed under the applicable
+# IBM license terms. These files are not licensed under, and do not inherit,
+# the license applicable to the customer's workspace or any other source code
+# in which they may be placed. Use of the grub scripts and documentation is
+# subject to the IBM license terms applicable to this product.
+###############################################################################
+
+VERSION="2.1.1"
+
+# Get script directory for finding grub_server
+if [ -n "${BASH_SOURCE[0]}" ]; then
+  SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+else
+  SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+fi
+
+# On Windows Git Bash, MSYS converts POSIX args: --cwd "/" becomes
+# "C:/Program Files/Git/". Fix: scope MSYS_NO_PATHCONV=1 per Zowe call.
+# Local paths passed to Zowe (Node.js) must use Windows format (C:\...),
+# so win_path() converts them via cygpath -w; no-op on macOS/Linux.
+win_path() {
+  if command -v cygpath >/dev/null 2>&1; then
+    cygpath -w "$1"
+  else
+    # No cygpath (e.g. Z Open Editor shell): convert /c/Users/... -> C:/Users/...
+    # using pure bash parameter expansion -- no sed/awk required.
+    local p="$1"
+    case "$p" in
+      /[a-zA-Z]/*)
+        local drv="${p:1:1}"
+        local rest="${p:2}"
+        echo "${drv^^}:${rest}"
+        ;;
+      *) echo "$p" ;;
+    esac
+  fi
+}
+
+# ============================================
+# USAGE AND HELP
+# ============================================
+
+show_usage() {
+  cat << 'EOF'
+GRUB: Git Remote User Build - Specification Compliant
+Version: 2.1.1
+
+Usage: grub_client <sub-command> [options]
+
+SUB-COMMANDS:
+  prerequisites   Check prerequisites for running GRUB operations
+  gitPush         Push changes using git (SSH only)
+  gitBundle       Push changes using git bundles (SSH or RSE API)
+  upload          Upload files to remote system
+  fetch           Download files from remote system
+  execute         Execute command on remote system
+
+COMMON OPTIONS:
+  --zoweProfile <profile>         Zowe RSE API profile name
+  --hostname <host>               SSH hostname (from ~/.ssh/config)
+  --localWorkspace <path>         Local workspace directory (default: current directory)
+  --remoteWorkspace <path>        Remote workspace directory (required for most operations)
+  --gitRemote <name>              Git remote name (alternative to hostname)
+  --gitRemoteName <name>          Name for the z/OS git remote (default: zos_<repo>)
+  --gitServerRepository <url>     Git server URL for cloning (optional)
+  -v, --verbose                   Verbose output
+  --debug                         Debug mode (enables set -x, preserves bundles)
+  --preserve-bundle               Preserve bundle files for manual testing
+  -h, --help                      Show this help message
+  --version                       Show version information
+
+SUB-COMMAND SPECIFIC OPTIONS:
+  prerequisites:
+    (uses common options only)
+
+  gitPush:
+    (requires --hostname or --gitRemote with SSH)
+
+  gitBundle:
+    (works with --zoweProfile or --hostname/--gitRemote)
+
+  upload:
+    --files <list>                Space-separated list of files/folders to upload
+    --baseDir <path>              Base directory for preserving folder hierarchy (optional)
+
+  fetch:
+    --files <list>                Space-separated list of files/patterns to download
+    --localDir <path>             Local directory for downloads (default: ./logs)
+    --absolutePath                Allow absolute paths (makes --remoteWorkspace optional)
+    --encoding <name>             Override source encoding for EBCDIC conversion (default: IBM-1047)
+    --binary                      Download all files as binary (no encoding conversion)
+    --gitattributes               Use remote .gitattributes rules to determine encoding (overrides file tags)
+
+  execute:
+    --command <cmd>               Command to execute on remote system
+
+EXAMPLES:
+  # Check prerequisites
+  grub_client prerequisites --zoweProfile ZVDT-demo1 --remoteWorkspace /u/user/project
+
+  # Upload files using RSE API
+  grub_client upload --zoweProfile ZVDT-demo1 --remoteWorkspace /u/user/project/sam --files "resources dbb-app.yaml"
+
+  # Create and apply git bundle using RSE API
+  grub_client gitBundle --zoweProfile ZVDT-demo1 --remoteWorkspace /u/user/project/sam
+
+  # Push changes using SSH
+  grub_client gitPush --gitRemote zvdt-demo1
+
+  # Execute command using SSH
+  grub_client execute --hostname myserver --remoteWorkspace /u/user/project --command "./build"
+
+  # Fetch build logs (encoding auto-detected from z/OS file tags)
+  grub_client fetch --hostname myserver --remoteWorkspace /u/user/project --files "*.log *.err"
+
+  # Use .gitattributes rules instead of file tags
+  grub_client fetch --hostname myserver --remoteWorkspace /u/user/project --files "*.log" --gitattributes
+
+  # Force binary download (no conversion)
+  grub_client fetch --hostname myserver --remoteWorkspace /u/user/project --files "*.bin" --binary
+
+  # Override EBCDIC codec
+  grub_client fetch --hostname myserver --remoteWorkspace /u/user/project --files "*.log" --encoding IBM-037
+
+NOTES:
+  - Either --zoweProfile or --hostname must be specified (not both)
+  - --gitRemote can be used as alternative to --hostname for git operations
+  - Git must be installed and in PATH on both client and server
+  - For SSH: configure password-less authentication in ~/.ssh/config
+  - For RSE API: Zowe CLI with RSE API plugin must be configured
+  - fetch uses the z/OS file tag (chtag) on each remote file to decide encoding by default
+  - Use --gitattributes to override: reads .gitattributes from the remote workspace instead
+  - Files tagged UTF-8 on z/OS are not converted; untagged files default to IBM-1047
+  - Use --encoding to force a specific codec for all files
+  - Use --binary to suppress all conversion (e.g. for image or binary log files)
+
+EOF
+}
+
+# ============================================
+# UTILITY FUNCTIONS
+# ============================================
+
+error_exit() {
+  echo "Error: $1" >&2
+  exit 1
+}
+
+vecho() {
+  if [ "$verbose" = "True" ]; then
+    echo "$@"
+  fi
+}
+
+decho() {
+  if [ "$debug" = "True" ]; then
+    echo "[DEBUG] $@" >&2
+  fi
+}
+
+check_git() {
+  if ! command -v git >/dev/null 2>&1; then
+    error_exit "Git is not installed or not in PATH"
+  fi
+  vecho "[OK] Git found: $(git --version)"
+}
+
+# Helper function to run SSH commands with proper environment setup
+# Sources profiles and ensures Git is in PATH
+ssh_cmd() {
+  local host="$1"
+  shift
+  local cmd="$*"
+
+  # Build environment setup as a single-line command for z/OS compatibility
+  # Avoid here-documents as they don't work reliably on z/OS
+  local env_setup="for profile in /etc/profile /etc/bash.bashrc /usr/local/etc/profile; do [ -f \"\$profile\" ] && . \"\$profile\" 2>/dev/null || true; done; if ! command -v git >/dev/null 2>&1; then for git_path in /usr/lpp/IBM/foz/v1r1/bin /usr/local/zopen/usr/local/bin /usr/lpp/IBM/git/bin /opt/freeware/bin /usr/local/bin; do if [ -d \"\$git_path\" ] && [ -x \"\$git_path/git\" ]; then export PATH=\"\$PATH:\$git_path\"; break; fi; done; fi"
+
+  # Execute with environment setup
+  ssh "$host" "$env_setup; $cmd"
+}
+
+# Helper function to run RSE API commands with proper environment setup
+# Sources profiles and ensures Git is in PATH
+rse_cmd() {
+  local profile="$1"
+  shift
+  local cmd="$*"
+
+  # Build environment setup similar to ssh_cmd
+  local env_setup="for profile in /etc/profile /etc/bash.bashrc /usr/local/etc/profile; do [ -f \"\$profile\" ] && . \"\$profile\" 2>/dev/null || true; done; if ! command -v git >/dev/null 2>&1; then for git_path in /usr/lpp/IBM/foz/v1r1/bin /usr/local/zopen/usr/local/bin /usr/lpp/IBM/git/bin /opt/freeware/bin /usr/local/bin; do if [ -d \"\$git_path\" ] && [ -x \"\$git_path/git\" ]; then export PATH=\"\$PATH:\$git_path\"; break; fi; done; fi"
+
+  # Execute with environment setup via RSE API.
+  # MSYS_NO_PATHCONV=1 is scoped to this call so --cwd "/" reaches z/OS intact.
+  MSYS_NO_PATHCONV=1 zowe rse-api-for-zowe-cli issue unix "$env_setup; $cmd" --cwd "/" --rse-profile "$profile"
+}
+
+check_ssh_host() {
+  local host="$1"
+  vecho "Checking SSH connection to $host..."
+
+  if ! ssh -o BatchMode=yes -o ConnectTimeout=5 "$host" "echo connected" >/dev/null 2>&1; then
+    echo "Warning: Cannot connect to SSH host: $host" >&2
+    return 1
+  fi
+
+  vecho "[OK] SSH connection to $host successful"
+  return 0
+}
+
+check_zowe_profile() {
+  local profile="$1"
+  vecho "Checking Zowe profile: $profile..."
+
+  if ! command -v zowe >/dev/null 2>&1; then
+    error_exit "Zowe CLI is not installed or not in PATH"
+  fi
+
+  # Test the profile by issuing a simple command
+  if ! MSYS_NO_PATHCONV=1 zowe rse-api-for-zowe-cli issue unix "echo connected" --cwd "/" --rse-profile "$profile" >/dev/null 2>&1; then
+    echo "Warning: Cannot connect using Zowe profile: $profile" >&2
+    return 1
+  fi
+
+  vecho "[OK] Zowe profile $profile is valid and connected"
+  return 0
+}
+
+check_git_remote() {
+  local remote="$1"
+  vecho "Checking git remote: $remote..."
+
+  if ! git remote get-url "$remote" >/dev/null 2>&1; then
+    echo "Warning: Git remote '$remote' does not exist" >&2
+    echo "  (It will be created during gitPush or gitBundle operations)" >&2
+    return 1
+  fi
+
+  vecho "[OK] Git remote $remote exists: $(git remote get-url $remote)"
+  return 0
+}
+
+check_git_server_repo() {
+  local repo_url="$1"
+  vecho "Checking git server repository: $repo_url..."
+
+  if ! git ls-remote "$repo_url" HEAD >/dev/null 2>&1; then
+    echo "Warning: Cannot access git server repository: $repo_url" >&2
+    return 1
+  fi
+
+  vecho "[OK] Git server repository accessible: $repo_url"
+  return 0
+}
+
+# ============================================
+# SUB-COMMAND: prerequisites
+# ============================================
+
+cmd_prerequisites() {
+  vecho "=== prerequisites: Checking Prerequisites ==="
+
+  local all_ok=0
+
+  # Check Git
+  check_git || all_ok=1
+
+  # Check Zowe profile if specified
+  if [ -n "$zowe_profile" ]; then
+    check_zowe_profile "$zowe_profile" || all_ok=1
+  fi
+
+  # Check SSH hostname if specified
+  if [ -n "$hostname" ]; then
+    check_ssh_host "$hostname" || all_ok=1
+  fi
+
+  # Check git remote if specified
+  if [ -n "$git_remote" ]; then
+    check_git_remote "$git_remote" || all_ok=1
+  fi
+
+  # Check git server repository if specified
+  if [ -n "$git_server_repo" ]; then
+    check_git_server_repo "$git_server_repo" || all_ok=1
+  fi
+
+  if [ $all_ok -eq 0 ]; then
+    echo "[OK] All prerequisites checks passed"
+  else
+    echo "[WARN] Some prerequisite checks failed (see warnings above)"
+    exit 1
+  fi
+}
+
+# ============================================
+# SUB-COMMAND: gitPush
+# ============================================
+
+cmd_gitPush() {
+  # Start timing
+  local start_time=$(date +%s)
+
+  vecho "=== gitPush: Push Changes via Git (SSH) ==="
+
+  # Validate: SSH only
+  if [ -n "$zowe_profile" ]; then
+    error_exit "gitPush only works with SSH (--hostname or --gitRemote), not --zoweProfile"
+  fi
+
+  if [ -z "$hostname" ] && [ -z "$git_remote" ]; then
+    error_exit "gitPush requires --hostname or --gitRemote"
+  fi
+
+  # Change to workspace
+  if [ -n "$local_workspace" ]; then
+    cd "$local_workspace" || error_exit "Failed to change to $local_workspace"
+  fi
+
+  # Get repository name
+  local repo=$(basename "$(pwd)")
+  vecho "Repository: $repo"
+
+  # If using --gitRemote, extract hostname and remoteWorkspace from git remote URL
+  if [ -n "$git_remote" ]; then
+    # Check if remote exists
+    if ! git remote get-url "$git_remote" >/dev/null 2>&1; then
+      error_exit "Git remote '$git_remote' does not exist. Please create it first with: git remote add $git_remote hostname:/path/to/workspace/$repo"
+    fi
+
+    # Get the remote URL
+    local remote_url=$(git remote get-url "$git_remote" 2>/dev/null)
+    vecho "Using existing git remote '$git_remote': $remote_url"
+
+    # Extract hostname and path from URL (format: hostname:/path/to/repo)
+    if [[ "$remote_url" =~ ^([^:]+):(.+)$ ]]; then
+      hostname="${BASH_REMATCH[1]}"
+      local remote_path="${BASH_REMATCH[2]}"
+      # Extract workspace (parent directory of repo)
+      remote_workspace=$(dirname "$remote_path")
+      vecho "Extracted from git remote: hostname=$hostname, remoteWorkspace=$remote_workspace"
+    else
+      error_exit "Could not parse git remote URL: $remote_url (expected format: hostname:/path/to/repo)"
+    fi
+  fi
+
+  # Validate required parameters
+  if [ -z "$remote_workspace" ]; then
+    error_exit "gitPush requires --remoteWorkspace"
+  fi
+
+  # Get current branch
+  local branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+  if [ $? -ne 0 ]; then
+    error_exit "Not in a git repository"
+  fi
+  vecho "Branch: $branch"
+
+  # Determine remote name
+  local remote_name
+  if [ -n "$git_remote" ]; then
+    remote_name="$git_remote"
+  else
+    remote_name="${git_remote_name:-zos_${repo}}"
+  fi
+
+  # Check if remote exists, create if not (only when using --hostname)
+  if ! git remote get-url "$remote_name" >/dev/null 2>&1; then
+    vecho "Creating git remote: $remote_name"
+
+    # Add remote
+    git remote add "$remote_name" "${hostname}:${remote_workspace}/${repo}"
+
+    # Detect Git path on remote
+    vecho "Detecting Git installation path on remote..."
+    local git_path=$(ssh_cmd "$hostname" "which git" 2>/dev/null | tr -d '\r\n')
+    local git_dir=""
+    if [ -n "$git_path" ]; then
+      git_dir=$(dirname "$git_path")
+      vecho "Git found at: $git_dir"
+      # On non-Windows systems, configure git paths normally
+      if ! command -v cygpath >/dev/null 2>&1; then
+        git config "remote.${remote_name}.uploadpack" "${git_dir}/git-upload-pack"
+        git config "remote.${remote_name}.receivepack" "${git_dir}/git-receive-pack"
+      fi
+    fi
+
+    # Initialize remote repository
+    vecho "Initializing remote repository..."
+
+    # Check if gitServerRepository is provided for cloning
+    if [ -n "$git_server_repo" ]; then
+      vecho "Cloning from Git server: $git_server_repo"
+      ssh_cmd "$hostname" "mkdir -p ${remote_workspace} && cd ${remote_workspace} && git clone ${git_server_repo} ${repo} && cd ${repo} && git config --local receive.denyCurrentBranch updateInstead"
+    else
+      # No Git server - initialize empty repository
+      ssh_cmd "$hostname" "mkdir -p ${remote_workspace}/${repo} && cd ${remote_workspace}/${repo} && git init && git config --local receive.denyCurrentBranch updateInstead"
+    fi
+  else
+    # Remote exists - check if URL matches current remoteWorkspace
+    local current_url=$(git remote get-url "$remote_name" 2>/dev/null)
+    local expected_url="${hostname}:${remote_workspace}/${repo}"
+
+    if [ "$current_url" != "$expected_url" ]; then
+      vecho "Remote path changed: $current_url -> $expected_url"
+      vecho "Updating remote URL..."
+      git remote set-url "$remote_name" "$expected_url"
+
+      # Detect Git path on remote
+      vecho "Detecting Git installation path on remote..."
+      local git_path=$(ssh_cmd "$hostname" "which git" 2>/dev/null | tr -d '\r\n')
+      if [ -n "$git_path" ]; then
+        git_dir=$(dirname "$git_path")
+        vecho "Git found at: $git_dir"
+        # On non-Windows systems, configure git paths normally
+        if ! command -v cygpath >/dev/null 2>&1; then
+          git config "remote.${remote_name}.uploadpack" "${git_dir}/git-upload-pack"
+          git config "remote.${remote_name}.receivepack" "${git_dir}/git-receive-pack"
+        fi
+      fi
+
+      # Initialize new remote repository if it doesn't exist
+      if ! ssh_cmd "$hostname" "test -d ${remote_workspace}/${repo}/.git" 2>/dev/null; then
+        vecho "Initializing new remote repository..."
+
+        # Check if gitServerRepository is provided for cloning
+        if [ -n "$git_server_repo" ]; then
+          vecho "Cloning from Git server: $git_server_repo"
+          ssh_cmd "$hostname" "mkdir -p ${remote_workspace} && cd ${remote_workspace} && git clone ${git_server_repo} ${repo} && cd ${repo} && git config --local receive.denyCurrentBranch updateInstead"
+        else
+          # No Git server - initialize empty repository
+          ssh_cmd "$hostname" "mkdir -p ${remote_workspace}/${repo} && cd ${remote_workspace}/${repo} && git init && git config --local receive.denyCurrentBranch updateInstead"
+        fi
+      else
+        # Repository exists but may not have the config - ensure it's set and clean
+        # Reset the remote working tree before push: z/OS EBCDIC auto-conversion can
+        # re-tag files between builds, leaving the working tree dirty from git's perspective
+        # and causing push rejection with "Working directory has unstaged changes".
+        vecho "Configuring existing remote repository..."
+        ssh_cmd "$hostname" "cd ${remote_workspace}/${repo} && git config --local receive.denyCurrentBranch updateInstead && git reset --hard HEAD >/dev/null 2>&1 && git checkout -- . >/dev/null 2>&1 && git clean -fd >/dev/null 2>&1" >/dev/null 2>&1 || true
+      fi
+    else
+      # URL matches - check if repository exists on remote
+      if ! ssh_cmd "$hostname" "test -d ${remote_workspace}/${repo}/.git" 2>/dev/null; then
+        vecho "Remote repository doesn't exist, initializing..."
+
+        # Check if gitServerRepository is provided for cloning
+        if [ -n "$git_server_repo" ]; then
+          vecho "Cloning from Git server: $git_server_repo"
+          ssh_cmd "$hostname" "mkdir -p ${remote_workspace} && cd ${remote_workspace} && git clone ${git_server_repo} ${repo} && cd ${repo} && git config --local receive.denyCurrentBranch updateInstead"
+        else
+          # No Git server - initialize empty repository
+          ssh_cmd "$hostname" "mkdir -p ${remote_workspace}/${repo} && cd ${remote_workspace}/${repo} && git init && git config --local receive.denyCurrentBranch updateInstead"
+        fi
+      else
+        # Repository exists - ensure config is set and working directory is clean
+        # Reset the remote working tree before push: z/OS EBCDIC auto-conversion can
+        # re-tag files between builds, leaving the working tree dirty from git's perspective
+        # and causing push rejection with "Working directory has unstaged changes".
+        vecho "Ensuring remote repository configuration..."
+        ssh_cmd "$hostname" "cd ${remote_workspace}/${repo} && git config --local receive.denyCurrentBranch updateInstead && git reset --hard HEAD >/dev/null 2>&1 && git checkout -- . >/dev/null 2>&1 && git clean -fd >/dev/null 2>&1" >/dev/null 2>&1 || true
+      fi
+
+      # Detect Git path on remote (if not already detected)
+      if [ -z "$git_dir" ]; then
+        vecho "Detecting Git installation path on remote..."
+        local git_path=$(ssh_cmd "$hostname" "which git" 2>/dev/null | tr -d '\r\n')
+        if [ -n "$git_path" ]; then
+          git_dir=$(dirname "$git_path")
+          vecho "Git found at: $git_dir"
+          # On non-Windows systems, configure git paths normally
+          if ! command -v cygpath >/dev/null 2>&1; then
+            git config "remote.${remote_name}.uploadpack" "${git_dir}/git-upload-pack"
+            git config "remote.${remote_name}.receivepack" "${git_dir}/git-receive-pack"
+          fi
+        fi
+      fi
+    fi
+  fi
+
+  # Snapshot which files were already staged before we touch the index.
+  # After git add -A + temp commit + git reset --soft, the index would contain
+  # everything we added -- restoring only the originally-staged files keeps the
+  # user's staging state exactly as it was before gitPush ran.
+  local pre_staged
+  pre_staged="$(git diff --cached --name-only 2>/dev/null)"
+
+  # Create temporary commit
+  vecho "Creating temporary commit..."
+  git add -A >/dev/null 2>&1
+  git commit -m "GRUB temporary commit - will be reset" >/dev/null 2>&1
+  local temp_commit=$?
+
+  # Windows fix: Git for Windows prepends Windows paths to --receive-pack arguments
+  # Solution: Create SSH wrapper that intercepts git-receive-pack calls and fixes PATH.
+  # Use cygpath-resolved tmpdir so the wrapper lands in a writable path on Windows.
+  local git_push_tmpdir
+  if command -v cygpath >/dev/null 2>&1; then
+    git_push_tmpdir="$(cygpath -u "${TMPDIR:-/tmp}")"
+  elif [ -n "$LOCALAPPDATA" ]; then
+    local _win="${LOCALAPPDATA//\\//}"
+    local _drv="${_win:0:1}"; local _rest="${_win:2}"
+    git_push_tmpdir="/${_drv,,}${_rest}/Temp"
+  else
+    git_push_tmpdir="${TMPDIR:-/tmp}"
+  fi
+  git_push_tmpdir="${git_push_tmpdir%/}"
+
+  local git_ssh_wrapper=""
+  if command -v cygpath >/dev/null 2>&1 && [ -n "$git_dir" ]; then
+    git_ssh_wrapper="${git_push_tmpdir}/grub_git_ssh_$$"
+    cat > "$git_ssh_wrapper" << EOF
+#!/bin/sh
+# Windows fix: Intercept git-receive-pack calls and set PATH on z/OS
+args="\$@"
+if echo "\$args" | grep -q "git-receive-pack"; then
+  repo_path="\${args##* }"
+  hostname="\${args%% *}"
+  exec /usr/bin/ssh "\$hostname" "PATH=${git_dir}:\\\$PATH git-receive-pack \$repo_path"
+else
+  exec /usr/bin/ssh "\$@"
+fi
+EOF
+    chmod +x "$git_ssh_wrapper"
+    unset GIT_SSH_COMMAND
+    export GIT_SSH="$git_ssh_wrapper"
+    vecho "Windows detected: Using SSH wrapper for git-receive-pack PATH fix"
+  fi
+
+  # Push to remote
+  local push_start=$(date +%s)
+  echo "Pushing changes to remote..."
+  if [ -n "$git_ssh_wrapper" ]; then
+    if ! GIT_SSH="$git_ssh_wrapper" git push "$remote_name" "$branch" --force; then
+      if [ $temp_commit -eq 0 ]; then
+        vecho "Resetting temporary commit due to push failure..."
+        git reset --soft 'HEAD^1' >/dev/null 2>&1
+      fi
+      rm -f "$git_ssh_wrapper"
+      error_exit "Git push failed"
+    fi
+  else
+    if ! git push "$remote_name" "$branch" --force; then
+      if [ $temp_commit -eq 0 ]; then
+        vecho "Resetting temporary commit due to push failure..."
+        git reset --soft 'HEAD^1' >/dev/null 2>&1
+      fi
+      error_exit "Git push failed"
+    fi
+  fi
+
+  # Clean up wrapper
+  [ -n "$git_ssh_wrapper" ] && rm -f "$git_ssh_wrapper"
+
+  # Ensure remote is on the correct branch with clean working directory
+  vecho "Ensuring remote is on branch: $branch"
+  ssh_cmd "$hostname" "cd ${remote_workspace}/${repo} && git checkout $branch >/dev/null 2>&1 && git reset --hard HEAD >/dev/null 2>&1 || true"
+
+  # Reset temporary commit and restore the original staging state.
+  # git reset --soft leaves everything staged; mixed reset + selective re-stage
+  # restores the user's working tree / staging state exactly as it was.
+  if [ $temp_commit -eq 0 ]; then
+    vecho "Resetting temporary commit..."
+    git reset --soft 'HEAD^1' >/dev/null 2>&1
+    # Unstage everything (mixed reset to HEAD) to undo the git add -A effect
+    git reset HEAD >/dev/null 2>&1
+    # Re-stage only the files that were already staged before gitPush ran
+    if [ -n "$pre_staged" ]; then
+      echo "$pre_staged" | xargs git add >/dev/null 2>&1
+    fi
+    vecho "[OK] Temporary commit reset, staging state restored"
+  fi
+
+  # Calculate and display timing
+  local end_time=$(date +%s)
+  local total_time=$((end_time - start_time))
+  local push_time=$((end_time - push_start))
+
+  echo "[OK] gitPush completed successfully"
+  vecho "  Total time: ${total_time}s (push: ${push_time}s)"
+}
+
+# ============================================
+# SUB-COMMAND: gitBundle
+# ============================================
+
+cmd_gitBundle() {
+  # Start timing
+  local start_time=$(date +%s)
+
+  vecho "=== gitBundle: Transfer Changes via Git Bundle ==="
+
+  # Validate parameters
+  if [ -z "$zowe_profile" ] && [ -z "$hostname" ] && [ -z "$git_remote" ]; then
+    error_exit "gitBundle requires --zoweProfile, --hostname, or --gitRemote"
+  fi
+
+  if [ -n "$zowe_profile" ] && [ -n "$hostname" ]; then
+    error_exit "Specify either --zoweProfile or --hostname, not both"
+  fi
+
+  if [ -z "$remote_workspace" ] && [ -z "$git_remote" ]; then
+    error_exit "gitBundle requires --remoteWorkspace (or use --gitRemote)"
+  fi
+
+  # Change to workspace
+  if [ -n "$local_workspace" ]; then
+    cd "$local_workspace" || error_exit "Failed to change to $local_workspace"
+  fi
+
+  # Get repository info
+  local repo=$(basename "$(pwd)")
+  local branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+  if [ $? -ne 0 ]; then
+    error_exit "Not in a git repository"
+  fi
+
+  vecho "Repository: $repo"
+  vecho "Branch: $branch"
+
+  # Determine transport
+  local transport
+  if [ -n "$zowe_profile" ]; then
+    transport="rse"
+  else
+    transport="ssh"
+  fi
+  vecho "Transport: $transport"
+
+  # Get remote HEAD commit
+  local remote_commit=""
+  if [ "$transport" = "ssh" ]; then
+    if [ -n "$git_remote" ]; then
+      hostname=$(git remote get-url "$git_remote" | sed 's/:.*$//')
+      remote_workspace=$(git remote get-url "$git_remote" | sed 's/^[^:]*://' | sed "s|/${repo}$||")
+    fi
+
+    remote_commit=$(ssh_cmd "$hostname" "[ -d ${remote_workspace}/${repo}/.git ] && cd ${remote_workspace}/${repo} && git rev-parse HEAD 2>/dev/null || echo ''" 2>/dev/null || echo "")
+
+    # If repository doesn't exist and gitServerRepository is provided, clone it
+    if [ -z "$remote_commit" ] && [ -n "$git_server_repo" ]; then
+      vecho "Remote repository doesn't exist, cloning from Git server: $git_server_repo"
+      ssh_cmd "$hostname" "mkdir -p ${remote_workspace} && cd ${remote_workspace} && GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=accept-new' git clone ${git_server_repo} ${repo} && cd ${repo} && git config --local receive.denyCurrentBranch updateInstead"
+      # Get the commit after cloning
+      remote_commit=$(ssh_cmd "$hostname" "cd ${remote_workspace}/${repo} 2>/dev/null && git rev-parse HEAD 2>/dev/null" 2>/dev/null || echo "")
+    fi
+  else
+    remote_commit=$(rse_cmd "$zowe_profile" "[ -d ${remote_workspace}/${repo}/.git ] && cd ${remote_workspace}/${repo} && git rev-parse HEAD 2>/dev/null || echo ''" 2>/dev/null | grep -v "^Command" | tr -d '\r\n' || echo "")
+
+    # If repository doesn't exist and gitServerRepository is provided, clone it
+    if [ -z "$remote_commit" ] && [ -n "$git_server_repo" ]; then
+      vecho "Remote repository doesn't exist, cloning from Git server: $git_server_repo"
+      rse_cmd "$zowe_profile" "mkdir -p ${remote_workspace} && cd ${remote_workspace} && GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=accept-new' git clone ${git_server_repo} ${repo} && cd ${repo} && git config --local receive.denyCurrentBranch updateInstead" >/dev/null 2>&1
+      # Get the commit after cloning
+      remote_commit=$(rse_cmd "$zowe_profile" "cd ${remote_workspace}/${repo} 2>/dev/null && git rev-parse HEAD 2>/dev/null" 2>/dev/null | grep -v "^Command" | tr -d '\r\n' || echo "")
+    fi
+  fi
+
+  # Validate remote_commit is a valid SHA (40 hex chars) or short SHA (7+ hex chars)
+  # If it's "HEAD" or invalid, treat as empty (no remote commits)
+  if [ -n "$remote_commit" ] && ! echo "$remote_commit" | grep -qE '^[0-9a-f]{7,40}$'; then
+    vecho "Invalid remote commit reference: $remote_commit (treating as empty)"
+    remote_commit=""
+  fi
+  decho "Remote commit: ${remote_commit:-<empty> (remote has no .git or no commits)}"
+
+  # Check if there are any local uncommitted changes
+  local has_local_changes=0
+  if ! git diff-index --quiet HEAD -- || [ -n "$(git ls-files --others --exclude-standard)" ]; then
+    has_local_changes=1
+  fi
+
+  # Capture local HEAD before creating the temp commit (used for the up-to-date check below)
+  local local_head=$(git rev-parse HEAD 2>/dev/null)
+
+  # If no local changes and remote is up-to-date with local HEAD, nothing to do
+  if [ $has_local_changes -eq 0 ] && [ -n "$remote_commit" ]; then
+    if [ "$local_head" = "$remote_commit" ]; then
+      echo "No changes to bundle (remote is up-to-date)"
+      return 0
+    fi
+  fi
+
+  # If we reach here, we need to create a bundle because either:
+  # - There are local uncommitted changes, OR
+  # - Remote is empty/doesn't exist, OR
+  # - Remote is behind local HEAD (committed changes not yet on remote)
+
+  # Snapshot which files were already staged before we touch the index.
+  # After git add -A + temp commit + git reset --soft, the index would contain
+  # everything we added -- restoring only the originally-staged files keeps the
+  # user's working tree / staging state exactly as it was before gitBundle ran.
+  local pre_staged
+  pre_staged="$(git diff --cached --name-only 2>/dev/null)"
+
+  # Helper: undo temp commit and restore staging state.
+  # Called from both error paths and the success path.
+  _reset_temp_commit() {
+    git reset --soft 'HEAD^1' >/dev/null 2>&1
+    git reset HEAD >/dev/null 2>&1
+    [ -n "$pre_staged" ] && echo "$pre_staged" | xargs git add >/dev/null 2>&1
+  }
+
+  # Create temporary commit with all changes (including deletions)
+  vecho "Creating temporary commit..."
+  git add -A >/dev/null 2>&1
+
+  # Use --no-gpg-sign to avoid triggering SSH key authentication prompts
+  # Temporary commits don't need signing since they're immediately reset
+  local temp_commit=0
+  if git commit --no-gpg-sign -m "GRUB temporary commit - will be reset automatically. To reset manually: git reset --soft HEAD^" >/dev/null 2>&1; then
+    temp_commit=1
+  else
+    # Nothing to commit (working tree is clean).
+    # Only skip if the remote exists AND is already at local HEAD.
+    # If remote is behind local HEAD (committed changes not yet sent) or
+    # doesn't exist, fall through to create a bundle.
+    if [ -n "$remote_commit" ] && [ "$local_head" = "$remote_commit" ]; then
+      echo "No changes to bundle (remote is up-to-date)"
+      return 0
+    fi
+    if [ -z "$remote_commit" ]; then
+      vecho "No local changes but remote does not exist -- creating full bundle to initialise remote"
+    else
+      vecho "No local uncommitted changes but remote is behind local HEAD -- creating delta bundle"
+    fi
+  fi
+
+  # Create bundle
+  # On Windows Git Bash, $TMPDIR is a Windows path with backslashes
+  # (e.g. C:\Users\user\AppData\Local\Temp). Convert to Unix-style using
+  # cygpath so git bundle create can write the file correctly.
+  local local_tmpdir
+  if command -v cygpath >/dev/null 2>&1; then
+    local_tmpdir="$(cygpath -u "${TMPDIR:-/tmp}")"
+  elif [ -n "$LOCALAPPDATA" ]; then
+    # No cygpath (e.g. Z Open Editor shell) but we are on Windows:
+    # LOCALAPPDATA is always set (e.g. C:\Users\user\AppData\Local).
+    # Convert to POSIX mount path using pure bash: C:\...\Local -> /c/.../Local/Temp
+    local _win="${LOCALAPPDATA//\\//}"     # C:/Users/.../AppData/Local
+    local _drv="${_win:0:1}"               # C
+    local _rest="${_win:2}"                # /Users/.../AppData/Local
+    local_tmpdir="/${_drv,,}${_rest}/Temp"
+  else
+    local_tmpdir="${TMPDIR:-/tmp}"
+  fi
+  local_tmpdir="${local_tmpdir%/}"  # Remove trailing slash if present
+  local bundle_file="${local_tmpdir}/grub_$(whoami)_${repo}.bundle"
+
+  # Remote tmpdir (always /tmp on z/OS)
+  local remote_tmpdir="/tmp"
+
+  vecho "Creating git bundle..."
+  if [ -n "$remote_commit" ]; then
+    # Use remote_commit as the delta base -- this is what the remote actually has.
+    # Using local_head was wrong: if the user committed locally without pushing,
+    # local_head is ahead of remote_commit and the remote lacks the prerequisite.
+    # Fall back to full bundle if remote_commit is not reachable in local history
+    # (e.g. remote was initialised from a different source).
+    if git cat-file -t "$remote_commit" >/dev/null 2>&1; then
+      vecho "Creating delta bundle since remote commit: $remote_commit"
+      if ! git bundle create "$bundle_file" "${remote_commit}..HEAD" >/dev/null 2>&1; then
+        [ $temp_commit -eq 1 ] && _reset_temp_commit
+        error_exit "Failed to create delta bundle"
+      fi
+    else
+      vecho "Remote commit not in local history, falling back to full bundle"
+      if ! git bundle create "$bundle_file" --all >/dev/null 2>&1; then
+        [ $temp_commit -eq 1 ] && _reset_temp_commit
+        error_exit "Failed to create full bundle"
+      fi
+    fi
+  else
+    vecho "Creating full bundle (remote repository empty or doesn't exist)"
+    if ! git bundle create "$bundle_file" --all >/dev/null 2>&1; then
+      [ $temp_commit -eq 1 ] && _reset_temp_commit
+      error_exit "Failed to create full bundle"
+    fi
+  fi
+
+  # Get bundle size -- use wc -c for cross-platform compatibility (ls -lh column
+  # positions differ between macOS, Linux and Git Bash on Windows)
+  local bundle_size
+  if command -v cygpath >/dev/null 2>&1; then
+    bundle_size="$(wc -c < "$bundle_file" 2>/dev/null | awk '{printf "%.0fK", $1/1024}')B"
+  else
+    bundle_size=$(ls -lh "$bundle_file" 2>/dev/null | awk '{print $5}')
+  fi
+  vecho "[OK] Bundle created: $(basename $bundle_file) (size: $bundle_size)"
+
+  # Upload and apply bundle
+  local upload_start=$(date +%s)
+  echo "Uploading and applying bundle..."
+
+  if [ "$transport" = "ssh" ]; then
+    # Upload via sftp (binary, immune to z/OS auto-conversion)
+    if ! echo "put $(printf '%s' "$bundle_file") ${remote_tmpdir}/$(basename "$bundle_file")" \
+        | sftp -q -b - "$hostname" >/dev/null 2>&1; then
+      rm -f "$bundle_file"
+      [ $temp_commit -eq 1 ] && _reset_temp_commit
+      error_exit "Failed to upload bundle"
+    fi
+
+    # Apply bundle via SSH using grub_server
+    local script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    if [ ! -f "${script_dir}/grub_server" ]; then
+      rm -f "$bundle_file"
+      [ $temp_commit -eq 1 ] && _reset_temp_commit
+      error_exit "grub_server not found at ${script_dir}/grub_server"
+    fi
+
+    # Transfer and execute grub_server for bundle application
+    # Parameters: <repo_path> <bundle_name> <tmpdir> <operation> <mode_flags> <branch>
+    # mode_flags uses "-" as a placeholder when empty to ensure branch always lands at $6
+    local mode_flags="-"
+    if [ "$debug" = "True" ]; then
+      mode_flags="debug"
+      decho "Passing debug flag to grub_server"
+    fi
+    if [ "$preserve_bundle" = "True" ]; then
+      if [ "$mode_flags" = "-" ]; then
+        mode_flags="preserve"
+      else
+        mode_flags="$mode_flags preserve"
+      fi
+      decho "Passing preserve-bundle flag to grub_server"
+    fi
+    if ! cat "${script_dir}/grub_server" | ssh "$hostname" /bin/sh -s - "${remote_workspace}/${repo}" "$(basename $bundle_file)" "${remote_tmpdir}" "apply_bundle" "$mode_flags" "$branch"; then
+      rm -f "$bundle_file"
+      [ $temp_commit -eq 1 ] && _reset_temp_commit
+      error_exit "Failed to apply bundle on remote"
+    fi
+  else
+    # Upload via Zowe - must use -b (binary) flag to prevent text encoding corruption of bundle file.
+    # MSYS_NO_PATHCONV=1 protects the remote USS target path; win_path converts the local source path.
+    if ! MSYS_NO_PATHCONV=1 zowe rse-api-for-zowe-cli upload file-to-uss "$(win_path "$bundle_file")" "${remote_tmpdir}/$(basename $bundle_file)" --rse-profile "$zowe_profile" -b >/dev/null 2>&1; then
+      rm -f "$bundle_file"
+      [ $temp_commit -eq 1 ] && _reset_temp_commit
+      error_exit "Failed to upload bundle via Zowe"
+    fi
+
+    # Apply bundle via Zowe using grub_server
+    local script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    if [ ! -f "${script_dir}/grub_server" ]; then
+      rm -f "$bundle_file"
+      [ $temp_commit -eq 1 ] && _reset_temp_commit
+      error_exit "grub_server not found at ${script_dir}/grub_server"
+    fi
+
+    # Upload grub_server - use unique per-run name to avoid stale file conflicts (403/404 on overwrite)
+    local grub_server_remote="${remote_tmpdir}/grub_server_$(whoami)_$$.sh"
+    # MSYS_NO_PATHCONV=1 protects the remote USS target path; win_path converts the local source path.
+    if ! MSYS_NO_PATHCONV=1 zowe rse-api-for-zowe-cli upload file-to-uss "$(win_path "${script_dir}/grub_server")" "${grub_server_remote}" --rse-profile "$zowe_profile" >/dev/null 2>&1; then
+      rm -f "$bundle_file"
+      [ $temp_commit -eq 1 ] && _reset_temp_commit
+      error_exit "Failed to upload grub_server via Zowe"
+    fi
+
+    # Execute grub_server for bundle application
+    # Parameters: <repo_path> <bundle_name> <tmpdir> <operation> <mode_flags> <branch>
+    # mode_flags uses "-" as a placeholder when empty to ensure branch always lands at $6
+    local mode_flags="-"
+    if [ "$debug" = "True" ]; then
+      mode_flags="debug"
+      decho "Passing debug flag to grub_server"
+    fi
+    if [ "$preserve_bundle" = "True" ]; then
+      if [ "$mode_flags" = "-" ]; then
+        mode_flags="preserve"
+      else
+        mode_flags="$mode_flags preserve"
+      fi
+      decho "Passing preserve-bundle flag to grub_server"
+    fi
+    if ! MSYS_NO_PATHCONV=1 zowe rse-api-for-zowe-cli issue unix "
+      chmod +x ${grub_server_remote} && \
+      ${grub_server_remote} \
+        '${remote_workspace}/${repo}' \
+        '$(basename $bundle_file)' \
+        '${remote_tmpdir}' \
+        'apply_bundle' \
+        '$mode_flags' \
+        '$branch' && \
+      rm -f ${grub_server_remote}
+    " --cwd "/" --rse-profile "$zowe_profile"; then
+      rm -f "$bundle_file"
+      [ $temp_commit -eq 1 ] && _reset_temp_commit
+      error_exit "Failed to apply bundle on remote"
+    fi
+  fi
+
+  # Cleanup (preserve bundle if requested)
+  if [ "$preserve_bundle" = "True" ]; then
+    if [ "$debug" = "True" ]; then
+      decho "Debug mode: Preserving bundle file at $bundle_file"
+    fi
+    echo "Bundle preserved at: $bundle_file"
+  else
+    rm -f "$bundle_file"
+  fi
+
+  # Reset temporary commit and restore staging state
+  if [ $temp_commit -eq 1 ]; then
+    vecho "Resetting temporary commit..."
+    _reset_temp_commit
+    vecho "[OK] Temporary commit reset, staging state restored"
+  fi
+
+  # Register a local git remote for SSH transport so subsequent --gitRemote calls work.
+  # Only when --hostname was used (not --gitRemote, which already has one; not RSE).
+  if [ "$transport" = "ssh" ] && [ -z "$git_remote" ]; then
+    local remote_name="${git_remote_name:-zos_${repo}}"
+    local remote_url="${hostname}:${remote_workspace}/${repo}"
+    if ! git remote get-url "$remote_name" >/dev/null 2>&1; then
+      git remote add "$remote_name" "$remote_url"
+      vecho "Created git remote: $remote_name -> $remote_url"
+    fi
+  fi
+
+  # Calculate and display timing
+  local end_time=$(date +%s)
+  local total_time=$((end_time - start_time))
+  local upload_time=$((end_time - upload_start))
+
+  echo "[OK] gitBundle completed successfully"
+  vecho "  Total time: ${total_time}s (upload: ${upload_time}s)"
+}
+
+# ============================================
+# SUB-COMMAND: upload
+# ============================================
+
+cmd_upload() {
+  vecho "=== upload: Upload Files to Remote ==="
+
+  # Validate
+  if [ -z "$zowe_profile" ] && [ -z "$hostname" ]; then
+    error_exit "upload requires --zoweProfile or --hostname"
+  fi
+
+  if [ -n "$zowe_profile" ] && [ -n "$hostname" ]; then
+    error_exit "Specify either --zoweProfile or --hostname, not both"
+  fi
+
+  if [ -z "$remote_workspace" ]; then
+    error_exit "upload requires --remoteWorkspace"
+  fi
+
+  if [ -z "$files" ]; then
+    error_exit "upload requires --files"
+  fi
+
+  # Determine base directory for file operations
+  local upload_base_dir="${base_dir:-${local_workspace:-.}}"
+  cd "$upload_base_dir" || error_exit "Failed to change to $upload_base_dir"
+
+  vecho "Base directory: $upload_base_dir"
+  vecho "Files to upload: $files"
+  vecho "Destination: $remote_workspace"
+
+  # Expand GLOB patterns to actual file list
+  local expanded_files=""
+  for pattern in $files; do
+    # Check if pattern contains GLOB characters
+    if [[ "$pattern" == *"*"* ]] || [[ "$pattern" == *"?"* ]]; then
+      vecho "Expanding GLOB pattern: $pattern"
+      # Use find for ** patterns (recursive)
+      if [[ "$pattern" == *"**"* ]]; then
+        # Convert **/*.ext to find command
+        local find_pattern="${pattern#**/}"  # Remove **/ prefix
+        local found_files=$(find . -type f -name "$find_pattern" 2>/dev/null | sed 's|^\./||')
+        if [ -n "$found_files" ]; then
+          expanded_files="$expanded_files $found_files"
+          vecho "  Found: $(echo $found_files | wc -w | tr -d ' ') files"
+        fi
+      else
+        # Simple glob - let shell expand
+        local glob_expanded=$(ls -1d $pattern 2>/dev/null || true)
+        if [ -n "$glob_expanded" ]; then
+          expanded_files="$expanded_files $glob_expanded"
+        fi
+      fi
+    else
+      # Not a pattern, add as-is
+      expanded_files="$expanded_files $pattern"
+    fi
+  done
+
+  # Remove leading/trailing spaces and use expanded list
+  files=$(echo $expanded_files | xargs)
+
+  if [ -z "$files" ]; then
+    error_exit "No files matched the specified patterns"
+  fi
+
+  vecho "Expanded to $(echo $files | wc -w | tr -d ' ') files"
+
+  # Ensure remote workspace directory exists
+  vecho "Ensuring remote workspace directory exists..."
+  if [ -z "$zowe_profile" ]; then
+    ssh "$hostname" "mkdir -p $remote_workspace" 2>/dev/null || error_exit "Failed to create remote workspace directory"
+  else
+    MSYS_NO_PATHCONV=1 zowe rse-api-for-zowe-cli issue unix "mkdir -p $remote_workspace" --cwd "/" --rse-profile "$zowe_profile" >/dev/null 2>&1 || error_exit "Failed to create remote workspace directory"
+  fi
+
+  # Upload each file
+  for file in $files; do
+    if [ ! -e "$file" ]; then
+      echo "Warning: $file not found, skipping" >&2
+      continue
+    fi
+
+    # Determine target path
+    # If file has directory path (e.g., bin/grub_server), preserve it
+    # Otherwise just use basename
+    local target_path
+    if [[ "$file" == */* ]]; then
+      # File has directory component - create parent directory on remote
+      local parent_dir=$(dirname "$file")
+      local filename=$(basename "$file")
+      target_path="$remote_workspace/$file"
+
+      vecho "Creating remote directory: $remote_workspace/$parent_dir"
+      if [ -z "$zowe_profile" ]; then
+        ssh "$hostname" "mkdir -p $remote_workspace/$parent_dir" 2>/dev/null
+      else
+        # Create directory via execute command
+        MSYS_NO_PATHCONV=1 zowe rse-api-for-zowe-cli issue unix "mkdir -p $remote_workspace/$parent_dir" --cwd "/" --rse-profile "$zowe_profile" >/dev/null 2>&1
+      fi
+    else
+      # No directory component - upload to workspace root
+      target_path="$remote_workspace/$(basename $file)"
+    fi
+
+    vecho "Uploading $file to $target_path..."
+
+    if [ -z "$zowe_profile" ]; then
+      # SSH: use sftp for all uploads.
+      # For directories, pre-create the target on the remote first, then upload
+      # each subdirectory and file individually via a single sftp batch session.
+      if [ -d "$file" ]; then
+        local _sftp_batch="/tmp/grub_sftp_upload_$$.batch"
+        ssh "$hostname" "mkdir -p $target_path" 2>/dev/null
+        {
+          find "$file" -mindepth 1 -type d | sort | while read _d; do
+            echo "mkdir ${target_path}${_d#$file}"
+          done
+          find "$file" -type f | sort | while read _f; do
+            echo "put ${_f} ${target_path}${_f#$file}"
+          done
+        } > "$_sftp_batch"
+        sftp -q -b "$_sftp_batch" "$hostname" 2>/dev/null
+        local _sftp_exit=$?
+        rm -f "$_sftp_batch"
+        [ $_sftp_exit -ne 0 ] && error_exit "Failed to upload $file"
+      else
+        echo "put ${file} ${target_path}" | sftp -q -b - "$hostname" || error_exit "Failed to upload $file"
+      fi
+    else
+      # RSE: use zowe
+      # MSYS_NO_PATHCONV=1 protects the remote USS target path; win_path converts the local source path.
+      if [ -d "$file" ]; then
+        MSYS_NO_PATHCONV=1 zowe rse-api-for-zowe-cli upload dir-to-uss "$(win_path "$file")" "$target_path" --rse-profile "$zowe_profile" >/dev/null 2>&1 || error_exit "Failed to upload $file"
+      else
+        MSYS_NO_PATHCONV=1 zowe rse-api-for-zowe-cli upload file-to-uss "$(win_path "$file")" "$target_path" --rse-profile "$zowe_profile" >/dev/null 2>&1 || error_exit "Failed to upload $file"
+      fi
+    fi
+
+    # Auto-tag files based on .gitattributes (if present)
+    if [ ! -d "$file" ] && [ -f ".gitattributes" ]; then
+      local target_encoding=""
+
+      # Parse .gitattributes to find encoding for this file
+      # Process all lines to let more specific patterns override wildcards (last match wins)
+      while read -r line; do
+        # Skip comments and empty lines
+        case "$line" in
+          \#*|"") continue ;;
+        esac
+
+        # Extract pattern and attributes
+        pattern=$(echo "$line" | awk '{print $1}')
+        attrs=$(echo "$line" | cut -d' ' -f2-)
+
+        # Check if file matches pattern
+        case "$file" in
+          $pattern)
+            # Look for working-tree-encoding or zos-working-tree-encoding attribute
+            if echo "$attrs" | grep -q "zos-working-tree-encoding="; then
+              # Extract encoding value for zos-working-tree-encoding
+              target_encoding=$(echo "$attrs" | sed 's/.*zos-working-tree-encoding=\([^ ]*\).*/\1/')
+            elif echo "$attrs" | grep -q "working-tree-encoding="; then
+              # Extract encoding value for working-tree-encoding
+              target_encoding=$(echo "$attrs" | sed 's/.*working-tree-encoding=\([^ ]*\).*/\1/')
+            fi
+            ;;
+        esac
+      done < .gitattributes
+
+      # Convert encoding and tag if encoding found
+      if [ -n "$target_encoding" ]; then
+        vecho "Converting $file to $target_encoding (from .gitattributes)..."
+
+        # Build conversion command: iconv UTF-8 -> target encoding, then chtag
+        local convert_cmd="if command -v iconv >/dev/null 2>&1; then iconv -f UTF-8 -t $target_encoding '$target_path' > '${target_path}.tmp' 2>/dev/null && mv '${target_path}.tmp' '$target_path' 2>/dev/null || rm -f '${target_path}.tmp'; fi; chtag -t -c $target_encoding '$target_path' 2>/dev/null || true"
+
+        if [ -n "$hostname" ]; then
+          ssh_cmd "$hostname" "$convert_cmd" >/dev/null 2>&1 || true
+        else
+          MSYS_NO_PATHCONV=1 zowe rse-api-for-zowe-cli issue unix "$convert_cmd" --cwd "/" --rse-profile "$zowe_profile" >/dev/null 2>&1 || true
+        fi
+      fi
+    fi
+
+    vecho "[OK] Uploaded $file"
+  done
+
+  echo "[OK] upload completed successfully"
+}
+
+# ============================================
+# SUB-COMMAND: fetch
+# ============================================
+
+cmd_fetch() {
+  vecho "=== fetch: Download Files from Remote ==="
+
+  # Validate
+  if [ -z "$zowe_profile" ] && [ -z "$hostname" ]; then
+    error_exit "fetch requires --zoweProfile or --hostname"
+  fi
+
+  if [ -n "$zowe_profile" ] && [ -n "$hostname" ]; then
+    error_exit "Specify either --zoweProfile or --hostname, not both"
+  fi
+
+  # remoteWorkspace is optional if absolutePath is set
+  if [ -z "$remote_workspace" ] && [ "$absolute_path" != "True" ]; then
+    error_exit "fetch requires --remoteWorkspace (or use --absolutePath for absolute paths)"
+  fi
+
+  if [ -z "$files" ]; then
+    error_exit "fetch requires --files"
+  fi
+
+  # Set local directory
+  local local_dir="${fetch_local_dir:-./logs}"
+  mkdir -p "$local_dir" 2>/dev/null
+
+  vecho "Files to download: $files"
+  if [ "$absolute_path" = "True" ]; then
+    vecho "Source: Absolute paths"
+  else
+    vecho "Source: $remote_workspace"
+  fi
+  vecho "Destination: $local_dir"
+
+  # Read .gitattributes from remote once when --gitattributes flag is set.
+  local remote_gitattributes=""
+  if [ "$fetch_gitattributes" = "True" ] && [ -z "$fetch_encoding" ] && [ "$fetch_binary" != "True" ] && [ -n "$remote_workspace" ]; then
+    if [ -n "$hostname" ]; then
+      local _ga_r="/tmp/grub_ga_$$.txt" _ga_l
+      _ga_l=$(mktemp /tmp/grub_ga_XXXXXX.txt)
+      ssh "$hostname" "
+        f=${remote_workspace}/.gitattributes
+        [ -f \"\$f\" ] || exit 0
+        tag=\$(chtag -p \"\$f\" 2>/dev/null | awk '{print \$2}')
+        case \"\$tag\" in
+          untagged|\"\") tag=IBM-1047 ;;
+          UTF-8|utf-8)   cp \"\$f\" '$_ga_r' 2>/dev/null; exit 0 ;;
+        esac
+        iconv -f \"\$tag\" -t UTF-8 \"\$f\" > '$_ga_r' 2>/dev/null && chtag -tc UTF-8 '$_ga_r' || cp \"\$f\" '$_ga_r' 2>/dev/null
+      " 2>/dev/null
+      echo "get ${_ga_r} ${_ga_l}" | sftp -q -b - "$hostname" 2>/dev/null || true
+      ssh "$hostname" "rm -f '$_ga_r'" 2>/dev/null || true
+      remote_gitattributes=$(cat "$_ga_l" 2>/dev/null || true)
+      rm -f "$_ga_l"
+    else
+      remote_gitattributes=$(MSYS_NO_PATHCONV=1 zowe rse-api-for-zowe-cli issue unix \
+        "cat ${remote_workspace}/.gitattributes 2>/dev/null" \
+        --cwd "/" --rse-profile "$zowe_profile" 2>/dev/null | grep -v "^Command" || true)
+    fi
+    [ -n "$remote_gitattributes" ] && vecho "Read .gitattributes from remote workspace"
+  fi
+
+  # Resolve encoding for a file path from .gitattributes (last rule wins).
+  # $1 = relative path from workspace root (e.g. properties/zService/functions.xml)
+  # Returns: binary | UTF-8 | <ebcdic-codec> (default IBM-1047)
+  _enc_for_file() {
+    local fpath="$1" gitattrs="$2" resolved=""
+    [ "$fetch_binary"   = "True" ] && { echo "binary";          return; }
+    [ -n "$fetch_encoding" ]       && { echo "$fetch_encoding"; return; }
+    local fname; fname=$(basename "$fpath")
+    if [ -n "$gitattrs" ]; then
+      while IFS= read -r line; do
+        case "$line" in \#*|"") continue ;; esac
+        local pat att
+        pat=$(echo "$line" | awk '{print $1}')
+        att=$(echo "$line" | awk '{$1=""; print $0}')
+        local matched=0
+        case "$fpath" in $pat) matched=1 ;; esac
+        [ "$matched" = "0" ] && case "$fname" in $pat) matched=1 ;; esac
+        if [ "$matched" = "1" ]; then
+          if   echo "$att" | grep -q "zos-working-tree-encoding="; then
+            resolved=$(echo "$att" | sed 's/.*zos-working-tree-encoding=\([^ ]*\).*/\1/')
+          elif echo "$att" | grep -q "working-tree-encoding="; then
+            resolved=$(echo "$att" | sed 's/.*working-tree-encoding=\([^ ]*\).*/\1/')
+          elif echo "$att" | grep -qE "binary|-text"; then
+            resolved="binary"
+          fi
+        fi
+      done <<< "$gitattrs"
+    fi
+    echo "${resolved:-IBM-1047}"
+  }
+
+  # Convert a downloaded file: skip for binary/UTF-8; run iconv for EBCDIC.
+  # If local iconv lacks the codec (e.g. IBM-1047 on macOS), convert on remote
+  # into a UTF-8-tagged temp file and fetch it back via sftp (binary).
+  _convert_file() {
+    local lfile="$1" enc="$2" rfile="$3"
+    case "$enc" in
+      binary|UTF-8|utf-8|ASCII|ascii) vecho "  Skipping conversion ($enc)" ; return ;;
+    esac
+    # Probe codec aliases -- IBM-1047 is named differently across platforms.
+    if command -v iconv >/dev/null 2>&1; then
+      local codec c
+      for c in "$enc" IBM-1047 IBM1047 CP1047; do
+        if printf '' | iconv -f "$c" -t UTF-8 >/dev/null 2>&1; then codec="$c"; break; fi
+      done
+      if [ -n "$codec" ] && iconv -f "$codec" -t UTF-8 "$lfile" > "${lfile}.tmp" 2>/dev/null; then
+        mv "${lfile}.tmp" "$lfile"; vecho "  Converted using $codec"; return
+      fi
+      rm -f "${lfile}.tmp"
+    fi
+    # EBCDIC codec not available locally -- convert on z/OS and fetch the result via sftp (binary).
+    local rtmp="/tmp/grub_iconv_$$.utf8"
+    vecho "  Converting $enc -> UTF-8 on z/OS"
+    if ssh "$hostname" "iconv -f $enc -t UTF-8 '$rfile' > '$rtmp' && chtag -tc UTF-8 '$rtmp'" 2>/dev/null; then
+      echo "get ${rtmp} ${lfile}" | sftp -q -b - "$hostname" 2>/dev/null
+    else
+      echo "Warning: iconv -f $enc failed for $(basename "$lfile")" >&2
+    fi
+    ssh "$hostname" "rm -f '$rtmp'" 2>/dev/null || true
+  }
+
+  for file in $files; do
+    vecho "Downloading $file..."
+    local remote_path
+    [ "$absolute_path" = "True" ] && remote_path="$file" || remote_path="${remote_workspace}/${file}"
+
+    if [ -n "$hostname" ]; then
+      # Enumerate matching files on z/OS first, then fetch each one
+      # individually via sftp to guarantee a binary transfer.
+      local remote_dir remote_files
+      remote_dir=$(dirname "$remote_path")
+      remote_files=$(ssh "$hostname" "ls -1 ${remote_path} 2>/dev/null" | tr -d '\r')
+      if [ -z "$remote_files" ]; then
+        echo "Warning: Failed to download $file" >&2; continue
+      fi
+      local fname enc rpath frel
+      for remote_file in $remote_files; do
+        fname=$(basename "$remote_file")
+        rpath="${remote_dir}/${fname}"
+        frel="${file%/*}/${fname}"; [ "$frel" = "${fname}" ] && frel="$fname"
+        echo "get ${rpath} ${local_dir}/${fname}" | sftp -q -b - "$hostname" 2>/dev/null || {
+          echo "Warning: Failed to download $remote_file" >&2; continue
+        }
+        if [ "$fetch_binary" = "True" ]; then
+          enc="binary"
+        elif [ -n "$fetch_encoding" ]; then
+          enc="$fetch_encoding"
+        elif [ "$fetch_gitattributes" = "True" ]; then
+          # --gitattributes: use .gitattributes rules
+          enc=$(_enc_for_file "$frel" "$remote_gitattributes")
+        else
+          # Default: read z/OS file tag via chtag -p
+          local _tag
+          _tag=$(ssh "$hostname" "chtag -p '${rpath}' 2>/dev/null | awk '{print \$2}'" 2>/dev/null | tr -d '\r\n')
+          case "$_tag" in
+            untagged|"") enc="IBM-1047" ;;
+            *)            enc="$_tag" ;;
+          esac
+        fi
+        vecho "  $fname: encoding=$enc"
+        _convert_file "$local_dir/${fname}" "$enc" "$rpath"
+      done
+    else
+      # RSE path: pass -b for UTF-8/binary files to download as-is.
+      if [ "$absolute_path" = "True" ]; then
+        local remote_dir file_pattern remote_files
+        remote_dir=$(dirname "$file"); file_pattern=$(basename "$file")
+        remote_files=$(MSYS_NO_PATHCONV=1 zowe rse-api-for-zowe-cli issue unix \
+          "cd ${remote_dir} && ls -1 ${file_pattern} 2>/dev/null" \
+          --cwd "/" --rse-profile "$zowe_profile" 2>/dev/null | grep -v "^Command")
+        if [ -z "$remote_files" ]; then
+          echo "Warning: Failed to download $file" >&2; continue
+        fi
+        for remote_file in $remote_files; do
+          local fname enc zf=""
+          fname=$(basename "$remote_file")
+          if [ "$fetch_binary" = "True" ]; then
+            enc="binary"
+          elif [ -n "$fetch_encoding" ]; then
+            enc="$fetch_encoding"
+          elif [ "$fetch_gitattributes" = "True" ]; then
+            enc=$(_enc_for_file "$fname" "$remote_gitattributes")
+          else
+            # Default: read z/OS file tag via chtag -p
+            local _tag
+            _tag=$(MSYS_NO_PATHCONV=1 zowe rse-api-for-zowe-cli issue unix \
+              "chtag -p '${remote_dir}/${remote_file}' 2>/dev/null | awk '{print \$2}'" \
+              --cwd "/" --rse-profile "$zowe_profile" 2>/dev/null | grep -v "^Command" | tr -d '\r\n')
+            case "$_tag" in
+              untagged|"") enc="IBM-1047" ;;
+              *)            enc="$_tag" ;;
+            esac
+          fi
+          case "$enc" in binary|UTF-8|utf-8|ASCII|ascii) zf="-b" ;; esac
+          MSYS_NO_PATHCONV=1 zowe rse-api-for-zowe-cli download uss-file \
+            "${remote_dir}/${remote_file}" \
+            --file "$(win_path "$local_dir/$(basename "$remote_file")")" \
+            --rse-profile "$zowe_profile" $zf >/dev/null 2>&1 \
+            || echo "Warning: Failed to download $remote_file" >&2
+        done
+      else
+        local remote_files
+        remote_files=$(MSYS_NO_PATHCONV=1 zowe rse-api-for-zowe-cli issue unix \
+          "cd ${remote_workspace} && ls -1 ${file} 2>/dev/null" \
+          --cwd "/" --rse-profile "$zowe_profile" 2>/dev/null | grep -v "^Command")
+        if [ -z "$remote_files" ]; then
+          echo "Warning: Failed to download $file" >&2; continue
+        fi
+        for remote_file in $remote_files; do
+          local fname enc zf=""
+          fname=$(basename "$remote_file")
+          if [ "$fetch_binary" = "True" ]; then
+            enc="binary"
+          elif [ -n "$fetch_encoding" ]; then
+            enc="$fetch_encoding"
+          elif [ "$fetch_gitattributes" = "True" ]; then
+            # --gitattributes: use .gitattributes rules
+            enc=$(_enc_for_file "$remote_file" "$remote_gitattributes")
+          else
+            # Default: read z/OS file tag via chtag -p
+            local _tag
+            _tag=$(MSYS_NO_PATHCONV=1 zowe rse-api-for-zowe-cli issue unix \
+              "chtag -p '${remote_workspace}/${remote_file}' 2>/dev/null | awk '{print \$2}'" \
+              --cwd "/" --rse-profile "$zowe_profile" 2>/dev/null | grep -v "^Command" | tr -d '\r\n')
+            case "$_tag" in
+              untagged|"") enc="IBM-1047" ;;
+              *)            enc="$_tag" ;;
+            esac
+          fi
+          case "$enc" in binary|UTF-8|utf-8|ASCII|ascii) zf="-b" ;; esac
+          MSYS_NO_PATHCONV=1 zowe rse-api-for-zowe-cli download uss-file \
+            "${remote_workspace}/${remote_file}" \
+            --file "$(win_path "$local_dir/$(basename "$remote_file")")" \
+            --rse-profile "$zowe_profile" $zf >/dev/null 2>&1 \
+            || echo "Warning: Failed to download $remote_file" >&2
+        done
+      fi
+    fi
+
+    vecho "[OK] Downloaded $file"
+  done
+
+  echo "[OK] fetch completed successfully"
+}
+
+# ============================================
+# SUB-COMMAND: execute
+# ============================================
+
+cmd_execute() {
+  vecho "=== execute: Execute Remote Command ==="
+
+  # Validate
+  if [ -z "$zowe_profile" ] && [ -z "$hostname" ]; then
+    error_exit "execute requires --zoweProfile or --hostname"
+  fi
+
+  if [ -n "$zowe_profile" ] && [ -n "$hostname" ]; then
+    error_exit "Specify either --zoweProfile or --hostname, not both"
+  fi
+
+  if [ -z "$remote_workspace" ]; then
+    error_exit "execute requires --remoteWorkspace"
+  fi
+
+  if [ -z "$command" ]; then
+    error_exit "execute requires --command"
+  fi
+
+  vecho "Command: $command"
+  vecho "Working directory: $remote_workspace"
+
+  # Execute command
+  local full_cmd="cd $remote_workspace && $command"
+
+  echo "Executing command..."
+  if [ -n "$hostname" ]; then
+    ssh_cmd "$hostname" "$full_cmd"
+    local exit_code=$?
+  else
+    rse_cmd "$zowe_profile" "$full_cmd"
+    local exit_code=$?
+  fi
+
+  if [ $exit_code -eq 0 ]; then
+    echo "[OK] execute completed successfully"
+  else
+    echo "[FAIL] Command failed with exit code: $exit_code" >&2
+    exit $exit_code
+  fi
+}
+
+# ============================================
+# MAIN SCRIPT
+# ============================================
+
+# Initialize variables
+verbose="False"
+debug="False"
+preserve_bundle="False"
+zowe_profile=""
+hostname=""
+local_workspace=""
+remote_workspace=""
+git_remote=""
+git_remote_name=""
+git_server_repo=""
+files=""
+command=""
+fetch_local_dir=""
+absolute_path="False"
+base_dir=""
+fetch_encoding=""
+fetch_binary="False"
+fetch_gitattributes="False"
+
+# Check for help or version first
+if [ "$1" = "-h" ] || [ "$1" = "--help" ] || [ -z "$1" ]; then
+  show_usage
+  exit 0
+fi
+
+if [ "$1" = "--version" ]; then
+  echo "GRUB version $VERSION"
+  exit 0
+fi
+
+# Get sub-command
+subcommand="$1"
+shift
+
+# Parse common options
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --zoweProfile)
+      zowe_profile="$2"
+      shift 2
+      ;;
+    --hostname)
+      hostname="$2"
+      shift 2
+      ;;
+    --localWorkspace)
+      local_workspace="$2"
+      shift 2
+      ;;
+    --remoteWorkspace)
+      remote_workspace="$2"
+      shift 2
+      ;;
+    --gitRemote)
+      git_remote="$2"
+      shift 2
+      ;;
+    --gitRemoteName)
+      git_remote_name="$2"
+      shift 2
+      ;;
+    --gitServerRepository)
+      git_server_repo="$2"
+      shift 2
+      ;;
+    --files)
+      files="$2"
+      shift 2
+      ;;
+    --command)
+      command="$2"
+      shift 2
+      ;;
+    --localDir|--fetchLocalDir)
+      fetch_local_dir="$2"
+      shift 2
+      ;;
+    --absolutePath)
+      absolute_path="True"
+      shift
+      ;;
+    --encoding)
+      fetch_encoding="$2"
+      shift 2
+      ;;
+    --binary)
+      fetch_binary="True"
+      shift
+      ;;
+    --gitattributes)
+      fetch_gitattributes="True"
+      shift
+      ;;
+    --baseDir)
+      base_dir="$2"
+      shift 2
+      ;;
+    -v|--verbose)
+      verbose="True"
+      shift
+      ;;
+    --debug)
+      debug="True"
+      verbose="True"  # Debug implies verbose
+      shift
+      ;;
+    --preserve-bundle)
+      preserve_bundle="True"
+      shift
+      ;;
+    -h|--help)
+      show_usage
+      exit 0
+      ;;
+    *)
+      error_exit "Unknown option: $1"
+      ;;
+  esac
+done
+
+# Enable debug mode if requested
+if [ "$debug" = "True" ]; then
+  decho "Debug mode enabled"
+  decho "Enabling command tracing (set -x)"
+  set -x
+fi
+
+# Execute sub-command
+case "$subcommand" in
+  prerequisites)
+    cmd_prerequisites
+    ;;
+  gitPush)
+    cmd_gitPush
+    ;;
+  gitBundle)
+    cmd_gitBundle
+    ;;
+  upload)
+    cmd_upload
+    ;;
+  fetch)
+    cmd_fetch
+    ;;
+  execute)
+    cmd_execute
+    ;;
+  *)
+    error_exit "Unknown sub-command: $subcommand. Use --help for usage information."
+    ;;
+esac
+
+exit 0

@@ -1,0 +1,392 @@
+#!/bin/sh
+
+###############################################################################
+# grub_server: Git Remote User Build - server side script
+# Version: 2.1.1
+#
+# Licensed Materials - Property of IBM
+# (c) Copyright IBM Corporation 2026. All Rights Reserved.
+#
+# Note to U.S. Government Users Restricted Rights:
+# Use, duplication or disclosure restricted by GSA ADP Schedule
+# Contract with IBM Corp.
+#
+# The grub scripts and documentation provided with this product are licensed
+# under the IBM license terms and are licensed under the applicable
+# IBM license terms. These files are not licensed under, and do not inherit,
+# the license applicable to the customer's workspace or any other source code
+# in which they may be placed. Use of the grub scripts and documentation is
+# subject to the IBM license terms applicable to this product.
+###############################################################################
+
+# Handle --help flag
+if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+  cat << 'EOF'
+grub_server - Git Remote User Build Server Script
+
+USAGE:
+  grub_server <server_root> <repo> <git_dir> <build_command> <server_name> <has_bundle> <local_user> <branch>
+
+DESCRIPTION:
+  This script is executed on z/OS by grub_client to handle:
+  - Git bundle application
+  - Build execution
+  - Log file management
+  - z/OS encoding setup
+
+PARAMETERS:
+  server_root    - Root directory for builds
+  repo           - Repository name
+  git_dir        - Git binary directory path
+  build_command  - Command to execute for build
+  server_name    - Server identifier
+  has_bundle     - Whether git bundle is present (true/false)
+  local_user     - Local username
+  branch         - Git branch name
+
+ENVIRONMENT:
+  Automatically sets up z/OS encoding:
+    - _BPXK_AUTOCVT=ON
+    - UTF-8 file tagging
+    - POSIX mode
+
+OUTPUT:
+  Creates log files:
+    GRUB_OUT - Standard output log
+    GRUB_ERR - Standard error log
+
+EXAMPLES:
+  # Typically called by grub_client, not manually
+  grub_server /u/user myproject /usr/bin "make all" server1 true user1 main
+
+VERSION:
+  2.1.1
+
+EOF
+  exit 0
+fi
+
+# Handle --version flag
+if [ "$1" = "--version" ] || [ "$1" = "-v" ]; then
+  echo "grub_server version 2.1.1"
+  exit 0
+fi
+
+# Detect calling mode
+# Usage: grub_server <repo_path> <bundle_name> <tmpdir> <operation> [mode_flags] [branch]
+#   mode_flags can be: "debug", "preserve", or "debug preserve"
+
+if [ "$4" != "apply_bundle" ]; then
+  echo "Error: Invalid operation. Expected 'apply_bundle' as 4th parameter" >&2
+  exit 1
+fi
+
+OPERATION="apply_bundle"
+REPO_PATH="$1"
+BUNDLE_NAME="$2"
+TMPDIR_PATH="$3"
+MODE_FLAG="$5"
+BRANCH="$6"
+
+# Parse mode flags (can be "debug", "preserve", or "debug preserve")
+DEBUG_MODE="False"
+PRESERVE_BUNDLE="False"
+
+if echo "$MODE_FLAG" | grep -q "debug"; then
+  DEBUG_MODE="True"
+fi
+
+if echo "$MODE_FLAG" | grep -q "preserve"; then
+  PRESERVE_BUNDLE="True"
+fi
+
+# Enable debug mode if requested
+if [ "$DEBUG_MODE" = "True" ]; then
+  echo "[DEBUG] Debug mode enabled on server" >&2
+  echo "[DEBUG] Enabling command tracing (set -x)" >&2
+  set -x
+fi
+
+# Platform detection
+uname_output=$(uname -s 2>/dev/null)
+if echo "$uname_output" | grep -qi "OS/390"; then
+  zos="True"
+else
+  zos="False"
+fi
+
+# Setup z/OS specific environment if needed
+if [ "${zos}" = "True" ]; then
+  export _BPXK_AUTOCVT=ON
+  export _CEE_RUNOPTS="$_CEE_RUNOPTS FILETAG(AUTOCVT,AUTOTAG) POSIX(ON)"
+  export _TAG_REDIR_ERR=txt
+  export _TAG_REDIR_IN=txt
+  export _TAG_REDIR_OUT=txt
+  export TERM="xterm"
+fi
+
+# Source system and user profiles to get proper PATH (including Git)
+# Try multiple system profile locations (different z/OS configurations)
+for profile in "/etc/profile" "/etc/bash.bashrc" "/usr/local/etc/profile"; do
+  if [ -f "$profile" ]; then
+    . "$profile" >/dev/null 2>&1 || true
+  fi
+done
+
+# Source user profiles only if NOT in apply_bundle mode (to avoid interactive prompts)
+if [ "$OPERATION" != "apply_bundle" ]; then
+  # Source user profiles (in order of precedence)
+  if [ -f "$HOME/.bash_profile" ]; then
+    . "$HOME/.bash_profile" >/dev/null 2>&1 || true
+  elif [ -f "$HOME/.bash_login" ]; then
+    . "$HOME/.bash_login" >/dev/null 2>&1 || true
+  elif [ -f "$HOME/.profile" ]; then
+    . "$HOME/.profile" >/dev/null 2>&1 || true
+  fi
+
+  # Source bashrc if it exists (for non-login shells)
+  if [ -f "$HOME/.bashrc" ]; then
+    . "$HOME/.bashrc" >/dev/null 2>&1 || true
+  fi
+fi
+
+# After sourcing all profiles, check if Git is available
+# If not found, try to extract Git path from environment or search common paths
+if ! command -v git >/dev/null 2>&1; then
+  # First, check if PATH environment variable contains a git directory
+  git_found=0
+  if [ -n "$PATH" ]; then
+    # Split PATH and check each directory for git executable
+    OLD_IFS="$IFS"
+    IFS=":"
+    for dir in $PATH; do
+      if [ -x "$dir/git" ]; then
+        git_found=1
+        break
+      fi
+    done
+    IFS="$OLD_IFS"
+  fi
+
+  # If still not found, search common z/OS Git installation paths
+  if [ $git_found -eq 0 ]; then
+    for git_path in "/usr/lpp/IBM/foz/v1r1/bin" "/usr/local/zopen/usr/local/bin" "/usr/lpp/IBM/git/bin" "/opt/freeware/bin" "/usr/local/bin"; do
+      if [ -d "$git_path" ] && [ -x "$git_path/git" ]; then
+        export PATH="$PATH:$git_path"
+        break
+      fi
+    done
+  fi
+fi
+
+# ============================================
+# OPERATION: apply_bundle
+# ============================================
+if [ "$OPERATION" = "apply_bundle" ]; then
+  echo "=== Applying Git Bundle ===" >&2
+
+  bundle_file="${TMPDIR_PATH}/${BUNDLE_NAME}"
+
+  # Verify bundle file exists
+  if [ ! -f "$bundle_file" ]; then
+    echo "Error: Bundle file not found: $bundle_file" >&2
+    exit 1
+  fi
+
+  # Step 1: Tag bundle as binary (critical for z/OS)
+  if [ "$zos" = "True" ]; then
+    echo "Tagging bundle as binary..." >&2
+    chtag -b "$bundle_file" 2>/dev/null || true
+  fi
+
+  # Step 2: Initialize repository if needed
+  if [ ! -d "$REPO_PATH/.git" ]; then
+    echo "Initializing repository..." >&2
+    mkdir -p "$REPO_PATH"
+    cd "$REPO_PATH" || exit 1
+    git init >/dev/null 2>&1
+    echo "[OK] Repository initialized" >&2
+  else
+    cd "$REPO_PATH" || exit 1
+  fi
+
+  # Step 3: Reset to clean state (only if repository has commits)
+  echo "Resetting to clean state..." >&2
+  if git rev-parse HEAD >/dev/null 2>&1; then
+    git reset --hard HEAD >/dev/null 2>&1
+    git clean -fdx >/dev/null 2>&1
+  fi
+  echo "[OK] Repository cleaned" >&2
+
+  # Step 4: Verify bundle integrity
+  echo "Verifying bundle..." >&2
+  verify_output=$(git bundle verify "$bundle_file" 2>&1)
+  verify_status=$?
+  if [ $verify_status -ne 0 ]; then
+    echo "Error: Bundle verification failed" >&2
+    echo "" >&2
+    echo "=== Troubleshooting Information ===" >&2
+    echo "Bundle file: $bundle_file" >&2
+    if [ -f "$bundle_file" ]; then
+      echo "Bundle exists: YES" >&2
+      echo "Bundle size: $(ls -lh "$bundle_file" 2>/dev/null | awk '{print $5}')" >&2
+      if [ "$zos" = "True" ]; then
+        echo "Bundle tag: $(ls -T "$bundle_file" 2>/dev/null | awk '{print $2}')" >&2
+      fi
+    else
+      echo "Bundle exists: NO" >&2
+    fi
+    echo "Git version: $(git --version 2>&1)" >&2
+    echo "Git location: $(command -v git 2>&1)" >&2
+    echo "Current directory: $(pwd)" >&2
+    echo "" >&2
+    echo "Git bundle verify output:" >&2
+    echo "$verify_output" >&2
+    echo "" >&2
+    echo "Common causes:" >&2
+    echo "  1. Bundle file corrupted during transfer (check file size)" >&2
+    echo "  2. Bundle not tagged as binary on z/OS (should be 'b binary')" >&2
+    echo "  3. Git version incompatibility" >&2
+    echo "  4. Insufficient disk space in $TMPDIR_PATH" >&2
+    echo "" >&2
+    echo "Try running with --debug flag for more details:" >&2
+    echo "  grub_client gitBundle --hostname <host> --remoteWorkspace <path> --debug" >&2
+    rm -f "$bundle_file"
+    exit 1
+  fi
+  echo "[OK] Bundle verified" >&2
+
+  # Step 5: Fetch from bundle
+  # Note: do not specify a refspec - fetching HEAD by name is not reliable for all bundle types.
+  # Fetching without a refspec pulls all advertised refs from the bundle.
+  echo "Fetching from bundle..." >&2
+  if ! git fetch "$bundle_file" >/dev/null 2>&1; then
+    echo "Error: Failed to fetch from bundle" >&2
+    rm -f "$bundle_file"
+    exit 1
+  fi
+  echo "[OK] Bundle fetched" >&2
+
+  # Step 6: Merge changes from bundle (creates commits for delta bundles)
+  echo "Applying changes to working directory..." >&2
+
+  # Configure git user if not set (needed for merge commits)
+  if ! git config user.email >/dev/null 2>&1; then
+    git config user.email "grub@zos.ibm.com" >/dev/null 2>&1
+    git config user.name "GRUB Server" >/dev/null 2>&1
+  fi
+
+  # Try to merge, if it fails due to conflicts, use reset
+  if ! git merge FETCH_HEAD --no-edit --allow-unrelated-histories >/dev/null 2>&1; then
+    # Merge failed (likely conflicts), force update with reset
+    echo "Merge conflicts detected, forcing update..." >&2
+    if ! git reset --hard FETCH_HEAD >/dev/null 2>&1; then
+      echo "Error: Failed to apply bundle changes" >&2
+      rm -f "$bundle_file"
+      exit 1
+    fi
+  fi
+  echo "[OK] Changes applied and committed" >&2
+
+  # Step 7: Checkout the correct branch so the remote working directory matches
+  # the local branch. Without this, switching branches locally has no effect on
+  # the remote -- it stays on whatever branch it was initialised with.
+  if [ -n "$BRANCH" ]; then
+    echo "Checking out branch: $BRANCH" >&2
+    if git rev-parse --verify "$BRANCH" >/dev/null 2>&1; then
+      # Branch already exists -- just check it out and reset to FETCH_HEAD
+      git checkout "$BRANCH" >/dev/null 2>&1 && git reset --hard FETCH_HEAD >/dev/null 2>&1 || true
+    else
+      # Branch doesn't exist on remote yet -- create it pointing at FETCH_HEAD
+      git checkout -b "$BRANCH" FETCH_HEAD >/dev/null 2>&1 || true
+    fi
+    echo "[OK] Branch checked out: $BRANCH" >&2
+  fi
+
+  # Step 8: Handle encoding for z/OS
+  if [ "$zos" = "True" ] && [ -f .gitattributes ]; then
+    echo "Converting file encodings for z/OS..." >&2
+
+    # Tag .gitattributes as UTF-8 so Git can read it properly (matches proven gitpatch.ts approach)
+    chtag -tc UTF-8 .gitattributes 2>/dev/null || true
+
+    # Get list of modified files
+    modified_files=$(git diff --cached --name-only 2>/dev/null)
+
+    if [ -n "$modified_files" ]; then
+      echo "$modified_files" | while read -r file; do
+        if [ -n "$file" ] && [ -f "$file" ]; then
+          # Determine target encoding from .gitattributes
+          target_encoding=""
+
+          # Look for working-tree-encoding attribute
+          # Process all lines to let more specific patterns override wildcards (last match wins)
+          while read -r line; do
+            # Skip comments and empty lines
+            case "$line" in
+              \#*|"") continue ;;
+            esac
+
+            # Extract pattern and attributes
+            pattern=$(echo "$line" | awk '{print $1}')
+            attrs=$(echo "$line" | cut -d' ' -f2-)
+
+            # Check if file matches pattern
+            case "$file" in
+              $pattern)
+                # Look for working-tree-encoding or zos-working-tree-encoding attribute
+                if echo "$attrs" | grep -q "zos-working-tree-encoding="; then
+                  # Extract encoding value for zos-working-tree-encoding
+                  target_encoding=$(echo "$attrs" | sed 's/.*zos-working-tree-encoding=\([^ ]*\).*/\1/')
+                elif echo "$attrs" | grep -q "working-tree-encoding="; then
+                  # Extract encoding value for working-tree-encoding
+                  target_encoding=$(echo "$attrs" | sed 's/.*working-tree-encoding=\([^ ]*\).*/\1/')
+                fi
+                ;;
+            esac
+          done < .gitattributes
+
+          # Apply encoding if found (using -t -c flags separately for compatibility)
+          if [ -n "$target_encoding" ]; then
+            case "$target_encoding" in
+              IBM-1047|EBCDIC)
+                chtag -t -c IBM-1047 "$file" 2>/dev/null || true
+                ;;
+              UTF-8|ASCII)
+                chtag -t -c UTF-8 "$file" 2>/dev/null || true
+                ;;
+              ISO8859-1)
+                chtag -t -c ISO8859-1 "$file" 2>/dev/null || true
+                ;;
+            esac
+          fi
+        fi
+      done
+      echo "[OK] File encodings converted" >&2
+    fi
+  fi
+
+  # Step 9: Strip the GRUB temporary commit from the remote so the next run
+  # can detect "remote is up-to-date" correctly. The temp commit message is
+  # always the same string set by grub_client.
+  # Use --soft so the working tree and index retain the user's changes.
+  remote_msg=$(git log -1 --format="%s" 2>/dev/null)
+  if echo "$remote_msg" | grep -q "GRUB temporary commit"; then
+    git reset --soft HEAD^1 >/dev/null 2>&1
+    echo "[OK] Remote temporary commit stripped" >&2
+  fi
+
+  # Step 10: Cleanup bundle file (preserve if requested)
+  if [ "$PRESERVE_BUNDLE" = "True" ]; then
+    if [ "$DEBUG_MODE" = "True" ]; then
+      echo "[DEBUG] Preserving bundle file at: $bundle_file" >&2
+    else
+      echo "Bundle preserved at: $bundle_file" >&2
+    fi
+  else
+    rm -f "$bundle_file"
+  fi
+  echo "[OK] Bundle applied successfully" >&2
+
+  exit 0
+fi

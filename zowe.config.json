@@ -89,13 +89,9 @@
                 "port": 6800,
                 "basePath": "rseapi",
                 "protocol": "https",
-                "rejectUnauthorized": false,
-                "authOrder": "token, bearer",
-                "tokenType": "LtpaToken2"
+                "rejectUnauthorized": false
             },
-            "secure": [
-                "tokenValue"
-            ]
+            "secure": []
         },
         "zftp": {
             "type": "zftp",
