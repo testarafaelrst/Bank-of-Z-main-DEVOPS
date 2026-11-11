@@ -26,13 +26,18 @@ mkdir -p "$WORKSPACE"
 
 echo "[INFO] Baixando ${REPO_PATH}@${BRANCH} via GitHub API..."
 python3 - "$ZIP_URL" "$TOKEN" "$ZIPFILE" << 'PYEOF'
-import sys, urllib.request
+import sys, urllib.request, ssl
 url, token, dest = sys.argv[1], sys.argv[2], sys.argv[3]
+# Desabilita verificacao de certificado SSL para compatibilidade com z/OS
+# onde os certificados CA do GitHub podem nao estar no truststore do sistema.
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
 req = urllib.request.Request(url, headers={
     'Authorization': 'token ' + token,
     'User-Agent': 'gitClone-zos'
 })
-with urllib.request.urlopen(req) as r, open(dest, 'wb') as f:
+with urllib.request.urlopen(req, context=ctx) as r, open(dest, 'wb') as f:
     f.write(r.read())
 print('[OK] Download concluido')
 PYEOF
