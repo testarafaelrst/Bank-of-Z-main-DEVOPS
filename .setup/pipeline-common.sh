@@ -266,8 +266,13 @@ main() {
         # differs from that static path, so we override them here.
         export DBB_CWD="${BANK_DIR}/"
         export DBB_APP_CONF="${BANK_DIR}/dbb-app.yaml"
+        export DBB_BUILD="${BANK_DIR}/.setup/build"
+        export DBB_BUILD_PATH="${BANK_DIR}/.setup/build"
+        export ZBUILDER_SOURCE="${BANK_DIR}/.setup/build"
+        export DBB_LOG_FOLDER="${BANK_OF_Z_WORK_DIR}/logs/dbb"
         export SCAN_SOURCE_FOLDER="${BANK_DIR}/src/base"
         export SCAN_RULE_FILE="${BANK_DIR}/zcodescan/zcodescan-rules.yaml"
+        export SCAN_OUTPUT_FOLDER="${BANK_OF_Z_WORK_DIR}/zcodescan"
         export DEPLOY_DEPLOYMENT_METHOD="${BANK_DIR}/.setup/deploy/deployment-method.yml"
         export DEPLOY_ENV_FILE="${BANK_DIR}/.setup/deploy/Development.yml"
         export DEPLOY_TYPES_MAPPING_FILES="${BANK_DIR}/.setup/deploy/types_pattern_mapping.yml"
