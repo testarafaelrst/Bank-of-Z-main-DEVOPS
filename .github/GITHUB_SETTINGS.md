@@ -24,12 +24,12 @@ no repositório **https://github.ibm.com/rafael-testa/Bank-of-Z**.
 
 | Variable | Valor de exemplo | Descrição |
 |----------|-----------------|-----------|
-| `ZOS_HOST` | `zos-server.empresa.com` | Hostname ou IP do z/OS |
-| `ZOS_SSH_USER` | `RAFATST` | Usuário SSH no z/OS |
-| `ZOS_SSH_PORT` | `22` | Porta SSH (padrão 22, ou 1022 se diferente) |
-| `ZOS_SANDBOX_DIR` | `/usr/local/sandboxes` | Diretório base do workspace no z/OS USS |
+| `ZOS_HOST` | `ESYSMVS.wsclab.washington.ibm.com` | Hostname do z/OS |
+| `ZOS_SSH_USER` | `rafaelt` | Usuário SSH no z/OS |
+| `ZOS_SSH_PORT` | `22` | Porta SSH |
+| `ZOS_SANDBOX_DIR` | `/u/rafaelt/projects` | Diretório base do workspace no z/OS USS |
 | `BOZ_BUILD_HLQ` | `BANKZ` | HLQ destino dos artefatos compilados |
-| `BOZ_FRONTEND_URL` | `http://<zos-host>:9081` | URL do frontend Bank of Z |
+| `BOZ_FRONTEND_URL` | `http://ESYSMVS.wsclab.washington.ibm.com:9081` | URL do frontend Bank of Z |
 
 ---
 
