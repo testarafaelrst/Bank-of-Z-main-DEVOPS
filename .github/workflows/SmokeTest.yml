@@ -1,0 +1,106 @@
+name: boz-smoke-test
+
+# =============================================================================
+# Bank of Z — Smoke Test (sem DBB)
+#
+# Valida a estrutura do pipeline sem executar o build DBB:
+#   1. Conectividade SSH ao z/OS
+#   2. Clone do repositório no z/OS USS
+#   3. Verificação do workspace criado
+#
+# Uso: executar manualmente via Actions → Run workflow
+# Remover este workflow quando o ambiente com DBB estiver disponível.
+# =============================================================================
+
+on:
+    workflow_dispatch:
+
+env:
+    uniqueWorkspaceId: ${{ vars.ZOS_SANDBOX_DIR }}/smoke/${{ github.ref_name }}/run_${{ github.run_number }}
+    zosHost: ${{ vars.ZOS_HOST }}
+    zosPort: ${{ vars.ZOS_SSH_PORT || '22' }}
+    application: ${{ github.event.repository.name }}
+
+jobs:
+    # -------------------------------------------------------------------------
+    # 1. Parâmetros
+    # -------------------------------------------------------------------------
+    controller:
+        runs-on: self-hosted
+        steps:
+            - name: print-parameters
+              run: |
+                  echo "Bank of Z — Smoke Test"
+                  echo "*******************************************"
+                  echo "Run ID      = ${{ github.run_number }}"
+                  echo "Branch      = ${{ github.ref_name }}"
+                  echo "z/OS Host   = ${{ env.zosHost }}"
+                  echo "Workspace   = ${{ env.uniqueWorkspaceId }}"
+
+    # -------------------------------------------------------------------------
+    # 2. Testar conectividade SSH
+    # -------------------------------------------------------------------------
+    ssh-check:
+        needs: controller
+        runs-on: self-hosted
+        steps:
+            - name: test-ssh-connectivity
+              run: |
+                  echo "🔌 Testando conexão SSH com ${{ env.zosHost }}..."
+
+                  KEY_FILE=$(mktemp)
+                  chmod 600 "$KEY_FILE"
+                  echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
+
+                  ssh -i "$KEY_FILE" \
+                      -p ${{ env.zosPort }} \
+                      -o StrictHostKeyChecking=no \
+                      -o BatchMode=yes \
+                      -o ConnectTimeout=15 \
+                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
+                      'echo "✅ SSH OK — $(whoami)@$(uname -n) — $(uname -s)"'
+
+                  rm -f "$KEY_FILE"
+                  echo "✅ Conectividade SSH validada"
+
+    # -------------------------------------------------------------------------
+    # 3. Clonar repositório no z/OS USS
+    # -------------------------------------------------------------------------
+    clone:
+        needs: ssh-check
+        runs-on: self-hosted
+        steps:
+            - name: clone-repo-to-uss
+              run: |
+                  echo "📥 Clonando repositório no z/OS..."
+
+                  KEY_FILE=$(mktemp)
+                  chmod 600 "$KEY_FILE"
+                  echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
+
+                  ssh -i "$KEY_FILE" \
+                      -p ${{ env.zosPort }} \
+                      -o StrictHostKeyChecking=no \
+                      -o BatchMode=yes \
+                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} << ENDSSH
+                    set -e
+                    mkdir -p "${{ env.uniqueWorkspaceId }}"
+                    rm -rf "${{ env.uniqueWorkspaceId }}/${{ env.application }}"
+
+                    git clone \
+                      --depth 1 \
+                      --branch "${{ github.ref_name }}" \
+                      "https://${{ secrets.GH_ACTIONS_PAT }}@github.ibm.com/rafael-testa/Bank-of-Z.git" \
+                      "${{ env.uniqueWorkspaceId }}/${{ env.application }}"
+
+                    echo "✅ Clone OK"
+                    echo "📁 Conteúdo:"
+                    ls "${{ env.uniqueWorkspaceId }}/${{ env.application }}"
+
+                    echo "🧹 Limpando workspace de smoke test..."
+                    rm -rf "${{ env.uniqueWorkspaceId }}"
+                    echo "✅ Limpeza concluída"
+                  ENDSSH
+
+                  rm -f "$KEY_FILE"
+                  echo "✅ Clone e limpeza concluídos"
