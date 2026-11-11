@@ -66,7 +66,7 @@ jobs:
     # 1. Print pipeline parameters
     # -------------------------------------------------------------------------
     controller:
-        runs-on: ubuntu-latest
+        runs-on: [self-hosted, macOS, ARM64]
         steps:
             - name: pipeline-parameters
               run: |
@@ -87,7 +87,7 @@ jobs:
     # -------------------------------------------------------------------------
     clone:
         needs: controller
-        runs-on: ubuntu-latest
+        runs-on: [self-hosted, macOS, ARM64]
         steps:
             - name: clone-repository-to-uss
               run: |
@@ -102,7 +102,7 @@ jobs:
     # -------------------------------------------------------------------------
     static-scan:
         needs: clone
-        runs-on: ubuntu-latest
+        runs-on: [self-hosted, macOS, ARM64]
         steps:
             - name: run-zcodescan
               run: |
@@ -118,7 +118,7 @@ jobs:
     # -------------------------------------------------------------------------
     build:
         needs: static-scan
-        runs-on: ubuntu-latest
+        runs-on: [self-hosted, macOS, ARM64]
         outputs:
             build-artifact-path: ${{ steps.dbb.outputs.build-artifact-path }}
             logs-artifact-path: ${{ steps.dbb.outputs.logs-artifact-path }}
@@ -144,7 +144,7 @@ jobs:
     # -------------------------------------------------------------------------
     deploy:
         needs: build
-        runs-on: ubuntu-latest
+        runs-on: [self-hosted, macOS, ARM64]
         if: ${{ github.event_name != 'pull_request' }}
         steps:
             - name: run-wazi-deploy
@@ -164,7 +164,7 @@ jobs:
         needs:
             - build
             - deploy
-        runs-on: ubuntu-latest
+        runs-on: [self-hosted, macOS, ARM64]
         if: ${{ always() && needs.build.result == 'success' && (needs.deploy.result == 'success' || needs.deploy.result == 'skipped') }}
         steps:
             - name: run-verification-tests
