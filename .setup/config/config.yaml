@@ -28,8 +28,8 @@ global:
   zcb_home: "{{ global.sandbox_root }}/tools/zrb/cics-resource-builder-1.0.6"
   dbb_home: "/shared/IBM/dbb"
   gradle_home:  "{{ global.sandbox_root }}/tools/gradle-9.5.1"
-  zcodescan_home: "/shared/IBM/akf"
-  wazideploy_home: "/shared/IBM/gdp"
+  zcodescan_home: "/u/rafaelt/pyenv/akf"
+  wazideploy_home: "/u/rafaelt/pyenv/gdp"
   zosconnect_home: "/usr/lpp/IBM/zosconnect"
   liberty_home: "/usr/lpp/liberty_zos/25.0.0.9"
 
