@@ -10,7 +10,7 @@ version: "1.0.0"
 global:
 
   # Sandbox
-  sandbox_root: "/usr/local/sandboxes"
+  sandbox_root: "/u/rafaelt/projects"
 
   # Application
   app_base_name: "BANKZ"
@@ -21,15 +21,15 @@ global:
   app_modification: "0"
 
   # Tools
-  java_home: "{{ sandbox.root }}/tools/J21.0_64"
-  python_home: "/usr/lpp/IBM/cyp/v3r14/pyz"
-  zoau_home: "/usr/lpp/IBM/zoau"  # versioned installs: /usr/lpp/IBM/zoau/v1r4 or /usr/lpp/IBM/zoau/v1r3  pre-1.3: /usr/lpp/IBM/zoautil
+  java_home: "/usr/lpp/java/J21.0_64"
+  python_home: "/shared/IBM/cyp/v3r14/pyz"
+  zoau_home: "/usr/lpp/IBM/zoau/v1r4"
   zconfig_home: "{{ global.sandbox_root }}/tools/zconfig"
   zcb_home: "{{ global.sandbox_root }}/tools/zrb/cics-resource-builder-1.0.6"
-  dbb_home: "{{ global.sandbox_root }}/tools/dbb"
+  dbb_home: "/shared/IBM/dbb"
   gradle_home:  "{{ global.sandbox_root }}/tools/gradle-9.5.1"
-  zcodescan_home: "/global/opt/pyenv/akf"
-  wazideploy_home: "/global/opt/pyenv/gdp"
+  zcodescan_home: "/shared/IBM/akf"
+  wazideploy_home: "/shared/IBM/gdp"
   zosconnect_home: "/usr/lpp/IBM/zosconnect"
   liberty_home: "/usr/lpp/liberty_zos/25.0.0.9"
 
