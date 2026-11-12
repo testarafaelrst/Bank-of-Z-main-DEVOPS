@@ -104,9 +104,9 @@ TARGET_DIR="$WORKSPACE/$REPO_NAME"
 # nos runs 42, 44, 49). Com copyMode:BINARY + arquivo IBM-1047, nao ha
 # conversao — bytes EBCDIC vao direto para o dataset.
 #
-# ZCodeScan: chamado com _BPXK_AUTOCVT=OFF em task-zcodescan-static-scan.sh
-# para receber bytes EBCDIC brutos dos arquivos IBM-1047 tagados.
-# zcodescan -e IBM-1047 decodifica corretamente.
+# ZCodeScan: usa chtag -r (remove tag) antes do scan para que AUTOCVT=ON
+# nao converta EBCDIC->ASCII automaticamente. Com arquivo sem tag + AUTOCVT=ON,
+# o z/OS passa os bytes EBCDIC brutos, e zcodescan -e IBM-1047 decodifica.
 
 echo "[INFO] Taggeando arquivos nao-mainframe como ISO8859-1..."
 find "$TARGET_DIR" -type f \
@@ -121,10 +121,16 @@ find "$TARGET_DIR" -type f \
   -exec chtag -tc ISO8859-1 {} \; 2>/dev/null
 
 echo "[INFO] Convertendo fontes mainframe e Groovy para EBCDIC (IBM-1047)..."
-# IMPORTANTE: chmod u+w ANTES do iconv — os ZIPs do GitHub extraem arquivos
-# somente-leitura (a+r sem w). O iconv grava em "$f.ebcdic" e o mv substitui
-# "$f", mas mv falha silenciosamente se "$f" for read-only, deixando o arquivo
-# em ASCII tagado como IBM-1047 (causa do erro [ERROR - lexing] Line 1 no ZCodeScan).
+# IMPORTANTE — duas armadilhas do z/OS corrigidas aqui:
+#
+# 1. chmod u+w ANTES do iconv: os ZIPs do GitHub extraem arquivos somente-leitura
+#    (a+r sem w). O mv falha silenciosamente se "$f" for read-only.
+#
+# 2. _BPXK_AUTOCVT=OFF DURANTE o iconv: com AUTOCVT=ON, o redirecionamento
+#    '> "$f.ebcdic"' intercepta o stdout EBCDIC do iconv e faz uma segunda
+#    conversao EBCDIC->UTF-8 ao gravar em disco. O resultado e um arquivo UTF-8
+#    (bytes C2 80 etc.), nao IBM-1047. Com AUTOCVT=OFF, os bytes EBCDIC do iconv
+#    vao direto para o arquivo sem re-conversao.
 find "$TARGET_DIR" \( \
   -name "*.cbl"  -o -name "*.cpy"  -o -name "*.pli"  -o -name "*.inc"  \
   -o -name "*.jcl"  -o -name "*.proc" -o -name "*.cntl" \
@@ -140,7 +146,12 @@ find "$TARGET_DIR" \( \
   -o -name "*.rexx" -o -name "*.asm"  -o -name "*.bms"  \
   -o -name "*.groovy" \
 \) -type f | while read f; do
-  if iconv -f ISO8859-1 -t IBM-1047 "$f" > "$f.ebcdic" 2>/dev/null \
+  # _BPXK_AUTOCVT=OFF deve ser definido NO SUBSHELL que executa o iconv E o
+  # redirecionamento '>'. Com "VAR=val cmd > file", o z/OS usa o AUTOCVT do
+  # shell pai para abrir o file descriptor antes de exportar VAR para o filho.
+  # Usar 'env VAR=val sh -c "cmd > file"' garante que o subshell inteiro
+  # (incluindo a abertura do fd de saida) rode com AUTOCVT=OFF.
+  if (export _BPXK_AUTOCVT=OFF; iconv -f ISO8859-1 -t IBM-1047 "$f" > "$f.ebcdic" 2>/dev/null) \
       && mv "$f.ebcdic" "$f" 2>/dev/null \
       && chtag -tc IBM-1047 "$f" 2>/dev/null; then
     CONVERT_OK=$((CONVERT_OK+1))
