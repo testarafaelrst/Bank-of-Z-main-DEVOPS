@@ -14,7 +14,7 @@ global:
 
   # Application
   app_base_name: "BANKZ"
-  app_hlq: "{{ global.app_base_name }}"
+  app_hlq: "RAFAELT"
   app_short_name: "BOZ" # Maximum 3 characters
   app_version: "0"
   app_release: "1"
