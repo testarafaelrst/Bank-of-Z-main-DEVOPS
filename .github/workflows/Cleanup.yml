@@ -14,18 +14,14 @@ on:
     workflow_dispatch:
         inputs:
             pipeline:
-                description: "Pipeline a limpar (batch-pipeline ou pipeline)"
+                description: "Pipeline a limpar"
                 required: false
-                default: "batch-pipeline"
+                default: "all"
                 type: choice
                 options:
+                    - all
                     - batch-pipeline
                     - pipeline
-                    - all
-            keep_last:
-                description: "Número de runs mais recentes a manter (0 = remove todos)"
-                required: false
-                default: "0"
 
 jobs:
     cleanup:
@@ -33,44 +29,66 @@ jobs:
         runs-on: [self-hosted, macOS, ARM64]
         steps:
             - name: cleanup-workspaces
+              env:
+                  ZOS_SSH_KEY: ${{ secrets.ZOS_SSH_KEY }}
+                  ZOS_HOST: ${{ vars.ZOS_HOST }}
+                  ZOS_PORT: ${{ vars.ZOS_SSH_PORT || '22' }}
+                  ZOS_USER: ${{ vars.ZOS_SSH_USER }}
+                  SANDBOX: ${{ vars.ZOS_SANDBOX_DIR }}
+                  REPO: ${{ github.repository }}
+                  PIPELINE: ${{ github.event.inputs.pipeline || 'all' }}
               run: |
                   KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
-                  echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
-                  SSH_OPTS="-i $KEY_FILE -p ${{ vars.ZOS_SSH_PORT || '22' }} -o StrictHostKeyChecking=no"
-                  KEEP="${{ github.event.inputs.keep_last || '0' }}"
-                  PIPELINE="${{ github.event.inputs.pipeline || 'batch-pipeline' }}"
-                  SANDBOX="${{ vars.ZOS_SANDBOX_DIR }}"
-                  REPO="${{ github.repository }}"
+                  echo "$ZOS_SSH_KEY" > "$KEY_FILE"
 
-                  ssh $SSH_OPTS ${{ vars.ZOS_SSH_USER }}@${{ vars.ZOS_HOST }} << ENDSSH
+                  ssh -i "$KEY_FILE" -p "$ZOS_PORT" -o StrictHostKeyChecking=no \
+                    "$ZOS_USER@$ZOS_HOST" \
+                    "SANDBOX='$SANDBOX' REPO='$REPO' PIPELINE='$PIPELINE' sh -s" << 'SCRIPT'
                     set +e
+                    echo "=== SANDBOX: $SANDBOX ==="
+                    echo "=== REPO:    $REPO ==="
+                    echo "=== PIPELINE: $PIPELINE ==="
 
-                    cleanup_branch() {
-                      local base="\$1"
-                      local keep="\$2"
-                      echo "[INFO] Limpando: \$base (keep=\$keep)"
-                      if [ ! -d "\$base" ]; then
-                        echo "[SKIP] Diretório não existe: \$base"
+                    echo ""
+                    echo "=== DISCO ANTES DA LIMPEZA ==="
+                    df -k "$SANDBOX" 2>/dev/null || df -k /
+
+                    echo ""
+                    echo "=== TOP 10 MAIORES ITENS ==="
+                    du -sk "$SANDBOX"/*/ 2>/dev/null | sort -rn | head -10
+
+                    do_cleanup() {
+                      base="$1"
+                      echo "[INFO] Limpando: $base"
+                      if [ ! -d "$base" ]; then
+                        echo "[SKIP] Nao existe: $base"
                         return
                       fi
-                      if [ "\$keep" -eq 0 ]; then
-                        find "\$base" -maxdepth 1 -name 'run_*' -type d -exec rm -rf {} \; 2>/dev/null
-                      else
-                        find "\$base" -maxdepth 1 -name 'run_*' -type d | sort -V | head -n -\$keep | xargs -r rm -rf 2>/dev/null
-                      fi
-                      echo "[OK] Limpeza concluída em \$base"
+                      find "$base" -maxdepth 2 -name 'run_*' -type d -exec rm -rf {} \; 2>/dev/null
+                      echo "[OK] Limpo: $base"
                     }
 
-                    if [ "$PIPELINE" = "all" ]; then
-                      cleanup_branch "${SANDBOX}/batch-pipeline/${REPO}/main" "$KEEP"
-                      cleanup_branch "${SANDBOX}/pipeline/${REPO}/main" "$KEEP"
-                    else
-                      cleanup_branch "${SANDBOX}/${PIPELINE}/${REPO}/main" "$KEEP"
+                    echo ""
+                    echo "=== LIMPANDO WORKSPACES ==="
+                    if [ "$PIPELINE" = "all" ] || [ "$PIPELINE" = "batch-pipeline" ]; then
+                      do_cleanup "$SANDBOX/batch-pipeline/$REPO/main"
+                    fi
+                    if [ "$PIPELINE" = "all" ] || [ "$PIPELINE" = "pipeline" ]; then
+                      do_cleanup "$SANDBOX/pipeline/$REPO/main"
                     fi
 
                     echo ""
-                    echo "[INFO] Uso de disco após limpeza:"
-                    df -k "${SANDBOX}" 2>/dev/null || df -k / 2>/dev/null
-                  ENDSSH
+                    echo "=== LIMPANDO /tmp ==="
+                    find /tmp -maxdepth 1 -name 'repo_*.zip' -exec rm -f {} \; 2>/dev/null || true
+                    find /tmp -maxdepth 1 -name 'zcodescan_*.log' -exec rm -f {} \; 2>/dev/null || true
+                    find /tmp -maxdepth 1 -name 'dbb_build_*.log' -exec rm -f {} \; 2>/dev/null || true
+
+                    echo ""
+                    echo "=== DISCO APOS LIMPEZA ==="
+                    df -k "$SANDBOX" 2>/dev/null || df -k /
+                    df -k /tmp 2>/dev/null
+
+                    echo "[OK] Cleanup concluido"
+                  SCRIPT
 
                   rm -f "$KEY_FILE"
