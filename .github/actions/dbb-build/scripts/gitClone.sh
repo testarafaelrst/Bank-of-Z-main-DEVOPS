@@ -85,34 +85,24 @@ fi
 
 TARGET_DIR="$WORKSPACE/$REPO_NAME"
 
-# Tagear arquivos extraidos do ZIP do GitHub (todos em ASCII/ISO8859-1):
+# Tagear arquivos extraidos do ZIP do GitHub (todos em ASCII/ISO8859-1).
 #
-# Arquivos fonte mainframe (COBOL, JCL, PL/I, REXX, ASM, copybooks, BMS):
-#   Converter conteudo ASCII->EBCDIC via iconv e tagar como IBM-1047.
-#   O DBB 3.x e os compiladores z/OS esperam EBCDIC no USS.
-#   Sem conversao, o DBB faz ASCII->EBCDIC ao copiar para dataset e gera
-#   truncation se interpretar o arquivo como ja sendo EBCDIC.
-#
-# Arquivos de configuracao (YAML, JSON, shell, properties):
-#   Manter como ISO8859-1 (ASCII) — o DBB 3.x le config em ASCII.
-#
-# Arquivos Groovy: converter ASCII->EBCDIC (JVM z/OS carrega como EBCDIC)
-# Arquivos binarios: sem tag
+# Estrategia: tagar TUDO como ISO8859-1 (ASCII).
+#   - O DBB 3.x com copyMode:TEXT converte automaticamente ISO8859-1 -> EBCDIC
+#     ao copiar para datasets z/OS. Isso e o comportamento correto.
+#   - Arquivos de configuracao (YAML, shell) ja esperam ISO8859-1.
+#   - Arquivos Groovy precisam ser convertidos para EBCDIC (JVM z/OS).
+#   - NAO converter fontes mainframe com iconv — deixar o DBB fazer isso
+#     via copyMode:TEXT para evitar double-conversion com _BPXK_AUTOCVT=ON.
 
-echo "[INFO] Convertendo arquivos fonte mainframe ASCII->EBCDIC (IBM-1047)..."
-for ext in cbl cpy pli bms jcl rexx rex asm mfs lnk bnd csd; do
-  find "$TARGET_DIR" -type f -name "*.$ext" | while read f; do
-    iconv -f ISO8859-1 -t IBM-1047 "$f" > "$f.ebcdic" && \
-      mv "$f.ebcdic" "$f" && \
-      chtag -tc IBM-1047 "$f"
-  done
-done
-
-echo "[INFO] Taggeando arquivos de configuracao como ISO8859-1..."
-for ext in yaml yml sh properties json xml html css js md txt; do
-  find "$TARGET_DIR" -type f -name "*.$ext" \
-    -exec chtag -tc ISO8859-1 {} \; 2>/dev/null
-done
+echo "[INFO] Taggeando todos os arquivos texto como ISO8859-1..."
+find "$TARGET_DIR" -type f \
+  ! -name "*.class" ! -name "*.jar" ! -name "*.war" \
+  ! -name "*.zip"   ! -name "*.tar" ! -name "*.gz"  \
+  ! -name "*.png"   ! -name "*.jpg" ! -name "*.gif"  \
+  ! -name "*.ico"   ! -name "*.pdf" ! -name "*.bin"  \
+  ! -name "*.groovy" \
+  -exec chtag -tc ISO8859-1 {} \; 2>/dev/null
 
 echo "[INFO] Convertendo arquivos Groovy ASCII->EBCDIC (IBM-1047)..."
 find "$TARGET_DIR" -name "*.groovy" -type f | while read gf; do
@@ -120,7 +110,7 @@ find "$TARGET_DIR" -name "*.groovy" -type f | while read gf; do
   mv "$gf.ebcdic" "$gf"
   chtag -tc IBM-1047 "$gf"
 done
-echo "[INFO] Conversao e taggeamento concluidos"
+echo "[INFO] Taggeamento concluido"
 
 # Garantir permissoes corretas apos extracao do ZIP:
 #   - Todos os arquivos: leitura para todos (a+r)
