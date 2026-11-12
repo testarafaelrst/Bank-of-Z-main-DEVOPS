@@ -74,21 +74,30 @@ fi
 
 TARGET_DIR="$WORKSPACE/$REPO_NAME"
 
-# Tagger todos os arquivos texto como ISO8859-1 (ASCII-compativel).
-# O DBB 3.x le YAML, shell scripts e arquivos fonte em ISO8859-1.
-# Arquivos binarios (*.class, *.jar, *.war, *.zip) sao excluidos.
-echo "[INFO] Taggeando arquivos texto como ISO8859-1..."
-find "$TARGET_DIR" -type f \
-  ! -name "*.class" ! -name "*.jar" ! -name "*.war" \
-  ! -name "*.zip"   ! -name "*.tar" ! -name "*.gz"  \
-  ! -name "*.png"   ! -name "*.jpg" ! -name "*.gif"  \
-  ! -name "*.ico"   ! -name "*.pdf" ! -name "*.bin"  \
-  ! -name "*.groovy" \
-  -exec chtag -tc ISO8859-1 {} \; 2>/dev/null
+# Tagear arquivos por tipo:
+#
+# Arquivos fonte mainframe (COBOL, JCL, PL/I, REXX, ASM, copybooks, BMS):
+#   IBM-1047 (EBCDIC) — o DBB 3.x e o compilador z/OS esperam EBCDIC
+#
+# Arquivos de configuracao/infraestrutura (YAML, JSON, shell, properties):
+#   ISO8859-1 (ASCII) — o DBB 3.x le estes arquivos em ASCII
+#
+# Arquivos Groovy: IBM-1047 (EBCDIC) — JVM z/OS carrega como EBCDIC
+# Arquivos binarios: sem tag
 
-# Arquivos Groovy precisam ser convertidos para EBCDIC (IBM-1047) porque
-# o DBB 3.x carrega scripts Groovy como EBCDIC internamente via JVM z/OS.
-echo "[INFO] Convertendo arquivos Groovy para EBCDIC IBM-1047..."
+echo "[INFO] Taggeando arquivos fonte mainframe como IBM-1047..."
+for ext in cbl cpy pli bms jcl rexx rex asm mfs lnk bnd csd; do
+  find "$TARGET_DIR" -type f -name "*.$ext" \
+    -exec chtag -tc IBM-1047 {} \; 2>/dev/null
+done
+
+echo "[INFO] Taggeando arquivos de configuracao como ISO8859-1..."
+for ext in yaml yml sh properties json xml html css js md txt; do
+  find "$TARGET_DIR" -type f -name "*.$ext" \
+    -exec chtag -tc ISO8859-1 {} \; 2>/dev/null
+done
+
+echo "[INFO] Convertendo e taggeando arquivos Groovy para IBM-1047..."
 find "$TARGET_DIR" -name "*.groovy" -type f | while read gf; do
   iconv -f ISO8859-1 -t IBM-1047 "$gf" > "$gf.ebcdic"
   mv "$gf.ebcdic" "$gf"

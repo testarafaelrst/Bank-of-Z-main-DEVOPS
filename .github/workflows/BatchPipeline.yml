@@ -112,14 +112,16 @@ jobs:
               run: |
                   KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
                   echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
-                  # Remove workspaces com mais de 2 dias para liberar espaco em disco
+                  # Remove workspaces de runs anteriores (mantém apenas o run atual)
+                  # e qualquer run com mais de 1 hora para liberar disco durante dev ativo
+                  CURRENT_RUN="run_${{ github.run_number }}"
                   ssh -i "$KEY_FILE" \
                       -p ${{ env.zosPort }} \
                       -o StrictHostKeyChecking=no \
                       ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
                       "BASE=${{ vars.ZOS_SANDBOX_DIR }}/batch-pipeline/${{ github.repository }}/${{ env.branch }} && \
-                       find \$BASE -maxdepth 1 -name 'run_*' -type d -mtime +2 -exec rm -rf {} \; 2>/dev/null || true && \
-                       echo 'Cleanup done'"
+                       find \$BASE -maxdepth 1 -name 'run_*' -type d ! -name ${CURRENT_RUN} -exec rm -rf {} \; 2>/dev/null || true && \
+                       echo 'Cleanup done — kept ${CURRENT_RUN}'"
                   rm -f "$KEY_FILE"
 
             - name: clone-repository-to-uss
