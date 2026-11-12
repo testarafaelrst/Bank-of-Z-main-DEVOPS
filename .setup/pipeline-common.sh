@@ -19,29 +19,48 @@ set -e  # Exit on error
 SCRIPTS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPTS_DIR/config/setenv.sh"
 
+# Carrega funções de monitoramento se disponíveis (não falha se ausente)
+# shellcheck source=.setup/lib/pipeline-monitor.sh
+if [ -f "$SCRIPTS_DIR/lib/pipeline-monitor.sh" ]; then
+    source "$SCRIPTS_DIR/lib/pipeline-monitor.sh"
+else
+    # Stubs mínimos para não quebrar chamadas ao monitor
+    monitor_stage_start() { echo "[MONITOR] stage_start: $1"; }
+    monitor_stage_end()   { echo "[MONITOR] stage_end: $1 RC=$2"; }
+    monitor_warn()        { echo "[MONITOR][WARN] $1"; }
+    monitor_error()       { echo "[MONITOR][ERROR] $1"; }
+    monitor_finalize()    { echo "[MONITOR] finalize: $1"; }
+fi
+
 #########################################################
 # STAGE: Static scan Bank of Z
 #########################################################
 stage_static_scan_bank_of_z() {
     print_stage "STAGE: Static scan Bank of Z"
-    
+    monitor_stage_start "ZCodeScan"
+
     # Verify installation script exists
     if [ ! -f "$SCRIPTS_DIR/tasks/task-zcodescan-static-scan.sh" ]; then
         print_error "Installation script not found: $SCRIPTS_DIR/tasks/task-zcodescan-static-scan.sh"
+        monitor_stage_end "ZCodeScan" 1
         exit 1
     fi
-    
+
     # Run zcode scan task
     print_info "Running Bank of Z static scan script..."
     print_info "Executing: bash $SCRIPTS_DIR/tasks/task-zcodescan-static-scan.sh"
     cd "$SCRIPTS_DIR"
-    
+
+    SCAN_RC=0
     set -o pipefail
     if ${SCRIPTS_DIR}/tasks/task-zcodescan-static-scan.sh; then
         print_success "Bank of Z application static scan completed successfully"
+        monitor_stage_end "ZCodeScan" 0
     else
+        SCAN_RC=$?
         print_error "Failed to static scan Bank of Z"
-        exit 1
+        monitor_stage_end "ZCodeScan" "$SCAN_RC"
+        exit "$SCAN_RC"
     fi
 }
 
@@ -50,24 +69,30 @@ stage_static_scan_bank_of_z() {
 #########################################################
 stage_build_bank_of_z() {
     print_stage "STAGE: Build Bank of Z"
-    
+    monitor_stage_start "DBBBuild"
+
     # Verify installation script exists
     if [ ! -f "$SCRIPTS_DIR/tasks/task-dbb-build.sh" ]; then
         print_error "Installation script not found: $SCRIPTS_DIR/tasks/task-dbb-build.sh"
+        monitor_stage_end "DBBBuild" 1
         exit 1
     fi
-    
+
     # Run installation script
     print_info "Running Bank of Z build script..."
     print_info "Executing: bash $SCRIPTS_DIR/tasks/task-dbb-build.sh $1"
     cd "$SCRIPTS_DIR"
-    
+
+    BUILD_RC=0
     set -o pipefail
     if bash ${SCRIPTS_DIR}/tasks/task-dbb-build.sh $1; then
         print_success "Bank of Z application build completed successfully"
+        monitor_stage_end "DBBBuild" 0
     else
+        BUILD_RC=$?
         print_error "Failed to build Bank of Z"
-        exit 1
+        monitor_stage_end "DBBBuild" "$BUILD_RC"
+        exit "$BUILD_RC"
     fi
 }
 
@@ -147,13 +172,17 @@ print_usage() {
     echo ""
     echo "Phases:"
     echo "  validate-prereqs  Validate prerequisites (zconfig, DBB, wazi-deploy)"
+    echo "  health-check      Run full pre-flight health-check (tools, disk, env vars)"
+    echo "  scan              Run ZCodeScan static analysis"
     echo "  build             Build the Bank of Z baseline"
     echo "  deploy            Deploy the Bank of Z baseline"
     echo "  build-and-deploy  Build and deploy the Bank of Z updates"
     echo "  verify            Run post-install verification tests"
     echo ""
     echo "Examples:"
+    echo "  bash pipeline-common.sh health-check"
     echo "  bash pipeline-common.sh validate-prereqs"
+    echo "  bash pipeline-common.sh scan"
     echo "  bash pipeline-common.sh build"
     echo "  bash pipeline-common.sh deploy"
     echo "  bash pipeline-common.sh build-and-deploy"
@@ -287,6 +316,14 @@ main() {
     case "$phase" in
         validate-prereqs)
             main_validation
+            ;;
+        health-check)
+            # Executa verificação de pré-requisitos antes de iniciar qualquer stage
+            if [ -f "$SCRIPTS_DIR/tasks/task-pipeline-health-check.sh" ]; then
+                bash "$SCRIPTS_DIR/tasks/task-pipeline-health-check.sh"
+            else
+                print_warning "Health-check task não encontrada — ignorando verificação de pré-requisitos"
+            fi
             ;;
         scan)
             shift

@@ -1,0 +1,353 @@
+name: boz-pipeline-monitor
+
+# =============================================================================
+# Bank of Z — Pipeline Monitor & Alertas
+#
+# Workflow de monitoramento contínuo da pipeline ZCode → Build.
+# Executa após cada run da boz-pipeline principal e:
+#   1. Valida pré-requisitos do ambiente z/OS (health-check)
+#   2. Coleta métricas da última execução
+#   3. Analisa logs de build e ZCodeScan em busca de erros recorrentes
+#   4. Gera sumário estruturado no GitHub Actions Summary
+#   5. Emite ::warning:: e ::error:: anotações inline
+#
+# Triggers:
+#   - workflow_run: executado automaticamente após boz-pipeline e boz-batch-pipeline
+#   - schedule: verificação diária às 06:00 UTC
+#   - workflow_dispatch: execução manual
+#
+# Required repository variables:
+#   ZOS_HOST, ZOS_SSH_PORT, ZOS_SSH_USER, ZOS_SANDBOX_DIR, BOZ_BUILD_HLQ
+#
+# Required repository secrets:
+#   ZOS_SSH_KEY
+# =============================================================================
+
+on:
+    workflow_run:
+        workflows:
+            - "boz-pipeline"
+            - "boz-batch-pipeline"
+        types:
+            - completed
+
+    schedule:
+        # Health-check diário às 06:00 UTC
+        - cron: "0 6 * * *"
+
+    workflow_dispatch:
+        inputs:
+            check_mode:
+                description: "Modo de verificação"
+                required: false
+                default: "full"
+                type: choice
+                options:
+                    - full
+                    - health-only
+                    - metrics-only
+
+env:
+    zosHost: ${{ vars.ZOS_HOST }}
+    zosPort: ${{ vars.ZOS_SSH_PORT || '22' }}
+    sandboxDir: ${{ vars.ZOS_SANDBOX_DIR }}
+
+jobs:
+    # -------------------------------------------------------------------------
+    # 1. Health-check do ambiente z/OS
+    # -------------------------------------------------------------------------
+    health-check:
+        name: "1/3 — Health-Check z/OS"
+        runs-on: [self-hosted, macOS, ARM64]
+        outputs:
+            health-status: ${{ steps.hc.outputs.status }}
+            health-errors: ${{ steps.hc.outputs.errors }}
+            health-warnings: ${{ steps.hc.outputs.warnings }}
+        steps:
+            - name: run-health-check
+              id: hc
+              env:
+                  ZOS_SSH_KEY: ${{ secrets.ZOS_SSH_KEY }}
+                  ZOS_HOST: ${{ env.zosHost }}
+                  ZOS_PORT: ${{ env.zosPort }}
+                  ZOS_USER: ${{ vars.ZOS_SSH_USER }}
+                  SANDBOX: ${{ env.sandboxDir }}
+                  BUILD_HLQ: ${{ vars.BOZ_BUILD_HLQ }}
+              run: |
+                  KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
+                  echo "$ZOS_SSH_KEY" > "$KEY_FILE"
+
+                  HC_OUTPUT=$(ssh -i "$KEY_FILE" \
+                      -p "$ZOS_PORT" \
+                      -o StrictHostKeyChecking=no \
+                      -o BatchMode=yes \
+                      "$ZOS_USER@$ZOS_HOST" << 'ENDSSH' 2>&1 || true
+                    set +e
+                    . ~/.profile 2>/dev/null
+
+                    echo "=== HEALTH CHECK - $(date -u +%Y-%m-%dT%H:%M:%SZ) ==="
+
+                    ERRORS=0
+                    WARNINGS=0
+
+                    # ── Ferramentas ──────────────────────────────────────────
+                    for tool in java python3 iconv chtag; do
+                      if command -v "$tool" >/dev/null 2>&1; then
+                        echo "[PASS] $tool disponível"
+                      else
+                        echo "[FAIL] $tool NÃO encontrado"
+                        ERRORS=$((ERRORS+1))
+                      fi
+                    done
+
+                    # ── DBB_HOME ─────────────────────────────────────────────
+                    DBB_BIN=$(find /shared/IBM/dbb /opt/IBM/dbb /usr/lpp/IBM/dbb \
+                        -name "dbb" -type f 2>/dev/null | head -1 || true)
+                    if [ -n "$DBB_BIN" ]; then
+                      echo "[PASS] DBB encontrado: $DBB_BIN"
+                    else
+                      echo "[FAIL] DBB não encontrado"
+                      ERRORS=$((ERRORS+1))
+                    fi
+
+                    # ── Espaço em disco ──────────────────────────────────────
+                    AVAIL_TMP=$(df -k /tmp 2>/dev/null | awk 'NR==2{print $4}')
+                    if [ -n "$AVAIL_TMP" ] && [ "$AVAIL_TMP" -lt 102400 ]; then
+                      echo "[WARN] Espaço /tmp: ${AVAIL_TMP}KB < 100MB"
+                      WARNINGS=$((WARNINGS+1))
+                    else
+                      echo "[PASS] Espaço /tmp: ${AVAIL_TMP:-N/A}KB"
+                    fi
+
+                    AVAIL_SB=$(df -k "${SANDBOX:-/tmp}" 2>/dev/null | awk 'NR==2{print $4}')
+                    if [ -n "$AVAIL_SB" ] && [ "$AVAIL_SB" -lt 512000 ]; then
+                      echo "[WARN] Espaço sandbox: ${AVAIL_SB}KB < 500MB"
+                      WARNINGS=$((WARNINGS+1))
+                    else
+                      echo "[PASS] Espaço sandbox: ${AVAIL_SB:-N/A}KB"
+                    fi
+
+                    # ── ZIPs órfãos em /tmp ───────────────────────────────────
+                    ZIPS=$(find /tmp -maxdepth 1 -name 'repo_*.zip' 2>/dev/null | wc -l | tr -d ' ')
+                    if [ "$ZIPS" -gt 0 ]; then
+                      echo "[WARN] $ZIPS ZIP(s) órfão(s) em /tmp — limpar com cleanup job"
+                      WARNINGS=$((WARNINGS+1))
+                    fi
+
+                    # ── Conectividade GitHub ──────────────────────────────────
+                    GH_RC=$(python3 -c "
+import urllib.request, ssl, sys
+ctx=ssl.create_default_context(); ctx.check_hostname=False; ctx.verify_mode=ssl.CERT_NONE
+try:
+  urllib.request.urlopen('https://api.github.com', context=ctx, timeout=8)
+  print(0)
+except: print(1)
+" 2>/dev/null || echo 1)
+                    if [ "$GH_RC" -eq 0 ]; then
+                      echo "[PASS] GitHub API acessível"
+                    else
+                      echo "[WARN] GitHub API inacessível — clone pode falhar"
+                      WARNINGS=$((WARNINGS+1))
+                    fi
+
+                    echo "HEALTH_ERRORS=$ERRORS"
+                    echo "HEALTH_WARNINGS=$WARNINGS"
+                  ENDSSH
+                  )
+
+                  rm -f "$KEY_FILE"
+
+                  echo "$HC_OUTPUT"
+
+                  ERRORS=$(echo "$HC_OUTPUT" | grep -oP 'HEALTH_ERRORS=\K[0-9]+' | tail -1 || echo "0")
+                  WARNINGS=$(echo "$HC_OUTPUT" | grep -oP 'HEALTH_WARNINGS=\K[0-9]+' | tail -1 || echo "0")
+                  FAILS=$(echo "$HC_OUTPUT" | grep -c '^\[FAIL\]' || echo "0")
+
+                  echo "errors=$ERRORS"       >> $GITHUB_OUTPUT
+                  echo "warnings=$WARNINGS"   >> $GITHUB_OUTPUT
+
+                  if [ "${ERRORS:-0}" -gt 0 ] || [ "${FAILS:-0}" -gt 0 ]; then
+                    echo "status=DEGRADED"  >> $GITHUB_OUTPUT
+                    echo "::error:: ⚠️  Health-check detectou $ERRORS erro(s) crítico(s) no ambiente z/OS"
+                  elif [ "${WARNINGS:-0}" -gt 0 ]; then
+                    echo "status=WARNING"   >> $GITHUB_OUTPUT
+                    echo "::warning:: ⚠️  Health-check detectou $WARNINGS aviso(s) no ambiente z/OS"
+                  else
+                    echo "status=HEALTHY"   >> $GITHUB_OUTPUT
+                    echo "::notice:: ✅ Ambiente z/OS saudável"
+                  fi
+
+    # -------------------------------------------------------------------------
+    # 2. Análise de métricas e erros recorrentes
+    # -------------------------------------------------------------------------
+    analyze-metrics:
+        name: "2/3 — Métricas & Erros Recorrentes"
+        runs-on: [self-hosted, macOS, ARM64]
+        needs: health-check
+        if: ${{ github.event_name != 'schedule' || inputs.check_mode != 'health-only' }}
+        steps:
+            - name: collect-and-analyze-logs
+              env:
+                  ZOS_SSH_KEY: ${{ secrets.ZOS_SSH_KEY }}
+                  ZOS_HOST: ${{ env.zosHost }}
+                  ZOS_PORT: ${{ env.zosPort }}
+                  ZOS_USER: ${{ vars.ZOS_SSH_USER }}
+                  SANDBOX: ${{ env.sandboxDir }}
+              run: |
+                  KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
+                  echo "$ZOS_SSH_KEY" > "$KEY_FILE"
+
+                  ANALYSIS=$(ssh -i "$KEY_FILE" \
+                      -p "$ZOS_PORT" \
+                      -o StrictHostKeyChecking=no \
+                      -o BatchMode=yes \
+                      "$ZOS_USER@$ZOS_HOST" << 'ENDSSH' 2>&1 || true
+                    set +e
+                    . ~/.profile 2>/dev/null
+
+                    SANDBOX="${SANDBOX:-/tmp}"
+                    REPO="Bank-of-Z-main"
+
+                    echo "=== ANÁLISE DE LOGS - $(date -u +%Y-%m-%dT%H:%M:%SZ) ==="
+
+                    # ── Últimos 5 runs da pipeline ────────────────────────────
+                    PIPELINE_DIR="${SANDBOX}/pipeline"
+                    if [ -d "$PIPELINE_DIR" ]; then
+                      echo "--- Últimas execuções (pipeline) ---"
+                      find "$PIPELINE_DIR" -name "*.log" -newer "${PIPELINE_DIR}" \
+                        -mtime -7 2>/dev/null | head -20 | while read -r f; do
+                          echo "  LOG: $f"
+                      done
+                    fi
+
+                    # ── Erros recorrentes nos logs DBB ────────────────────────
+                    echo "--- Padrões de erro nos logs DBB ---"
+                    declare -A PATTERNS
+                    PATTERNS=( ["EDC5003I"]="Truncação dataset"
+                                ["BGZZB0048E"]="Lifecycle inválido DBB 3.x"
+                                ["IEW2646E"]="Link-edit: módulo ausente"
+                                ["RC=-1"]="ZCodeScan encoding inválido"
+                                ["Build Status : ERROR"]="Build DBB com ERROR" )
+
+                    for pat in "${!PATTERNS[@]}"; do
+                      COUNT=$(grep -rl "$pat" "${SANDBOX}" --include="*.log" 2>/dev/null | wc -l | tr -d ' ')
+                      if [ "$COUNT" -gt 0 ]; then
+                        echo "  RECORRENTE($COUNT): $pat — ${PATTERNS[$pat]}"
+                      fi
+                    done
+
+                    # ── RC=4 warnings (aceitáveis mas monitorados) ────────────
+                    echo "--- RC=4 (aceitável, monitorado) ---"
+                    RC4_COUNT=$(grep -rl '"rc": 4' "${SANDBOX}" --include="*.json" 2>/dev/null | wc -l | tr -d ' ')
+                    echo "  Builds com RC=4: $RC4_COUNT"
+
+                    # ── Último BuildReport.json ───────────────────────────────
+                    echo "--- Último BuildReport ---"
+                    LAST_REPORT=$(find "${SANDBOX}" -name "BuildReport.json" -mtime -7 2>/dev/null | \
+                      xargs ls -t 2>/dev/null | head -1)
+                    if [ -n "$LAST_REPORT" ]; then
+                      echo "  Arquivo: $LAST_REPORT"
+                      python3 -c "
+import json, sys
+try:
+  with open('${LAST_REPORT}') as f: r = json.load(f)
+  execs = [x for x in r.get('records',[]) if x.get('type')=='EXECUTE']
+  errors = [x for x in execs if x.get('rc',0) > 4]
+  print(f'  Execuções: {len(execs)} | Erros (RC>4): {len(errors)}')
+  for e in errors:
+    print(f'  ERROR: {e.get(\"file\",\"?\")} RC={e.get(\"rc\")} cmd={e.get(\"command\")}')
+except Exception as ex:
+  print(f'  Erro ao ler BuildReport: {ex}')
+" 2>/dev/null
+                    else
+                      echo "  Nenhum BuildReport recente encontrado"
+                    fi
+
+                  ENDSSH
+                  )
+
+                  rm -f "$KEY_FILE"
+                  echo "$ANALYSIS"
+
+                  # Emite anotações para erros recorrentes
+                  while IFS= read -r line; do
+                    if echo "$line" | grep -q "RECORRENTE"; then
+                      echo "::warning:: Pipeline: $line"
+                    fi
+                    if echo "$line" | grep -q "ERROR:"; then
+                      echo "::error:: Build: $line"
+                    fi
+                  done <<< "$ANALYSIS"
+
+    # -------------------------------------------------------------------------
+    # 3. Gera sumário no GitHub Actions Summary
+    # -------------------------------------------------------------------------
+    generate-summary:
+        name: "3/3 — Sumário da Pipeline"
+        runs-on: [self-hosted, macOS, ARM64]
+        needs:
+            - health-check
+            - analyze-metrics
+        if: always()
+        steps:
+            - name: write-job-summary
+              env:
+                  HEALTH_STATUS: ${{ needs.health-check.outputs.health-status }}
+                  HEALTH_ERRORS: ${{ needs.health-check.outputs.health-errors }}
+                  HEALTH_WARNINGS: ${{ needs.health-check.outputs.health-warnings }}
+                  TRIGGERED_BY: ${{ github.event.workflow_run.name || github.event_name }}
+                  TRIGGERED_STATUS: ${{ github.event.workflow_run.conclusion || 'manual' }}
+              run: |
+                  TS=$(date -u +"%Y-%m-%d %H:%M UTC")
+                  HEALTH_ICON="✅"
+                  [ "$HEALTH_STATUS" = "WARNING" ] && HEALTH_ICON="⚠️"
+                  [ "$HEALTH_STATUS" = "DEGRADED" ] && HEALTH_ICON="❌"
+
+                  TRIGGER_ICON="✅"
+                  [ "$TRIGGERED_STATUS" = "failure" ] && TRIGGER_ICON="❌"
+                  [ "$TRIGGERED_STATUS" = "cancelled" ] && TRIGGER_ICON="⚠️"
+
+                  cat >> $GITHUB_STEP_SUMMARY << EOF
+                  # 🔍 Bank of Z — Monitor de Pipeline
+
+                  **Gerado em:** ${TS}
+                  **Disparado por:** ${TRIGGERED_BY}
+
+                  ---
+
+                  ## ${TRIGGER_ICON} Pipeline Principal
+                  | Campo | Valor |
+                  |-------|-------|
+                  | Workflow | \`${TRIGGERED_BY}\` |
+                  | Status | \`${TRIGGERED_STATUS:-manual}\` |
+                  | Branch | \`${{ github.ref_name }}\` |
+
+                  ---
+
+                  ## ${HEALTH_ICON} Health-Check Ambiente z/OS
+                  | Métrica | Valor |
+                  |---------|-------|
+                  | Status | **${HEALTH_STATUS:-UNKNOWN}** |
+                  | Erros críticos | ${HEALTH_ERRORS:-0} |
+                  | Avisos | ${HEALTH_WARNINGS:-0} |
+
+                  ---
+
+                  ## 📋 Erros Recorrentes Conhecidos
+
+                  | Código | Causa Raiz | Solução |
+                  |--------|-----------|---------|
+                  | \`EDC5003I\` | Dataset com lrecl incorreto — copyMode TEXT + AUTOCVT dupla conversão | DBB deleta e recria datasets antes do build (já implementado em \`task-dbb-build.sh\`) |
+                  | \`BGZZB0048E\` | Lifecycle \`pipeline\`/\`full\` inclui Groovy incompatível com DBB 3.x | Pipeline usa lifecycle \`batch\` (já corrigido em \`task-dbb-build.sh\`) |
+                  | \`BGZZB0008E\` | Transfer falhou em modo preview — dataset não existe | Comportamento esperado em scan preview — ignorado (já tratado) |
+                  | \`RC=-1\` ZCodeScan | AUTOCVT=ON converte EBCDIC→ASCII antes do scan | chtag -r antes do scan + -e IBM-1047 (já implementado) |
+                  | SSH timeout | Conexão SSH cai durante build longo (>15min) | Usar \`-o ServerAliveInterval=60 -o ServerAliveCountMax=10\` |
+                  | ZIP órfão /tmp | gitClone.sh não limpou /tmp após falha | Cleanup job remove \`/tmp/repo_*.zip\` (já implementado) |
+
+                  ---
+
+                  ## 🔗 Links Úteis
+                  - [Pipeline Runs](${{ github.server_url }}/${{ github.repository }}/actions/workflows/Pipeline.yml)
+                  - [BatchPipeline Runs](${{ github.server_url }}/${{ github.repository }}/actions/workflows/BatchPipeline.yml)
+                  - [ZCodeScan Config](../../zcodescan/zcodescan-config.yml)
+                  EOF
