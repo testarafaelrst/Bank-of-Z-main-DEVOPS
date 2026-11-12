@@ -116,38 +116,40 @@ jobs:
                   ssh -i "$KEY_FILE" \
                       -p ${{ env.zosPort }} \
                       -o StrictHostKeyChecking=no \
-                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} << ENDSSH
+                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} << 'ENDSSH'
                     set +e
                     SANDBOX="${{ vars.ZOS_SANDBOX_DIR }}"
                     REPO="${{ github.repository }}"
                     BRANCH="${{ env.branch }}"
+                    CURRENT_RUN="run_${{ github.run_number }}"
 
                     echo "=== DISCO ANTES DA LIMPEZA ==="
-                    df -k "\$SANDBOX" 2>/dev/null || df -k /u/rafaelt 2>/dev/null || df -k /
+                    df -k "$SANDBOX" 2>/dev/null || df -k /
 
-                    echo "=== TOP 10 MAIORES DIRETORIOS EM \$SANDBOX ==="
-                    du -sk "\$SANDBOX"/*/ 2>/dev/null | sort -rn | head -10
+                    echo "=== TOP 10 MAIORES ITENS EM $SANDBOX ==="
+                    du -sk "$SANDBOX"/*/ 2>/dev/null | sort -rn | head -10
 
                     echo "=== LIMPANDO batch-pipeline runs anteriores ==="
-                    find "\$SANDBOX/batch-pipeline/\$REPO/\$BRANCH" \
+                    find "$SANDBOX/batch-pipeline/$REPO/$BRANCH" \
                       -maxdepth 1 -name 'run_*' -type d \
-                      ! -name "${CURRENT_RUN}" \
+                      ! -name "$CURRENT_RUN" \
                       -exec rm -rf {} \; 2>/dev/null || true
 
                     echo "=== LIMPANDO pipeline runs anteriores ==="
-                    find "\$SANDBOX/pipeline/\$REPO/\$BRANCH" \
+                    find "$SANDBOX/pipeline/$REPO/$BRANCH" \
                       -maxdepth 1 -name 'run_*' -type d \
-                      2>/dev/null -exec rm -rf {} \; 2>/dev/null || true
+                      -exec rm -rf {} \; 2>/dev/null || true
 
-                    echo "=== LIMPANDO ZIPs orfaos em /tmp ==="
+                    echo "=== LIMPANDO ZIPs em /tmp ==="
                     find /tmp -maxdepth 1 -name 'repo_*.zip' -exec rm -f {} \; 2>/dev/null || true
 
-                    echo "=== LIMPANDO logs DBB antigos ==="
-                    find "\$SANDBOX" -maxdepth 4 -name 'dbb-build-log.tar' \
+                    echo "=== LIMPANDO tars de log antigos ==="
+                    find "$SANDBOX" -maxdepth 5 \( -name '*.tar' -o -name '*.log' \) \
                       -exec rm -f {} \; 2>/dev/null || true
 
                     echo "=== DISCO APOS LIMPEZA ==="
-                    df -k "\$SANDBOX" 2>/dev/null || df -k /u/rafaelt 2>/dev/null || df -k /
+                    df -k "$SANDBOX" 2>/dev/null || df -k /
+                    df -k /tmp 2>/dev/null
 
                     echo "[OK] Cleanup concluido"
                   ENDSSH

@@ -20,9 +20,20 @@ TOKEN=$(echo "$REPO_URL" | sed 's|https://||' | cut -d@ -f1)
 REPO_PATH=$(echo "$REPO_URL" | sed 's|https://[^@]*@github.com/||' | sed 's|\.git$||')
 REPO_NAME=$(basename "$REPO_PATH")
 ZIP_URL="https://api.github.com/repos/${REPO_PATH}/zipball/${BRANCH}"
-ZIPFILE="$WORKSPACE/repo_$$.zip"
+# Usar /tmp para o ZIP temporario — filesystem separado do home do usuario,
+# evita falha por falta de espaco em /u/<user> durante o download
+ZIPFILE="/tmp/repo_$$.zip"
 
 mkdir -p "$WORKSPACE"
+
+# Verificar espaco disponivel antes de tentar o download
+AVAIL_TMP=$(df -k /tmp 2>/dev/null | awk 'NR==2{print $4}')
+AVAIL_WS=$(df -k "$WORKSPACE" 2>/dev/null | awk 'NR==2{print $4}')
+echo "[INFO] Espaco disponivel: /tmp=${AVAIL_TMP}KB  workspace=${AVAIL_WS}KB"
+if [ -n "$AVAIL_TMP" ] && [ "$AVAIL_TMP" -lt 102400 ]; then
+  echo "[ERR] Espaco insuficiente em /tmp (${AVAIL_TMP}KB < 100MB). Libere disco antes de continuar."
+  exit 1
+fi
 
 echo "[INFO] Baixando ${REPO_PATH}@${BRANCH} via GitHub API..."
 python3 - "$ZIP_URL" "$TOKEN" "$ZIPFILE" << 'PYEOF'
