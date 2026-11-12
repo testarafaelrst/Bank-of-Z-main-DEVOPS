@@ -169,24 +169,22 @@ jobs:
         name: "4/7 — Build: DBB (IGYCRCTL + IEWBLINK)"
         needs: static-scan
         runs-on: [self-hosted, macOS, ARM64]
-        outputs:
-            build-artifact-path: ${{ steps.dbb.outputs.build-artifact-path }}
-            logs-artifact-path: ${{ steps.dbb.outputs.logs-artifact-path }}
         steps:
             - name: run-dbb-build
-              id: dbb
-              uses: ./.github/actions/dbb-build
-              with:
-                  ssh-host: ${{ env.zosHost }}
-                  ssh-port: ${{ env.zosPort }}
-                  ssh-user: ${{ vars.ZOS_SSH_USER }}
-                  ssh-private-key: ${{ secrets.ZOS_SSH_KEY }}
-                  unique-workspace-id: ${{ env.uniqueWorkspaceId }}
-                  build-hlq: ${{ env.buildHlq }}
-                  gh-token: ${{ secrets.GH_ACTIONS_PAT }}
-                  pipeline-type: build
-                  dbb-build-type: ${{ env.buildType }}
-                  include-logs: "*.log,*.lst"
+              run: |
+                  KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
+                  echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
+                  ssh -i "$KEY_FILE" \
+                      -p ${{ env.zosPort }} \
+                      -o StrictHostKeyChecking=no \
+                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
+                      ". ~/.profile &&
+                      REPO_DIR=${{ env.uniqueWorkspaceId }}/${{ env.application }} &&
+                      cd \$REPO_DIR &&
+                      export BANK_OF_Z_WORK_DIR=${{ env.uniqueWorkspaceId }} &&
+                      export BUILD_TYPE=${{ env.buildType }} &&
+                      bash .setup/pipeline-common.sh build"
+                  rm -f "$KEY_FILE"
 
     # -------------------------------------------------------------------------
     # 5. TAZ — testes automatizados para DEVOPSPL
