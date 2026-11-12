@@ -83,10 +83,55 @@ jobs:
                   echo "Deploy enabled  = ${{ env.runDeploy }}"
 
     # -------------------------------------------------------------------------
-    # 2. Clone repository to z/OS USS
+    # 2. Cleanup z/OS USS disk before clone
+    # -------------------------------------------------------------------------
+    cleanup:
+        needs: controller
+        runs-on: [self-hosted, macOS, ARM64]
+        steps:
+            - name: cleanup-old-workspaces
+              run: |
+                  KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
+                  echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
+                  CURRENT_RUN="run_${{ github.run_number }}"
+                  ssh -i "$KEY_FILE" \
+                      -p ${{ env.zosPort }} \
+                      -o StrictHostKeyChecking=no \
+                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} << ENDSSH
+                    set +e
+                    SANDBOX="${{ vars.ZOS_SANDBOX_DIR }}"
+                    REPO="${{ github.repository }}"
+                    BRANCH="${{ env.branch }}"
+
+                    echo "=== DISCO ANTES DA LIMPEZA ==="
+                    df -k "\$SANDBOX" 2>/dev/null || df -k /
+
+                    echo "=== LIMPANDO pipeline runs anteriores ==="
+                    find "\$SANDBOX/pipeline/\$REPO/\$BRANCH" \
+                      -maxdepth 1 -name 'run_*' -type d \
+                      ! -name "${CURRENT_RUN}" \
+                      -exec rm -rf {} \; 2>/dev/null || true
+
+                    echo "=== LIMPANDO batch-pipeline runs anteriores ==="
+                    find "\$SANDBOX/batch-pipeline/\$REPO/\$BRANCH" \
+                      -maxdepth 1 -name 'run_*' -type d \
+                      -exec rm -rf {} \; 2>/dev/null || true
+
+                    echo "=== LIMPANDO ZIPs orfaos em /tmp ==="
+                    find /tmp -maxdepth 1 -name 'repo_*.zip' -exec rm -f {} \; 2>/dev/null || true
+
+                    echo "=== DISCO APOS LIMPEZA ==="
+                    df -k "\$SANDBOX" 2>/dev/null || df -k /
+
+                    echo "[OK] Cleanup concluido"
+                  ENDSSH
+                  rm -f "$KEY_FILE"
+
+    # -------------------------------------------------------------------------
+    # 3. Clone repository to z/OS USS
     # -------------------------------------------------------------------------
     clone:
-        needs: controller
+        needs: cleanup
         runs-on: [self-hosted, macOS, ARM64]
         steps:
             - name: clone-repository-to-uss

@@ -29,7 +29,7 @@ application:
 
     - task: PLI
       sources:
-        - "**/pli/*.pli"
+        - "**/src/base/**/*.pli"
 
       variables:
         - name: dependencySearchPath

@@ -293,6 +293,16 @@ main() {
         deploy)
             main_deploy
             ;;
+        test)
+            # TAZ automated tests — executa task-taz-tests.sh se existir,
+            # caso contrário emite aviso e retorna sucesso (fase opcional)
+            if [ -f "$SCRIPTS_DIR/tasks/task-taz-tests.sh" ]; then
+                bash "$SCRIPTS_DIR/tasks/task-taz-tests.sh"
+            else
+                print_warning "TAZ test task not found: $SCRIPTS_DIR/tasks/task-taz-tests.sh"
+                print_warning "Skipping TAZ tests — phase 'test' is optional for batch pipeline"
+            fi
+            ;;
         build-and-deploy)
             shift  # Remove 'build-and-deploy' from parameters
             main_build "$@"

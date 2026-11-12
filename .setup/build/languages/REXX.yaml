@@ -44,7 +44,7 @@ tasks:
     # datasets that need to be created / validated for this language configuration
     datasets:
       - name: ${HLQ}.REXX
-        options: cyl space(1,1) lrecl(80) dsorg(PO) recfm(F,B) dsntype(library)
+        options: cyl space(1,1) lrecl(255) dsorg(PO) recfm(V,B) dsntype(library)
       - name: ${HLQ}.OBJ
         options: cyl space(1,1) lrecl(80) dsorg(PO) recfm(F,B) dsntype(library)
       - name: ${HLQ}.CEXEC

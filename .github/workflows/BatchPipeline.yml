@@ -112,17 +112,45 @@ jobs:
               run: |
                   KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
                   echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
-                  # Remove TODOS os runs anteriores antes de qualquer download
-                  # para garantir espaço em disco no z/OS USS
                   CURRENT_RUN="run_${{ github.run_number }}"
                   ssh -i "$KEY_FILE" \
                       -p ${{ env.zosPort }} \
                       -o StrictHostKeyChecking=no \
-                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
-                      "BASE=${{ vars.ZOS_SANDBOX_DIR }}/batch-pipeline/${{ github.repository }}/${{ env.branch }} && \
-                       find \$BASE -maxdepth 1 -name 'run_*' -type d ! -name ${CURRENT_RUN} -exec rm -rf {} \; 2>/dev/null || true && \
-                       find /tmp -maxdepth 1 -name 'repo_*.zip' -exec rm -f {} \; 2>/dev/null || true && \
-                       echo '[OK] Cleanup done — kept ${CURRENT_RUN}'"
+                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} << ENDSSH
+                    set +e
+                    SANDBOX="${{ vars.ZOS_SANDBOX_DIR }}"
+                    REPO="${{ github.repository }}"
+                    BRANCH="${{ env.branch }}"
+
+                    echo "=== DISCO ANTES DA LIMPEZA ==="
+                    df -k "\$SANDBOX" 2>/dev/null || df -k /u/rafaelt 2>/dev/null || df -k /
+
+                    echo "=== TOP 10 MAIORES DIRETORIOS EM \$SANDBOX ==="
+                    du -sk "\$SANDBOX"/*/ 2>/dev/null | sort -rn | head -10
+
+                    echo "=== LIMPANDO batch-pipeline runs anteriores ==="
+                    find "\$SANDBOX/batch-pipeline/\$REPO/\$BRANCH" \
+                      -maxdepth 1 -name 'run_*' -type d \
+                      ! -name "${CURRENT_RUN}" \
+                      -exec rm -rf {} \; 2>/dev/null || true
+
+                    echo "=== LIMPANDO pipeline runs anteriores ==="
+                    find "\$SANDBOX/pipeline/\$REPO/\$BRANCH" \
+                      -maxdepth 1 -name 'run_*' -type d \
+                      2>/dev/null -exec rm -rf {} \; 2>/dev/null || true
+
+                    echo "=== LIMPANDO ZIPs orfaos em /tmp ==="
+                    find /tmp -maxdepth 1 -name 'repo_*.zip' -exec rm -f {} \; 2>/dev/null || true
+
+                    echo "=== LIMPANDO logs DBB antigos ==="
+                    find "\$SANDBOX" -maxdepth 4 -name 'dbb-build-log.tar' \
+                      -exec rm -f {} \; 2>/dev/null || true
+
+                    echo "=== DISCO APOS LIMPEZA ==="
+                    df -k "\$SANDBOX" 2>/dev/null || df -k /u/rafaelt 2>/dev/null || df -k /
+
+                    echo "[OK] Cleanup concluido"
+                  ENDSSH
                   rm -f "$KEY_FILE"
 
     clone:

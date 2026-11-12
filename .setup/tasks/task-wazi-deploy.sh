@@ -33,7 +33,7 @@ cd $SCRIPTS_DIR
 # =========================
 
 export TARGET_HLQ="${TARGET_HLQ:-"$APP_HLQ.$APP_ZOS_VERSION"}"
-export PACKAGE_URL="$(ls "$DBB_LOG_FOLDER/BANKZ-"*.tar 2>/dev/null || true)"
+export PACKAGE_URL="$(ls "$DBB_LOG_FOLDER/${APP_HLQ:-BANKZ}-"*.tar 2>/dev/null || ls "$DBB_LOG_FOLDER/"*.tar 2>/dev/null | head -1 || true)"
 export PATH="$ZOAU_HOME/bin:$PATH"
 export LIBPATH="$ZOAU_HOME/lib:${LIBPATH:-}"
 export DEPLOY_TEMPLATES_PATH="$SCRIPTS_DIR/../deploy"
