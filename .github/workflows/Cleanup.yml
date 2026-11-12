@@ -26,51 +26,25 @@ jobs:
                   ZOS_USER: ${{ vars.ZOS_SSH_USER }}
                   SANDBOX: ${{ vars.ZOS_SANDBOX_DIR }}
                   REPO: ${{ github.repository }}
-                  PIPELINE: ${{ github.event.inputs.pipeline || 'all' }}
               run: |
                   KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
                   echo "$ZOS_SSH_KEY" > "$KEY_FILE"
+                  SSH="ssh -i $KEY_FILE -p $ZOS_PORT -o StrictHostKeyChecking=no $ZOS_USER@$ZOS_HOST"
 
-                  # Escreve o script em um arquivo temporário local
-                  SCRIPT_FILE=$(mktemp)
-                  cat > "$SCRIPT_FILE" << ENDSCRIPT
-                  #!/bin/env bash
-                  set +e
-                  export PATH=/bin:/usr/bin:/usr/local/bin:/shared/IBM/cyp/v3r14/pyz/bin:\$PATH
-                  SANDBOX="$SANDBOX"
-                  REPO="$REPO"
-                  echo "SANDBOX=\$SANDBOX"
-                  echo "REPO=\$REPO"
-                  echo ""
-                  echo "=== DISCO ANTES ==="
-                  df -k "\$SANDBOX" 2>/dev/null || df -k /
-                  echo ""
-                  echo "=== TOP 10 MAIORES ITENS ==="
-                  du -sk "\$SANDBOX"/*/ 2>/dev/null | sort -rn | head -10
-                  echo ""
-                  echo "=== REMOVENDO runs em batch-pipeline ==="
-                  find "\$SANDBOX/batch-pipeline" -maxdepth 5 -name "run_*" -type d -exec rm -rf {} + 2>/dev/null; echo "done"
-                  echo "=== REMOVENDO runs em pipeline ==="
-                  find "\$SANDBOX/pipeline" -maxdepth 5 -name "run_*" -type d -exec rm -rf {} + 2>/dev/null; echo "done"
-                  echo "=== REMOVENDO temporarios /tmp ==="
-                  rm -f /tmp/repo_*.zip /tmp/dbb_build_*.log /tmp/zcodescan_*.log 2>/dev/null; echo "done"
-                  echo ""
-                  echo "=== DISCO APOS LIMPEZA ==="
-                  df -k "\$SANDBOX" 2>/dev/null || df -k /
-                  df -k /tmp 2>/dev/null
-                  echo "[OK] Cleanup concluido"
-                  ENDSCRIPT
+                  # Executa comandos diretos via SSH — sem scripts, sem arquivos, sem encoding issues
+                  $SSH ". ~/.profile 2>/dev/null; \
+                    echo '=== DISCO ANTES ==='; \
+                    df -k ${SANDBOX} 2>/dev/null; \
+                    echo '=== TOP DIRS ==='; \
+                    du -sk ${SANDBOX}/batch-pipeline ${SANDBOX}/pipeline 2>/dev/null | sort -rn; \
+                    echo '=== LIMPANDO batch-pipeline ==='; \
+                    find ${SANDBOX}/batch-pipeline -maxdepth 5 -name run_\* -type d 2>/dev/null | while read d; do rm -rf \"\$d\" && echo removed: \$d; done; \
+                    echo '=== LIMPANDO pipeline ==='; \
+                    find ${SANDBOX}/pipeline -maxdepth 5 -name run_\* -type d 2>/dev/null | while read d; do rm -rf \"\$d\" && echo removed: \$d; done; \
+                    echo '=== LIMPANDO tmp ==='; \
+                    rm -f /tmp/repo_*.zip /tmp/dbb_build_*.log /tmp/zcodescan_*.log 2>/dev/null; \
+                    echo '=== DISCO APOS ==='; \
+                    df -k ${SANDBOX} 2>/dev/null; \
+                    echo OK"
 
-                  # Envia o script via SCP e executa via SSH
-                  REMOTE_TMP="/tmp/boz_cleanup_$$.sh"
-                  scp -i "$KEY_FILE" -P "$ZOS_PORT" -o StrictHostKeyChecking=no \
-                    "$SCRIPT_FILE" "$ZOS_USER@$ZOS_HOST:$REMOTE_TMP"
-
-                  # Tenta bash pelo profile primeiro, depois por caminhos conhecidos no z/OS
-                  ssh -i "$KEY_FILE" -p "$ZOS_PORT" -o StrictHostKeyChecking=no \
-                    "$ZOS_USER@$ZOS_HOST" \
-                    ". ~/.profile 2>/dev/null || true; \
-                     BASH=\$(command -v bash 2>/dev/null || echo /bin/bash); \
-                     chmod +x $REMOTE_TMP && \$BASH $REMOTE_TMP; rm -f $REMOTE_TMP"
-
-                  rm -f "$KEY_FILE" "$SCRIPT_FILE"
+                  rm -f "$KEY_FILE"
