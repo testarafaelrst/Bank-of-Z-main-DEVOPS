@@ -147,6 +147,13 @@ print_info "Starting ZCodeScan analysis ..."
 print_info "  SCAN_SOURCE_FOLDER = ${SCAN_SOURCE_FOLDER}"
 print_info "  SCAN_CWD_FOLDER    = ${SCAN_CWD_FOLDER}"
 print_info "  BUILD_LIST         = ${BUILD_LIST}"
+print_info "  SCAN_RULE_FILE     = ${SCAN_RULE_FILE}"
+print_info "  SCAN_CONFIG_FILE   = ${SCAN_CONFIG_FILE}"
+print_info "  SCAN_ENCODING      = ${SCAN_ENCODING}"
+print_info "  SCAN_RULE_FILE exists: $([ -f "${SCAN_RULE_FILE}" ] && echo YES || echo NO)"
+print_info "  SCAN_CONFIG_FILE exists: $([ -f "${SCAN_CONFIG_FILE}" ] && echo YES || echo NO)"
+print_info "  REPO_SCAN_CONFIG   = ${REPO_SCAN_CONFIG}"
+print_info "  REPO_SCAN_CONFIG exists: $([ -f "${REPO_SCAN_CONFIG}" ] && echo YES || echo NO)"
 
 PYTHONUNBUFFERED=1 zcodescan \
   -sfl "$BUILD_LIST" \
@@ -166,6 +173,11 @@ do
             ;;
     esac
 done
+
+# Exibir as primeiras 80 linhas do zcodescan.log para diagnostico inline
+print_info "--- zcodescan.log (primeiras 80 linhas) ---"
+head -80 zcodescan.log 2>/dev/null | while IFS= read -r l; do print_info "  $l"; done
+print_info "--- fim do zcodescan.log ---"
 
 cp zcodescan.log "$LOG_DIR"
 
