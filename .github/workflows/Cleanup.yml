@@ -31,20 +31,16 @@ jobs:
                   echo "$ZOS_SSH_KEY" > "$KEY_FILE"
                   SSH="ssh -i $KEY_FILE -p $ZOS_PORT -o StrictHostKeyChecking=no $ZOS_USER@$ZOS_HOST"
 
-                  # Executa comandos diretos via SSH — sem scripts, sem arquivos, sem encoding issues
+                  # Diagnóstico: listar estrutura real dos diretórios
                   $SSH ". ~/.profile 2>/dev/null; \
-                    echo '=== DISCO ANTES ==='; \
-                    df -k ${SANDBOX} 2>/dev/null; \
-                    echo '=== TOP DIRS ==='; \
-                    du -sk ${SANDBOX}/batch-pipeline ${SANDBOX}/pipeline 2>/dev/null | sort -rn; \
-                    echo '=== LIMPANDO batch-pipeline ==='; \
-                    find ${SANDBOX}/batch-pipeline -maxdepth 5 -name run_\* -type d 2>/dev/null | while read d; do rm -rf \"\$d\" && echo removed: \$d; done; \
-                    echo '=== LIMPANDO pipeline ==='; \
-                    find ${SANDBOX}/pipeline -maxdepth 5 -name run_\* -type d 2>/dev/null | while read d; do rm -rf \"\$d\" && echo removed: \$d; done; \
-                    echo '=== LIMPANDO tmp ==='; \
-                    rm -f /tmp/repo_*.zip /tmp/dbb_build_*.log /tmp/zcodescan_*.log 2>/dev/null; \
-                    echo '=== DISCO APOS ==='; \
-                    df -k ${SANDBOX} 2>/dev/null; \
+                    echo '=== ESTRUTURA batch-pipeline ==='; \
+                    ls -la ${SANDBOX}/batch-pipeline/ 2>/dev/null; \
+                    ls -la ${SANDBOX}/batch-pipeline/*/ 2>/dev/null | head -30; \
+                    echo '=== ESTRUTURA pipeline ==='; \
+                    ls -la ${SANDBOX}/pipeline/ 2>/dev/null; \
+                    ls -la ${SANDBOX}/pipeline/*/ 2>/dev/null | head -30; \
+                    echo '=== FIND run_ ==='; \
+                    find ${SANDBOX} -maxdepth 6 -name 'run_*' -type d 2>/dev/null; \
                     echo OK"
 
                   rm -f "$KEY_FILE"
