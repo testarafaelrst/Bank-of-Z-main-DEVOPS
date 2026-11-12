@@ -109,50 +109,37 @@ jobs:
         runs-on: [self-hosted, macOS, ARM64]
         steps:
             - name: cleanup-old-workspaces
+              env:
+                  ZOS_SSH_KEY: ${{ secrets.ZOS_SSH_KEY }}
+                  ZOS_HOST: ${{ env.zosHost }}
+                  ZOS_PORT: ${{ env.zosPort }}
+                  ZOS_USER: ${{ vars.ZOS_SSH_USER }}
+                  SANDBOX: ${{ vars.ZOS_SANDBOX_DIR }}
+                  REPO: ${{ github.repository }}
+                  BRANCH: ${{ env.branch }}
+                  CURRENT_RUN: run_${{ github.run_number }}
               run: |
                   KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
-                  echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
-                  CURRENT_RUN="run_${{ github.run_number }}"
-                  ssh -i "$KEY_FILE" \
-                      -p ${{ env.zosPort }} \
-                      -o StrictHostKeyChecking=no \
-                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} << 'ENDSSH'
-                    set +e
-                    SANDBOX="${{ vars.ZOS_SANDBOX_DIR }}"
-                    REPO="${{ github.repository }}"
-                    BRANCH="${{ env.branch }}"
-                    CURRENT_RUN="run_${{ github.run_number }}"
+                  echo "$ZOS_SSH_KEY" > "$KEY_FILE"
+                  SSH="ssh -i $KEY_FILE -p $ZOS_PORT -o StrictHostKeyChecking=no $ZOS_USER@$ZOS_HOST"
+                  BP="${SANDBOX}/batch-pipeline/${REPO}/${BRANCH}"
+                  PL="${SANDBOX}/pipeline/${REPO}/${BRANCH}"
 
-                    echo "=== DISCO ANTES DA LIMPEZA ==="
-                    df -k "$SANDBOX" 2>/dev/null || df -k /
+                  $SSH ". ~/.profile 2>/dev/null; \
+                    echo '=== DISCO ANTES ==='; \
+                    df -k ${SANDBOX} 2>/dev/null; \
+                    echo '=== LIMPANDO batch-pipeline (mantendo ${CURRENT_RUN}) ==='; \
+                    rm -rf ${BP}/run_* 2>/dev/null; \
+                    mkdir -p ${BP}/${CURRENT_RUN}; \
+                    echo done; \
+                    echo '=== LIMPANDO pipeline ==='; \
+                    rm -rf ${PL}/run_* 2>/dev/null; echo done; \
+                    echo '=== LIMPANDO /tmp ==='; \
+                    rm -f /tmp/repo_*.zip /tmp/dbb_build_*.log /tmp/zcodescan_*.log 2>/dev/null; echo done; \
+                    echo '=== DISCO APOS ==='; \
+                    df -k ${SANDBOX} 2>/dev/null; \
+                    echo OK"
 
-                    echo "=== TOP 10 MAIORES ITENS EM $SANDBOX ==="
-                    du -sk "$SANDBOX"/*/ 2>/dev/null | sort -rn | head -10
-
-                    echo "=== LIMPANDO batch-pipeline runs anteriores ==="
-                    find "$SANDBOX/batch-pipeline/$REPO/$BRANCH" \
-                      -maxdepth 1 -name 'run_*' -type d \
-                      ! -name "$CURRENT_RUN" \
-                      -exec rm -rf {} \; 2>/dev/null || true
-
-                    echo "=== LIMPANDO pipeline runs anteriores ==="
-                    find "$SANDBOX/pipeline/$REPO/$BRANCH" \
-                      -maxdepth 1 -name 'run_*' -type d \
-                      -exec rm -rf {} \; 2>/dev/null || true
-
-                    echo "=== LIMPANDO ZIPs em /tmp ==="
-                    find /tmp -maxdepth 1 -name 'repo_*.zip' -exec rm -f {} \; 2>/dev/null || true
-
-                    echo "=== LIMPANDO tars de log antigos ==="
-                    find "$SANDBOX" -maxdepth 5 \( -name '*.tar' -o -name '*.log' \) \
-                      -exec rm -f {} \; 2>/dev/null || true
-
-                    echo "=== DISCO APOS LIMPEZA ==="
-                    df -k "$SANDBOX" 2>/dev/null || df -k /
-                    df -k /tmp 2>/dev/null
-
-                    echo "[OK] Cleanup concluido"
-                  ENDSSH
                   rm -f "$KEY_FILE"
 
     clone:
