@@ -150,13 +150,13 @@ DBB_DEBUG_OPT=""
 if [ "$BUILD_TYPE" != "scan" ]; then
     DBB_DEBUG_OPT="--debug"
 fi
-# Desabilitar _BPXK_AUTOCVT apenas em builds reais (nao preview/scan).
-# Em builds reais: AUTOCVT=OFF evita dupla conversao ASCII->EBCDIC ao copiar
-# para datasets (EDC5003I Truncation errno2=0xc0400060).
-# Em modo scan/preview: manter AUTOCVT=ON para leitura correta dos YAMLs de config.
-if [ "$BUILD_TYPE" != "scan" ]; then
-    export _BPXK_AUTOCVT=OFF
-fi
+# _BPXK_AUTOCVT=ON e mantido (definido pelo .env gerado pelo setenv.sh).
+# A conversao de codepage para datasets e feita pelo DBB (copyMode:TEXT) a partir
+# dos arquivos tagados ISO8859-1 pelo gitClone.sh. Os YAMLs de configuracao do DBB
+# sao convertidos para IBM-1047 (EBCDIC) pelo gitClone.sh e por isso a JVM os le
+# corretamente com AUTOCVT=ON.
+# NAO usar export _BPXK_AUTOCVT=OFF aqui — isso impede o DBB de ler seus proprios
+# YAMLs de configuracao (que precisam de AUTOCVT para ser lidos em EBCDIC pela JVM).
 
 dbb build "$BUILD_TYPE" $DBB_DEBUG_OPT --hlq "${APP_HLQ}.DBB" --log-encoding ISO8859-1 $BUILD_OPTIONS --config "$DBB_APP_CONF" 2>&1 | tee "$TMP_LOG" | while read -r line
 do
@@ -193,7 +193,9 @@ if [ "$BUILD_CLEAN" -ne 0 ]; then
         fi
     else
         print_error "DBB build status is not CLEAN"
-        print_error "Check DBB log: $TMP_LOG"
+        print_error "--- DBB log tail (ultimas 60 linhas) ---"
+        tail -60 "$TMP_LOG" 2>/dev/null | while IFS= read -r l; do print_error "  $l"; done
+        print_error "--- fim do log ---"
         exit 1
     fi
 fi

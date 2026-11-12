@@ -87,13 +87,12 @@ TARGET_DIR="$WORKSPACE/$REPO_NAME"
 
 # Tagear arquivos extraidos do ZIP do GitHub (todos em ASCII/ISO8859-1).
 #
-# Estrategia: tagar TUDO como ISO8859-1 (ASCII).
+# Estrategia: tagar como ISO8859-1 (ASCII) exceto arquivos Groovy (JVM DBB).
 #   - O DBB 3.x com copyMode:TEXT converte automaticamente ISO8859-1 -> EBCDIC
 #     ao copiar para datasets z/OS. Isso e o comportamento correto.
-#   - Arquivos de configuracao (YAML, shell) ja esperam ISO8859-1.
-#   - Arquivos Groovy precisam ser convertidos para EBCDIC (JVM z/OS).
-#   - NAO converter fontes mainframe com iconv — deixar o DBB fazer isso
-#     via copyMode:TEXT para evitar double-conversion com _BPXK_AUTOCVT=ON.
+#   - Arquivos de configuracao (YAML, shell) ficam em ISO8859-1; com AUTOCVT=ON
+#     o z/OS converte automaticamente quando necessario.
+#   - Arquivos Groovy precisam estar em EBCDIC (IBM-1047) para a JVM do z/OS.
 
 echo "[INFO] Taggeando todos os arquivos texto como ISO8859-1..."
 find "$TARGET_DIR" -type f \
