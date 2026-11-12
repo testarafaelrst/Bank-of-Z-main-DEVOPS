@@ -195,6 +195,27 @@ jobs:
         needs: static-scan
         runs-on: [self-hosted, macOS, ARM64]
         steps:
+            - name: diag-bnkstmt-tag
+              env:
+                  ZOS_SSH_KEY: ${{ secrets.ZOS_SSH_KEY }}
+                  ZOS_HOST: ${{ env.zosHost }}
+                  ZOS_PORT: ${{ env.zosPort }}
+                  ZOS_USER: ${{ vars.ZOS_SSH_USER }}
+                  WS: ${{ env.uniqueWorkspaceId }}
+                  APP: ${{ env.application }}
+              run: |
+                  KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
+                  echo "$ZOS_SSH_KEY" > "$KEY_FILE"
+                  SSH="ssh -i $KEY_FILE -p $ZOS_PORT -o StrictHostKeyChecking=no $ZOS_USER@$ZOS_HOST"
+                  JCL="${WS}/${APP}/src/base/batch/jcl/BNKSTMT.jcl"
+                  $SSH ". ~/.profile 2>/dev/null; \
+                    echo '=== CHTAG ==='; chtag -p ${JCL} 2>/dev/null; \
+                    echo '=== WC -c (bytes) ==='; wc -c ${JCL} 2>/dev/null; \
+                    echo '=== WC -l (linhas) ==='; wc -l ${JCL} 2>/dev/null; \
+                    echo '=== HEXDUMP primeiros 32 bytes ==='; od -A x -t x1z ${JCL} 2>/dev/null | head -4; \
+                    echo '=== AWK max line length ==='; awk '{if(length>m)m=length} END{print m}' ${JCL} 2>/dev/null"
+                  rm -f "$KEY_FILE"
+
             - name: run-dbb-build
               run: |
                   KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
