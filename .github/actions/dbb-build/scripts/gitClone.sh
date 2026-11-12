@@ -121,15 +121,36 @@ find "$TARGET_DIR" -type f \
   -exec chtag -tc ISO8859-1 {} \; 2>/dev/null
 
 echo "[INFO] Convertendo fontes mainframe e Groovy para EBCDIC (IBM-1047)..."
+# IMPORTANTE: chmod u+w ANTES do iconv — os ZIPs do GitHub extraem arquivos
+# somente-leitura (a+r sem w). O iconv grava em "$f.ebcdic" e o mv substitui
+# "$f", mas mv falha silenciosamente se "$f" for read-only, deixando o arquivo
+# em ASCII tagado como IBM-1047 (causa do erro [ERROR - lexing] Line 1 no ZCodeScan).
+find "$TARGET_DIR" \( \
+  -name "*.cbl"  -o -name "*.cpy"  -o -name "*.pli"  -o -name "*.inc"  \
+  -o -name "*.jcl"  -o -name "*.proc" -o -name "*.cntl" \
+  -o -name "*.rexx" -o -name "*.asm"  -o -name "*.bms"  \
+  -o -name "*.groovy" \
+\) -type f -exec chmod u+w {} \; 2>/dev/null
+
+CONVERT_OK=0
+CONVERT_FAIL=0
 find "$TARGET_DIR" \( \
   -name "*.cbl"  -o -name "*.cpy"  -o -name "*.pli"  -o -name "*.inc"  \
   -o -name "*.jcl"  -o -name "*.proc" -o -name "*.cntl" \
   -o -name "*.rexx" -o -name "*.asm"  -o -name "*.bms"  \
   -o -name "*.groovy" \
 \) -type f | while read f; do
-  iconv -f ISO8859-1 -t IBM-1047 "$f" > "$f.ebcdic" && mv "$f.ebcdic" "$f" && chtag -tc IBM-1047 "$f"
+  if iconv -f ISO8859-1 -t IBM-1047 "$f" > "$f.ebcdic" 2>/dev/null \
+      && mv "$f.ebcdic" "$f" 2>/dev/null \
+      && chtag -tc IBM-1047 "$f" 2>/dev/null; then
+    CONVERT_OK=$((CONVERT_OK+1))
+  else
+    rm -f "$f.ebcdic" 2>/dev/null
+    echo "[WARN] iconv/mv falhou para: $f"
+    CONVERT_FAIL=$((CONVERT_FAIL+1))
+  fi
 done
-echo "[INFO] Taggeamento concluido"
+echo "[INFO] Conversao EBCDIC concluida"
 
 # Garantir permissoes corretas apos extracao do ZIP:
 #   - Todos os arquivos: leitura para todos (a+r)
