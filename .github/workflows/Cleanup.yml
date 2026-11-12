@@ -66,6 +66,6 @@ jobs:
 
                   ssh -i "$KEY_FILE" -p "$ZOS_PORT" -o StrictHostKeyChecking=no \
                     "$ZOS_USER@$ZOS_HOST" \
-                    "chmod +x $REMOTE_TMP && sh $REMOTE_TMP; rm -f $REMOTE_TMP"
+                    "chmod +x $REMOTE_TMP && bash $REMOTE_TMP; rm -f $REMOTE_TMP"
 
                   rm -f "$KEY_FILE" "$SCRIPT_FILE"
