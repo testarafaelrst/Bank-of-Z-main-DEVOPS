@@ -31,16 +31,16 @@ jobs:
                   echo "$ZOS_SSH_KEY" > "$KEY_FILE"
                   SSH="ssh -i $KEY_FILE -p $ZOS_PORT -o StrictHostKeyChecking=no $ZOS_USER@$ZOS_HOST"
 
-                  # Limpa todos os run_* em qualquer profundidade sob batch-pipeline e pipeline
+                  # Diagnóstico: ver o que realmente está ocupando espaço
                   $SSH ". ~/.profile 2>/dev/null; \
-                    echo '=== DISCO ANTES ==='; \
-                    df -k ${SANDBOX} 2>/dev/null; \
-                    echo '=== LIMPANDO run_* (qualquer profundidade) ==='; \
-                    find ${SANDBOX}/batch-pipeline -name 'run_*' -type d -exec rm -rf {} + 2>/dev/null; echo batch-pipeline done; \
-                    find ${SANDBOX}/pipeline -name 'run_*' -type d -exec rm -rf {} + 2>/dev/null; echo pipeline done; \
-                    rm -f /tmp/repo_*.zip /tmp/dbb_build_*.log /tmp/zcodescan_*.log 2>/dev/null; echo tmp done; \
-                    echo '=== DISCO APOS ==='; \
-                    df -k ${SANDBOX} 2>/dev/null; \
+                    echo '=== CONTEUDO batch-pipeline/testarafaelrst/Bank-of-Z-main-DEVOPS ==='; \
+                    ls -la ${SANDBOX}/batch-pipeline/testarafaelrst/Bank-of-Z-main-DEVOPS/ 2>/dev/null; \
+                    echo '=== CONTEUDO pipeline/testarafaelrst/Bank-of-Z-main-DEVOPS ==='; \
+                    ls -la ${SANDBOX}/pipeline/testarafaelrst/Bank-of-Z-main-DEVOPS/ 2>/dev/null; \
+                    echo '=== DU TOP 5 batch-pipeline ==='; \
+                    du -sk ${SANDBOX}/batch-pipeline/testarafaelrst/Bank-of-Z-main-DEVOPS/*/ 2>/dev/null | sort -rn | head -5; \
+                    echo '=== DU TOP 5 pipeline ==='; \
+                    du -sk ${SANDBOX}/pipeline/testarafaelrst/Bank-of-Z-main-DEVOPS/*/ 2>/dev/null | sort -rn | head -5; \
                     echo OK"
 
                   rm -f "$KEY_FILE"
