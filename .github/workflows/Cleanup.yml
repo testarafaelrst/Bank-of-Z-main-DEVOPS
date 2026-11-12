@@ -31,48 +31,41 @@ jobs:
                   KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
                   echo "$ZOS_SSH_KEY" > "$KEY_FILE"
 
-                  # Monta o script como string no runner macOS e passa via stdin
-                  # Sem heredoc — evita qualquer problema de expansão de variáveis
-                  REMOTE_SCRIPT="
+                  # Escreve o script em um arquivo temporário local
+                  SCRIPT_FILE=$(mktemp)
+                  cat > "$SCRIPT_FILE" << ENDSCRIPT
                   set +e
-                  SANDBOX='$SANDBOX'
-                  REPO='$REPO'
-                  PIPELINE='$PIPELINE'
-
-                  echo '=== SANDBOX='
-                  echo \$SANDBOX
-                  echo '=== REPO='
-                  echo \$REPO
-                  echo '=== PIPELINE='
-                  echo \$PIPELINE
-
-                  echo ''
-                  echo '=== DISCO ANTES ==='
-                  df -k \$SANDBOX 2>/dev/null || df -k /
-
-                  echo ''
-                  echo '=== TOP 10 MAIORES ITENS ==='
-                  du -sk \$SANDBOX/*/ 2>/dev/null | sort -rn | head -10
-
-                  echo ''
-                  echo '=== REMOVENDO run_* em batch-pipeline ==='
-                  find \$SANDBOX/batch-pipeline -maxdepth 4 -name 'run_*' -type d -exec rm -rf {} + 2>/dev/null || true
-
-                  echo '=== REMOVENDO run_* em pipeline ==='
-                  find \$SANDBOX/pipeline -maxdepth 4 -name 'run_*' -type d -exec rm -rf {} + 2>/dev/null || true
-
-                  echo '=== REMOVENDO /tmp/repo_*.zip ==='
-                  rm -f /tmp/repo_*.zip /tmp/dbb_build_*.log /tmp/zcodescan_*.log 2>/dev/null || true
-
-                  echo ''
-                  echo '=== DISCO APOS LIMPEZA ==='
-                  df -k \$SANDBOX 2>/dev/null || df -k /
+                  SANDBOX="$SANDBOX"
+                  REPO="$REPO"
+                  echo "SANDBOX=\$SANDBOX"
+                  echo "REPO=\$REPO"
+                  echo ""
+                  echo "=== DISCO ANTES ==="
+                  df -k "\$SANDBOX" 2>/dev/null || df -k /
+                  echo ""
+                  echo "=== TOP 10 MAIORES ITENS ==="
+                  du -sk "\$SANDBOX"/*/ 2>/dev/null | sort -rn | head -10
+                  echo ""
+                  echo "=== REMOVENDO runs em batch-pipeline ==="
+                  find "\$SANDBOX/batch-pipeline" -maxdepth 5 -name "run_*" -type d -exec rm -rf {} + 2>/dev/null; echo "done"
+                  echo "=== REMOVENDO runs em pipeline ==="
+                  find "\$SANDBOX/pipeline" -maxdepth 5 -name "run_*" -type d -exec rm -rf {} + 2>/dev/null; echo "done"
+                  echo "=== REMOVENDO temporarios /tmp ==="
+                  rm -f /tmp/repo_*.zip /tmp/dbb_build_*.log /tmp/zcodescan_*.log 2>/dev/null; echo "done"
+                  echo ""
+                  echo "=== DISCO APOS LIMPEZA ==="
+                  df -k "\$SANDBOX" 2>/dev/null || df -k /
                   df -k /tmp 2>/dev/null
+                  echo "[OK] Cleanup concluido"
+                  ENDSCRIPT
 
-                  echo '[OK] Cleanup concluido'
-                  "
+                  # Envia o script via SCP e executa via SSH
+                  REMOTE_TMP="/tmp/boz_cleanup_$$.sh"
+                  scp -i "$KEY_FILE" -P "$ZOS_PORT" -o StrictHostKeyChecking=no \
+                    "$SCRIPT_FILE" "$ZOS_USER@$ZOS_HOST:$REMOTE_TMP"
 
                   ssh -i "$KEY_FILE" -p "$ZOS_PORT" -o StrictHostKeyChecking=no \
-                    "$ZOS_USER@$ZOS_HOST" "sh -c '$REMOTE_SCRIPT'"
+                    "$ZOS_USER@$ZOS_HOST" \
+                    "chmod +x $REMOTE_TMP && sh $REMOTE_TMP; rm -f $REMOTE_TMP"
 
-                  rm -f "$KEY_FILE"
+                  rm -f "$KEY_FILE" "$SCRIPT_FILE"
