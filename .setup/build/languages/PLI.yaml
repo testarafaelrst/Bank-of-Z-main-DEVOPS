@@ -93,7 +93,7 @@ tasks:
     steps:
 
       # Copy build file and dependency files to data sets
-      # copyMode: BINARY — fontes .pli e .inc sao convertidos para IBM-1047 (EBCDIC)
+      # copyMode: BINARY - fontes .pli e .inc sao convertidos para IBM-1047 (EBCDIC)
       # pelo gitClone.sh. Com BINARY o DBB copia bytes diretamente sem re-conversao.
       - step: copySrc
         type: copy

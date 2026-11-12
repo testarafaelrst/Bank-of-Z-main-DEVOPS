@@ -37,7 +37,7 @@ tasks:
         options: cyl space(1,1) lrecl(255) dsorg(PO) recfm(V,B) dsntype(library)
     
     # Single copy step for each file type
-    # copyMode: BINARY — os arquivos sao convertidos para IBM-1047 (EBCDIC) pelo
+    # copyMode: BINARY - os arquivos sao convertidos para IBM-1047 (EBCDIC) pelo
     # gitClone.sh antes do build. Com BINARY o DBB copia os bytes diretamente sem
     # nenhuma conversao de codepage, evitando EDC5003I Truncation com AUTOCVT=ON.
     steps:
