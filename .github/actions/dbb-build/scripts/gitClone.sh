@@ -85,29 +85,56 @@ fi
 
 TARGET_DIR="$WORKSPACE/$REPO_NAME"
 
-# Tagear arquivos extraidos do ZIP do GitHub (todos em ASCII/ISO8859-1).
+# Tagear arquivos extraidos do ZIP do GitHub (todos chegam em ASCII/ISO8859-1).
 #
-# Estrategia: tagar como ISO8859-1 (ASCII) exceto arquivos Groovy (JVM DBB).
-#   - O DBB 3.x com copyMode:TEXT converte automaticamente ISO8859-1 -> EBCDIC
-#     ao copiar para datasets z/OS. Isso e o comportamento correto.
-#   - Arquivos de configuracao (YAML, shell) ficam em ISO8859-1; com AUTOCVT=ON
-#     o z/OS converte automaticamente quando necessario.
-#   - Arquivos Groovy precisam estar em EBCDIC (IBM-1047) para a JVM do z/OS.
+# Estrategia de tagging em DUAS camadas:
+#
+#   1. EBCDIC (IBM-1047) — arquivos processados pela JVM ou copiados para datasets:
+#      - *.groovy  — scripts Groovy do DBB
+#      - *.cbl     — fontes COBOL (copiados para datasets EBCDIC via copyMode:BINARY)
+#      - *.cpy     — copybooks COBOL
+#      - *.pli     — fontes PL/I
+#      - *.jcl     — JCL (Transfer.yaml copyMode:BINARY)
+#      - *.proc    — JCL procedures
+#      - *.cntl    — control cards
+#      - *.rexx    — REXX exec
+#      - *.asm     — Assembler sources
+#      - *.bms     — BMS map sources
+#      - *.inc     — PL/I include
+#      Esses arquivos SAO convertidos iconv ISO8859-1->IBM-1047.
+#      O DBB copia com copyMode:BINARY — bytes EBCDIC vao direto para o dataset.
+#
+#   2. ISO8859-1 (ASCII) — arquivos lidos pelo bash/Python com AUTOCVT=ON:
+#      - *.yaml, *.json  — config DBB, lidos pela JVM via AUTOCVT=ON
+#      - *.sh, *.py      — scripts shell/Python
+#      - *.j2            — templates Jinja2
+#      - *.html, *.js    — frontend
+#      - etc.
+#
+# MOTIVO: com _BPXK_AUTOCVT=ON + arquivo tagado ISO8859-1 + copyMode:TEXT,
+# ocorre dupla conversao de codepage ao gravar em datasets (EDC5003I Truncation
+# errno2=0xc0400060). Converter para EBCDIC antes e usar copyMode:BINARY elimina
+# o problema: os bytes ja estao no charset correto, nao ha conversao.
 
-echo "[INFO] Taggeando todos os arquivos texto como ISO8859-1..."
+# Passo 1: tagar TUDO como ISO8859-1 primeiro (exceto binarios e os que
+# precisam de EBCDIC — esses serao sobrescritos no passo 2)
+echo "[INFO] Taggeando arquivos texto como ISO8859-1..."
 find "$TARGET_DIR" -type f \
   ! -name "*.class" ! -name "*.jar" ! -name "*.war" \
   ! -name "*.zip"   ! -name "*.tar" ! -name "*.gz"  \
   ! -name "*.png"   ! -name "*.jpg" ! -name "*.gif"  \
   ! -name "*.ico"   ! -name "*.pdf" ! -name "*.bin"  \
-  ! -name "*.groovy" \
   -exec chtag -tc ISO8859-1 {} \; 2>/dev/null
 
-echo "[INFO] Convertendo arquivos Groovy ASCII->EBCDIC (IBM-1047)..."
-find "$TARGET_DIR" -name "*.groovy" -type f | while read gf; do
-  iconv -f ISO8859-1 -t IBM-1047 "$gf" > "$gf.ebcdic"
-  mv "$gf.ebcdic" "$gf"
-  chtag -tc IBM-1047 "$gf"
+# Passo 2: converter fontes mainframe e Groovy para EBCDIC (IBM-1047)
+echo "[INFO] Convertendo fontes mainframe e Groovy para EBCDIC (IBM-1047)..."
+find "$TARGET_DIR" \( \
+  -name "*.cbl"  -o -name "*.cpy"  -o -name "*.pli"  -o -name "*.inc"  \
+  -o -name "*.jcl"  -o -name "*.proc" -o -name "*.cntl" \
+  -o -name "*.rexx" -o -name "*.asm"  -o -name "*.bms"  \
+  -o -name "*.groovy" \
+\) -type f | while read f; do
+  iconv -f ISO8859-1 -t IBM-1047 "$f" > "$f.ebcdic" && mv "$f.ebcdic" "$f" && chtag -tc IBM-1047 "$f"
 done
 echo "[INFO] Taggeamento concluido"
 
