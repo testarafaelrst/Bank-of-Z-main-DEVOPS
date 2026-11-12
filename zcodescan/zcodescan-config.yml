@@ -20,7 +20,8 @@
 ################################################################
 
 # Source encoding of the COBOL/PL/I files being scanned
-encoding: IBM-1047
+# Arquivos tagados ISO8859-1 (ASCII) pelo gitClone.sh no pipeline CI/CD.
+encoding: ISO8859-1
 
 # Maximum return code accepted from the scan (0-8).
 # 0 = only violations of severity ERROR cause failure
