@@ -122,6 +122,16 @@ set +e
 rm -rf ${DBB_LOG_FOLDER}
 mkdir -p ${DBB_LOG_FOLDER}
 chtag -r src/api/src/main/api/openapi.yaml
+
+# Deletar datasets DBB anteriores para forcar recreacao com specs corretas.
+# O DBB nao recria datasets existentes — se criados com lrecl/recfm errado
+# em runs anteriores, causam EDC5003I truncation ao copiar arquivos convertidos.
+print_info "Deleting existing DBB datasets to force recreation with correct specs..."
+for ds in JCL COBOL COPY OBJ LOAD REXX CEXEC PLI DBRM "BMS.COPY" "PLI.INCLUDE" PROC CNTL; do
+    tsocmd "DELETE '${APP_HLQ}.DBB.${ds}'" 2>/dev/null || true
+done
+print_info "Dataset cleanup complete"
+
 set -e
 # Gera datasets.yaml em ISO8859-1 (ASCII) para compatibilidade com DBB 3.x,
 # que espera todos os arquivos de configuracao YAML em ASCII/ISO8859-1.
