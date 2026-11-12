@@ -154,13 +154,11 @@ fi
 # Em builds reais: AUTOCVT=OFF evita dupla conversao ASCII->EBCDIC ao copiar
 # para datasets (EDC5003I Truncation errno2=0xc0400060).
 # Em modo scan/preview: manter AUTOCVT=ON para leitura correta dos YAMLs de config.
-if [ "$BUILD_TYPE" = "scan" ]; then
-    DBB_AUTOCVT=""
-else
-    DBB_AUTOCVT="_BPXK_AUTOCVT=OFF"
+if [ "$BUILD_TYPE" != "scan" ]; then
+    export _BPXK_AUTOCVT=OFF
 fi
 
-env $DBB_AUTOCVT dbb build "$BUILD_TYPE" $DBB_DEBUG_OPT --hlq "${APP_HLQ}.DBB" --log-encoding ISO8859-1 $BUILD_OPTIONS --config "$DBB_APP_CONF" 2>&1 | tee "$TMP_LOG" | while read -r line
+dbb build "$BUILD_TYPE" $DBB_DEBUG_OPT --hlq "${APP_HLQ}.DBB" --log-encoding ISO8859-1 $BUILD_OPTIONS --config "$DBB_APP_CONF" 2>&1 | tee "$TMP_LOG" | while read -r line
 do
     case "$line" in
         ">"*)
