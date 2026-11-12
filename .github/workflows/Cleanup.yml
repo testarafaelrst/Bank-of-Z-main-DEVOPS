@@ -34,7 +34,9 @@ jobs:
                   # Escreve o script em um arquivo temporário local
                   SCRIPT_FILE=$(mktemp)
                   cat > "$SCRIPT_FILE" << ENDSCRIPT
+                  #!/bin/env bash
                   set +e
+                  export PATH=/bin:/usr/bin:/usr/local/bin:/shared/IBM/cyp/v3r14/pyz/bin:\$PATH
                   SANDBOX="$SANDBOX"
                   REPO="$REPO"
                   echo "SANDBOX=\$SANDBOX"
@@ -64,8 +66,11 @@ jobs:
                   scp -i "$KEY_FILE" -P "$ZOS_PORT" -o StrictHostKeyChecking=no \
                     "$SCRIPT_FILE" "$ZOS_USER@$ZOS_HOST:$REMOTE_TMP"
 
+                  # Tenta bash pelo profile primeiro, depois por caminhos conhecidos no z/OS
                   ssh -i "$KEY_FILE" -p "$ZOS_PORT" -o StrictHostKeyChecking=no \
                     "$ZOS_USER@$ZOS_HOST" \
-                    "chmod +x $REMOTE_TMP && bash $REMOTE_TMP; rm -f $REMOTE_TMP"
+                    ". ~/.profile 2>/dev/null || true; \
+                     BASH=\$(command -v bash 2>/dev/null || echo /bin/bash); \
+                     chmod +x $REMOTE_TMP && \$BASH $REMOTE_TMP; rm -f $REMOTE_TMP"
 
                   rm -f "$KEY_FILE" "$SCRIPT_FILE"
