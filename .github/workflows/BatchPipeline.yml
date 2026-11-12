@@ -103,8 +103,8 @@ jobs:
     # -------------------------------------------------------------------------
     # 2. Clona o repositório no z/OS USS
     # -------------------------------------------------------------------------
-    clone:
-        name: "2/7 — Clone no z/OS USS"
+    cleanup:
+        name: "2/7 — Limpeza de Disco z/OS"
         needs: controller
         runs-on: [self-hosted, macOS, ARM64]
         steps:
@@ -112,8 +112,8 @@ jobs:
               run: |
                   KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
                   echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
-                  # Remove workspaces de runs anteriores (mantém apenas o run atual)
-                  # e qualquer run com mais de 1 hora para liberar disco durante dev ativo
+                  # Remove TODOS os runs anteriores antes de qualquer download
+                  # para garantir espaço em disco no z/OS USS
                   CURRENT_RUN="run_${{ github.run_number }}"
                   ssh -i "$KEY_FILE" \
                       -p ${{ env.zosPort }} \
@@ -121,9 +121,15 @@ jobs:
                       ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
                       "BASE=${{ vars.ZOS_SANDBOX_DIR }}/batch-pipeline/${{ github.repository }}/${{ env.branch }} && \
                        find \$BASE -maxdepth 1 -name 'run_*' -type d ! -name ${CURRENT_RUN} -exec rm -rf {} \; 2>/dev/null || true && \
-                       echo 'Cleanup done — kept ${CURRENT_RUN}'"
+                       find /tmp -maxdepth 1 -name 'repo_*.zip' -exec rm -f {} \; 2>/dev/null || true && \
+                       echo '[OK] Cleanup done — kept ${CURRENT_RUN}'"
                   rm -f "$KEY_FILE"
 
+    clone:
+        name: "3/7 — Clone no z/OS USS"
+        needs: cleanup
+        runs-on: [self-hosted, macOS, ARM64]
+        steps:
             - name: clone-repository-to-uss
               run: |
                   KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
@@ -139,11 +145,11 @@ jobs:
                   rm -f "$KEY_FILE"
 
     # -------------------------------------------------------------------------
-    # 3. ZCodeScan — análise estática (COBOL + PL/I batch)
+    # 4. ZCodeScan — análise estática (COBOL + PL/I batch)
     #    Config: zcodescan/zcodescan-config.yml (maxReturnCode: 4, IBM-1047)
     # -------------------------------------------------------------------------
     static-scan:
-        name: "3/7 — ZCodeScan: Análise Estática"
+        name: "4/8 — ZCodeScan: Análise Estática"
         needs: clone
         runs-on: [self-hosted, macOS, ARM64]
         steps:
@@ -163,12 +169,12 @@ jobs:
                   rm -f "$KEY_FILE"
 
     # -------------------------------------------------------------------------
-    # 4. DBB Build — compilação COBOL batch + link-edit
+    # 5. DBB Build — compilação COBOL batch + link-edit
     #    Usa a composite action dbb-build (IGYCRCTL + IEWBLINK)
     #    deployType: LOAD  | compileParms: LIB (sem CICS/SQL)
     # -------------------------------------------------------------------------
     build:
-        name: "4/7 — Build: DBB (IGYCRCTL + IEWBLINK)"
+        name: "5/8 — Build: DBB (IGYCRCTL + IEWBLINK)"
         needs: static-scan
         runs-on: [self-hosted, macOS, ARM64]
         steps:
@@ -189,14 +195,14 @@ jobs:
                   rm -f "$KEY_FILE"
 
     # -------------------------------------------------------------------------
-    # 5. TAZ — testes automatizados para DEVOPSPL
+    # 6. TAZ — testes automatizados para DEVOPSPL
     #    Cenários:
     #      a) happy_path:      WS-FALHA-SIMULADA=0  → RC esperado = 0
     #      b) falha_etapa_3:   WS-FALHA-SIMULADA=3  → RC esperado = 8 (ZCodeScan)
     #      c) falha_etapa_4:   WS-FALHA-SIMULADA=4  → RC esperado = 8 (Build)
     # -------------------------------------------------------------------------
     taz-test:
-        name: "5/7 — TAZ: Testes Automatizados"
+        name: "6/8 — TAZ: Testes Automatizados"
         needs: build
         runs-on: [self-hosted, macOS, ARM64]
         steps:
@@ -217,11 +223,11 @@ jobs:
                   rm -f "$KEY_FILE"
 
     # -------------------------------------------------------------------------
-    # 6. Wazi Deploy — empacota e implanta no ambiente-alvo
+    # 7. Wazi Deploy — empacota e implanta no ambiente-alvo
     #    Somente em push para main/release — ignorado em Pull Requests
     # -------------------------------------------------------------------------
     deploy:
-        name: "6/7 — Deploy: Wazi Deploy"
+        name: "7/8 — Deploy: Wazi Deploy"
         needs: taz-test
         runs-on: [self-hosted, macOS, ARM64]
         if: ${{ github.event_name != 'pull_request' }}
@@ -242,11 +248,11 @@ jobs:
                   rm -f "$KEY_FILE"
 
     # -------------------------------------------------------------------------
-    # 7. Verify — testes de verificação pós-deploy
+    # 8. Verify — testes de verificação pós-deploy
     #    Executa após deploy (main/release) ou após build+taz (PR, deploy skipped)
     # -------------------------------------------------------------------------
     verify:
-        name: "7/7 — Verify: Testes Pós-Deploy"
+        name: "8/8 — Verify: Testes Pós-Deploy"
         needs:
             - taz-test
             - deploy
