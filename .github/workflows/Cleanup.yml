@@ -1,15 +1,5 @@
 name: boz-cleanup
 
-# =============================================================================
-# Bank of Z — Limpeza de Workspaces no z/OS USS
-#
-# Remove todos os diretórios run_* acumulados no z/OS USS para liberar espaço.
-# Disparar manualmente quando o disco estiver cheio.
-#
-# Required repository variables: ZOS_HOST, ZOS_SSH_USER, ZOS_SSH_PORT, ZOS_SANDBOX_DIR
-# Required repository secrets:   ZOS_SSH_KEY
-# =============================================================================
-
 on:
     workflow_dispatch:
         inputs:
@@ -41,54 +31,48 @@ jobs:
                   KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
                   echo "$ZOS_SSH_KEY" > "$KEY_FILE"
 
+                  # Monta o script como string no runner macOS e passa via stdin
+                  # Sem heredoc — evita qualquer problema de expansão de variáveis
+                  REMOTE_SCRIPT="
+                  set +e
+                  SANDBOX='$SANDBOX'
+                  REPO='$REPO'
+                  PIPELINE='$PIPELINE'
+
+                  echo '=== SANDBOX='
+                  echo \$SANDBOX
+                  echo '=== REPO='
+                  echo \$REPO
+                  echo '=== PIPELINE='
+                  echo \$PIPELINE
+
+                  echo ''
+                  echo '=== DISCO ANTES ==='
+                  df -k \$SANDBOX 2>/dev/null || df -k /
+
+                  echo ''
+                  echo '=== TOP 10 MAIORES ITENS ==='
+                  du -sk \$SANDBOX/*/ 2>/dev/null | sort -rn | head -10
+
+                  echo ''
+                  echo '=== REMOVENDO run_* em batch-pipeline ==='
+                  find \$SANDBOX/batch-pipeline -maxdepth 4 -name 'run_*' -type d -exec rm -rf {} + 2>/dev/null || true
+
+                  echo '=== REMOVENDO run_* em pipeline ==='
+                  find \$SANDBOX/pipeline -maxdepth 4 -name 'run_*' -type d -exec rm -rf {} + 2>/dev/null || true
+
+                  echo '=== REMOVENDO /tmp/repo_*.zip ==='
+                  rm -f /tmp/repo_*.zip /tmp/dbb_build_*.log /tmp/zcodescan_*.log 2>/dev/null || true
+
+                  echo ''
+                  echo '=== DISCO APOS LIMPEZA ==='
+                  df -k \$SANDBOX 2>/dev/null || df -k /
+                  df -k /tmp 2>/dev/null
+
+                  echo '[OK] Cleanup concluido'
+                  "
+
                   ssh -i "$KEY_FILE" -p "$ZOS_PORT" -o StrictHostKeyChecking=no \
-                    "$ZOS_USER@$ZOS_HOST" \
-                    "SANDBOX='$SANDBOX' REPO='$REPO' PIPELINE='$PIPELINE' sh -s" << 'SCRIPT'
-                    set +e
-                    echo "=== SANDBOX: $SANDBOX ==="
-                    echo "=== REPO:    $REPO ==="
-                    echo "=== PIPELINE: $PIPELINE ==="
-
-                    echo ""
-                    echo "=== DISCO ANTES DA LIMPEZA ==="
-                    df -k "$SANDBOX" 2>/dev/null || df -k /
-
-                    echo ""
-                    echo "=== TOP 10 MAIORES ITENS ==="
-                    du -sk "$SANDBOX"/*/ 2>/dev/null | sort -rn | head -10
-
-                    do_cleanup() {
-                      base="$1"
-                      echo "[INFO] Limpando: $base"
-                      if [ ! -d "$base" ]; then
-                        echo "[SKIP] Nao existe: $base"
-                        return
-                      fi
-                      find "$base" -maxdepth 2 -name 'run_*' -type d -exec rm -rf {} \; 2>/dev/null
-                      echo "[OK] Limpo: $base"
-                    }
-
-                    echo ""
-                    echo "=== LIMPANDO WORKSPACES ==="
-                    if [ "$PIPELINE" = "all" ] || [ "$PIPELINE" = "batch-pipeline" ]; then
-                      do_cleanup "$SANDBOX/batch-pipeline/$REPO/main"
-                    fi
-                    if [ "$PIPELINE" = "all" ] || [ "$PIPELINE" = "pipeline" ]; then
-                      do_cleanup "$SANDBOX/pipeline/$REPO/main"
-                    fi
-
-                    echo ""
-                    echo "=== LIMPANDO /tmp ==="
-                    find /tmp -maxdepth 1 -name 'repo_*.zip' -exec rm -f {} \; 2>/dev/null || true
-                    find /tmp -maxdepth 1 -name 'zcodescan_*.log' -exec rm -f {} \; 2>/dev/null || true
-                    find /tmp -maxdepth 1 -name 'dbb_build_*.log' -exec rm -f {} \; 2>/dev/null || true
-
-                    echo ""
-                    echo "=== DISCO APOS LIMPEZA ==="
-                    df -k "$SANDBOX" 2>/dev/null || df -k /
-                    df -k /tmp 2>/dev/null
-
-                    echo "[OK] Cleanup concluido"
-                  SCRIPT
+                    "$ZOS_USER@$ZOS_HOST" "sh -c '$REMOTE_SCRIPT'"
 
                   rm -f "$KEY_FILE"
