@@ -159,12 +159,24 @@ print_info "  REPO_SCAN_CONFIG exists: $([ -f "${REPO_SCAN_CONFIG}" ] && echo YE
 # Desativar pipefail aqui para que RC != 0 nao mate o script antes da
 # validacao explicita abaixo. O tee sempre retorna 0.
 #
-# _BPXK_AUTOCVT=OFF: fontes mainframe estao em IBM-1047 (EBCDIC) no USS.
-# Com AUTOCVT=ON, o z/OS converteria EBCDIC->ASCII ao abrir os arquivos,
-# e o ZCodeScan receberia bytes ASCII ao inves de EBCDIC. Com AUTOCVT=OFF,
-# o ZCodeScan recebe os bytes EBCDIC brutos e decodifica com -e IBM-1047.
+# Os fontes mainframe estao em IBM-1047 (EBCDIC) tagados no USS.
+# Com _BPXK_AUTOCVT=ON (padrao), ao abrir arquivos TAGADOS IBM-1047 o z/OS
+# converte EBCDIC->ASCII automaticamente, fazendo o ZCodeScan receber ASCII
+# em vez de EBCDIC (RC=-1). Usando _BPXK_AUTOCVT=OFF o ZCodeScan recebe
+# bytes EBCDIC brutos e -e IBM-1047 decodifica correto — MAS isso faz
+# 'java -version' retornar EBCDIC que o Python nao decodifica como UTF-8.
+#
+# Solucao: remover temporariamente a tag dos fontes (chtag -r).
+# Arquivo NAO-TAGADO + AUTOCVT=ON = z/OS nao faz conversao automatica
+# (trata como EBCDIC/binario). ZCodeScan recebe bytes EBCDIC brutos e
+# -e IBM-1047 decodifica. Apos o scan, restaurar tag IBM-1047.
+print_info "Removendo tag dos fontes mainframe para o scan (evitar AUTOCVT)..."
+find "${SCAN_SOURCE_FOLDER}" \( \
+  -name "*.cbl" -o -name "*.cpy" -o -name "*.pli" -o -name "*.inc" \
+\) -type f -exec chtag -r {} \; 2>/dev/null || true
+
 set +o pipefail
-_BPXK_AUTOCVT=OFF PYTHONUNBUFFERED=1 zcodescan \
+PYTHONUNBUFFERED=1 zcodescan \
   -sfl "$BUILD_LIST" \
   -if "${SCAN_SOURCE_FOLDER}" \
   -cf "${SCAN_CONFIG_FILE}" \
@@ -182,6 +194,12 @@ do
             ;;
     esac
 done
+
+# Restaurar tag IBM-1047 nos fontes apos o scan
+print_info "Restaurando tag IBM-1047 nos fontes mainframe..."
+find "${SCAN_SOURCE_FOLDER}" \( \
+  -name "*.cbl" -o -name "*.cpy" -o -name "*.pli" -o -name "*.inc" \
+\) -type f -exec chtag -tc IBM-1047 {} \; 2>/dev/null || true
 
 # Exibir as primeiras 80 linhas do zcodescan.log para diagnostico inline
 print_info "--- zcodescan.log (primeiras 80 linhas) ---"
