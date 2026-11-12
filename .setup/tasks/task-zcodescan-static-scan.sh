@@ -155,9 +155,7 @@ print_info "  SCAN_CONFIG_FILE exists: $([ -f "${SCAN_CONFIG_FILE}" ] && echo YE
 print_info "  REPO_SCAN_CONFIG   = ${REPO_SCAN_CONFIG}"
 print_info "  REPO_SCAN_CONFIG exists: $([ -f "${REPO_SCAN_CONFIG}" ] && echo YES || echo NO)"
 
-# zcodescan retorna RC=4 quando encontra violacoes (comportamento normal).
-# Desativar pipefail aqui para que RC != 0 nao mate o script antes da
-# validacao explicita abaixo. O tee sempre retorna 0.
+# Estrategia de encoding para o ZCodeScan:
 #
 # Os fontes mainframe estao em IBM-1047 (EBCDIC) tagados no USS.
 # Com _BPXK_AUTOCVT=ON (padrao), ao abrir arquivos TAGADOS IBM-1047 o z/OS
@@ -170,12 +168,17 @@ print_info "  REPO_SCAN_CONFIG exists: $([ -f "${REPO_SCAN_CONFIG}" ] && echo YE
 # Arquivo NAO-TAGADO + AUTOCVT=ON = z/OS nao faz conversao automatica
 # (trata como EBCDIC/binario). ZCodeScan recebe bytes EBCDIC brutos e
 # -e IBM-1047 decodifica. Apos o scan, restaurar tag IBM-1047.
+#
+# IMPORTANTE: NAO usar pipeline (zcodescan | tee | while read).
+# O while read fecha o stdin antes do zcodescan terminar → SIGPIPE → RC=-1
+# sem gravar a linha RC= no log. Executar sem pipeline, redirecionar para
+# arquivo e exibir em seguida.
 print_info "Removendo tag dos fontes mainframe para o scan (evitar AUTOCVT)..."
 find "${SCAN_SOURCE_FOLDER}" \( \
   -name "*.cbl" -o -name "*.cpy" -o -name "*.pli" -o -name "*.inc" \
 \) -type f -exec chtag -r {} \; 2>/dev/null || true
 
-set +o pipefail
+set +e
 PYTHONUNBUFFERED=1 zcodescan \
   -sfl "$BUILD_LIST" \
   -if "${SCAN_SOURCE_FOLDER}" \
@@ -183,17 +186,16 @@ PYTHONUNBUFFERED=1 zcodescan \
   -of "${SCAN_OUTPUT_FILE}" \
   -rf "${SCAN_RULE_FILE}" \
   -et sonarqube,junit \
-  -e "${SCAN_ENCODING}" 2>&1 | tee "$TMP_LOG" | while read -r line
-do
+  -e "${SCAN_ENCODING}" > "$TMP_LOG" 2>&1
+ZCS_RC=$?
+
+# Exibir saida do scan em tempo real apos conclusao
+while IFS= read -r line; do
     case "$line" in
-        ">"*)
-            print_info "${line#> }"
-            ;;
-        *)
-            print_info "$line"
-            ;;
+        ">"*) print_info "${line#> }" ;;
+        *)    print_info "$line" ;;
     esac
-done
+done < "$TMP_LOG"
 
 # Restaurar tag IBM-1047 nos fontes apos o scan
 print_info "Restaurando tag IBM-1047 nos fontes mainframe..."
