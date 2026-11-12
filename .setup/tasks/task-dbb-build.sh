@@ -147,7 +147,11 @@ DBB_DEBUG_OPT=""
 if [ "$BUILD_TYPE" != "scan" ]; then
     DBB_DEBUG_OPT="--debug"
 fi
-dbb build "$BUILD_TYPE" $DBB_DEBUG_OPT --hlq "${APP_HLQ}.DBB" --log-encoding ISO8859-1 $BUILD_OPTIONS --config "$DBB_APP_CONF" 2>&1 | tee "$TMP_LOG" | while read -r line
+# Desabilitar _BPXK_AUTOCVT durante o build DBB.
+# Com AUTOCVT=ON, o z/OS faz conversao automatica ASCII->EBCDIC em writes para
+# datasets, duplicando a conversao que o DBB copyMode:TEXT ja realiza e causando
+# EDC5003I Truncation (errno2=0xc0400060). Desabilitar para este processo apenas.
+_BPXK_AUTOCVT=OFF dbb build "$BUILD_TYPE" $DBB_DEBUG_OPT --hlq "${APP_HLQ}.DBB" --log-encoding ISO8859-1 $BUILD_OPTIONS --config "$DBB_APP_CONF" 2>&1 | tee "$TMP_LOG" | while read -r line
 do
     case "$line" in
         ">"*)
