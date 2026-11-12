@@ -85,21 +85,27 @@ fi
 
 TARGET_DIR="$WORKSPACE/$REPO_NAME"
 
-# Tagear arquivos por tipo:
+# Tagear arquivos extraidos do ZIP do GitHub (todos em ASCII/ISO8859-1):
 #
 # Arquivos fonte mainframe (COBOL, JCL, PL/I, REXX, ASM, copybooks, BMS):
-#   IBM-1047 (EBCDIC) — o DBB 3.x e o compilador z/OS esperam EBCDIC
+#   Converter conteudo ASCII->EBCDIC via iconv e tagar como IBM-1047.
+#   O DBB 3.x e os compiladores z/OS esperam EBCDIC no USS.
+#   Sem conversao, o DBB faz ASCII->EBCDIC ao copiar para dataset e gera
+#   truncation se interpretar o arquivo como ja sendo EBCDIC.
 #
-# Arquivos de configuracao/infraestrutura (YAML, JSON, shell, properties):
-#   ISO8859-1 (ASCII) — o DBB 3.x le estes arquivos em ASCII
+# Arquivos de configuracao (YAML, JSON, shell, properties):
+#   Manter como ISO8859-1 (ASCII) — o DBB 3.x le config em ASCII.
 #
-# Arquivos Groovy: IBM-1047 (EBCDIC) — JVM z/OS carrega como EBCDIC
+# Arquivos Groovy: converter ASCII->EBCDIC (JVM z/OS carrega como EBCDIC)
 # Arquivos binarios: sem tag
 
-echo "[INFO] Taggeando arquivos fonte mainframe como IBM-1047..."
+echo "[INFO] Convertendo arquivos fonte mainframe ASCII->EBCDIC (IBM-1047)..."
 for ext in cbl cpy pli bms jcl rexx rex asm mfs lnk bnd csd; do
-  find "$TARGET_DIR" -type f -name "*.$ext" \
-    -exec chtag -tc IBM-1047 {} \; 2>/dev/null
+  find "$TARGET_DIR" -type f -name "*.$ext" | while read f; do
+    iconv -f ISO8859-1 -t IBM-1047 "$f" > "$f.ebcdic" && \
+      mv "$f.ebcdic" "$f" && \
+      chtag -tc IBM-1047 "$f"
+  done
 done
 
 echo "[INFO] Taggeando arquivos de configuracao como ISO8859-1..."
@@ -108,13 +114,13 @@ for ext in yaml yml sh properties json xml html css js md txt; do
     -exec chtag -tc ISO8859-1 {} \; 2>/dev/null
 done
 
-echo "[INFO] Convertendo e taggeando arquivos Groovy para IBM-1047..."
+echo "[INFO] Convertendo arquivos Groovy ASCII->EBCDIC (IBM-1047)..."
 find "$TARGET_DIR" -name "*.groovy" -type f | while read gf; do
   iconv -f ISO8859-1 -t IBM-1047 "$gf" > "$gf.ebcdic"
   mv "$gf.ebcdic" "$gf"
   chtag -tc IBM-1047 "$gf"
 done
-echo "[INFO] Taggeamento e conversao concluidos"
+echo "[INFO] Conversao e taggeamento concluidos"
 
 # Garantir permissoes corretas apos extracao do ZIP:
 #   - Todos os arquivos: leitura para todos (a+r)
