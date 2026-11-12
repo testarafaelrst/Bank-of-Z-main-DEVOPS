@@ -5,7 +5,8 @@
 *.mfs zos-working-tree-encoding=ibm-1047 
 *.bnd zos-working-tree-encoding=ibm-1047 
 *.lnk zos-working-tree-encoding=ibm-1047 
-*.rex zos-working-tree-encoding=ibm-1047 
+*.rex zos-working-tree-encoding=ibm-1047
+*.rexx zos-working-tree-encoding=ibm-1047
 #.txt zos-working-tree-encoding=ibm-1047 
 *.groovy zos-working-tree-encoding=ibm-1047 
 *.sh zos-working-tree-encoding=ibm-1047 
