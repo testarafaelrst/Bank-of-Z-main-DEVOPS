@@ -32,7 +32,7 @@
 - `src/base/cics/copy/ACCOUNT.cpy` — ACCOUNT data structure
 
 ### JCL (2 files)
-- `src/base/batch/jcl/RUNDEVOPS.jcl` — Run DEVOPSPL batch job
+- `src/base/batch/jcl/RUNDEVOP.jcl` — Run DEVOPSPL batch job
 - `src/base/batch/jcl/LSTCUST.jcl` — Run LSTCUST DB2 batch job
 
 ### PL/I (1 file)

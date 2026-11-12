@@ -30,7 +30,7 @@
         "type": "zowe",
         "name": "bank-of-z.zOpenDebug"
       },
-      "jclFile": "src/base/batch/jcl/RUNDEVOPS.jcl",
+      "jclFile": "src/base/batch/jcl/RUNDEVOP.jcl",
       "programName": "DEVOPSPL"
     },
     {

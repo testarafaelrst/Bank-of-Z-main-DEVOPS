@@ -374,7 +374,7 @@ profiles:
       recording:
         applicationToCapture:
           recordingType: Batch
-          jclSteps: src/base/batch/jcl/RUNDEVOPS.jcl/RUNDEVOP
+          jclSteps: src/base/batch/jcl/RUNDEVOP.jcl/RUNDEVOP
           programs:
             - DEVOPSPL
         hostRecordingSettings:
