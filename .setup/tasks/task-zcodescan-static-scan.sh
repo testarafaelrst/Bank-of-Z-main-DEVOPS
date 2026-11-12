@@ -144,6 +144,9 @@ rm -f ./*.log
 mkdir -p "$LOG_DIR"
 
 print_info "Starting ZCodeScan analysis ..."
+print_info "  SCAN_SOURCE_FOLDER = ${SCAN_SOURCE_FOLDER}"
+print_info "  SCAN_CWD_FOLDER    = ${SCAN_CWD_FOLDER}"
+print_info "  BUILD_LIST         = ${BUILD_LIST}"
 
 PYTHONUNBUFFERED=1 zcodescan \
   -sfl "$BUILD_LIST" \

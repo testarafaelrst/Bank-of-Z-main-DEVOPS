@@ -270,7 +270,12 @@ main() {
         export DBB_BUILD_PATH="${BANK_DIR}/.setup/build"
         export ZBUILDER_SOURCE="${BANK_DIR}/.setup/build"
         export DBB_LOG_FOLDER="${BANK_OF_Z_WORK_DIR}/logs/dbb"
-        export SCAN_SOURCE_FOLDER="${BANK_DIR}/src/base"
+        # SCAN_SOURCE_FOLDER: pasta raiz para o ZCodeScan resolver os caminhos do
+        # buildList.txt. O DBB gera caminhos relativos ao workspace
+        # (ex: Bank-of-Z-main-DEVOPS/src/base/...), portanto o -if deve apontar
+        # para o PAI do workspace = BANK_OF_Z_WORK_DIR, nao para src/base.
+        export SCAN_SOURCE_FOLDER="${BANK_OF_Z_WORK_DIR}"
+        export SCAN_CWD_FOLDER="${BANK_OF_Z_WORK_DIR}"
         export SCAN_RULE_FILE="${BANK_DIR}/zcodescan/zcodescan-rules.yaml"
         export SCAN_OUTPUT_FOLDER="${BANK_OF_Z_WORK_DIR}/zcodescan"
         export DEPLOY_DEPLOYMENT_METHOD="${BANK_DIR}/.setup/deploy/deployment-method.yml"
