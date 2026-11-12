@@ -94,8 +94,11 @@ BUILD_TYPE="${1:-}"
 BUILD_OPTIONS=""
 
 if [ "$BUILD_TYPE" = "full" ]; then
-    print_info "Running FULL DBB build"
-    BUILD_TYPE="full"
+    # O lifecycle 'full' do dbb-build.yaml inclui VanillaFrontend/ServerXmlPackager/
+    # ImsJavaBuilder que causam BGZZB0048E em DBB 3.x quando os scripts Groovy nao
+    # implementam AbstractLoader/AbstractTask. Usar 'batch' para builds batch.
+    print_info "Running BATCH (full impact) DBB build"
+    BUILD_TYPE="batch"
 elif [ "$BUILD_TYPE" = "preview" ]; then
     # Usa o lifecycle 'scan' em modo preview para obter a lista de fontes
     # para o ZCodeScan, sem executar o task 'Transfer' (que falha em preview
@@ -104,8 +107,10 @@ elif [ "$BUILD_TYPE" = "preview" ]; then
     BUILD_OPTIONS="--preview"
     BUILD_TYPE="scan"
 else
-    print_info "Running PIPELINE (impact) DBB build"
-    BUILD_TYPE="pipeline"
+    # O lifecycle 'pipeline' inclui VanillaFrontend/ServerXmlPackager/ImsJavaBuilder
+    # que causam BGZZB0048E em DBB 3.x. Usar 'batch' para evitar o erro.
+    print_info "Running BATCH (impact) DBB build"
+    BUILD_TYPE="batch"
 fi
 
 # =========================

@@ -115,6 +115,27 @@ lifecycles:
       - Package
       - Finish
 
+  # batch lifecycle: builds and packages batch COBOL programs only.
+  # Excludes VanillaFrontend, ServerXmlPackager, ImsJavaBuilder, zOSConnect
+  # which are not relevant for batch and cause BGZZB0048E on DBB 3.x when
+  # the Groovy scripts do not implement AbstractLoader/AbstractTask.
+  - lifecycle: batch
+    cli:
+      usage: dbb build batch [arguments] [options]
+      options:
+        - longOption: "debug"
+          hasArg: false
+          description: "Enables the debug options on load modules."
+
+    tasks:
+      - Start
+      - ScannerInit
+      - MetadataInit
+      - ImpactAnalysis
+      - Languages    # Defined in Languages.yaml
+      - Package
+      - Finish
+
   # scan lifecycle: obtains the build list for static analysis (ZCodeScan).
   # Use with --preview to get the list of source files without any z/OS I/O.
   # The Transfer task is skipped via condition when STATUS == PREVIEW (2).
