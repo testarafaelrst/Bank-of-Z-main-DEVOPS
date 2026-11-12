@@ -124,13 +124,16 @@ mkdir -p ${DBB_LOG_FOLDER}
 chtag -r src/api/src/main/api/openapi.yaml
 
 # Deletar datasets DBB anteriores para forcar recreacao com specs corretas.
+# Apenas em builds reais — nao em modo preview/scan onde datasets nao sao usados.
 # O DBB nao recria datasets existentes — se criados com lrecl/recfm errado
 # em runs anteriores, causam EDC5003I truncation ao copiar arquivos convertidos.
-print_info "Deleting existing DBB datasets to force recreation with correct specs..."
-for ds in JCL COBOL COPY OBJ LOAD REXX CEXEC PLI DBRM "BMS.COPY" "PLI.INCLUDE" PROC CNTL; do
-    tsocmd "DELETE '${APP_HLQ}.DBB.${ds}'" 2>/dev/null || true
-done
-print_info "Dataset cleanup complete"
+if [ "$BUILD_TYPE" != "scan" ]; then
+    print_info "Deleting existing DBB datasets to force recreation with correct specs..."
+    for ds in JCL COBOL COPY OBJ LOAD REXX CEXEC PLI DBRM "BMS.COPY" "PLI.INCLUDE" PROC CNTL; do
+        tsocmd "DELETE '${APP_HLQ}.DBB.${ds}'" 2>/dev/null || true
+    done
+    print_info "Dataset cleanup complete"
+fi
 
 set -e
 # Gera datasets.yaml em ISO8859-1 (ASCII) para compatibilidade com DBB 3.x,
@@ -147,11 +150,17 @@ DBB_DEBUG_OPT=""
 if [ "$BUILD_TYPE" != "scan" ]; then
     DBB_DEBUG_OPT="--debug"
 fi
-# Desabilitar _BPXK_AUTOCVT durante o build DBB.
-# Com AUTOCVT=ON, o z/OS faz conversao automatica ASCII->EBCDIC em writes para
-# datasets, duplicando a conversao que o DBB copyMode:TEXT ja realiza e causando
-# EDC5003I Truncation (errno2=0xc0400060). Desabilitar para este processo apenas.
-_BPXK_AUTOCVT=OFF dbb build "$BUILD_TYPE" $DBB_DEBUG_OPT --hlq "${APP_HLQ}.DBB" --log-encoding ISO8859-1 $BUILD_OPTIONS --config "$DBB_APP_CONF" 2>&1 | tee "$TMP_LOG" | while read -r line
+# Desabilitar _BPXK_AUTOCVT apenas em builds reais (nao preview/scan).
+# Em builds reais: AUTOCVT=OFF evita dupla conversao ASCII->EBCDIC ao copiar
+# para datasets (EDC5003I Truncation errno2=0xc0400060).
+# Em modo scan/preview: manter AUTOCVT=ON para leitura correta dos YAMLs de config.
+if [ "$BUILD_TYPE" = "scan" ]; then
+    DBB_AUTOCVT=""
+else
+    DBB_AUTOCVT="_BPXK_AUTOCVT=OFF"
+fi
+
+env $DBB_AUTOCVT dbb build "$BUILD_TYPE" $DBB_DEBUG_OPT --hlq "${APP_HLQ}.DBB" --log-encoding ISO8859-1 $BUILD_OPTIONS --config "$DBB_APP_CONF" 2>&1 | tee "$TMP_LOG" | while read -r line
 do
     case "$line" in
         ">"*)
