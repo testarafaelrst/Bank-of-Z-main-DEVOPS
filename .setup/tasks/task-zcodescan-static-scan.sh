@@ -155,6 +155,10 @@ print_info "  SCAN_CONFIG_FILE exists: $([ -f "${SCAN_CONFIG_FILE}" ] && echo YE
 print_info "  REPO_SCAN_CONFIG   = ${REPO_SCAN_CONFIG}"
 print_info "  REPO_SCAN_CONFIG exists: $([ -f "${REPO_SCAN_CONFIG}" ] && echo YES || echo NO)"
 
+# zcodescan retorna RC=4 quando encontra violacoes (comportamento normal).
+# Desativar pipefail aqui para que RC != 0 nao mate o script antes da
+# validacao explicita abaixo. O tee sempre retorna 0.
+set +o pipefail
 PYTHONUNBUFFERED=1 zcodescan \
   -sfl "$BUILD_LIST" \
   -if "${SCAN_SOURCE_FOLDER}" \
