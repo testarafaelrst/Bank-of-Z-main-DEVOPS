@@ -93,6 +93,7 @@ trap finalize_results EXIT
 # =========================
 print_info "Running DBB in preview mode to get the list of sources to scan"
 
+set -o pipefail
 bash "$SCRIPTS_DIR/../tasks/task-dbb-build.sh" preview 2>&1 | tee "$TMP_LOG" | while read -r line
 do
     case "$line" in
