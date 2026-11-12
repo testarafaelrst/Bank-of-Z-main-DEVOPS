@@ -155,7 +155,7 @@ runs:
           git clone \
             --depth 1 \
             --branch "${ACTION_REF}" \
-            "https://${GH_TOKEN}@github.ibm.com/${ACTION_REPO}.git" \
+            "https://${GH_TOKEN}@github.com/${ACTION_REPO}.git" \
             "${ACTION_WORKSPACE}"
 
           echo "[OK] ✅ Scripts clonados em ${ACTION_WORKSPACE}"
