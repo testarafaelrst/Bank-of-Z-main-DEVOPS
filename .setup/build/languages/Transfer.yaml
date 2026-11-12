@@ -37,35 +37,35 @@ tasks:
         options: cyl space(1,1) lrecl(255) dsorg(PO) recfm(V,B) dsntype(library)
     
     # Single copy step for each file type
-    # copyMode: TEXT - arquivos sao tagados ISO8859-1 (ASCII) pelo gitClone.sh.
-    # O DBB converte ISO8859-1->EBCDIC ao gravar em datasets. A JVM z/OS usa a tag
-    # do arquivo diretamente, sem interferencia do AUTOCVT POSIX (sem dupla conversao).
+    # copyMode: BINARY - fontes convertidos para IBM-1047 (EBCDIC) pelo gitClone.sh.
+    # Com BINARY o DBB copia bytes diretamente sem conversao de codepage,
+    # evitando EDC5003I Truncation com AUTOCVT=ON + copyMode:TEXT.
     steps:
       - step: copyJCL
         type: copy
         condition: ${FILE_EXT} == "jcl"
         target: //'${HLQ}.JCL(${MEMBER})'
-        copyMode: TEXT
+        copyMode: BINARY
         deployType: JCL
 
       - step: copyPROC
         type: copy
         condition: ${FILE_EXT} == "proc"
         target: //'${HLQ}.PROC(${MEMBER})'
-        copyMode: TEXT
+        copyMode: BINARY
         deployType: PROC
 
       - step: copyCNTL
         type: copy
         condition: ${FILE_EXT} == "cntl"
         target: //'${HLQ}.CNTL(${MEMBER})'
-        copyMode: TEXT
+        copyMode: BINARY
         deployType: CNTL
 
       - step: copyREXX
         type: copy
         condition: ${FILE_EXT} == "rexx"
         target: //'${HLQ}.REXX(${MEMBER})'
-        copyMode: TEXT
+        copyMode: BINARY
         deployType: REXX
     

@@ -158,8 +158,13 @@ print_info "  REPO_SCAN_CONFIG exists: $([ -f "${REPO_SCAN_CONFIG}" ] && echo YE
 # zcodescan retorna RC=4 quando encontra violacoes (comportamento normal).
 # Desativar pipefail aqui para que RC != 0 nao mate o script antes da
 # validacao explicita abaixo. O tee sempre retorna 0.
+#
+# _BPXK_AUTOCVT=OFF: fontes mainframe estao em IBM-1047 (EBCDIC) no USS.
+# Com AUTOCVT=ON, o z/OS converteria EBCDIC->ASCII ao abrir os arquivos,
+# e o ZCodeScan receberia bytes ASCII ao inves de EBCDIC. Com AUTOCVT=OFF,
+# o ZCodeScan recebe os bytes EBCDIC brutos e decodifica com -e IBM-1047.
 set +o pipefail
-PYTHONUNBUFFERED=1 zcodescan \
+_BPXK_AUTOCVT=OFF PYTHONUNBUFFERED=1 zcodescan \
   -sfl "$BUILD_LIST" \
   -if "${SCAN_SOURCE_FOLDER}" \
   -cf "${SCAN_CONFIG_FILE}" \

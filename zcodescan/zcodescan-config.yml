@@ -19,9 +19,10 @@
 # Reference: IBM ZCodeScan documentation
 ################################################################
 
-# Source encoding of the COBOL/PL/I files being scanned
-# Arquivos tagados ISO8859-1 (ASCII) pelo gitClone.sh no pipeline CI/CD.
-encoding: ISO8859-1
+# Source encoding of the COBOL/PL/I files being scanned.
+# Fontes mainframe sao convertidos para IBM-1047 (EBCDIC) pelo gitClone.sh.
+# O ZCodeScan e chamado com _BPXK_AUTOCVT=OFF para receber bytes EBCDIC brutos.
+encoding: IBM-1047
 
 # Maximum return code accepted from the scan (0-8).
 # 0 = only violations of severity ERROR cause failure

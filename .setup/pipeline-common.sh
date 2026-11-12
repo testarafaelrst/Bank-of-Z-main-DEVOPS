@@ -276,7 +276,7 @@ main() {
         # para o PAI do workspace = BANK_OF_Z_WORK_DIR, nao para src/base.
         export SCAN_SOURCE_FOLDER="${BANK_OF_Z_WORK_DIR}"
         export SCAN_CWD_FOLDER="${BANK_OF_Z_WORK_DIR}"
-        export SCAN_ENCODING="ISO8859-1"
+        export SCAN_ENCODING="IBM-1047"
         export SCAN_RULE_FILE="${BANK_DIR}/zcodescan/zcodescan-rules.yaml"
         export SCAN_OUTPUT_FOLDER="${BANK_OF_Z_WORK_DIR}/zcodescan"
         export DEPLOY_DEPLOYMENT_METHOD="${BANK_DIR}/.setup/deploy/deployment-method.yml"

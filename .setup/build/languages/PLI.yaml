@@ -93,10 +93,10 @@ tasks:
     steps:
 
       # Copy build file and dependency files to data sets
-      # copyMode: TEXT (default) - arquivos tagados ISO8859-1 pelo gitClone.sh.
-      # O DBB converte ISO8859-1->EBCDIC ao gravar no dataset PLI.
+      # copyMode: BINARY - fontes .pli/.inc em IBM-1047 pelo gitClone.sh.
       - step: copySrc
         type: copy
+        copyMode: BINARY
         target: //'${HLQ}.PLI(${MEMBER})'
         dependencyCopy:
           - search: ${dependencySearchPath}
