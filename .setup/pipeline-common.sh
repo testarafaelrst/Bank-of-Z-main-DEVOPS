@@ -156,13 +156,19 @@ print_phase_next_step() {
     echo ""
     case "$completed_phase" in
         validation)
-            print_info "Next step: run this script in pipeline mode to initialize the workspace and infrastructure prerequisites."
+            print_info "Próximo passo: execute 'scan' para análise estática ZCodeScan."
+            ;;
+        static-scan)
+            print_info "Próximo passo: execute 'build' para compilar o Bank of Z."
+            ;;
+        build)
+            print_info "Próximo passo: execute 'deploy' para implantar o Bank of Z."
             ;;
         pipeline)
-            print_info "Next step: run this script in build-baseline mode to build and deploy the Bank of Z baseline."
+            print_info "Próximo passo: execute 'build-baseline' para build e deploy do baseline."
             ;;
         build-baseline)
-            print_info "Next step: baseline deployment is complete. Proceed with application verification or follow-on customization."
+            print_info "Próximo passo: baseline concluído. Prossiga com verificação da instalação."
             ;;
     esac
 }
@@ -187,23 +193,6 @@ print_usage() {
     echo "  bash pipeline-common.sh deploy"
     echo "  bash pipeline-common.sh build-and-deploy"
     echo "  bash pipeline-common.sh verify"
-}
-
-print_phase_next_step() {
-    local completed_phase="$1"
-
-    echo ""
-    case "$completed_phase" in
-        validation)
-            print_info "Next step: Execute ZCodeScan for Bank of Z."
-            ;;
-        static-scan)
-            print_info "Next step: build Bank of Z."
-            ;;
-        build)
-            print_info "Next step: deploy Bank of Z."
-            ;;
-    esac
 }
 
 #########################################################

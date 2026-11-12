@@ -232,21 +232,28 @@ deactivate
 # =========================
 # Validate return code
 # =========================
+# Preferência: RC gravado pelo zcodescan no log (ex: "RC=4").
+# Fallback: exit code do processo (ZCS_RC) quando o log não contém RC=.
+# Isso protege contra crashes ou sinais que não gravam no log.
 rc=$(sed -n 's/.*RC=\(-\?[0-9][0-9]*\).*/\1/p' "$TMP_LOG" | tail -1)
 
 if [ -z "$rc" ]; then
-    print_error "RC not found in log"
+    print_warning "RC não encontrado no log — usando exit code do processo: ZCS_RC=$ZCS_RC"
+    rc="$ZCS_RC"
+fi
+
+print_info "ZCodeScan RC=$rc (ZCS_RC=$ZCS_RC, SCAN_MAX_RC=$SCAN_MAX_RC)"
+
+# RC=255 ou negativo indica crash/sinal (SIGPIPE, SIGKILL, etc.)
+if [ "$rc" -eq 255 ] 2>/dev/null || { [ "$rc" -lt 0 ] 2>/dev/null; }; then
+    print_error "ZCodeScan terminou com RC=$rc — possível crash ou sinal"
     exit 1
 fi
 
-if [ "$rc" -eq 255 ] || [ "$rc" -lt 0 ] 2>/dev/null; then
-    print_error "RC=$rc (error)"
+if [ "$rc" -gt "$SCAN_MAX_RC" ]; then
+    print_error "RC=$rc excede máximo permitido (SCAN_MAX_RC=$SCAN_MAX_RC)"
     exit 1
 fi
 
-if [ "$rc" -gt $SCAN_MAX_RC ]; then
-    print_error "RC=$rc - Max RC=$SCAN_MAX_RC"
-    exit 1
-fi
-
+print_success "ZCodeScan concluído com RC=$rc (≤ SCAN_MAX_RC=$SCAN_MAX_RC)"
 exit 0
