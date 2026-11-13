@@ -1,0 +1,329 @@
+name: devops-pipeline-devopspl
+
+# =============================================================================
+# Bank of Z — Pipeline CI/CD para DEVOPSPL.cbl
+#
+# Demonstra o ciclo de vida completo de um programa COBOL batch:
+#   PLAN > CODE > Z CODE SCAN > BUILD > TEST (TAZ) > DEPLOY > MONITOR
+#
+# Estágios:
+#   1. commit    — validação de sintaxe e lint (ZCodeScan local via grep)
+#   2. build     — compilação DBB no z/OS USS via SSH
+#   3. test      — execução TAZ do DEVOPSPL (happy path + simulação de falha)
+#   4. deploy    — Wazi Deploy para staging/produção (somente push para main)
+#
+# Triggers:
+#   - Push para main com alterações em DEVOPSPL.cbl
+#   - Pull Request para main com alterações em DEVOPSPL.cbl
+#   - Manual via workflow_dispatch
+#
+# Secrets obrigatórios (Settings > Secrets):
+#   ZOS_SSH_KEY       — chave privada SSH (PEM completo)
+#   GH_ACTIONS_PAT    — GitHub PAT para git clone no z/OS
+#
+# Variáveis obrigatórias (Settings > Variables):
+#   ZOS_HOST          — hostname do z/OS
+#   ZOS_SSH_USER      — usuário SSH
+#   ZOS_SSH_PORT      — porta SSH (default: 22)
+#   ZOS_SANDBOX_DIR   — diretório base do workspace no z/OS USS
+#   BOZ_BUILD_HLQ     — HLQ destino dos artefatos (ex: BANKZ)
+# =============================================================================
+
+on:
+    push:
+        branches:
+            - main
+        paths:
+            - "src/base/batch/cobol/DEVOPSPL.cbl"
+    pull_request:
+        types:
+            - opened
+            - reopened
+            - synchronize
+        paths:
+            - "src/base/batch/cobol/DEVOPSPL.cbl"
+    workflow_dispatch:
+        inputs:
+            buildType:
+                description: "DBB build type (pipeline = impacto, full = recompila tudo)"
+                required: false
+                default: "pipeline"
+                type: choice
+                options:
+                    - pipeline
+                    - full
+            falhaSimulada:
+                description: "Etapa para simular falha no TAZ (0 = nenhuma, 3 = ZCodeScan, 4 = Build)"
+                required: false
+                default: "0"
+
+env:
+    # Workspace único por execução — evita colisão entre runs paralelos
+    uniqueWorkspaceId: ${{ vars.ZOS_SANDBOX_DIR }}/devops-pipeline/${{ github.repository }}/${{ github.ref_name }}/run_${{ github.run_number }}
+    branch: ${{ github.ref_name }}
+    application: ${{ github.event.repository.name }}
+    zosHost: ${{ vars.ZOS_HOST }}
+    zosPort: ${{ vars.ZOS_SSH_PORT || '22' }}
+    buildHlq: ${{ vars.BOZ_BUILD_HLQ }}
+    program: DEVOPSPL
+    # PRs sempre usam impact build; push/dispatch respeita o input
+    buildType: ${{ github.event_name == 'pull_request' && 'pipeline' || (github.event.inputs.buildType || 'pipeline') }}
+    # Deploy somente em push para main — nunca em PRs
+    runDeploy: ${{ github.event_name != 'pull_request' }}
+    # Etapa de falha para TAZ (padrão: 0 = sem falha)
+    falhaSimulada: ${{ github.event.inputs.falhaSimulada || '0' }}
+
+jobs:
+    # =========================================================================
+    # ESTÁGIO 0 — Parâmetros do pipeline
+    # Imprime contexto da execução para facilitar diagnóstico nos logs.
+    # =========================================================================
+    controller:
+        name: "0 — Parâmetros do Pipeline"
+        runs-on: [self-hosted, macOS, ARM64]
+        steps:
+            - name: print-pipeline-parameters
+              run: |
+                  echo "=================================================="
+                  echo " Bank of Z — Pipeline DEVOPSPL"
+                  echo "=================================================="
+                  echo "Run ID         = ${{ github.run_number }}"
+                  echo "Trigger        = ${{ github.event_name }}"
+                  echo "Branch         = ${{ env.branch }}"
+                  echo "Programa       = ${{ env.program }}"
+                  echo "z/OS Host      = ${{ env.zosHost }}"
+                  echo "Workspace      = ${{ env.uniqueWorkspaceId }}"
+                  echo "Build type     = ${{ env.buildType }}"
+                  echo "Deploy ativo   = ${{ env.runDeploy }}"
+                  echo "Falha TAZ      = ${{ env.falhaSimulada }}"
+                  echo "=================================================="
+
+    # =========================================================================
+    # ESTÁGIO 1 — COMMIT: Checkout + Validação de Sintaxe (Lint)
+    #
+    # Faz checkout local e executa verificações de qualidade sobre
+    # DEVOPSPL.cbl sem precisar de conexão z/OS:
+    #   - Verifica estrutura básica das divisões COBOL obrigatórias
+    #   - Detecta padrões proibidos (STOP RUN em programa batch modernizado)
+    #   - Confirma que o programa-id bate com o nome do arquivo
+    # =========================================================================
+    commit:
+        name: "1 — Commit: Checkout e Validação de Sintaxe"
+        needs: controller
+        runs-on: [self-hosted, macOS, ARM64]
+        steps:
+            - name: checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 1
+
+            - name: lint-cobol-syntax
+              run: |
+                  echo "--- Verificando estrutura COBOL de DEVOPSPL.cbl ---"
+                  FILE="src/base/batch/cobol/DEVOPSPL.cbl"
+
+                  # Verifica se as 4 divisões obrigatórias estão presentes
+                  for DIV in "IDENTIFICATION DIVISION" "ENVIRONMENT DIVISION" \
+                             "DATA DIVISION" "PROCEDURE DIVISION"; do
+                    if grep -qiF "$DIV" "$FILE"; then
+                      echo "[OK] $DIV encontrada"
+                    else
+                      echo "[ERRO] $DIV ausente em $FILE"
+                      exit 1
+                    fi
+                  done
+
+                  # Verifica se PROGRAM-ID corresponde ao nome esperado
+                  if grep -qiF "PROGRAM-ID. DEVOPSPL" "$FILE"; then
+                    echo "[OK] PROGRAM-ID correto (DEVOPSPL)"
+                  else
+                    echo "[ERRO] PROGRAM-ID não corresponde a DEVOPSPL"
+                    exit 1
+                  fi
+
+                  # Detecta STOP RUN (programa batch deve usar GOBACK)
+                  if grep -qiF "STOP RUN" "$FILE"; then
+                    echo "[AVISO] STOP RUN detectado — use GOBACK em programas batch Enterprise COBOL"
+                    exit 1
+                  else
+                    echo "[OK] Nenhum STOP RUN detectado"
+                  fi
+
+                  # Verifica que GOBACK está presente como ponto de saída
+                  if grep -qiF "GOBACK" "$FILE"; then
+                    echo "[OK] GOBACK encontrado"
+                  else
+                    echo "[ERRO] GOBACK ausente — programa sem ponto de saída válido"
+                    exit 1
+                  fi
+
+                  echo "--- Validação de sintaxe concluída com SUCESSO ---"
+
+    # =========================================================================
+    # ESTÁGIO 2 — BUILD: Clone no z/OS + DBB Compile + Link-Edit
+    #
+    # Conecta ao z/OS USS via SSH e executa:
+    #   a) git clone do repositório no workspace remoto
+    #   b) ZCodeScan — análise estática (maxRC=4, IBM-1047)
+    #   c) DBB — compilação IGYCRCTL (LIB,MAP,NODYN) + IEWBLINK
+    # O artefato LOAD gerado fica em ${BOZ_BUILD_HLQ}.SAMPLE.LOAD(DEVOPSPL).
+    # =========================================================================
+    build:
+        name: "2 — Build: ZCodeScan + DBB (IGYCRCTL + IEWBLINK)"
+        needs: commit
+        runs-on: [self-hosted, macOS, ARM64]
+        steps:
+            - name: clone-to-zos-uss
+              run: |
+                  echo "--- Clonando repositório no z/OS USS ---"
+                  KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
+                  echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
+                  ssh -i "$KEY_FILE" \
+                      -p ${{ env.zosPort }} \
+                      -o StrictHostKeyChecking=no \
+                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
+                      ". ~/.profile && gitClone.sh \
+                        -w ${{ env.uniqueWorkspaceId }} \
+                        -r https://${{ secrets.GH_ACTIONS_PAT }}@github.com/${{ github.repository }}.git \
+                        -b ${{ env.branch }}"
+                  rm -f "$KEY_FILE"
+                  echo "--- Clone concluído ---"
+
+            - name: zcodescan-static-analysis
+              run: |
+                  echo "--- Executando ZCodeScan (análise estática) ---"
+                  KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
+                  echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
+                  ssh -i "$KEY_FILE" \
+                      -p ${{ env.zosPort }} \
+                      -o StrictHostKeyChecking=no \
+                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
+                      ". ~/.profile &&
+                      REPO_DIR=${{ env.uniqueWorkspaceId }}/${{ env.application }} &&
+                      cd \$REPO_DIR &&
+                      export BANK_OF_Z_WORK_DIR=${{ env.uniqueWorkspaceId }} &&
+                      bash .setup/pipeline-common.sh scan"
+                  rm -f "$KEY_FILE"
+                  echo "--- ZCodeScan concluído ---"
+
+            - name: dbb-build
+              run: |
+                  echo "--- Executando DBB Build (IGYCRCTL + IEWBLINK) ---"
+                  KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
+                  echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
+                  ssh -i "$KEY_FILE" \
+                      -p ${{ env.zosPort }} \
+                      -o StrictHostKeyChecking=no \
+                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
+                      ". ~/.profile &&
+                      REPO_DIR=${{ env.uniqueWorkspaceId }}/${{ env.application }} &&
+                      cd \$REPO_DIR &&
+                      export BANK_OF_Z_WORK_DIR=${{ env.uniqueWorkspaceId }} &&
+                      export BUILD_TYPE=${{ env.buildType }} &&
+                      bash .setup/pipeline-common.sh build"
+                  rm -f "$KEY_FILE"
+                  echo "--- DBB Build concluído — artefato LOAD gerado ---"
+
+    # =========================================================================
+    # ESTÁGIO 3 — TEST: TAZ — Executa DEVOPSPL e valida Return Code
+    #
+    # Dois cenários:
+    #   happy_path   — WS-FALHA-SIMULADA=0 → RC esperado = 0 (todas etapas OK)
+    #   falha_custom — WS-FALHA-SIMULADA=N → RC esperado = 8 (aborta na etapa N)
+    #
+    # O DEVOPSPL imprime o resumo das 7 etapas da esteira IBM Z via DISPLAY;
+    # a validação do RC confirma que a lógica interna funcionou corretamente.
+    # =========================================================================
+    test:
+        name: "3 — Test: TAZ (Happy Path + Falha Simulada)"
+        needs: build
+        runs-on: [self-hosted, macOS, ARM64]
+        steps:
+            - name: taz-happy-path
+              run: |
+                  echo "--- TAZ: happy path (WS-FALHA-SIMULADA=0, RC esperado=0) ---"
+                  KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
+                  echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
+                  ssh -i "$KEY_FILE" \
+                      -p ${{ env.zosPort }} \
+                      -o StrictHostKeyChecking=no \
+                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
+                      ". ~/.profile &&
+                      REPO_DIR=${{ env.uniqueWorkspaceId }}/${{ env.application }} &&
+                      cd \$REPO_DIR &&
+                      export BANK_OF_Z_WORK_DIR=${{ env.uniqueWorkspaceId }} &&
+                      export TAZ_TARGET_PROGRAM=${{ env.program }} &&
+                      export TAZ_FALHA_SIMULADA=0 &&
+                      bash .setup/pipeline-common.sh test"
+                  rm -f "$KEY_FILE"
+                  echo "--- TAZ happy path concluído ---"
+
+            - name: taz-falha-simulada
+              # Executa somente quando uma etapa específica de falha foi informada
+              if: ${{ env.falhaSimulada != '0' }}
+              run: |
+                  echo "--- TAZ: falha simulada na etapa ${{ env.falhaSimulada }} (RC esperado=8) ---"
+                  KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
+                  echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
+                  ssh -i "$KEY_FILE" \
+                      -p ${{ env.zosPort }} \
+                      -o StrictHostKeyChecking=no \
+                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
+                      ". ~/.profile &&
+                      REPO_DIR=${{ env.uniqueWorkspaceId }}/${{ env.application }} &&
+                      cd \$REPO_DIR &&
+                      export BANK_OF_Z_WORK_DIR=${{ env.uniqueWorkspaceId }} &&
+                      export TAZ_TARGET_PROGRAM=${{ env.program }} &&
+                      export TAZ_FALHA_SIMULADA=${{ env.falhaSimulada }} &&
+                      bash .setup/pipeline-common.sh test"
+                  rm -f "$KEY_FILE"
+                  echo "--- TAZ falha simulada concluída ---"
+
+    # =========================================================================
+    # ESTÁGIO 4 — DEPLOY: Wazi Deploy para staging/produção
+    #
+    # Empacota o load module gerado pelo DBB e implanta no ambiente-alvo
+    # usando IBM Wazi Deploy. Executado somente em push para main (não em PRs).
+    #
+    # Após o deploy, executa verificação básica de saúde do artefato implantado.
+    # =========================================================================
+    deploy:
+        name: "4 — Deploy: Wazi Deploy (staging → produção)"
+        needs: test
+        runs-on: [self-hosted, macOS, ARM64]
+        # Nunca executa em Pull Requests — somente push para main ou dispatch
+        if: ${{ github.event_name != 'pull_request' }}
+        steps:
+            - name: wazi-deploy
+              run: |
+                  echo "--- Executando Wazi Deploy ---"
+                  KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
+                  echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
+                  ssh -i "$KEY_FILE" \
+                      -p ${{ env.zosPort }} \
+                      -o StrictHostKeyChecking=no \
+                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
+                      ". ~/.profile &&
+                      REPO_DIR=${{ env.uniqueWorkspaceId }}/${{ env.application }} &&
+                      cd \$REPO_DIR &&
+                      export BANK_OF_Z_WORK_DIR=${{ env.uniqueWorkspaceId }} &&
+                      bash .setup/pipeline-common.sh deploy"
+                  rm -f "$KEY_FILE"
+                  echo "--- Wazi Deploy concluído ---"
+
+            - name: verify-post-deploy
+              run: |
+                  echo "--- Verificação pós-deploy de ${{ env.program }} ---"
+                  KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
+                  echo "${{ secrets.ZOS_SSH_KEY }}" > "$KEY_FILE"
+                  ssh -i "$KEY_FILE" \
+                      -p ${{ env.zosPort }} \
+                      -o StrictHostKeyChecking=no \
+                      ${{ vars.ZOS_SSH_USER }}@${{ env.zosHost }} \
+                      ". ~/.profile &&
+                      REPO_DIR=${{ env.uniqueWorkspaceId }}/${{ env.application }} &&
+                      cd \$REPO_DIR &&
+                      export BANK_OF_Z_WORK_DIR=${{ env.uniqueWorkspaceId }} &&
+                      bash .setup/pipeline-common.sh verify"
+                  rm -f "$KEY_FILE"
+                  echo "--- Verificação pós-deploy concluída ---"
