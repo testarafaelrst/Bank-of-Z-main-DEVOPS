@@ -37,18 +37,34 @@ export PATH="${JAVA_HOME}/bin:${REMOTE_EXTRA_PATH:-}:$PATH"
 #   2. Fall back to the base config checked into the repository.
 #   3. Fail with a clear error if neither is found.
 REPO_SCAN_CONFIG="${SCAN_RULE_FILE%/*}/zcodescan-config.yml"
-if [ ! -f "${SCAN_CONFIG_FILE}" ]; then
-    if [ -f "${REPO_SCAN_CONFIG}" ]; then
-        print_warning "ZCodeScan environment config not found: ${SCAN_CONFIG_FILE}"
+if [ ! -f "${SCAN_CONFIG_FILE:-}" ]; then
+    if [ -f "${HOME}/zcs_config_file.yml" ]; then
+        export SCAN_CONFIG_FILE="${HOME}/zcs_config_file.yml"
+    elif [ -f "${REPO_SCAN_CONFIG}" ]; then
+        print_warning "ZCodeScan environment config not found: ${SCAN_CONFIG_FILE:-unset}"
         print_warning "Falling back to repository base config: ${REPO_SCAN_CONFIG}"
         export SCAN_CONFIG_FILE="${REPO_SCAN_CONFIG}"
     else
-        print_error "ZCodeScan config file not found: ${SCAN_CONFIG_FILE}"
+        print_error "ZCodeScan config file not found: ${SCAN_CONFIG_FILE:-unset}"
         print_error "Repository fallback also missing: ${REPO_SCAN_CONFIG}"
-        print_error "Create ${SCAN_CONFIG_FILE} or ensure zcodescan/zcodescan-config.yml exists."
+        print_error "Create ${HOME}/zcs_config_file.yml or ensure zcodescan/zcodescan-config.yml exists."
         exit 1
     fi
 fi
+
+# Expand shell variables in the config file (e.g. license_server: ${ZCS_LICENSE_SERVER:-...})
+# ZCodeScan reads YAML directly — sem expansão de shell. Geramos uma cópia
+# temporária com os valores reais antes de passar ao scanner.
+SCAN_CONFIG_RESOLVED="/tmp/zcodescan_config_$$.yml"
+if command -v envsubst >/dev/null 2>&1; then
+    envsubst < "${SCAN_CONFIG_FILE}" > "${SCAN_CONFIG_RESOLVED}"
+else
+    # Fallback: sed expande apenas ZCS_LICENSE_SERVER
+    sed "s|\${ZCS_LICENSE_SERVER:-[^}]*}|${ZCS_LICENSE_SERVER:-localhost:27000}|g" \
+        "${SCAN_CONFIG_FILE}" > "${SCAN_CONFIG_RESOLVED}"
+fi
+export SCAN_CONFIG_FILE="${SCAN_CONFIG_RESOLVED}"
+print_info "Config file resolvido: ${SCAN_CONFIG_FILE}"
 
 # =========================
 # Temporary log
@@ -81,7 +97,7 @@ finalize_results() {
 
     print_result "[LOG-PATH] $LOG_TAR"
 
-    rm -f "$TMP_LOG" 2>/dev/null || true
+    rm -f "$TMP_LOG" "${SCAN_CONFIG_RESOLVED:-}" 2>/dev/null || true
 
     exit "$RC"
 }
