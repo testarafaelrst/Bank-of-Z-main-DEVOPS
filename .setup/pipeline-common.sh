@@ -296,6 +296,7 @@ main() {
         export SCAN_CWD_FOLDER="${BANK_OF_Z_WORK_DIR}"
         export SCAN_ENCODING="IBM-1047"
         export SCAN_RULE_FILE="${BANK_DIR}/zcodescan/zcodescan-rules.yaml"
+        export SCAN_CONFIG_FILE="${BANK_DIR}/zcodescan/zcodescan-config.yml"
         export SCAN_OUTPUT_FOLDER="${BANK_OF_Z_WORK_DIR}/zcodescan"
         export DEPLOY_DEPLOYMENT_METHOD="${BANK_DIR}/.setup/deploy/deployment-method.yml"
         export DEPLOY_ENV_FILE="${BANK_DIR}/.setup/deploy/Development.yml"
