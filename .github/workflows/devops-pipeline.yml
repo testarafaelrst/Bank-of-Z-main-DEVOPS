@@ -260,7 +260,7 @@ jobs:
 
             - name: taz-falha-simulada
               # Executa somente quando uma etapa específica de falha foi informada
-              if: ${{ env.falhaSimulada != '0' }}
+              if: ${{ env.falhaSimulada != '0' && env.falhaSimulada != '' }}
               run: |
                   echo "--- TAZ: falha simulada na etapa ${{ env.falhaSimulada }} (RC esperado=8) ---"
                   KEY_FILE=$(mktemp) && chmod 600 "$KEY_FILE"
