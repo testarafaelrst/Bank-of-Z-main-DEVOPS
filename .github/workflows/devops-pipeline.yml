@@ -202,6 +202,7 @@ jobs:
                       REPO_DIR=${{ env.uniqueWorkspaceId }}/${{ env.application }} &&
                       cd \$REPO_DIR &&
                       export BANK_OF_Z_WORK_DIR=${{ env.uniqueWorkspaceId }} &&
+                      export ZCS_LICENSE_SERVER=${{ vars.ZCS_LICENSE_SERVER || 'localhost:27000' }} &&
                       bash .setup/pipeline-common.sh scan"
                   rm -f "$KEY_FILE"
                   echo "--- ZCodeScan concluído ---"

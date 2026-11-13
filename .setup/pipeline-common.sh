@@ -296,7 +296,15 @@ main() {
         export SCAN_CWD_FOLDER="${BANK_OF_Z_WORK_DIR}"
         export SCAN_ENCODING="IBM-1047"
         export SCAN_RULE_FILE="${BANK_DIR}/zcodescan/zcodescan-rules.yaml"
-        export SCAN_CONFIG_FILE="${BANK_DIR}/zcodescan/zcodescan-config.yml"
+        # SCAN_CONFIG_FILE: usa o arquivo de licença do $HOME quando presente;
+        # cai para o config do repositório apenas se não existir no ambiente.
+        if [ -z "${SCAN_CONFIG_FILE:-}" ]; then
+            if [ -f "${HOME}/zcs_config_file.yml" ]; then
+                export SCAN_CONFIG_FILE="${HOME}/zcs_config_file.yml"
+            else
+                export SCAN_CONFIG_FILE="${BANK_DIR}/zcodescan/zcodescan-config.yml"
+            fi
+        fi
         export SCAN_OUTPUT_FOLDER="${BANK_OF_Z_WORK_DIR}/zcodescan"
         export DEPLOY_DEPLOYMENT_METHOD="${BANK_DIR}/.setup/deploy/deployment-method.yml"
         export DEPLOY_ENV_FILE="${BANK_DIR}/.setup/deploy/Development.yml"

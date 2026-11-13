@@ -19,6 +19,14 @@
 # Reference: IBM ZCodeScan documentation
 ################################################################
 
+# Servidor de licença do ZCodeScan.
+# IMPORTANTE: este arquivo é o fallback do repositório, usado quando
+# $HOME/zcs_config_file.yml não existe no z/OS USS.
+# Para ambientes com licença configurada, copie este arquivo para
+# $HOME/zcs_config_file.yml e ajuste license_server com o endereço real.
+# Formato: <hostname>:<porta>  (ex: licserver.empresa.com:27000)
+license_server: "${ZCS_LICENSE_SERVER:-localhost:27000}"
+
 # Source encoding of the COBOL/PL/I files being scanned.
 # Fontes mainframe sao convertidos para IBM-1047 (EBCDIC) pelo gitClone.sh.
 # O ZCodeScan e chamado com _BPXK_AUTOCVT=OFF para receber bytes EBCDIC brutos.
